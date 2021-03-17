@@ -9,4 +9,6 @@
 
 int load_edge(Edge &e, ifstream &file);//, int max_vertex);
 
+int save_edge(const Edge& e, ofstream &file);
+
 #endif // EDGE_H

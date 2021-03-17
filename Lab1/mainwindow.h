@@ -29,6 +29,8 @@ private slots:
 
     void on_rotateButton_z_clicked();
 
+    void on_save_model_clicked();
+
 private:
     Ui::MainWindow *ui;
 

@@ -33,7 +33,7 @@ void MainWindow::on_load_model_clicked()
     int res = entry_point(canvas->model, LOAD, act);
     QString error = "";
 
-    if (res == FILE_NOT_FOUND)
+    if (res == FILE_OPEN_ERROR)
         error = "Cannot open file";
     else if (res == FILE_ERROR)
         error = "Error format of data";
@@ -159,4 +159,30 @@ void MainWindow::on_rotateButton_z_clicked()
         canvas->update();
     }
 
+}
+
+void MainWindow::on_save_model_clicked()
+{
+    setlocale (LC_ALL, "C");
+    QString str = QFileDialog::getSaveFileName(0, "Save", "", "*.txt");
+
+    if(str == "")
+        return;
+
+    Action act;
+    strcpy(act.load.fileName, str.toStdString().c_str());
+
+    int res = entry_point(canvas->model, SAVE, act);
+    QString error = "";
+
+    if(res == FILE_NOT_FOUND)
+        error = "Cannot open file";
+    else if (res == FILE_ERROR)
+        error = "Error format of data";
+
+    if(error != "")
+    {
+        QMessageBox::information(this, "Error", error);
+        return;
+    }
 }

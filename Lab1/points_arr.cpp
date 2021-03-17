@@ -80,3 +80,14 @@ int rotate_point_arr(Points_arr &points, const Rotate &act)
 
    return OK;
 }
+
+int save_point_arr(const Points_arr &points, ofstream &file)
+{
+    char buff[BUFF_SIZE];
+    snprintf(buff, BUFF_SIZE, "%d\n", points.points_number);
+    int ret = print_stream(file, buff);
+
+    for(int i = 0; i < points.points_number && !ret; i++)
+        ret = save_point(points.mas[i], file);
+    return ret;
+}

@@ -1,7 +1,7 @@
 #include <file_stream.h>
 #include "error_codes.h"
 
-int open_file(ifstream &file, const char* filename)
+/*int open_file(ifstream &file, const char* filename)
 {
     if (file)
         file.close();
@@ -39,10 +39,10 @@ int close_file(ofstream &file)
         file.close();
 
     return OK;
-}
+}*/
 
 
-int Print_Stream(ofstream &file, const char* str)
+int print_stream(ofstream &file, const char* str)
 {
     if (!file)
         return FILE_NOT_FOUND;

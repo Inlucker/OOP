@@ -47,3 +47,15 @@ int load_edges_arr(Edges_arr &edges, ifstream &file)//, int max_vertex)
 
     return res;
 }
+
+int save_edge_arr(const Edges_arr &edges, ofstream &file)
+{
+    char buff[BUFF_SIZE];
+    snprintf(buff, BUFF_SIZE, "%d\n", edges.edges_number);
+    int ret = print_stream(file, buff);
+
+    for(int i = 0; i < edges.edges_number && !ret; i++)
+        ret = save_edge(edges.mas[i], file);
+
+    return ret;
+}

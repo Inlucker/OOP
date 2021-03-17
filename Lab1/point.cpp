@@ -90,7 +90,7 @@ void rotate_z(Point &p, double angle)
     p.y = x * sin(angle) + y * cos(angle);
 }
 
-#include <iostream>
+//#include <iostream>
 
 void rotate_point(Point &p, const Rotate &act)
 {
@@ -98,4 +98,11 @@ void rotate_point(Point &p, const Rotate &act)
     rotate_y(p, act.y_angle);// * M_PI / 180);
     rotate_z(p, act.z_angle);// * M_PI / 180);
     //std::cout << p.x << " " << p.y << endl;
+}
+
+int save_point(const Point& p, ofstream &file)
+{
+    char buff[BUFF_SIZE];
+    snprintf(buff, BUFF_SIZE, "%f %f %f\n", p.x, p.y, p.z);
+    return print_stream(file, buff);
 }

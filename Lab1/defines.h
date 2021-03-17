@@ -1,7 +1,8 @@
 #ifndef DEFINES_H
 #define DEFINES_H
 
-#define FILE_NAME_SIZE 200
+#define FILE_NAME_SIZE 100
+#define BUFF_SIZE 200
 
 struct Point
 {
@@ -40,9 +41,9 @@ enum action_type
     MOVE,
     SCALE,
     ROTATE,
-    FREE
+    FREE,
     //DRAW,
-    //SAVE
+    SAVE
 };
 
 struct Load

@@ -19,3 +19,10 @@ int load_edge(Edge &e, ifstream &file)
 
     return res;
 }
+
+int save_edge(const Edge& e, ofstream &file)
+{
+    char buff[BUFF_SIZE];
+    snprintf(buff, BUFF_SIZE, "%d %d\n", e.p1 + 1, e.p2 + 1);
+    return print_stream(file, buff);
+}

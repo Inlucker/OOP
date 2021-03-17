@@ -11,7 +11,7 @@ using namespace std;
 //int close_file(ifstream &file);
 //int close_file(ofstream &file);
 
-//int Print_Stream(ofstream &file, const char* str);
+int print_stream(ofstream &file, const char* str);
 
 int read_file(double &x, ifstream &file);
 int read_file(int &x, ifstream &file);

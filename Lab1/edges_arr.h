@@ -13,4 +13,6 @@ void free_edges_arr(Edges_arr &points);
 //Other funcs
 int load_edges_arr(Edges_arr &edges, ifstream &file);
 
+int save_edge_arr(const Edges_arr &edges, ofstream &file);
+
 #endif // EDGES_ARR_H

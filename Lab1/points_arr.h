@@ -22,4 +22,6 @@ int scale_points_arr(Points_arr &points, const Scale &act);
 
 int rotate_point_arr(Points_arr &points, const Rotate &act);
 
+int save_point_arr(const Points_arr &points, ofstream &file);
+
 #endif // POINTS_ARR_H

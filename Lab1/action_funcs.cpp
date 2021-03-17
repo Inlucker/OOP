@@ -54,6 +54,26 @@ int rotate_model(Model &model, const Rotate &act)
 {
     if (!act.model.points.mas)
         return MODEL_EMPTY;
-
-
 }*/
+
+int save_model(const Model &model, const Load &act)
+{
+
+    ofstream file(act.fileName);
+
+    if (!file.is_open())
+        return FILE_OPEN_ERROR;
+
+    int res;
+
+    res = save_point_arr(model.points, file);
+
+    if (!res)
+        res = save_edge_arr(model.edges, file);
+
+    if (file)
+        file.close();
+
+    return res;
+
+}

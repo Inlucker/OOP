@@ -16,4 +16,6 @@ int rotate_model(Model &model, const Rotate &act);
 
 //int draw_model(const Draw &act);
 
+int save_model(const Model &model, const Load &act);
+
 #endif // ACTION_FUNCS_H
