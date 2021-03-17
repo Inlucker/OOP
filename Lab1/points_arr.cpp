@@ -75,7 +75,7 @@ int rotate_point_arr(Points_arr &points, const Rotate &act)
     if (!points.mas)
         return MODEL_EMPTY;
 
-    for (int i = 0; i < points.points_number; ++i)
+    for (int i = 0; i < points.points_number; i++)
         rotate_point(points.mas[i], act);
 
    return OK;

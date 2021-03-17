@@ -22,6 +22,7 @@ int entry_point(Model &model, action_type t, const Action &act)
         break;
     case ROTATE:
         res = rotate_model(model, act.rotate);
+        break;
     case FREE:
         free_model(model);
         break;

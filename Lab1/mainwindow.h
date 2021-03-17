@@ -19,6 +19,12 @@ public:
 private slots:
     void on_load_model_clicked();
 
+    void on_moveButton_clicked();
+
+    void on_scaleButton_clicked();
+
+    void on_rotateButton_clicked();
+
 private:
     Ui::MainWindow *ui;
 

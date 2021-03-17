@@ -4,6 +4,7 @@
 #include "model_funcs.h"
 #include <QWidget>
 #include <QPainter>
+#include <iostream>
 
 class Canvas : public QWidget
 {

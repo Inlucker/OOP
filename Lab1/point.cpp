@@ -52,6 +52,7 @@ void rotate_y(Point &p, double angle)
     p.z = -x * sin(angle) + z * cos(angle);
 }
 
+//error!
 void rotate_z(Point &p, double angle)
 {
     double x = p.x;
@@ -63,7 +64,10 @@ void rotate_z(Point &p, double angle)
 
 void rotate_point(Point &p, const Rotate &act)
 {
-    rotate_x(p, act.x_angle * M_PI / 180);
-    rotate_y(p, act.y_angle * M_PI / 180);
-    rotate_z(p, act.x_angle * M_PI / 180);
+    if (act.x_angle != 0)
+        rotate_x(p, act.x_angle);// * M_PI / 180);
+    if (act.y_angle != 0)
+        rotate_y(p, act.y_angle);// * M_PI / 180);
+    if (act.z_angle != 0)
+        rotate_z(p, act.z_angle);// * M_PI / 180);
 }

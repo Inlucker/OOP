@@ -47,3 +47,79 @@ void MainWindow::on_load_model_clicked()
     //entry_point(act, DRAW);
     canvas->update();
 }
+
+void MainWindow::on_moveButton_clicked()
+{
+    bool isXFloat = false;
+    float x = ui->dxEdit->text().toFloat(&isXFloat);
+    bool isYFloat = false;
+    float y = ui->dyEdit->text().toFloat(&isYFloat);
+    bool isZFloat = false;
+    float z = ui->dzEdit->text().toFloat(&isZFloat);
+
+    if (isXFloat && isYFloat && isZFloat)
+    {
+        Action act;
+
+        act.move.dx = x;
+        act.move.dy = y;
+        act.move.dz = z;
+
+        entry_point(canvas->model, MOVE, act);
+        canvas->update();
+    }
+}
+
+void MainWindow::on_scaleButton_clicked()
+{
+    bool isXFloat = false;
+    float x = ui->kxEdit->text().toFloat(&isXFloat);
+    bool isYFloat = false;
+    float y = ui->kyEdit->text().toFloat(&isYFloat);
+    bool isZFloat = false;
+    float z = ui->kzEdit->text().toFloat(&isZFloat);
+
+    if (isXFloat && isYFloat && isZFloat)
+    {
+        Action act;
+
+        act.scale.kx = x;
+        act.scale.ky = y;
+        act.scale.kz = z;
+
+        entry_point(canvas->model, SCALE, act);
+        canvas->update();
+    }
+}
+
+void MainWindow::on_rotateButton_clicked()
+{
+    bool isXFloat = false;
+    float x = ui->rot_xEdit->text().toFloat(&isXFloat);
+    bool isYFloat = false;
+    float y = ui->rot_yEdit->text().toFloat(&isYFloat);
+    bool isZFloat = false;
+    float z = ui->rot_zEdit->text().toFloat(&isZFloat);
+
+
+    //double *data = GetData(edits);
+
+    /*if(LineEditError != NO_ER)
+        return;*/
+
+
+    if (isXFloat && isYFloat && isZFloat)
+    {
+        Action act;
+
+        act.rotate.x_angle = x * M_PI / 180;
+        act.rotate.y_angle = y * M_PI / 180;
+        act.rotate.z_angle = z * M_PI / 180;
+        std::cout << x << " " << y << " " << z << endl;
+
+        entry_point(canvas->model, ROTATE, act);
+        //main_controller(scene, act, DRAW);
+        canvas->update();
+        //delete[] data;
+    }
+}

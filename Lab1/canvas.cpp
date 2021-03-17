@@ -1,5 +1,4 @@
 #include "canvas.h"
-#include <iostream>
 
 Canvas::Canvas()
 {
@@ -27,7 +26,7 @@ void Canvas::paintEvent(QPaintEvent *event)
             int p2_id = model.edges.mas[i].p2;
             //std::cout << p1_id << " " << p2_id << endl;
             //std::cout << model.points.mas[p1_id].x << " " << model.points.mas[p1_id].y << " " << model.points.mas[p2_id].x << " " << model.points.mas[p2_id].y << endl;
-            painter.drawLine(model.points.mas[p1_id].x, model.points.mas[p1_id].y, model.points.mas[p2_id].x, model.points.mas[p2_id].y);
+            painter.drawLine(model.points.mas[p1_id].x, -model.points.mas[p1_id].y, model.points.mas[p2_id].x, -model.points.mas[p2_id].y);
         }
 
     painter.end(); //Освобождение контекста
