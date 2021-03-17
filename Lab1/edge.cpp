@@ -1,5 +1,8 @@
 #include "edge.h"
 
+#include "error_codes.h"
+#include "defines.h"
+
 int load_edge(Edge &e, ifstream &file, int max_point_id)
 {
     int id1;

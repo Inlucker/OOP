@@ -1,10 +1,14 @@
 #ifndef ACTION_FUNCS_H
 #define ACTION_FUNCS_H
 
-#include "model_funcs.h"
-#include "defines.h"
+//#include "model_funcs.h"
+//#include "defines.h"
+
 //#include "file_stream.h"
 //#include "error_codes.h"
+
+#include "model_funcs.h"
+#include "action.h"
 
 int load_model(Model &model, const Load &act);
 

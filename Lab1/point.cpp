@@ -1,6 +1,8 @@
 #include "point.h"
 #include <math.h>
 
+#include "error_codes.h"
+
 int load_point(Point &p, ifstream &stream)
 {
     double x, y, z;

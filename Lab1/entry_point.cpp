@@ -1,6 +1,9 @@
 #include "entry_point.h"
 //#include "model.h"
 
+#include "action_funcs.h"
+#include "error_codes.h"
+
 int entry_point(Model &model, action_type t, const Action &act)
 {
     int res = OK;

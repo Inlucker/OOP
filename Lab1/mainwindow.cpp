@@ -4,6 +4,9 @@
 #include <QFileDialog>
 #include <QMessageBox>
 
+#include <math.h>
+#include "error_codes.h"
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)

@@ -1,9 +1,21 @@
 #ifndef POINT_H
 #define POINT_H
 
-#include "defines.h"
+//#include "defines.h"
+//#include "file_stream.h"
+//#include "error_codes.h"
+
+#include "action.h"
 #include "file_stream.h"
-#include "error_codes.h"
+
+//#include "error_codes.h"
+
+struct Point
+{
+    double x;
+    double y;
+    double z;
+};
 
 int load_point(Point &p, ifstream &stream);
 

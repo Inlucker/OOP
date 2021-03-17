@@ -22,6 +22,7 @@ SOURCES += \
     points_arr.cpp
 
 HEADERS += \
+    action.h \
     action_funcs.h \
     canvas.h \
     defines.h \

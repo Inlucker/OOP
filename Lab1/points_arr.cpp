@@ -1,6 +1,8 @@
 #include "points_arr.h"
 //#include "defines.h"
 
+#include "error_codes.h"
+
 Points_arr create_points_arr()
 {
     Points_arr new_points_arr;

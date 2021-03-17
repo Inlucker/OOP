@@ -1,5 +1,8 @@
 #include "edges_arr.h"
 
+#include "error_codes.h"
+#include "defines.h"
+
 Edges_arr create_edges_arr()
 {
     Edges_arr new_edges_arr;

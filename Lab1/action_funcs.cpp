@@ -1,5 +1,8 @@
 #include "action_funcs.h"
 
+#include "file_stream.h"
+#include "error_codes.h"
+
 //int load_model(Model &model, ifstream &stream);
 
 int load_model(Model &model, ifstream &stream)
