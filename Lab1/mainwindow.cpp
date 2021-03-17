@@ -163,7 +163,7 @@ void MainWindow::on_rotateButton_z_clicked()
 
 void MainWindow::on_save_model_clicked()
 {
-    setlocale (LC_ALL, "C");
+    //setlocale (LC_ALL, "C");
     QString str = QFileDialog::getSaveFileName(0, "Save", "", "*.txt");
 
     if(str == "")

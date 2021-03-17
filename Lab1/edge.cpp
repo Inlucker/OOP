@@ -1,6 +1,6 @@
 #include "edge.h"
 
-int load_edge(Edge &e, ifstream &file)
+int load_edge(Edge &e, ifstream &file, int max_point_id)
 {
     int id1;
     int id2;
@@ -8,8 +8,8 @@ int load_edge(Edge &e, ifstream &file)
     if (!res)
         res = read_file(id2, file);
 
-    /*if(!(Check_number_vertex(x, 1, max_vertex) && Check_number_vertex(y, 1, max_vertex)))
-        return FILE_ERROR;*/
+    if (id1 > max_point_id || id2 > max_point_id)
+        return FILE_ERROR;
 
     if (!res)
     {

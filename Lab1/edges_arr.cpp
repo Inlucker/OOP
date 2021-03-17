@@ -24,7 +24,7 @@ void free_edges_arr(Edges_arr &edges)
     edges.edges_number = 0;
 }
 
-int load_edges_arr(Edges_arr &edges, ifstream &file)//, int max_vertex)
+int load_edges_arr(Edges_arr &edges, ifstream &file, int max_point_id)
 {
     int tmp;
     int res = read_file(tmp, file);
@@ -39,7 +39,7 @@ int load_edges_arr(Edges_arr &edges, ifstream &file)//, int max_vertex)
 
     for (int i = 0; i < tmp && !res; i++)
     {
-        res = load_edge(edges.mas[i], file);
+        res = load_edge(edges.mas[i], file, max_point_id);
     }
 
     if (res)

@@ -5,12 +5,6 @@
 
 using namespace std;
 
-//int open_file(ifstream &file, const char* filename);
-//int open_file(ofstream &file, const char* filename);
-
-//int close_file(ifstream &file);
-//int close_file(ofstream &file);
-
 int print_stream(ofstream &file, const char* str);
 
 int read_file(double &x, ifstream &file);

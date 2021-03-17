@@ -1,9 +1,9 @@
 #ifndef POINT_H
 #define POINT_H
 
+#include "defines.h"
 #include "file_stream.h"
 #include "error_codes.h"
-#include "defines.h"
 
 int load_point(Point &p, ifstream &stream);
 

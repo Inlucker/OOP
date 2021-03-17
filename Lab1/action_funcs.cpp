@@ -6,8 +6,9 @@ int load_model(Model &model, ifstream &stream)
 {
     int res = load_points_arr(model.points, stream);
 
+    int points_max_id = get_points_number(model.points);
     if (!res)
-        res = load_edges_arr(model.edges, stream);
+        res = load_edges_arr(model.edges, stream, points_max_id);
 
     return res;
 }
@@ -19,7 +20,7 @@ int load_model(Model &model, const Load &act)
     if (!file.is_open())
         return FILE_OPEN_ERROR;
 
-    Model new_model;
+    Model new_model= create_model();
 
     int res = load_model(new_model, file);
 

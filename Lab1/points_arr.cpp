@@ -1,5 +1,5 @@
 #include "points_arr.h"
-#include "defines.h"
+//#include "defines.h"
 
 Points_arr create_points_arr()
 {
@@ -23,6 +23,11 @@ void free_points_arr(Points_arr &points)
         delete[] points.mas;
     points.mas = NULL;
     points.points_number = 0;
+}
+
+int get_points_number(Points_arr &points)
+{
+    return points.points_number;
 }
 
 int load_points_arr(Points_arr &points, ifstream &file)

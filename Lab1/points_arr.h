@@ -2,7 +2,7 @@
 #define POINTS_ARR_H
 
 #include "point.h"
-#include "defines.h"
+//#include "defines.h"
 //#include "error_codes.h"
 //#include "file_stream.h"
 
@@ -14,6 +14,8 @@ int allocate_points_arr(Points_arr &vertex);
 void free_points_arr(Points_arr &points);
 
 //Other funcs
+int get_points_number(Points_arr &points);
+
 int load_points_arr(Points_arr &points, ifstream &file);
 
 int move_points_arr(Points_arr &points, const Move &act);

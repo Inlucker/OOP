@@ -34,34 +34,6 @@ void scale_point(Point &p, const Scale &act)
     p.z = p.z * act.kz + 0 * (1 - act.kz);
 }
 
-/*void rotate_x(Point &p, const Point &p0, const double angle)
-{
-    //double x = p.x;
-    double y = p0.y;
-    double z = p0.z;
-    p.y = y * cos(angle) + z * sin(angle);
-    p.z  = -y * sin(angle) + z * cos(angle);
-}
-
-void rotate_y(Point &p, const Point &p0, const double angle)
-{
-    double x = p0.x;
-    //double y = p.y;
-    double z = p0.z;
-    p.x = x * cos(angle) + z * sin(angle);
-    p.z = -x * sin(angle) + z * cos(angle);
-}
-
-//error!
-void rotate_z(Point &p, const Point &p0, const double angle)
-{
-    double x = p0.x;
-    double y = p0.y;
-    //double z = p.z;
-    p.x = x * cos(angle) - y * sin(angle);
-    p.y = x * sin(angle) + y * cos(angle);
-}*/
-
 void rotate_x(Point &p, double angle)
 {
     //double x = p.x;
@@ -90,14 +62,11 @@ void rotate_z(Point &p, double angle)
     p.y = x * sin(angle) + y * cos(angle);
 }
 
-//#include <iostream>
-
 void rotate_point(Point &p, const Rotate &act)
 {
-    rotate_x(p, act.x_angle);// * M_PI / 180);
-    rotate_y(p, act.y_angle);// * M_PI / 180);
-    rotate_z(p, act.z_angle);// * M_PI / 180);
-    //std::cout << p.x << " " << p.y << endl;
+    rotate_x(p, act.x_angle);
+    rotate_y(p, act.y_angle);
+    rotate_z(p, act.z_angle);
 }
 
 int save_point(const Point& p, ofstream &file)

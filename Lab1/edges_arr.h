@@ -11,7 +11,7 @@ int allocate_edges_arr(Edges_arr &vertex);
 void free_edges_arr(Edges_arr &points);
 
 //Other funcs
-int load_edges_arr(Edges_arr &edges, ifstream &file);
+int load_edges_arr(Edges_arr &edges, ifstream &file, int max_point_id);
 
 int save_edge_arr(const Edges_arr &edges, ofstream &file);
 
