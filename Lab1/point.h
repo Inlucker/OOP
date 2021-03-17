@@ -18,4 +18,6 @@ void move_point(Point &p, const Move &act);
 
 void scale_point(Point &p, const Scale &act);
 
+void rotate_point(Point &p, const Rotate &act);
+
 #endif // POINT_H

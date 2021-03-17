@@ -72,16 +72,11 @@ int scale_points_arr(Points_arr &points, const Scale &act)
 
 int rotate_point_arr(Points_arr &points, const Rotate &act)
 {
-    /*if (!points.mas)
+    if (!points.mas)
         return MODEL_EMPTY;
 
-    t_matrix m;
-    get_result_matrix(m, act);
+    for (int i = 0; i < points.points_number; ++i)
+        rotate_point(points.mas[i], act);
 
-    int ret = 0;
-    for (int i = 0; i < vertex.n_v && !ret; ++i)
-    {
-        ret = Change_one_point(vertex.arr[i], m);
-    }
-   return ret;*/
+   return OK;
 }

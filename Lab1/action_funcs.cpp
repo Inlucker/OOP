@@ -1,7 +1,4 @@
 #include "action_funcs.h"
-//#include <fstream>
-
-//using namespace std;
 
 //int load_model(Model &model, ifstream &stream);
 
@@ -17,8 +14,6 @@ int load_model(Model &model, ifstream &stream)
 
 int load_model(Model &model, const Load &act)
 {
-    //IN_Stream stream;
-
     ifstream file(act.fileName);
 
     if (!file.is_open())
