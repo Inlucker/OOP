@@ -3,14 +3,6 @@
 
 #include "edge.h"
 
-//typedef int edge[2];
-
-struct Edges_arr
-{
-    Edge *mas = nullptr;
-    int edges_number = 0;
-};
-
 //Edges_arr operations
 Edges_arr create_edges_arr();
 

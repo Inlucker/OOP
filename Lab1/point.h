@@ -3,14 +3,7 @@
 
 #include "file_stream.h"
 #include "error_codes.h"
-#include "action.h"
-
-struct Point
-{
-    double x;
-    double y;
-    double z;
-};
+#include "defines.h"
 
 int load_point(Point &p, ifstream &stream);
 

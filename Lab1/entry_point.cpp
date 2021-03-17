@@ -1,17 +1,18 @@
 #include "entry_point.h"
-#include "action_funcs.h"
 //#include "model.h"
 
-int entry_point(My_Scene &scene, const Action &act, action_type t)
+int entry_point(Model &model, action_type t, const Action &act)
 {
-    static Model model;// = Init_model();
+    //static Model model = Init_model();
+    Model new_model = create_model();
 
     int res = OK;
     switch (t)
     {
     case LOAD:
-        res = load_model(model, act.create);
-        break;
+        free_model(model);
+        res = load_model(new_model, act.load);
+        model = new_model;
         break;
     case MOVE:
         res = move_model(model, act.move);
@@ -21,14 +22,14 @@ int entry_point(My_Scene &scene, const Action &act, action_type t)
         break;
     case ROTATE:
         res = rotate_model(model, act.rotate);
-    /*case FREE:
-        res = free_model(model);
+    case FREE:
+        free_model(model);
         break;
-    case SAVE:
+    /*case DRAW:
+        res = draw_model(act.draw);
+        break;
+    /*case SAVE:
         res = save_model(model, act.create);
-        break;
-    case DRAW:
-        res = draw_model(scene, model);
         break;*/
     default:
         res = ACTION_ERROR; //?

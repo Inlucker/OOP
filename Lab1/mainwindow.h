@@ -1,6 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "canvas.h"
 #include <QMainWindow>
 
 QT_BEGIN_NAMESPACE
@@ -15,7 +16,12 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+private slots:
+    void on_load_model_clicked();
+
 private:
     Ui::MainWindow *ui;
+
+    Canvas *canvas;
 };
 #endif // MAINWINDOW_H

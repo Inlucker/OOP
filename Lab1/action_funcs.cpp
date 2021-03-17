@@ -49,3 +49,11 @@ int rotate_model(Model &model, const Rotate &act)
 {
     return rotate_point_arr(model.points, act); //arr
 }
+
+/*int draw_model(const Draw &act)
+{
+    if (!act.model.points.mas)
+        return MODEL_EMPTY;
+
+
+}*/

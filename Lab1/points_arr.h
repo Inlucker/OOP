@@ -2,15 +2,9 @@
 #define POINTS_ARR_H
 
 #include "point.h"
-#include "action.h"
+#include "defines.h"
 //#include "error_codes.h"
 //#include "file_stream.h"
-
-struct Points_arr
-{
-    Point *mas = nullptr;
-    int points_number = 0;
-};
 
 //Points_arr operations
 Points_arr create_points_arr();

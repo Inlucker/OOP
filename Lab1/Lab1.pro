@@ -10,26 +10,28 @@ CONFIG += c++11
 
 SOURCES += \
     action_funcs.cpp \
+    canvas.cpp \
     edge.cpp \
     edges_arr.cpp \
     entry_point.cpp \
     file_stream.cpp \
     main.cpp \
     mainwindow.cpp \
-    model.cpp \
+    model_funcs.cpp \
     point.cpp \
     points_arr.cpp
 
 HEADERS += \
-    action.h \
     action_funcs.h \
+    canvas.h \
+    defines.h \
     edge.h \
     edges_arr.h \
     entry_point.h \
     error_codes.h \
     file_stream.h \
     mainwindow.h \
-    model.h \
+    model_funcs.h \
     point.h \
     points_arr.h
 
