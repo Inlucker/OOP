@@ -1,4 +1,5 @@
 #include "points_arr.h"
+#include "action.h"
 
 Points_arr create_points_arr()
 {
@@ -30,7 +31,6 @@ int load_points_arr(Points_arr &points, ifstream &file)
     int res = read_file(tmp, file);
     if (res)
         return res;
-
     points.points_number = tmp;
 
     res = allocate_points_arr(points);
@@ -38,12 +38,39 @@ int load_points_arr(Points_arr &points, ifstream &file)
         return res;
 
     for (int i = 0; i < tmp && !res; i++)
-    {
         res = load_point(points.mas[i], file);
-    }
 
     if (res)
         free_points_arr(points);
 
     return res;
+}
+
+int move_points_arr(Points_arr &points, const Move &act)
+{
+    if (!points.mas)
+        return MODEL_EMPTY;
+
+    //int res = OK;
+
+    for (int i = 0; i < points.points_number; i++)
+        move_point(points.mas[i], act);
+
+    return OK;
+}
+
+int rotate_point_arr(Points_arr &points, const Rotate &act)
+{
+    /*if (!points.mas)
+        return MODEL_EMPTY;
+
+    t_matrix m;
+    get_result_matrix(m, act);
+
+    int ret = 0;
+    for (int i = 0; i < vertex.n_v && !ret; ++i)
+    {
+        ret = Change_one_point(vertex.arr[i], m);
+    }
+   return ret;*/
 }

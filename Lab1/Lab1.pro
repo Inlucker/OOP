@@ -9,7 +9,7 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    actions.cpp \
+    action_funcs.cpp \
     edge.cpp \
     edges_arr.cpp \
     entry_point.cpp \
@@ -21,7 +21,8 @@ SOURCES += \
     points_arr.cpp
 
 HEADERS += \
-    actions.h \
+    action.h \
+    action_funcs.h \
     edge.h \
     edges_arr.h \
     entry_point.h \

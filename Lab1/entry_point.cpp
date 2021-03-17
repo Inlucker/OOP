@@ -1,5 +1,5 @@
 #include "entry_point.h"
-#include "actions.h"
+#include "action_funcs.h"
 //#include "model.h"
 
 int entry_point(My_Scene &scene, const Action &act, action_type t)
@@ -12,15 +12,15 @@ int entry_point(My_Scene &scene, const Action &act, action_type t)
     case LOAD:
         res = load_model(model, act.create);
         break;
-    /*case ROTATE:
-        res = rotate_model(model, act.rotate);
-        break;
-    case SCALE:
-        res = scale_model(model, act.scale);
         break;
     case MOVE:
         res = move_model(model, act.move);
         break;
+    /*case SCALE:
+        res = scale_model(model, act.scale);
+        break;
+    case ROTATE:
+        res = rotate_model(model, act.rotate);
     case FREE:
         res = free_model(model);
         break;

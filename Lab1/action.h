@@ -1,18 +1,14 @@
-#ifndef ACTIONS_H
-#define ACTIONS_H
-
-#include "model.h"
-//#include "file_stream.h"
-//#include "error_codes.h"
+#ifndef ACTION_H
+#define ACTION_H
 
 #define FILE_NAME_SIZE 200
 
 enum action_type
 {
-    ROTATE,
     LOAD,
     MOVE,
     SCALE,
+    ROTATE,
     FREE,
     SAVE,
     DRAW
@@ -52,6 +48,4 @@ union Action
     Rotate rotate;
 };
 
-int load_model(Model &model, const Load &act);
-
-#endif // ACTIONS_H
+#endif // ACTION_H

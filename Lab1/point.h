@@ -3,6 +3,7 @@
 
 #include "file_stream.h"
 #include "error_codes.h"
+#include "action.h"
 
 struct Point
 {
@@ -12,5 +13,7 @@ struct Point
 };
 
 int load_point(Point &p, ifstream &stream);
+
+void move_point(Point &p, const Move &act);
 
 #endif // POINT_H

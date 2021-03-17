@@ -2,6 +2,7 @@
 #define POINTS_ARR_H
 
 #include "point.h"
+#include "action.h"
 //#include "error_codes.h"
 //#include "file_stream.h"
 
@@ -20,5 +21,9 @@ void free_points_arr(Points_arr &points);
 
 //Other funcs
 int load_points_arr(Points_arr &points, ifstream &file);
+
+int move_points_arr(Points_arr &points, const Move &act);
+
+int rotate_point_arr(Points_arr &points, const Rotate &act);
 
 #endif // POINTS_ARR_H

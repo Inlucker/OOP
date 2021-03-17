@@ -18,3 +18,10 @@ int load_point(Point &p, ifstream &stream)
     }
     return res;
 }
+
+void move_point(Point &p, const Move &act)
+{
+    p.x += act.dx;
+    p.y += act.dy;
+    p.z += act.dz;
+}
