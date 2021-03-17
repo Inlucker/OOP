@@ -16,10 +16,10 @@ int entry_point(My_Scene &scene, const Action &act, action_type t)
     case MOVE:
         res = move_model(model, act.move);
         break;
-    /*case SCALE:
+    case SCALE:
         res = scale_model(model, act.scale);
         break;
-    case ROTATE:
+    /*case ROTATE:
         res = rotate_model(model, act.rotate);
     case FREE:
         res = free_model(model);

@@ -59,6 +59,17 @@ int move_points_arr(Points_arr &points, const Move &act)
     return OK;
 }
 
+int scale_points_arr(Points_arr &points, const Scale &act)
+{
+    if (!points.mas)
+        return MODEL_EMPTY;
+
+    for (int i = 0; i < points.points_number; i++)
+        scale_point(points.mas[i], act);
+
+    return OK;
+}
+
 int rotate_point_arr(Points_arr &points, const Rotate &act)
 {
     /*if (!points.mas)

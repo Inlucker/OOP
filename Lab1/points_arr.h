@@ -24,6 +24,8 @@ int load_points_arr(Points_arr &points, ifstream &file);
 
 int move_points_arr(Points_arr &points, const Move &act);
 
+int scale_points_arr(Points_arr &points, const Scale &act);
+
 int rotate_point_arr(Points_arr &points, const Rotate &act);
 
 #endif // POINTS_ARR_H

@@ -40,12 +40,17 @@ int load_model(Model &model, const Load &act)
     return res;
 }
 
-int rotate_model(Model &model, const Rotate &act)
-{
-    return rotate_point_arr(model.points, act); //arr
-}
-
 int move_model(Model &model, const Move &act)
 {
     return move_points_arr(model.points, act);
+}
+
+int scale_model(Model &model, const Scale &act)
+{
+    return scale_points_arr(model.points, act);
+}
+
+int rotate_model(Model &model, const Rotate &act)
+{
+    return rotate_point_arr(model.points, act); //arr
 }

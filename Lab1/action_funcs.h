@@ -10,6 +10,8 @@ int load_model(Model &model, const Load &act);
 
 int move_model(Model &model, const Move &act);
 
+int scale_model(Model &model, const Scale &act);
+
 int rotate_model(Model &model, const Rotate &act);
 
 #endif // ACTION_FUNCS_H

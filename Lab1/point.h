@@ -16,4 +16,6 @@ int load_point(Point &p, ifstream &stream);
 
 void move_point(Point &p, const Move &act);
 
+void scale_point(Point &p, const Scale &act);
+
 #endif // POINT_H
