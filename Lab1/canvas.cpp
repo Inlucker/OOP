@@ -1,4 +1,5 @@
 #include "canvas.h"
+#include "entry_point.h"
 
 Canvas::Canvas()
 {
@@ -8,7 +9,9 @@ Canvas::Canvas()
 
 Canvas::~Canvas()
 {
+    Action act;
 
+    entry_point(model, FREE, act);
 }
 
 void Canvas::paintEvent(QPaintEvent *event)

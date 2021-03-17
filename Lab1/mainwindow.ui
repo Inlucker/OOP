@@ -318,10 +318,10 @@
     <widget class="QLabel" name="label_2">
      <property name="geometry">
       <rect>
-       <x>70</x>
+       <x>10</x>
        <y>30</y>
        <width>41</width>
-       <height>21</height>
+       <height>31</height>
       </rect>
      </property>
      <property name="font">
@@ -336,10 +336,10 @@
     <widget class="QLabel" name="label_3">
      <property name="geometry">
       <rect>
-       <x>70</x>
-       <y>60</y>
+       <x>10</x>
+       <y>70</y>
        <width>41</width>
-       <height>21</height>
+       <height>31</height>
       </rect>
      </property>
      <property name="font">
@@ -354,10 +354,10 @@
     <widget class="QLineEdit" name="rot_xEdit">
      <property name="geometry">
       <rect>
-       <x>112</x>
+       <x>30</x>
        <y>30</y>
        <width>51</width>
-       <height>21</height>
+       <height>31</height>
       </rect>
      </property>
      <property name="text">
@@ -367,10 +367,10 @@
     <widget class="QLineEdit" name="rot_yEdit">
      <property name="geometry">
       <rect>
-       <x>112</x>
-       <y>60</y>
+       <x>30</x>
+       <y>70</y>
        <width>51</width>
-       <height>21</height>
+       <height>31</height>
       </rect>
      </property>
      <property name="text">
@@ -380,10 +380,10 @@
     <widget class="QLineEdit" name="rot_zEdit">
      <property name="geometry">
       <rect>
-       <x>112</x>
-       <y>90</y>
+       <x>30</x>
+       <y>110</y>
        <width>51</width>
-       <height>21</height>
+       <height>31</height>
       </rect>
      </property>
      <property name="text">
@@ -393,10 +393,10 @@
     <widget class="QLabel" name="label_4">
      <property name="geometry">
       <rect>
-       <x>70</x>
-       <y>90</y>
+       <x>10</x>
+       <y>110</y>
        <width>41</width>
-       <height>21</height>
+       <height>31</height>
       </rect>
      </property>
      <property name="font">
@@ -408,17 +408,43 @@
       <string>z</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="rotateButton">
+    <widget class="QPushButton" name="rotateButton_x">
      <property name="geometry">
       <rect>
-       <x>10</x>
-       <y>120</y>
-       <width>221</width>
+       <x>90</x>
+       <y>30</y>
+       <width>141</width>
        <height>31</height>
       </rect>
      </property>
      <property name="text">
-      <string>Повернуть</string>
+      <string>Повернуть вокруг Ox</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="rotateButton_y">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>70</y>
+       <width>141</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Повернуть вокруг Oy</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="rotateButton_z">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>110</y>
+       <width>141</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Повернуть вокруг Oz</string>
      </property>
     </widget>
    </widget>

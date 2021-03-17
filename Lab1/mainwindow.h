@@ -23,7 +23,11 @@ private slots:
 
     void on_scaleButton_clicked();
 
-    void on_rotateButton_clicked();
+    void on_rotateButton_x_clicked();
+
+    void on_rotateButton_y_clicked();
+
+    void on_rotateButton_z_clicked();
 
 private:
     Ui::MainWindow *ui;

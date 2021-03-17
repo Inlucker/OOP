@@ -40,9 +40,9 @@ enum action_type
     MOVE,
     SCALE,
     ROTATE,
-    FREE,
-    DRAW,
-    SAVE
+    FREE
+    //DRAW,
+    //SAVE
 };
 
 struct Load
@@ -71,18 +71,13 @@ struct Rotate
     double z_angle;
 };
 
-/*struct Draw
-{
-    Model model;
-};*/
-
 union Action
 {
     Load load;
     Move move;
     Scale scale;
     Rotate rotate;
-    //Draw draw;
+    //bool free;
 };
 
 #endif // DEFINES_H

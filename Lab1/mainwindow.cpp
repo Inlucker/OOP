@@ -92,14 +92,14 @@ void MainWindow::on_scaleButton_clicked()
     }
 }
 
-void MainWindow::on_rotateButton_clicked()
+void MainWindow::on_rotateButton_x_clicked()
 {
     bool isXFloat = false;
     float x = ui->rot_xEdit->text().toFloat(&isXFloat);
-    bool isYFloat = false;
-    float y = ui->rot_yEdit->text().toFloat(&isYFloat);
-    bool isZFloat = false;
-    float z = ui->rot_zEdit->text().toFloat(&isZFloat);
+    //bool isYFloat = false;
+    //float y = ui->rot_yEdit->text().toFloat(&isYFloat);
+    //bool isZFloat = false;
+    //float z = ui->rot_zEdit->text().toFloat(&isZFloat);
 
 
     //double *data = GetData(edits);
@@ -107,19 +107,56 @@ void MainWindow::on_rotateButton_clicked()
     /*if(LineEditError != NO_ER)
         return;*/
 
-
-    if (isXFloat && isYFloat && isZFloat)
+    //if (isXFloat && isYFloat && isZFloat)
+    if (isXFloat)
     {
         Action act;
 
         act.rotate.x_angle = x * M_PI / 180;
-        act.rotate.y_angle = y * M_PI / 180;
-        act.rotate.z_angle = z * M_PI / 180;
-        std::cout << x << " " << y << " " << z << endl;
+        act.rotate.y_angle = 0; //y * M_PI / 180;
+        act.rotate.z_angle = 0; //z * M_PI / 180;
+        //std::cout << x << " " << y << " " << z << endl;
 
         entry_point(canvas->model, ROTATE, act);
         //main_controller(scene, act, DRAW);
         canvas->update();
         //delete[] data;
     }
+}
+
+void MainWindow::on_rotateButton_y_clicked()
+{
+    bool isYFloat = false;
+    float y = ui->rot_yEdit->text().toFloat(&isYFloat);
+
+    if (isYFloat)
+    {
+        Action act;
+
+        act.rotate.x_angle = 0;
+        act.rotate.y_angle = y * M_PI / 180;
+        act.rotate.z_angle = 0;
+
+        entry_point(canvas->model, ROTATE, act);
+        canvas->update();
+    }
+}
+
+void MainWindow::on_rotateButton_z_clicked()
+{
+    bool isZFloat = false;
+    float z = ui->rot_yEdit->text().toFloat(&isZFloat);
+
+    if (isZFloat)
+    {
+        Action act;
+
+        act.rotate.x_angle = 0;
+        act.rotate.y_angle = 0;
+        act.rotate.z_angle = z * M_PI / 180;
+
+        entry_point(canvas->model, ROTATE, act);
+        canvas->update();
+    }
+
 }
