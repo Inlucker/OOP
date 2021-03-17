@@ -22,6 +22,52 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+void MainWindow::mouseReleaseEvent(QMouseEvent *event)
+{
+    if (event->button() == Qt::LeftButton)
+    {
+        LMB_is_pressed = false;
+    }
+}
+
+void MainWindow::mousePressEvent(QMouseEvent *event)
+{
+    if (event->button() == Qt::LeftButton && !LMB_is_pressed && this->canvas->rect().contains(event->pos()))
+    {
+        //cout << "Set" << endl;
+        previous_x = event->position().x();
+        previous_y = event->position().y();
+        LMB_is_pressed = true;
+    }
+}
+
+#define ROTATE_SPEED 100
+
+void MainWindow::mouseMoveEvent(QMouseEvent *event)
+{
+    if (LMB_is_pressed)
+    {
+        double x = double(previous_x - event->position().x()) / ROTATE_SPEED;
+        double y = double(-previous_y + event->position().y()) / ROTATE_SPEED;
+
+        Action act;
+
+        act.rotate.x_angle = y;
+        act.rotate.y_angle = x;
+        act.rotate.z_angle = 0;
+
+        entry_point(canvas->model, ROTATE, act);
+        canvas->update();
+        previous_x = event->position().x();
+        previous_y = event->position().y();
+    }
+}
+
+/*void MainWindow::keyPressEvent(QKeyEvent *event)
+{
+        cout << event->key() << endl;
+}*/
+
 void MainWindow::on_load_model_clicked()
 {
     QString str = QFileDialog::getOpenFileName(0, "Open Dialog", "", "*.txt");

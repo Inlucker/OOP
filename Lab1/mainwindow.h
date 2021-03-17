@@ -3,6 +3,7 @@
 
 #include "canvas.h"
 #include <QMainWindow>
+#include <QKeyEvent>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -15,6 +16,12 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+
+protected:
+   virtual void mouseReleaseEvent(QMouseEvent *event);
+   virtual void mousePressEvent(QMouseEvent *event);
+   virtual void mouseMoveEvent(QMouseEvent *event);
+   //virtual void keyPressEvent(QKeyEvent *event);
 
 private slots:
     void on_load_model_clicked();
@@ -33,6 +40,9 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+
+    bool LMB_is_pressed = false;
+    int previous_x, previous_y;
 
     Canvas *canvas;
 };
