@@ -27,7 +27,7 @@ void free_edges_arr(Edges_arr &edges)
     edges.edges_number = 0;
 }
 
-int load_edges_arr(Edges_arr &edges, ifstream &file, int max_point_id)
+int load_edges_arr(Edges_arr &edges, Read_file &file, int max_point_id)
 {
     int tmp;
     int res = read_file(tmp, file);
@@ -51,7 +51,7 @@ int load_edges_arr(Edges_arr &edges, ifstream &file, int max_point_id)
     return res;
 }
 
-int save_edge_arr(const Edges_arr &edges, ofstream &file)
+int save_edge_arr(const Edges_arr &edges, Write_file &file)
 {
     char buff[BUFF_SIZE];
     snprintf(buff, BUFF_SIZE, "%d\n", edges.edges_number);

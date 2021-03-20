@@ -3,7 +3,7 @@
 
 #include "error_codes.h"
 
-int load_point(Point &p, ifstream &stream)
+int load_point(Point &p, Read_file &stream)
 {
     double x, y, z;
     int res = OK;
@@ -71,7 +71,7 @@ void rotate_point(Point &p, const Rotate &act)
     rotate_z(p, act.z_angle);
 }
 
-int save_point(const Point& p, ofstream &file)
+int save_point(const Point& p, Write_file &file)
 {
     char buff[BUFF_SIZE];
     snprintf(buff, BUFF_SIZE, "%f %f %f\n", p.x, p.y, p.z);

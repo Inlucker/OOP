@@ -27,7 +27,7 @@ void free_points_arr(Points_arr &points);
 //Other funcs
 int get_points_number(Points_arr &points);
 
-int load_points_arr(Points_arr &points, ifstream &file);
+int load_points_arr(Points_arr &points, Read_file &file);
 
 int move_points_arr(Points_arr &points, const Move &act);
 
@@ -35,6 +35,6 @@ int scale_points_arr(Points_arr &points, const Scale &act);
 
 int rotate_point_arr(Points_arr &points, const Rotate &act);
 
-int save_point_arr(const Points_arr &points, ofstream &file);
+int save_point_arr(const Points_arr &points, Write_file &file);
 
 #endif // POINTS_ARR_H

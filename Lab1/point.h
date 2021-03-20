@@ -17,7 +17,7 @@ struct Point
     double z;
 };
 
-int load_point(Point &p, ifstream &stream);
+int load_point(Point &p, Read_file &stream);
 
 void move_point(Point &p, const Move &act);
 
@@ -25,6 +25,6 @@ void scale_point(Point &p, const Scale &act);
 
 void rotate_point(Point &p, const Rotate &act);
 
-int save_point(const Point& p, ofstream &file);
+int save_point(const Point& p, Write_file &file);
 
 #endif // POINT_H

@@ -5,7 +5,7 @@
 
 //int load_model(Model &model, ifstream &stream);
 
-int load_model(Model &model, ifstream &stream)
+int load_model(Model &model, Read_file &stream)
 {
     int res = load_points_arr(model.points, stream);
 
@@ -18,17 +18,18 @@ int load_model(Model &model, ifstream &stream)
 
 int load_model(Model &model, const Load &act)
 {
-    ifstream file(act.fileName);
+    Read_file file;
 
-    if (!file.is_open())
-        return FILE_OPEN_ERROR;
+    int res = open_Stream(file, act.fileName);
 
-    Model new_model= create_model();
+    if (res)
+        return res;
 
-    int res = load_model(new_model, file);
+    Model new_model = create_model();
 
-    if (file)
-        file.close();
+    res = load_model(new_model, file);
+
+    close_Stream(file);
 
     if (!res)
     {
@@ -63,20 +64,19 @@ int rotate_model(Model &model, const Rotate &act)
 int save_model(const Model &model, const Load &act)
 {
 
-    ofstream file(act.fileName);
+    Write_file file;
 
-    if (!file.is_open())
-        return FILE_OPEN_ERROR;
+    int res = open_Stream(file, act.fileName);
 
-    int res;
+    if (res)
+        return res;
 
     res = save_point_arr(model.points, file);
 
     if (!res)
         res = save_edge_arr(model.edges, file);
 
-    if (file)
-        file.close();
+    res = close_Stream(file);
 
     return res;
 

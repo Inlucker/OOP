@@ -3,11 +3,27 @@
 
 #include <fstream>
 
-using namespace std;
+//using namespace std;
 
-int print_stream(ofstream &file, const char* str);
+struct Read_file
+{
+    std::ifstream stream;
+};
 
-int read_file(double &x, ifstream &file);
-int read_file(int &x, ifstream &file);
+struct Write_file
+{
+    std::ofstream stream;
+};
+
+int open_Stream(Read_file &file, const char* filename);
+int open_Stream(Write_file &file, const char* filename);
+
+int close_Stream(Read_file &file);
+int close_Stream(Write_file &file);
+
+int print_stream(Write_file &file, const char* str);
+
+int read_file(double &x, Read_file &file);
+int read_file(int &x, Read_file &file);
 
 #endif // FILE_STREAM_H
