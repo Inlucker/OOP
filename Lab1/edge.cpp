@@ -25,9 +25,12 @@ int load_edge(Edge &e, Read_file &file, int max_point_id)
 
 int save_edge(const Edge& e, Write_file &file)
 {
-    char buff[BUFF_SIZE];
-    snprintf(buff, BUFF_SIZE, "%d %d\n", e.p1 + 1, e.p2 + 1);
-    return print_stream(file, buff);
+    int buff_size = INT_MAX_SIZE * 2 + 3;
+    char *buff = new char[buff_size];
+    snprintf(buff, buff_size, "%d %d\n", e.p1 + 1, e.p2 + 1);
+    int res = print_stream(file, buff);
+    delete[] buff;
+    return res;
 }
 
 void get_edge(Edge &edge_2d, const Edge &edge_3d)

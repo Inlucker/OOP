@@ -78,9 +78,21 @@ void MainWindow::on_load_model_clicked()
     if (str == "")
         return;
     Action act;
+
+    //-----------------------------------------------------
+    /*act.load.file_name_size = str.length();
+    act.load.fileName = new char[act.load.file_name_size];
+    memmove(act.load.fileName, str.toStdString().c_str(), str.length());
+
+    int res = entry_point(canvas->proection, LOAD, act);
+    delete[] act.load.fileName;
+    act.load.file_name_size = 0;*/
+    //-----------------------------------------------------
+
     strcpy(act.load.fileName, str.toStdString().c_str());
 
     int res = entry_point(canvas->proection, LOAD, act);
+
     QString error = "";
 
     if (res == FILE_OPEN_ERROR)
@@ -224,12 +236,22 @@ void MainWindow::on_save_model_clicked()
         return;
 
     Action act;
+    //-----------------------------------------------------
+    /*act.load.file_name_size = str.length();
+    act.load.fileName = new char[act.load.file_name_size];
+    memmove(act.load.fileName, str.toStdString().c_str(), str.length());
+
+    int res = entry_point(canvas->proection, SAVE, act);
+    delete[] act.load.fileName;
+    act.load.file_name_size = 0;*/
+    //-----------------------------------------------------
+
     strcpy(act.load.fileName, str.toStdString().c_str());
 
     int res = entry_point(canvas->proection, SAVE, act);
     QString error = "";
 
-    if(res == FILE_NOT_FOUND)
+    if (res == FILE_NOT_FOUND)
         error = "Cannot open file";
     else if (res == FILE_ERROR)
         error = "Error format of data";

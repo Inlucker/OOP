@@ -52,14 +52,20 @@ int load_edges_arr(Edges_arr &edges, Read_file &file, int max_point_id)
 
 int save_edge_arr(const Edges_arr &edges, Write_file &file)
 {
-    char buff[BUFF_SIZE];
-    snprintf(buff, BUFF_SIZE, "%d\n", edges.edges_number);
-    int ret = print_stream(file, buff);
+    int buff_size = INT_MAX_SIZE + 2;
+    char *buff = new char[buff_size];
+    if (!buff)
+        return MEMORY_ALLOCATION_ERROR;
 
-    for(int i = 0; i < edges.edges_number && !ret; i++)
-        ret = save_edge(edges.mas[i], file);
+    snprintf(buff, buff_size, "%d\n", edges.edges_number);
+    int res = print_stream(file, buff);
 
-    return ret;
+    delete[] buff;
+
+    for(int i = 0; i < edges.edges_number && !res; i++)
+        res = save_edge(edges.mas[i], file);
+
+    return res;
 }
 
 int get_edges(Edges_arr &edges_arr_2d, const Edges_arr &edges_arr_3d)

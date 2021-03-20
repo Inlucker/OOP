@@ -17,6 +17,8 @@ enum action_type
 struct Load
 {
     char fileName[FILE_NAME_SIZE];
+    //char *fileName;
+    //int file_name_size;
 };
 
 struct Move

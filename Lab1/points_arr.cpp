@@ -93,9 +93,11 @@ int rotate_point_arr(Points_arr &points, const Rotate &act)
 
 int save_point_arr(const Points_arr &points, Write_file &file)
 {
-    char buff[BUFF_SIZE];
-    snprintf(buff, BUFF_SIZE, "%d\n", points.points_number);
+    int buff_size = INT_MAX_SIZE + 2;
+    char *buff = new char[buff_size];
+    snprintf(buff, buff_size, "%d\n", points.points_number);
     int ret = print_stream(file, buff);
+    delete[] buff;
 
     for(int i = 0; i < points.points_number && !ret; i++)
         ret = save_point(points.mas[i], file);

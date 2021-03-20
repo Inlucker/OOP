@@ -62,7 +62,6 @@ int rotate_model(Model &model, const Rotate &act)
 
 int save_model(const Model &model, const Load &act)
 {
-
     Write_file file;
     int res = open_file(file, act.fileName);
     if (res)
@@ -76,5 +75,4 @@ int save_model(const Model &model, const Load &act)
     res = close_file(file);
 
     return res;
-
 }

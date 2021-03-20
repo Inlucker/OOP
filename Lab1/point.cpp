@@ -73,7 +73,10 @@ void rotate_point(Point &p, const Rotate &act)
 
 int save_point(const Point& p, Write_file &file)
 {
-    char buff[BUFF_SIZE];
-    snprintf(buff, BUFF_SIZE, "%f %f %f\n", p.x, p.y, p.z);
-    return print_stream(file, buff);
+    int buff_size = DOUBLE_MAX_SIZE * 3 + 4;
+    char *buff = new char[buff_size];
+    snprintf(buff, buff_size, "%f %f %f\n", p.x, p.y, p.z);
+    int res = print_stream(file, buff);
+    delete[] buff;
+    return res;
 }
