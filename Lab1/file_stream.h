@@ -15,11 +15,11 @@ struct Write_file
     std::ofstream stream;
 };
 
-int open_Stream(Read_file &file, const char* filename);
-int open_Stream(Write_file &file, const char* filename);
+int open_file(Read_file &file, const char* filename);
+int open_file(Write_file &file, const char* filename);
 
-int close_Stream(Read_file &file);
-int close_Stream(Write_file &file);
+int close_file(Read_file &file);
+int close_file(Write_file &file);
 
 int print_stream(Write_file &file, const char* str);
 

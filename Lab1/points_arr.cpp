@@ -27,10 +27,15 @@ void free_points_arr(Points_arr &points)
     points.points_number = 0;
 }
 
-int get_points_number(Points_arr &points)
+int get_points_number(const Points_arr &points)
 {
     return points.points_number;
 }
+
+//DEBUG
+#include <iostream>
+
+using namespace std;
 
 int load_points_arr(Points_arr &points, Read_file &file)
 {
@@ -38,18 +43,26 @@ int load_points_arr(Points_arr &points, Read_file &file)
     int res = read_file(tmp, file);
     if (res)
         return res;
-    points.points_number = tmp;
+
+    cout << "Read file" << endl;
 
     res = allocate_points_arr(points);
     if (res)
         return res;
 
+    cout << "Allocated points_arr" << endl;
+
     for (int i = 0; i < tmp && !res; i++)
         res = load_point(points.mas[i], file);
 
+    cout << "Loaded points_arr" << endl;
+
     if (res)
         free_points_arr(points);
+    else
+        points.points_number = tmp;
 
+    cout << "Returned res" << endl;
     return res;
 }
 

@@ -2,7 +2,7 @@
 
 #include "error_codes.h"
 
-int open_Stream(Read_file &file, const char* filename)
+int open_file(Read_file &file, const char* filename)
 {
     if (file.stream)
         file.stream.close();
@@ -14,7 +14,7 @@ int open_Stream(Read_file &file, const char* filename)
     return 0;
 }
 
-int open_Stream(Write_file &file, const char* filename)
+int open_file(Write_file &file, const char* filename)
 {
     if (file.stream)
         file.stream.close();
@@ -26,7 +26,7 @@ int open_Stream(Write_file &file, const char* filename)
     return 0;
 }
 
-int close_Stream(Read_file &file)
+int close_file(Read_file &file)
 {
     if (file.stream)
         file.stream.close();
@@ -34,7 +34,7 @@ int close_Stream(Read_file &file)
     return 0;
 }
 
-int close_Stream(Write_file &file)
+int close_file(Write_file &file)
 {
     if (file.stream)
         file.stream.close();

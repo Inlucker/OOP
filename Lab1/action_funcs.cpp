@@ -9,9 +9,11 @@ int load_model(Model &model, Read_file &stream)
 {
     int res = load_points_arr(model.points, stream);
 
-    int points_max_id = get_points_number(model.points);
     if (!res)
+    {
+        int points_max_id = get_points_number(model.points);
         res = load_edges_arr(model.edges, stream, points_max_id);
+    }
 
     return res;
 }
@@ -19,17 +21,14 @@ int load_model(Model &model, Read_file &stream)
 int load_model(Model &model, const Load &act)
 {
     Read_file file;
-
-    int res = open_Stream(file, act.fileName);
-
+    int res = open_file(file, act.fileName);
     if (res)
         return res;
 
     Model new_model = create_model();
-
     res = load_model(new_model, file);
 
-    close_Stream(file);
+    close_file(file);
 
     if (!res)
     {
@@ -65,9 +64,7 @@ int save_model(const Model &model, const Load &act)
 {
 
     Write_file file;
-
-    int res = open_Stream(file, act.fileName);
-
+    int res = open_file(file, act.fileName);
     if (res)
         return res;
 
@@ -76,7 +73,7 @@ int save_model(const Model &model, const Load &act)
     if (!res)
         res = save_edge_arr(model.edges, file);
 
-    res = close_Stream(file);
+    res = close_file(file);
 
     return res;
 

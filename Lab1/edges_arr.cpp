@@ -34,19 +34,17 @@ int load_edges_arr(Edges_arr &edges, Read_file &file, int max_point_id)
     if (res)
         return res;
 
-    edges.edges_number = tmp;
-
     res = allocate_edges_arr(edges);
     if (res)
         return res;
 
     for (int i = 0; i < tmp && !res; i++)
-    {
         res = load_edge(edges.mas[i], file, max_point_id);
-    }
 
     if (res)
         free_edges_arr(edges);
+    else
+        edges.edges_number = tmp;
 
     return res;
 }

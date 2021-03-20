@@ -95,6 +95,7 @@ void MainWindow::on_load_model_clicked()
     }
     //entry_point(act, DRAW);
     canvas->update();
+    std::cout << "UPDATED CANVAS" << std::endl;
 }
 
 void MainWindow::on_moveButton_clicked()

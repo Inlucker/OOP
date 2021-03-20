@@ -3,15 +3,21 @@
 
 #include "error_codes.h"
 
+//DEBUG
+#include <iostream>
+
+using namespace std;
+
 int load_point(Point &p, Read_file &stream)
 {
     double x, y, z;
-    int res = OK;
-    res = read_file(x, stream);
+    int res = read_file(x, stream);
     if (!res)
         res = read_file(y, stream);
     if (!res)
         res = read_file(z, stream);
+
+    cout << "read x y z" << endl;
 
     if (!res)
     {
@@ -19,6 +25,8 @@ int load_point(Point &p, Read_file &stream)
         p.y = y;
         p.z = z;
     }
+
+    cout << "Returned x y z" << endl;
     return res;
 }
 

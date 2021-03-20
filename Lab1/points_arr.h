@@ -25,7 +25,7 @@ int allocate_points_arr(Points_arr &vertex);
 void free_points_arr(Points_arr &points);
 
 //Other funcs
-int get_points_number(Points_arr &points);
+int get_points_number(const Points_arr &points);
 
 int load_points_arr(Points_arr &points, Read_file &file);
 
