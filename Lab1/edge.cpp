@@ -27,6 +27,8 @@ int save_edge(const Edge& e, Write_file &file)
 {
     int buff_size = INT_MAX_SIZE * 2 + 3;
     char *buff = new char[buff_size];
+    if (!buff)
+        return MEMORY_ALLOCATION_ERROR;
     snprintf(buff, buff_size, "%d %d\n", e.p1 + 1, e.p2 + 1);
     int res = print_stream(file, buff);
     delete[] buff;

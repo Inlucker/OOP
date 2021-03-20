@@ -75,6 +75,8 @@ int save_point(const Point& p, Write_file &file)
 {
     int buff_size = DOUBLE_MAX_SIZE * 3 + 4;
     char *buff = new char[buff_size];
+    if (!buff)
+        return MEMORY_ALLOCATION_ERROR;
     snprintf(buff, buff_size, "%f %f %f\n", p.x, p.y, p.z);
     int res = print_stream(file, buff);
     delete[] buff;

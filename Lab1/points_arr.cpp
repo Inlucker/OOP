@@ -95,11 +95,13 @@ int save_point_arr(const Points_arr &points, Write_file &file)
 {
     int buff_size = INT_MAX_SIZE + 2;
     char *buff = new char[buff_size];
+    if (!buff)
+        return MEMORY_ALLOCATION_ERROR;
     snprintf(buff, buff_size, "%d\n", points.points_number);
-    int ret = print_stream(file, buff);
+    int res = print_stream(file, buff);
     delete[] buff;
 
-    for(int i = 0; i < points.points_number && !ret; i++)
-        ret = save_point(points.mas[i], file);
-    return ret;
+    for(int i = 0; i < points.points_number && !res; i++)
+        res = save_point(points.mas[i], file);
+    return res;
 }
