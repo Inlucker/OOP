@@ -11,11 +11,12 @@ Edges_arr create_edges_arr()
     return new_edges_arr;
 }
 
-int allocate_edges_arr(Edges_arr &edges)
+int allocate_edges_arr(Edges_arr &edges, const int edges_number)
 {
-    edges.mas = new Edge [edges.edges_number];
+    edges.mas = new Edge [edges_number];
     if (!(edges.mas))
         return MEMORY_ERROR;
+    edges.edges_number = edges_number;
     return OK;
 }
 
@@ -34,7 +35,7 @@ int load_edges_arr(Edges_arr &edges, Read_file &file, int max_point_id)
     if (res)
         return res;
 
-    res = allocate_edges_arr(edges);
+    res = allocate_edges_arr(edges, tmp);
     if (res)
         return res;
 
@@ -43,8 +44,6 @@ int load_edges_arr(Edges_arr &edges, Read_file &file, int max_point_id)
 
     if (res)
         free_edges_arr(edges);
-    else
-        edges.edges_number = tmp;
 
     return res;
 }

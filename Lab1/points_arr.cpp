@@ -11,11 +11,12 @@ Points_arr create_points_arr()
     return new_points_arr;
 }
 
-int allocate_points_arr(Points_arr &points)
+int allocate_points_arr(Points_arr &points, const int points_number)
 {
-    points.mas = new Point [points.points_number];
+    points.mas = new Point [points_number];
     if (!(points.mas))
         return MEMORY_ERROR;
+    points.points_number = points_number;
     return OK;
 }
 
@@ -32,11 +33,6 @@ int get_points_number(const Points_arr &points)
     return points.points_number;
 }
 
-//DEBUG
-#include <iostream>
-
-using namespace std;
-
 int load_points_arr(Points_arr &points, Read_file &file)
 {
     int tmp;
@@ -44,25 +40,17 @@ int load_points_arr(Points_arr &points, Read_file &file)
     if (res)
         return res;
 
-    cout << "Read file" << endl;
-
-    res = allocate_points_arr(points);
+    //HERE was MEM ERROR
+    res = allocate_points_arr(points, tmp);
     if (res)
         return res;
-
-    cout << "Allocated points_arr" << endl;
 
     for (int i = 0; i < tmp && !res; i++)
         res = load_point(points.mas[i], file);
 
-    cout << "Loaded points_arr" << endl;
-
     if (res)
         free_points_arr(points);
-    else
-        points.points_number = tmp;
 
-    cout << "Returned res" << endl;
     return res;
 }
 

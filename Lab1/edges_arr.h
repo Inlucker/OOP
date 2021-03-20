@@ -12,7 +12,7 @@ struct Edges_arr
 //Edges_arr operations
 Edges_arr create_edges_arr();
 
-int allocate_edges_arr(Edges_arr &vertex);
+int allocate_edges_arr(Edges_arr &vertex, const int edges_number);
 
 void free_edges_arr(Edges_arr &points);
 
