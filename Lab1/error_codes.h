@@ -7,8 +7,9 @@ enum error_code
     FILE_OPEN_ERROR = 1,
     FILE_NOT_FOUND = 2,
     FILE_ERROR = 3,
-    MEMORY_ERROR = 4,
+    MEMORY_ALLOCATION_ERROR = 4,
     MODEL_EMPTY = 5,
+    //PROECTION_ERROR = 5,
     //SCENE_NOT_FOUND
     ACTION_ERROR = -1
 };

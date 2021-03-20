@@ -10,6 +10,12 @@ struct Model
     Edges_arr edges;
 };
 
+/*struct Proection
+{
+    Points_arr points;
+    Edges_arr edges;
+};*/
+
 Model create_model();
 
 void free_model(Model &model);

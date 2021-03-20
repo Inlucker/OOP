@@ -19,7 +19,10 @@ SOURCES += \
     mainwindow.cpp \
     model_funcs.cpp \
     point.cpp \
-    points_arr.cpp
+    point_2d.cpp \
+    points_arr.cpp \
+    points_arr_2d.cpp \
+    proection.cpp
 
 HEADERS += \
     action.h \
@@ -34,7 +37,10 @@ HEADERS += \
     mainwindow.h \
     model_funcs.h \
     point.h \
-    points_arr.h
+    point_2d.h \
+    points_arr.h \
+    points_arr_2d.h \
+    proection.h
 
 FORMS += \
     mainwindow.ui

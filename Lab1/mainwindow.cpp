@@ -59,7 +59,8 @@ void MainWindow::mouseMoveEvent(QMouseEvent *event)
         act.rotate.y_angle = x;
         act.rotate.z_angle = 0;
 
-        entry_point(canvas->model, ROTATE, act);
+        entry_point(canvas->proection, ROTATE, act);
+        entry_point(canvas->proection, PROECTION, act);
         canvas->update();
         previous_x = event->position().x();
         previous_y = event->position().y();
@@ -79,21 +80,21 @@ void MainWindow::on_load_model_clicked()
     Action act;
     strcpy(act.load.fileName, str.toStdString().c_str());
 
-    int res = entry_point(canvas->model, LOAD, act);
+    int res = entry_point(canvas->proection, LOAD, act);
     QString error = "";
 
     if (res == FILE_OPEN_ERROR)
         error = "Cannot open file";
     else if (res == FILE_ERROR)
         error = "Error format of data";
-    else if (res == MEMORY_ERROR)
+    else if (res == MEMORY_ALLOCATION_ERROR)
         error = "Memory error";
     if (error != "")
     {
         QMessageBox::information(this, "Error", error);
         return;
     }
-    //entry_point(act, DRAW);
+    entry_point(canvas->proection, PROECTION, act);
     canvas->update();
     //std::cout << "UPDATED CANVAS" << std::endl;
 }
@@ -115,7 +116,8 @@ void MainWindow::on_moveButton_clicked()
         act.move.dy = y;
         act.move.dz = z;
 
-        entry_point(canvas->model, MOVE, act);
+        entry_point(canvas->proection, MOVE, act);
+        entry_point(canvas->proection, PROECTION, act);
         canvas->update();
     }
 }
@@ -137,7 +139,8 @@ void MainWindow::on_scaleButton_clicked()
         act.scale.ky = y;
         act.scale.kz = z;
 
-        entry_point(canvas->model, SCALE, act);
+        entry_point(canvas->proection, SCALE, act);
+        entry_point(canvas->proection, PROECTION, act);
         canvas->update();
     }
 }
@@ -167,10 +170,9 @@ void MainWindow::on_rotateButton_x_clicked()
         act.rotate.z_angle = 0; //z * M_PI / 180;
         //std::cout << x << " " << y << " " << z << endl;
 
-        entry_point(canvas->model, ROTATE, act);
-        //main_controller(scene, act, DRAW);
+        entry_point(canvas->proection, ROTATE, act);
+        entry_point(canvas->proection, PROECTION, act);
         canvas->update();
-        //delete[] data;
     }
 }
 
@@ -187,7 +189,8 @@ void MainWindow::on_rotateButton_y_clicked()
         act.rotate.y_angle = y * M_PI / 180;
         act.rotate.z_angle = 0;
 
-        entry_point(canvas->model, ROTATE, act);
+        entry_point(canvas->proection, ROTATE, act);
+        entry_point(canvas->proection, PROECTION, act);
         canvas->update();
     }
 }
@@ -205,7 +208,8 @@ void MainWindow::on_rotateButton_z_clicked()
         act.rotate.y_angle = 0;
         act.rotate.z_angle = z * M_PI / 180;
 
-        entry_point(canvas->model, ROTATE, act);
+        entry_point(canvas->proection, ROTATE, act);
+        entry_point(canvas->proection, PROECTION, act);
         canvas->update();
     }
 
@@ -222,7 +226,7 @@ void MainWindow::on_save_model_clicked()
     Action act;
     strcpy(act.load.fileName, str.toStdString().c_str());
 
-    int res = entry_point(canvas->model, SAVE, act);
+    int res = entry_point(canvas->proection, SAVE, act);
     QString error = "";
 
     if(res == FILE_NOT_FOUND)

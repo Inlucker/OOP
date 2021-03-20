@@ -13,9 +13,11 @@ Points_arr create_points_arr()
 
 int allocate_points_arr(Points_arr &points, const int points_number)
 {
+    if (points_number <= 0)
+        return MEMORY_ALLOCATION_ERROR;
     points.mas = new Point [points_number];
     if (!(points.mas))
-        return MEMORY_ERROR;
+        return MEMORY_ALLOCATION_ERROR;
     points.points_number = points_number;
     return OK;
 }
@@ -24,7 +26,7 @@ void free_points_arr(Points_arr &points)
 {
     if (points.mas)
         delete[] points.mas;
-    points.mas = NULL;
+    points.mas = nullptr;
     points.points_number = 0;
 }
 

@@ -29,3 +29,8 @@ int save_edge(const Edge& e, Write_file &file)
     snprintf(buff, BUFF_SIZE, "%d %d\n", e.p1 + 1, e.p2 + 1);
     return print_stream(file, buff);
 }
+
+void get_edge(Edge &edge_2d, const Edge &edge_3d)
+{
+    edge_2d = edge_3d;
+}

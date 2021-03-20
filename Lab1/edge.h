@@ -19,4 +19,6 @@ int load_edge(Edge &e, Read_file &file, int max_point_id);//, int max_vertex);
 
 int save_edge(const Edge& e, Write_file &file);
 
+void get_edge(Edge &edge_2d, const Edge &edge_3d);
+
 #endif // EDGE_H

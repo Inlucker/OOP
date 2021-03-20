@@ -10,7 +10,7 @@ enum action_type
     SCALE,
     ROTATE,
     FREE,
-    //DRAW,
+    PROECTION,
     SAVE
 };
 

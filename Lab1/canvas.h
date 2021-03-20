@@ -1,7 +1,7 @@
 #ifndef CANVAS_H
 #define CANVAS_H
 
-#include "model_funcs.h"
+#include "proection.h"
 #include <QWidget>
 #include <QPainter>
 #include <iostream>
@@ -16,7 +16,7 @@ protected:
     void paintEvent(QPaintEvent *);
 
 public:
-    Model model;
+    Proection proection;
 
 private:
     QPainter painter;

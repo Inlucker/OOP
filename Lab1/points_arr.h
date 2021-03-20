@@ -20,7 +20,7 @@ struct Points_arr
 //Points_arr operations
 Points_arr create_points_arr();
 
-int allocate_points_arr(Points_arr &vertex, const int points_number);
+int allocate_points_arr(Points_arr &points, const int points_number);
 
 void free_points_arr(Points_arr &points);
 

@@ -4,8 +4,10 @@
 #include "action_funcs.h"
 #include "error_codes.h"
 
-int entry_point(Model &model, action_type t, const Action &act)
+int entry_point(Proection &proection, action_type t, const Action &act)
 {
+    static Model model = create_model();
+
     int res = OK;
     switch (t)
     {
@@ -24,9 +26,9 @@ int entry_point(Model &model, action_type t, const Action &act)
     case FREE:
         free_model(model);
         break;
-    /*case DRAW:
-        res = draw_model(act.draw);
-        break;*/
+    case PROECTION:
+        res = get_proection(proection, model);
+        break;
     case SAVE:
         res = save_model(model, act.load);
         break;

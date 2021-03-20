@@ -4,14 +4,14 @@
 Canvas::Canvas()
 {
     setStyleSheet("background-color:white;");
-    model = create_model();
+    proection = create_proection();
 }
 
 Canvas::~Canvas()
 {
     Action act;
 
-    entry_point(model, FREE, act);
+    entry_point(proection, FREE, act);
 }
 
 void Canvas::paintEvent(QPaintEvent *event)
@@ -22,14 +22,14 @@ void Canvas::paintEvent(QPaintEvent *event)
     float y_center = height() / 2;
     painter.translate(x_center, y_center);
 
-    if (model.edges.mas)
-        for (int i = 0; i < model.edges.edges_number; i++)
+    if (proection.edges.mas)
+        for (int i = 0; i < proection.edges.edges_number; i++)
         {
-            int p1_id = model.edges.mas[i].p1;
-            int p2_id = model.edges.mas[i].p2;
+            int p1_id = proection.edges.mas[i].p1;
+            int p2_id = proection.edges.mas[i].p2;
             //std::cout << p1_id << " " << p2_id << endl;
             //std::cout << model.points.mas[p1_id].x << " " << model.points.mas[p1_id].y << " " << model.points.mas[p2_id].x << " " << model.points.mas[p2_id].y << endl;
-            painter.drawLine(model.points.mas[p1_id].x, -model.points.mas[p1_id].y, model.points.mas[p2_id].x, -model.points.mas[p2_id].y);
+            painter.drawLine(proection.points.mas[p1_id].x, -proection.points.mas[p1_id].y, proection.points.mas[p2_id].x, -proection.points.mas[p2_id].y);
         }
 
     painter.end(); //Освобождение контекста
