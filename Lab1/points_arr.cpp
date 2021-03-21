@@ -94,6 +94,7 @@ int rotate_point_arr(Points_arr &points, const Rotate &act)
 int save_point_arr(const Points_arr &points, Write_file &file)
 {
     int buff_size = INT_MAX_SIZE + 2;
+    //Обязательно динамически?
     char *buff = new char[buff_size];
     if (!buff)
         return MEMORY_ALLOCATION_ERROR;

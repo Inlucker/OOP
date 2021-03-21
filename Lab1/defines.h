@@ -1,7 +1,7 @@
 #ifndef DEFINES_H
 #define DEFINES_H
 
-#define FILE_NAME_SIZE 100
+//#define FILE_NAME_SIZE 100
 
 #define DOUBLE_MAX_SIZE 330 //329
 #define INT_MAX_SIZE 12 //11
