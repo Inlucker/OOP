@@ -58,8 +58,9 @@ Iterator<Type>::Iterator(const Vector3D<Type> &vec, int index)
 template<typename Type>
 bool Iterator<Type>::operator !=(const Iterator<Type> &it) const
 {
-    //bool test = id != i.id || vec_ptr != i.vec_ptr;
-    return id != it.id;// || vec_ptr != i.vec_ptr;
+    bool test1 = id != it.id;
+    bool test2 = vec_ptr != it.vec_ptr;
+    return id != it.id;// && vec_ptr != i.vec_ptr;
 }
 
 template<typename Type>

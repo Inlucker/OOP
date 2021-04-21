@@ -46,7 +46,7 @@ public:
         return wp;
     }*/
 
-    //friend std::ostream& operator <<(std::ostream& out, const Vector3D<Type>& vec);
+    //friend ostream& operator <<(ostream& out, const Vector3D<Type>& vec);
 
     friend class Iterator<Type>;
 private:
@@ -186,6 +186,14 @@ Iterator<Type> Vector3D<Type>::cend() const
 }
 
 //cout
+/*template<typename Type>
+ostream& operator <<(ostream& out, const Vector3D<Type>& vec)
+{
+    out << '(' << vec.x << ", " << vec.y << ", " << vec.z << ')';
+
+    return out;
+}*/
+
 template<typename Type>
 ostream& operator <<(ostream& out, const Vector3D<Type>& vec)
 {
