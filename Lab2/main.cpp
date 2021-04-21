@@ -10,13 +10,17 @@ int main()
     try
     {
         //BaseVector v1();
-        //Vector3D<double> v3(3.0, 4.0, 5.0);
-        Vector3D<double> v3(3., 4., 5.);
-        //cout << v3 << endl;
-        cout << "Length of vector "<< v3 <<": " << v3.len() << "\n";
-        /*for (auto elem:v3)
-            cout << elem << endl;*/
-        for (Iterator It = v3.begin(); It != v3.end(); It++)
+        Vector3D<double> test_vec(3., 4., 5.);
+        //Vector3D<double> v3;
+        cout << "Length of vector "<< test_vec <<": " << test_vec.len() << "\n";
+        for (auto elem:test_vec)
+            cout << elem << endl;
+        for (Iterator It = test_vec.begin(); It != test_vec.end(); It++)
+        {
+            auto elem = *It;
+            cout << elem << endl;
+        }
+        for (Iterator It = test_vec.begin(); It != test_vec.end(); ++It)
         {
             auto elem = *It;
             cout << elem << endl;

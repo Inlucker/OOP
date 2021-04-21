@@ -25,7 +25,7 @@ public:
 
     ~Vector3D();
 
-    //bool is_empty() const;
+    bool is_empty() const;
     int size() const;
     double len() const;
     bool is_zero() const;
@@ -37,6 +37,8 @@ public:
 
     Iterator<Type> begin();
     Iterator<Type> end();
+    Iterator<Type> cbegin() const;
+    Iterator<Type> cend() const;
 
     /*weak_ptr<Vector> operator *()
     {
@@ -111,11 +113,11 @@ Vector3D<Type>::~Vector3D()
     //destructor
 }
 
-/*template<typename Type>
-bool Vector<Type>::is_empty() const
+template<typename Type>
+bool Vector3D<Type>::is_empty() const
 {
     return !elems_num;
-}*/
+}
 
 template<typename Type>
 int Vector3D<Type>::size() const
@@ -127,21 +129,6 @@ template<typename Type>
 double Vector3D<Type>::len() const
 {
     return sqrt(x*x+y*y+z*z);
-
-    /*Iterator<Type> it(*this);
-    double len = 0;
-    for (; it; it++)
-    {
-        len += *it * *it;
-    }
-
-    //for each
-    double len = 0;
-    for (Iterator<Type> elem:this)
-    {
-        len += *elem * *elem;
-    }
-    return sqrt(len);*/
 }
 
 template<typename Type>
@@ -177,65 +164,55 @@ Type Vector3D<Type>::getZ() const
 template<typename Type>
 Iterator<Type> Vector3D<Type>::begin()
 {
-    //const Vector tmpVec(*this);
     return Iterator(Vector3D(*this));
 }
 
 template<typename Type>
 Iterator<Type> Vector3D<Type>::end()
 {
-    //const Vector tmpVec(*this);
     return Iterator(Vector3D(*this), 3);
 }
 
-/*template<typename Type>
-weak_ptr<Vector> Vector<Type>::operator *(Vector &vec)
+template<typename Type>
+Iterator<Type> Vector3D<Type>::cbegin() const
 {
-    weak_ptr<Vector> wp = new weak_ptr(*this);
-    return wp;
-}*/
+    return Iterator(Vector3D(*this));
+}
+
+template<typename Type>
+Iterator<Type> Vector3D<Type>::cend() const
+{
+    return Iterator(Vector3D(*this), 3);
+}
 
 //cout
-/*template<typename Type>
-std::ostream& operator <<(std::ostream& out, const Vector3D<Type>& vec)
-{
-    if (vec.is_empty())
-    {
-        out << "Vector is empty.";
-        return out;
-    }
-
-    out << '(' << vec.x;
-    out << ", " << vec.y;
-    out << ", " << vec.z;
-    out << ')';
-
-    return out;
-}*/
-
 template<typename Type>
 ostream& operator <<(ostream& out, const Vector3D<Type>& vec)
 {
     out << '(' << vec.getX() << ", " << vec.getY() << ", " << vec.getZ() << ')';
 
-
     return out;
 }
 
+//WORKS TOO WTIH ITERATOR
 /*template<typename Type>
 ostream& operator <<(ostream& os, const Vector3D<Type>& vec)
 {
-    Iterator<Type> iter(vec);
+    Iterator It = vec.cbegin();
 
-    if (!iter)
+    if (!It)
     {
         os << "Vector is empty.";
         return os;
     }
 
-    os << '(' << *iter;
-    for (iter++; iter; iter++)
-        os << ", " << *iter ;
+    os << '(' << *It;
+    It++;
+    for (; It != vec.cend(); It++)
+    {
+        auto elem = *It;
+        os << ", " << *It ;
+    }
     os << ')';
 
     return os;
