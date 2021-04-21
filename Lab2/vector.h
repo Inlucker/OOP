@@ -14,16 +14,16 @@
 using namespace std;
 
 template<typename Type>
-class Vector3D:public BaseVector
+class Vector:public BaseVector
 {
 public:
     //Vector3D();
-    Vector3D(Type new_x = 0., Type new_y = 0., Type new_z = 0.);
-    //Vector(int num_elements, Type vec, ...);
+    //Vector(Type new_x = 0., Type new_y = 0., Type new_z = 0.);
+    Vector(int num_elements, Type vec, ...);
 
-    explicit Vector3D(const Vector3D& vec); //copy
+    explicit Vector(const Vector& vec); //copy
 
-    ~Vector3D();
+    ~Vector();
 
     bool is_empty() const;
     int size() const;
@@ -31,33 +31,23 @@ public:
     bool is_zero() const;
     bool is_unit() const;
 
-    Type getX() const;
-    Type getY() const;
-    Type getZ() const;
+    //Vector<Type> sum(Vector<Type> vec);
 
     Iterator<Type> begin();
     Iterator<Type> end();
     Iterator<Type> cbegin() const;
     Iterator<Type> cend() const;
 
-    /*weak_ptr<Vector> operator *()
-    {
-        weak_ptr<Vector> wp = new weak_ptr(this);
-        return wp;
-    }*/
-
-    //friend ostream& operator <<(ostream& out, const Vector3D<Type>& vec);
+    /*template<typename T>
+    friend ostream& operator <<(ostream& out, const Vector<T>& vec);*/
 
     friend class Iterator<Type>;
+
 private:
-    //int elems_num;
-    //unique_ptr<Type> data_ptr;
-    Type x;
-    Type y;
-    Type z;
-    //shared_ptr<Type> x;
-    //shared_ptr<Type> y;
-    //shared_ptr<Type> z;
+    //unique_ptr<Type[]> data_ptr;
+    shared_ptr<Type[]> data_ptr;
+protected:
+    void alloc_data();
 };
 
 /*template<typename Type>
@@ -70,141 +60,122 @@ Vector3D<Type>::Vector3D()
     z = 0;
 }*/
 
-template<typename Type>
-Vector3D<Type>::Vector3D(Type new_x, Type new_y, Type new_z)
+/*template<typename Type>
+Vector<Type>::Vector(Type new_x, Type new_y, Type new_z)
 {
     elems_num = 3;
     x = new_x;
     y = new_y;
     z = new_z;
-}
-
-template<typename Type>
-Vector3D<Type>::Vector3D(const Vector3D &vec)
-{
-    elems_num = vec.elems_num;
-    x = vec.x;
-    y = vec.y;
-    z = vec.z;
-}
-
-/*template<typename Type>
-Vector<Type>::Vector(int elements_number, Type vec, ...) //constructor?
-{
-    elems_num = elements_number;
-    data_ptr.reset();
-    shared_ptr<Type> new_sp(new Type[elems_num]); //, default_delete<Type[]>());
-    data_ptr = new_sp;
-
-    Iterator<Type> it(*this);
-    va_list ap;
-    va_start(ap, vec);
-    for (; it; it++)
-    {
-        *it = vec;
-        vec = va_arg(ap, Type);
-    }
-    va_end(ap);
+    //alloc();
 }*/
 
 template<typename Type>
-Vector3D<Type>::~Vector3D()
+Vector<Type>::Vector(int elements_number, Type vec, ...) //constructor?
+{
+    elems_num = elements_number;
+    alloc_data();
+
+    va_list ap;
+    va_start(ap, vec);
+    Vector<double> tmp_vec(*this);
+    for (Iterator<Type> It = this->begin(); It != this->end(); ++It)
+    {
+        *It = vec;
+        vec = va_arg(ap, Type);
+    }
+    va_end(ap);
+}
+
+template<typename Type>
+Vector<Type>::Vector(const Vector &vec)
+{
+    elems_num = vec.elems_num;
+    data_ptr = vec.data_ptr; //Check if its ik???
+}
+
+template<typename Type>
+Vector<Type>::~Vector()
 {
     //destructor
 }
 
 template<typename Type>
-bool Vector3D<Type>::is_empty() const
+bool Vector<Type>::is_empty() const
 {
     return !elems_num;
 }
 
 template<typename Type>
-int Vector3D<Type>::size() const
+int Vector<Type>::size() const
 {
     return elems_num;
 }
 
 template<typename Type>
-double Vector3D<Type>::len() const
+double Vector<Type>::len() const
 {
-    return sqrt(x*x+y*y+z*z);
+    double len = 0;
+
+    Vector<double> tmp_vec(*this);
+    for (auto elem:tmp_vec)
+        len += elem * elem;
+    return sqrt(len);
 }
 
 template<typename Type>
-bool Vector3D<Type>::is_zero() const
+bool Vector<Type>::is_zero() const
 {
     return this->len() == 0;
 }
 
 template<typename Type>
-bool Vector3D<Type>::is_unit() const
+bool Vector<Type>::is_unit() const
 {
     return fabs(this->len() - 1) <= EPS;
 }
 
-template<typename Type>
-Type Vector3D<Type>::getX() const
-{
-    return x;
-}
-
-template<typename Type>
-Type Vector3D<Type>::getY() const
-{
-    return y;
-}
-
-template<typename Type>
-Type Vector3D<Type>::getZ() const
-{
-    return z;
-}
-
-template<typename Type>
-Iterator<Type> Vector3D<Type>::begin()
-{
-    return Iterator(Vector3D(*this));
-}
-
-template<typename Type>
-Iterator<Type> Vector3D<Type>::end()
-{
-    return Iterator(Vector3D(*this), 3);
-}
-
-template<typename Type>
-Iterator<Type> Vector3D<Type>::cbegin() const
-{
-    return Iterator(Vector3D(*this));
-}
-
-template<typename Type>
-Iterator<Type> Vector3D<Type>::cend() const
-{
-    return Iterator(Vector3D(*this), 3);
-}
-
-//cout
 /*template<typename Type>
-ostream& operator <<(ostream& out, const Vector3D<Type>& vec)
+Vector<Type> Vector<Type>::sum(Vector<Type> vec)
 {
-    out << '(' << vec.x << ", " << vec.y << ", " << vec.z << ')';
-
-    return out;
+    Vector<Type> &rez = *this;
+    return rez;
 }*/
 
 template<typename Type>
-ostream& operator <<(ostream& out, const Vector3D<Type>& vec)
+Iterator<Type> Vector<Type>::begin()
 {
-    out << '(' << vec.getX() << ", " << vec.getY() << ", " << vec.getZ() << ')';
-
-    return out;
+    return Iterator<Type>(Vector(*this));
 }
 
-//WORKS TOO WTIH ITERATOR
-/*template<typename Type>
-ostream& operator <<(ostream& os, const Vector3D<Type>& vec)
+template<typename Type>
+Iterator<Type> Vector<Type>::end()
+{
+    return Iterator<Type>(Vector(*this), elems_num);
+}
+
+template<typename Type>
+Iterator<Type> Vector<Type>::cbegin() const
+{
+    return Iterator<Type>(Vector(*this));
+}
+
+template<typename Type>
+Iterator<Type> Vector<Type>::cend() const
+{
+    return Iterator<Type>(Vector(*this), elems_num);
+}
+
+template<typename Type>
+void Vector<Type>::alloc_data()
+{
+    data_ptr.reset();
+    shared_ptr<Type[]> new_ptr(new Type[elems_num]);
+    data_ptr = new_ptr;
+}
+
+template<typename Type>
+ostream& operator <<(ostream& os, const Vector<Type>& vec)
 {
     Iterator It = vec.cbegin();
 
@@ -224,6 +195,6 @@ ostream& operator <<(ostream& os, const Vector3D<Type>& vec)
     os << ')';
 
     return os;
-}*/
+}
 
 #endif // VECTOR_H

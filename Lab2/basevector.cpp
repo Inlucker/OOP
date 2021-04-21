@@ -6,6 +6,12 @@ BaseVector::BaseVector()
     elems_num = 0;
 }
 
+/*BaseVector::BaseVector(BaseVector &copy_base)
+{
+    //constructor
+    elems_num = copy_base.elems_num;
+}*/
+
 BaseVector::~BaseVector()
 {
     //destructor
