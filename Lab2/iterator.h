@@ -25,7 +25,7 @@ public:
     operator bool() const;
     Type& operator *();
     Iterator<Type> &operator ++(); //++it
-    Iterator<Type> &operator ++(int); //it++
+    Iterator<Type> operator ++(int); //it++
 
 private:
     weak_ptr<Type[]> data_ptr;
@@ -57,8 +57,8 @@ bool Iterator<Type>::operator ==(const Iterator<Type> &it) const
 template<typename Type>
 bool Iterator<Type>::operator !=(const Iterator<Type> &it) const
 {
-    bool test1 = id != it.id;
-    bool test2 = data_ptr.lock() != it.data_ptr.lock();
+    //bool test1 = id != it.id;
+    //bool test2 = data_ptr.lock() != it.data_ptr.lock();
     return id != it.id || data_ptr.lock() != it.data_ptr.lock();// && data_ptr.lock() != it.data_ptr.lock();
 }
 
@@ -83,10 +83,11 @@ Iterator<Type> &Iterator<Type>::operator ++() //++it
 }
 
 template<typename Type>
-Iterator<Type>& Iterator<Type>::operator ++(int) //it++
+Iterator<Type> Iterator<Type>::operator ++(int) //it++
 {
     Iterator<Type> tmp(*this);
-    id++;
+    ++(*this);
+    //id++;
     return tmp;
 }
 

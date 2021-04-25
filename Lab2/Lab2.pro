@@ -11,5 +11,6 @@ SOURCES += \
 HEADERS += \
     baseiterator.h \
     basevector.h \
+    errors.h \
     iterator.h \
     vector.h

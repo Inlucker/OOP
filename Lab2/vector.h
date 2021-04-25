@@ -5,9 +5,11 @@
 #include <cmath>
 #include <stdarg.h>
 #include <iostream>
+#include <time.h>
 
 #include "basevector.h"
 #include "iterator.h"
+#include "errors.h"
 
 #define EPS 1e-6
 
@@ -25,18 +27,24 @@ public:
 
     ~Vector();
 
-    bool is_empty() const;
+    //bool is_empty() const;
     int size() const;
     double len() const;
     bool is_zero() const;
     bool is_unit() const;
 
-    //Vector<Type> sum(Vector<Type> vec);
-
     Iterator<Type> begin();
     Iterator<Type> end();
     Iterator<Type> cbegin() const;
     Iterator<Type> cend() const;
+
+    Type &get_elem(int id);
+    const Type& get_elem(int id) const;
+    Type& operator [](int id);
+    const Type& operator [](int id) const;
+
+
+    void set_elem(int id, Type value);
 
     /*template<typename T>
     friend ostream& operator <<(ostream& out, const Vector<T>& vec);*/
@@ -73,12 +81,19 @@ Vector<Type>::Vector(Type new_x, Type new_y, Type new_z)
 template<typename Type>
 Vector<Type>::Vector(int elements_number, Type vec, ...) //constructor?
 {
+    time_t t_time = time(NULL);
+    if (elements_number < 1)
+        throw EmptyError("elements_number < 1", __FILE__, __LINE__, ctime(&t_time));
+
     elems_num = elements_number;
-    alloc_data();
+    alloc_data();// inside allocationg check
+
+    //if (!data_ptr)
+    //    throw MemoryError("data_ptr", __FILE__, __LINE__, ctime(&t_time));
 
     va_list ap;
     va_start(ap, vec);
-    Vector<double> tmp_vec(*this);
+    //Vector<double> tmp_vec(*this);
     for (Iterator<Type> It = this->begin(); It != this->end(); ++It)
     {
         *It = vec;
@@ -90,8 +105,19 @@ Vector<Type>::Vector(int elements_number, Type vec, ...) //constructor?
 template<typename Type>
 Vector<Type>::Vector(const Vector &vec)
 {
+    time_t t_time = time(NULL);
     elems_num = vec.elems_num;
-    data_ptr = vec.data_ptr; //Check if its ik???
+    if (elems_num < 1)
+        throw EmptyError("elements_number < 1", __FILE__, __LINE__, ctime(&t_time));
+
+    alloc_data();
+
+    for (int i = 0; i < elems_num; i++)
+    {
+        data_ptr[i] = vec[i]; //vec.get_elem(i); //vec.data_ptr[i] WHY THIS WORKS?????????
+    }
+
+    //data_ptr = shared_ptr(vec.data_ptr); //Check if its ok???
 }
 
 template<typename Type>
@@ -100,11 +126,11 @@ Vector<Type>::~Vector()
     //destructor
 }
 
-template<typename Type>
+/*template<typename Type>
 bool Vector<Type>::is_empty() const
 {
     return !elems_num;
-}
+}*/
 
 template<typename Type>
 int Vector<Type>::size() const
@@ -145,25 +171,67 @@ Vector<Type> Vector<Type>::sum(Vector<Type> vec)
 template<typename Type>
 Iterator<Type> Vector<Type>::begin()
 {
-    return Iterator<Type>(Vector(*this));
+    return Iterator<Type>(*this, 0);
 }
 
 template<typename Type>
 Iterator<Type> Vector<Type>::end()
 {
-    return Iterator<Type>(Vector(*this), elems_num);
+    return Iterator<Type>(*this, elems_num);
 }
 
 template<typename Type>
 Iterator<Type> Vector<Type>::cbegin() const
 {
-    return Iterator<Type>(Vector(*this));
+    return Iterator<Type>(*this, 0);
 }
 
 template<typename Type>
 Iterator<Type> Vector<Type>::cend() const
 {
-    return Iterator<Type>(Vector(*this), elems_num);
+    return Iterator<Type>(*this, elems_num);
+}
+
+template<typename Type>
+Type& Vector<Type>::get_elem(int id)
+{
+    time_t t_time = time(NULL);
+    if (id < 0 || id >= elems_num)
+        throw IndexError("id", __FILE__, __LINE__, ctime(&t_time));
+    return data_ptr[id];
+}
+
+template<typename Type>
+const Type &Vector<Type>::get_elem(int id) const
+{
+    time_t t_time = time(NULL);
+    if (id < 0 || id >= elems_num)
+        throw IndexError("id", __FILE__, __LINE__, ctime(&t_time));
+
+    return data_ptr[id];
+}
+
+template<typename Type>
+Type &Vector<Type>::operator [](int id)
+{
+    return get_elem(id);
+}
+
+template<typename Type>
+const Type &Vector<Type>::operator [](int id) const
+{
+    return get_elem(id);
+}
+
+template<typename Type>
+void Vector<Type>::set_elem(int id, Type value)
+{
+    time_t t_time = time(NULL);
+    if (id < 1 || id > elems_num)
+        throw IndexError("id", __FILE__, __LINE__, ctime(&t_time));
+
+    data_ptr[id] = value;
+    //get_elem(id) = value;
 }
 
 template<typename Type>
@@ -172,6 +240,10 @@ void Vector<Type>::alloc_data()
     data_ptr.reset();
     shared_ptr<Type[]> new_ptr(new Type[elems_num]);
     data_ptr = new_ptr;
+
+    time_t t_time = time(NULL);
+    if (!data_ptr)
+        throw MemoryError("data_ptr", __FILE__, __LINE__, ctime(&t_time));
 }
 
 template<typename Type>
@@ -189,7 +261,7 @@ ostream& operator <<(ostream& os, const Vector<Type>& vec)
     It++;
     for (; It != vec.cend(); It++)
     {
-        auto elem = *It;
+        //auto elem = *It;
         os << ", " << *It ;
     }
     os << ')';
