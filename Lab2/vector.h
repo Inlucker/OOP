@@ -25,11 +25,9 @@ public:
     Vector(int elements_number, Type vec, ...);
     Vector(initializer_list<Type> args);
 
-    explicit Vector(const Vector& vec); //copy
-
+    explicit Vector(const Vector& vec); //copy //why explicit
+    Vector(Vector<Type>&& vec);
     Vector<Type>& operator =(const Vector<Type>& vec);
-
-    //Vector(Vector<Type>&& vec);
 
     ~Vector();
 
@@ -50,9 +48,9 @@ public:
     const Type& get_elem(int id) const;
     Type& operator [](int id);
     const Type& operator [](int id) const;
-
-
     void set_elem(int id, Type value);
+
+    Vector<Type> get_unit() const;
 
     /*template<typename T>
     friend ostream& operator <<(ostream& out, const Vector<T>& vec);*/
@@ -190,7 +188,8 @@ Vector<Type> &Vector<Type>::operator =(const Vector<Type> &vec)
 template<typename Type>
 Vector<Type>::~Vector()
 {
-    //destructor
+    if (data_ptr)
+        data_ptr.reset();
 }
 
 template<typename Type>
@@ -314,6 +313,18 @@ void Vector<Type>::set_elem(int id, Type value)
 }
 
 template<typename Type>
+Vector<Type> Vector<Type>::get_unit() const
+{
+    Vector<Type> unit_vector(*this);
+    double length = len();
+    for (auto &elem:unit_vector)
+    {
+        elem = elem / length;
+    }
+    return unit_vector;
+}
+
+template<typename Type>
 void Vector<Type>::alloc_data()
 {
     data_ptr.reset();
@@ -331,7 +342,6 @@ void Vector<Type>::alloc_data()
 template<typename Type>
 ostream& operator <<(ostream& os, const Vector<Type>& vec)
 {
-
     if (vec.is_empty())
     {
         os << "Vector is empty.";

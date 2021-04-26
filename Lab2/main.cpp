@@ -9,7 +9,7 @@ int main()
 {
     try
     {
-        cout << "Constructors tests:\n" << endl;
+        cout << "CONSTRUCTORS TESTS:" << endl;
 
         Vector<double> empty_vec;
         cout << "empty_vec: " << empty_vec << endl;
@@ -31,12 +31,19 @@ int main()
         cout << "copy_vec: " << copy_vec << endl;
 
         Vector<double> equal_vec{1, 2, 3};
-        equal_vec = param_vec;
+        equal_vec = copy_vec;
         cout << "equal_vec: " << equal_vec << endl;
         /*cout << "param_vec[1] = -1" << endl;
         param_vec[1] = -1;
         cout << "param_vec: " << param_vec << endl;
         cout << "equal_vec: " << equal_vec << endl;*/
+
+        cout << endl;
+
+        cout << "MATH TESTS:" << endl;
+        Vector<double> unit_vec = copy_vec.get_unit();
+        cout << "empty_vec: " << unit_vec << endl;
+        cout << "empty_vec.len(): " << unit_vec.len() << endl;
 
         cout << "\n\n" << endl;
 
@@ -44,12 +51,11 @@ int main()
         //Vector<double> test_vec_zero{1.2, 2.3, 3.4, 4.5, 5.6};
         Vector<double> test_vec_zero(4);
         cout << test_vec_zero << endl;
-        Vector<double> test_vec(3, 3., 4.);
+        Vector<double> test_vec(3, 3., 4., 5.);
         //Vector<double> test_vec2(3, 5., 4., 3.);
 
         // checking copy constructor
         const Vector<double> test_vec2(test_vec);
-        test_vec.set_elem(2, 1);
         double test_double = test_vec2[0];
         cout << "test_vec2[0] = " << test_double << endl;
         test_vec[0] = 55;
