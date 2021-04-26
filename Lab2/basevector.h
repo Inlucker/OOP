@@ -8,7 +8,7 @@ public:
     explicit BaseVector(const BaseVector& copy_base);
     virtual ~BaseVector() = 0;
 
-    //virtual bool is_empty() const = 0;
+    virtual bool is_empty() const = 0;
     virtual int size() const = 0;
     virtual bool is_zero() const = 0;
     virtual bool is_unit() const = 0;

@@ -10,10 +10,13 @@ int main()
     try
     {
         //BaseVector v1();
-        Vector<double> test_vec(3, 3., 4., 5.);
+        //Vector<double> test_vec_zero{1.2, 2.3, 3.4, 4.5, 5.6};
+        Vector<double> test_vec_zero(4);
+        cout << test_vec_zero << endl;
+        Vector<double> test_vec(3, 3., 4.);
         //Vector<double> test_vec2(3, 5., 4., 3.);
 
-        // checkong copy constructor
+        // checking copy constructor
         const Vector<double> test_vec2(test_vec);
         test_vec.set_elem(2, 1);
         double test_double = test_vec2[0];
@@ -46,6 +49,12 @@ int main()
             cout << elem << endl;
         }
         cout << endl;
+
+        cout << "From array: \n";
+        double arr[5] = {5, 1, 7, 4, 0};
+        Vector<double> v4(5, arr);
+        cout << v4 << "\n";
+
     }
     catch (BaseError& err)
     {

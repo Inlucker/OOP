@@ -30,7 +30,18 @@ protected:
 class EmptyError : public BaseError
 {
 public:
-    EmptyError(string info, string filename, int line, const char *time, string error = "Trying to create empty vector")
+    EmptyError(string info, string filename, int line, const char *time, string error = "Trying to use empty vector")
+        : BaseError(info, filename, line, time, error) {};
+    virtual const char* what() const noexcept
+    {
+        return err_info.c_str();
+    }
+};
+
+class NegativeSizeError : public BaseError
+{
+public:
+    NegativeSizeError(string info, string filename, int line, const char *time, string error = "Trying to create vector with negative size")
         : BaseError(info, filename, line, time, error) {};
     virtual const char* what() const noexcept
     {

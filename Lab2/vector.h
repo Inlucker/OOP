@@ -19,15 +19,17 @@ template<typename Type>
 class Vector:public BaseVector
 {
 public:
-    //Vector3D();
-    //Vector(Type new_x = 0., Type new_y = 0., Type new_z = 0.);
-    Vector(int num_elements, Type vec, ...);
+    Vector();
+    explicit  Vector(int elements_number);
+    Vector(int elements_number, Type* vec);
+    Vector(int elements_number, Type vec, ...);
+    Vector(initializer_list<Type> args);
 
     explicit Vector(const Vector& vec); //copy
 
     ~Vector();
 
-    //bool is_empty() const;
+    bool is_empty() const;
     int size() const;
     double len() const;
     bool is_zero() const;
@@ -37,6 +39,8 @@ public:
     Iterator<Type> end();
     Iterator<Type> cbegin() const;
     Iterator<Type> cend() const;
+    Iterator<Type> begin() const;
+    Iterator<Type> end() const;
 
     Type &get_elem(int id);
     const Type& get_elem(int id) const;
@@ -54,36 +58,61 @@ public:
 private:
     //unique_ptr<Type[]> data_ptr;
     shared_ptr<Type[]> data_ptr;
+
 protected:
     void alloc_data();
 };
 
-/*template<typename Type>
-Vector3D<Type>::Vector3D()
-{
-    //elems_num = 0;
-    //data_ptr.reset();
-    x = 0;
-    y = 0;
-    z = 0;
-}*/
-
-/*template<typename Type>
-Vector<Type>::Vector(Type new_x, Type new_y, Type new_z)
-{
-    elems_num = 3;
-    x = new_x;
-    y = new_y;
-    z = new_z;
-    //alloc();
-}*/
 
 template<typename Type>
-Vector<Type>::Vector(int elements_number, Type vec, ...) //constructor?
+Vector<Type>::Vector()
+{
+    elems_num = 0;
+    alloc_data();
+}
+
+template<typename Type>
+Vector<Type>::Vector(int elements_number)
 {
     time_t t_time = time(NULL);
-    if (elements_number < 1)
-        throw EmptyError("elements_number < 1", __FILE__, __LINE__, ctime(&t_time));
+    if (elements_number < 0)
+        throw NegativeSizeError("elements_number < 0", __FILE__, __LINE__, ctime(&t_time));
+
+    elems_num = elements_number;
+    alloc_data();
+
+    for (auto &elem:*this)
+        elem = 0;
+    /*for (Iterator<Type> It = this->begin(); It != this->end(); ++It)
+        *It = 0;*/
+}
+
+template<typename Type>
+Vector<Type>::Vector(int elements_number, Type *vec)
+{
+    //check elems number?
+    time_t t_time = time(NULL);
+    if (elements_number < 0)
+        throw NegativeSizeError("elements_number < 0", __FILE__, __LINE__, ctime(&t_time));
+
+
+    elems_num = elements_number;
+    alloc_data();
+
+    int i = 0;
+    /*for (Iterator<Type> It = this->begin(); It != this->end(); ++It)
+        *It = vec[i++];*/
+    for (auto &elem:*this)
+        elem = vec[i++];
+}
+
+template<typename Type>
+Vector<Type>::Vector(int elements_number, Type vec, ...)
+{
+    //check args number?
+    time_t t_time = time(NULL);
+    if (elements_number < 0)
+        throw NegativeSizeError("elements_number < 0", __FILE__, __LINE__, ctime(&t_time));
 
     elems_num = elements_number;
     alloc_data();// inside allocationg check
@@ -93,13 +122,34 @@ Vector<Type>::Vector(int elements_number, Type vec, ...) //constructor?
 
     va_list ap;
     va_start(ap, vec);
-    //Vector<double> tmp_vec(*this);
-    for (Iterator<Type> It = this->begin(); It != this->end(); ++It)
+    /*for (Iterator<Type> It = this->begin(); It != this->end(); ++It)
     {
         *It = vec;
         vec = va_arg(ap, Type);
+    }*/
+    for (auto &elem:*this)
+    {
+        elem = vec;
+        vec = va_arg(ap, Type);
     }
     va_end(ap);
+}
+
+template<typename Type>
+Vector<Type>::Vector(initializer_list<Type> args)
+{
+    if (args.size() == 0)
+        Vector();
+
+    elems_num = int(args.size());
+    alloc_data();
+
+    Iterator<Type> it(*this);
+    for (auto elem : args)
+    {
+        *it = elem;
+        it++;
+    }
 }
 
 template<typename Type>
@@ -107,8 +157,8 @@ Vector<Type>::Vector(const Vector &vec)
 {
     time_t t_time = time(NULL);
     elems_num = vec.elems_num;
-    if (elems_num < 1)
-        throw EmptyError("elements_number < 1", __FILE__, __LINE__, ctime(&t_time));
+    if (elems_num < 0)
+        throw NegativeSizeError("elements_number < 0", __FILE__, __LINE__, ctime(&t_time));
 
     alloc_data();
 
@@ -126,11 +176,11 @@ Vector<Type>::~Vector()
     //destructor
 }
 
-/*template<typename Type>
+template<typename Type>
 bool Vector<Type>::is_empty() const
 {
     return !elems_num;
-}*/
+}
 
 template<typename Type>
 int Vector<Type>::size() const
@@ -193,6 +243,18 @@ Iterator<Type> Vector<Type>::cend() const
 }
 
 template<typename Type>
+Iterator<Type> Vector<Type>::begin() const
+{
+    return Iterator<Type>(*this, 0);
+}
+
+template<typename Type>
+Iterator<Type> Vector<Type>::end() const
+{
+    return Iterator<Type>(*this, elems_num);
+}
+
+template<typename Type>
 Type& Vector<Type>::get_elem(int id)
 {
     time_t t_time = time(NULL);
@@ -246,25 +308,35 @@ void Vector<Type>::alloc_data()
         throw MemoryError("data_ptr", __FILE__, __LINE__, ctime(&t_time));
 }
 
+//template<typename T> constexpr const T &as_const(T &t) noexcept { return t; }
+//for (auto &v: as_const(container))
+
 template<typename Type>
 ostream& operator <<(ostream& os, const Vector<Type>& vec)
 {
-    Iterator It = vec.cbegin();
 
-    if (!It)
+    if (vec.is_empty())
     {
         os << "Vector is empty.";
         return os;
     }
 
-    os << '(' << *It;
-    It++;
+    Iterator It = vec.cbegin();
+    os << '(' << *It++;
     for (; It != vec.cend(); It++)
-    {
-        //auto elem = *It;
         os << ", " << *It ;
-    }
     os << ')';
+
+    //for each
+    /*int i = 0;
+    os << '(';
+    for (auto &elem:vec)
+    {
+        os << elem;
+        if (++i != vec.size())
+            os << ", ";
+    }
+    os << ')';*/
 
     return os;
 }
