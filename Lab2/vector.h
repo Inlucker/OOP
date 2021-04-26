@@ -72,6 +72,9 @@ public:
     Vector<Type> operator /(const Type val);
     Vector<Type>& operator /=(const Type val);
 
+    Vector<Type> operator &(const Vector<Type>& vec) const;
+    Vector<Type>& operator &=(const Vector<Type>& vec);
+
     friend class Iterator<Type>;
 
 private:
@@ -225,8 +228,8 @@ template<typename Type>
 double Vector<Type>::len() const
 {
     time_t t_time = time(NULL);
-    if (elems_num <= 0)
-        throw EmptyError("vec elems_num <= 0", __FILE__, __LINE__, ctime(&t_time));
+    if (is_empty())
+        throw EmptyError("vector is empty", __FILE__, __LINE__, ctime(&t_time));
     double len = 0;
 
     Vector<double> tmp_vec(*this);
@@ -328,8 +331,8 @@ template<typename Type>
 Vector<Type> Vector<Type>::get_unit() const
 {
     time_t t_time = time(NULL);
-    if (elems_num <= 0)
-        throw EmptyError("vec elems_num <= 0", __FILE__, __LINE__, ctime(&t_time));
+    if (is_empty())
+        throw EmptyError("vector is empty", __FILE__, __LINE__, ctime(&t_time));
 
     Vector<Type> unit_vector(*this);
     double length = len();
@@ -344,8 +347,8 @@ template<typename Type>
 Type Vector<Type>::operator *(const Vector<Type> &vec) const
 {
     time_t t_time = time(NULL);
-    if (elems_num <= 0 || vec.elems_num <= 0)
-        throw EmptyError("vec1 or/and vec2 elems_num <= 0", __FILE__, __LINE__, ctime(&t_time));
+    if (is_empty() || vec.is_empty())
+        throw EmptyError("vec1 or/and vec2 is empty", __FILE__, __LINE__, ctime(&t_time));
     if (elems_num != vec.elems_num)
         throw DifSizeError("vec1 elems_num != vec2 elems_num", __FILE__, __LINE__, ctime(&t_time));
 
@@ -362,8 +365,8 @@ template<typename Type>
 double Vector<Type>::get_angle(const Vector<Type> &vec) const
 {
     time_t t_time = time(NULL);
-    if (elems_num <= 0 || vec.elems_num <= 0)
-        throw EmptyError("vec1 or/and vec2 elems_num <= 0", __FILE__, __LINE__, ctime(&t_time));
+    if (is_empty() || vec.is_empty())
+        throw EmptyError("vec1 or/and vec2 is empty", __FILE__, __LINE__, ctime(&t_time));
     if (elems_num != vec.elems_num)
         throw DifSizeError("vec1 elems_num != vec2 elems_num", __FILE__, __LINE__, ctime(&t_time));
     if (!this->len() || !vec.len())
@@ -410,8 +413,8 @@ template<typename Type>
 Vector<Type> Vector<Type>::operator +(const Type val) const
 {
     time_t t_time = time(NULL);
-    if (elems_num <= 0)
-        throw EmptyError("vec elems_num <= 0", __FILE__, __LINE__, ctime(&t_time));
+    if (is_empty())
+        throw EmptyError("vector is empty", __FILE__, __LINE__, ctime(&t_time));
 
     Vector<Type> rez(*this);
     for (auto &elem:rez)
@@ -423,8 +426,8 @@ template<typename Type>
 Vector<Type>& Vector<Type>::operator +=(const Type val)
 {
     time_t t_time = time(NULL);
-    if (elems_num <= 0)
-        throw EmptyError("vec elems_num <= 0", __FILE__, __LINE__, ctime(&t_time));
+    if (is_empty())
+        throw EmptyError("vector is empty", __FILE__, __LINE__, ctime(&t_time));
 
     for (auto &elem:*this)
         elem += val;
@@ -435,8 +438,8 @@ template<typename Type>
 Vector<Type> Vector<Type>::operator +(const Vector<Type> &vec) const
 {
     time_t t_time = time(NULL);
-    if (elems_num <= 0 || vec.elems_num <= 0)
-        throw EmptyError("vec1 or/and vec2 elems_num <= 0", __FILE__, __LINE__, ctime(&t_time));
+    if (is_empty() || vec.is_empty())
+        throw EmptyError("vec1 or/and vec2 is empty", __FILE__, __LINE__, ctime(&t_time));
     if (elems_num != vec.elems_num)
         throw DifSizeError("vec1 elems_num != vec2 elems_num", __FILE__, __LINE__, ctime(&t_time));
 
@@ -462,8 +465,8 @@ template<typename Type>
 Vector<Type> Vector<Type>::operator -(const Type val) const
 {
     time_t t_time = time(NULL);
-    if (elems_num <= 0)
-        throw EmptyError("vec elems_num <= 0", __FILE__, __LINE__, ctime(&t_time));
+    if (is_empty())
+        throw EmptyError("vec is empty", __FILE__, __LINE__, ctime(&t_time));
 
     Vector<Type> rez(*this);
     for (auto &elem:rez)
@@ -475,8 +478,8 @@ template<typename Type>
 Vector<Type>& Vector<Type>::operator -=(const Type val)
 {
     time_t t_time = time(NULL);
-    if (elems_num <= 0)
-        throw EmptyError("vec elems_num <= 0", __FILE__, __LINE__, ctime(&t_time));
+    if (is_empty())
+        throw EmptyError("vec is empty", __FILE__, __LINE__, ctime(&t_time));
 
     for (auto &elem:*this)
         elem -= val;
@@ -487,8 +490,8 @@ template<typename Type>
 Vector<Type> Vector<Type>::operator -(const Vector<Type> &vec) const
 {
     time_t t_time = time(NULL);
-    if (elems_num <= 0 || vec.elems_num <= 0)
-        throw EmptyError("vec1 or/and vec2 elems_num <= 0", __FILE__, __LINE__, ctime(&t_time));
+    if (is_empty() || vec.is_empty())
+        throw EmptyError("vec1 or/and vec2 is empty", __FILE__, __LINE__, ctime(&t_time));
     if (elems_num != vec.elems_num)
         throw DifSizeError("vec1 elems_num != vec2 elems_num", __FILE__, __LINE__, ctime(&t_time));
 
@@ -515,8 +518,8 @@ template<typename Type>
 Vector<Type> Vector<Type>::operator *(const Type val)
 {
     time_t t_time = time(NULL);
-    if (elems_num <= 0)
-        throw EmptyError("vec elems_num <= 0", __FILE__, __LINE__, ctime(&t_time));
+    if (is_empty())
+        throw EmptyError("vec is empty", __FILE__, __LINE__, ctime(&t_time));
 
     Vector<Type> rez(*this);
     for (auto &elem:rez)
@@ -528,8 +531,8 @@ template<typename Type>
 Vector<Type> &Vector<Type>::operator *=(const Type val)
 {
     time_t t_time = time(NULL);
-    if (elems_num <= 0)
-        throw EmptyError("vec elems_num <= 0", __FILE__, __LINE__, ctime(&t_time));
+    if (is_empty())
+        throw EmptyError("vec is empty", __FILE__, __LINE__, ctime(&t_time));
 
     for (auto &elem:*this)
         elem = elem * val;
@@ -540,8 +543,8 @@ template<typename Type>
 Vector<Type> Vector<Type>::operator /(const Type val)
 {
     time_t t_time = time(NULL);
-    if (elems_num <= 0)
-        throw EmptyError("vec elems_num <= 0", __FILE__, __LINE__, ctime(&t_time));
+    if (is_empty())
+        throw EmptyError("vec is empty", __FILE__, __LINE__, ctime(&t_time));
 
     Vector<Type> rez(*this);
     for (auto &elem:rez)
@@ -553,12 +556,18 @@ template<typename Type>
 Vector<Type> &Vector<Type>::operator /=(const Type val)
 {
     time_t t_time = time(NULL);
-    if (elems_num <= 0)
-        throw EmptyError("vec elems_num <= 0", __FILE__, __LINE__, ctime(&t_time));
+    if (is_empty())
+        throw EmptyError("vec is empty", __FILE__, __LINE__, ctime(&t_time));
 
     for (auto &elem:*this)
         elem = elem / val;
     return *this;
+}
+
+template<typename Type>
+Vector<Type> Vector<Type>::operator &(const Vector<Type> &vec) const
+{
+
 }
 
 template<typename Type>
