@@ -58,13 +58,14 @@ public:
     bool is_orthogonal(const Vector<Type>& vec) const;
 
 
-    /*template<typename T>
-    friend ostream& operator <<(ostream& out, const Vector<T>& vec);*/
+    Vector<Type> operator +(const Type val) const;
+    Vector<Type>& operator +=(const Type val);
+    Vector<Type> operator +(const Vector<Type>& vec) const;
+    Vector<Type>& operator +=(const Vector<Type>& vec);
 
     friend class Iterator<Type>;
 
 private:
-    //unique_ptr<Type[]> data_ptr;
     shared_ptr<Type[]> data_ptr;
 
 protected:
@@ -89,6 +90,7 @@ Vector<Type>::Vector(int elements_number)
     elems_num = elements_number;
     alloc_data();
 
+    //for each
     for (auto &elem:*this)
         elem = 0;
     /*for (Iterator<Type> It = this->begin(); It != this->end(); ++It)
@@ -110,6 +112,7 @@ Vector<Type>::Vector(int elements_number, Type *vec)
     int i = 0;
     /*for (Iterator<Type> It = this->begin(); It != this->end(); ++It)
         *It = vec[i++];*/
+    //for each
     for (auto &elem:*this)
         elem = vec[i++];
 }
@@ -135,6 +138,7 @@ Vector<Type>::Vector(int elements_number, Type vec, ...)
         *It = vec;
         vec = va_arg(ap, Type);
     }*/
+    //for each
     for (auto &elem:*this)
     {
         elem = vec;
@@ -172,8 +176,6 @@ Vector<Type>::Vector(const Vector &vec)
 
     for (int i = 0; i < elems_num; i++)
         data_ptr[i] = vec[i]; //vec.get_elem(i); //vec.data_ptr[i] WHY THIS WORKS?????????
-
-    //data_ptr = shared_ptr(vec.data_ptr); //Check if its ok???
 }
 
 template<typename Type>
@@ -232,13 +234,6 @@ bool Vector<Type>::is_unit() const
 {
     return fabs(this->len() - 1) <= EPS;
 }
-
-/*template<typename Type>
-Vector<Type> Vector<Type>::sum(Vector<Type> vec)
-{
-    Vector<Type> &rez = *this;
-    return rez;
-}*/
 
 template<typename Type>
 Iterator<Type> Vector<Type>::begin()
@@ -315,7 +310,6 @@ void Vector<Type>::set_elem(int id, Type value)
         throw IndexError("id", __FILE__, __LINE__, ctime(&t_time));
 
     data_ptr[id] = value;
-    //get_elem(id) = value;
 }
 
 template<typename Type>
@@ -336,7 +330,6 @@ Type Vector<Type>::operator *(const Vector<Type> &vec) const
     time_t t_time = time(NULL);
     if (elems_num < 0 || vec.elems_num < 0)
         throw EmptyError("vec1 or/and vec2 elems_num < 0", __FILE__, __LINE__, ctime(&t_time));
-
     if (elems_num != vec.elems_num)
         throw DifSizeError("vec1 elems_num != vec2 elems_num", __FILE__, __LINE__, ctime(&t_time));
 
@@ -350,14 +343,16 @@ Type Vector<Type>::operator *(const Vector<Type> &vec) const
 }
 
 template<typename Type>
-double Vector<Type>::get_angle(const Vector<Type> &vec2) const
+double Vector<Type>::get_angle(const Vector<Type> &vec) const
 {
     time_t t_time = time(NULL);
-    if (!this->len() || !vec2.len())
+    if (!this->len() || !vec.len())
         throw ZeroDivError("vec1 or/and vec2 len", __FILE__, __LINE__, ctime(&t_time));
+    if (elems_num != vec.elems_num)
+        throw DifSizeError("vec1 elems_num != vec2 elems_num", __FILE__, __LINE__, ctime(&t_time));
 
-    double numerator = (*this) * vec2;
-    double denominator = (*this).len() * vec2.len();
+    double numerator = (*this) * vec;
+    double denominator = (*this).len() * vec.len();
     double angle = numerator / denominator;
     angle = acos(angle) * 180 / M_PI;
     return angle;
@@ -367,15 +362,6 @@ template<typename Type>
 double get_angle(const Vector<Type> &vec1, const Vector<Type> &vec2)
 {
     return  vec1.get_angle(vec2);
-    /*time_t t_time = time(NULL);
-    if (!vec1.len() || !vec2.len())
-        throw ZeroDivError("vec1 or/and vec2 len", __FILE__, __LINE__, ctime(&t_time));
-
-    double numerator = vec1 * vec2;
-    double denominator = vec1.len() * vec2.len();
-    double angle = numerator / denominator;
-    angle = acos(angle) * 180 / M_PI;
-    return angle;*/
 }
 
 template<typename Type>
@@ -402,6 +388,57 @@ bool is_orthogonal(const Vector<Type> &vec1, const Vector<Type> &vec2)
     return vec1.is_orthogonal(vec2);
 }
 
+template<typename Type>
+Vector<Type> Vector<Type>::operator +(const Type val) const
+{
+    time_t t_time = time(NULL);
+    if (elems_num < 0)
+        throw EmptyError("vec1 or/and vec2 elems_num < 0", __FILE__, __LINE__, ctime(&t_time));
+
+    Vector<Type> rez(*this);
+    for (auto &elem:rez)
+        elem += val;
+    return rez;
+}
+
+template<typename Type>
+Vector<Type>& Vector<Type>::operator +=(const Type val)
+{
+    time_t t_time = time(NULL);
+    if (elems_num < 0)
+        throw EmptyError("vec1 or/and vec2 elems_num < 0", __FILE__, __LINE__, ctime(&t_time));
+
+    for (auto &elem:*this)
+        elem += val;
+    return *this;
+}
+
+template<typename Type>
+Vector<Type> Vector<Type>::operator +(const Vector<Type> &vec) const
+{
+    time_t t_time = time(NULL);
+    if (elems_num < 0 || vec.elems_num < 0)
+        throw EmptyError("vec1 or/and vec2 elems_num < 0", __FILE__, __LINE__, ctime(&t_time));
+    if (elems_num != vec.elems_num)
+        throw DifSizeError("vec1 elems_num != vec2 elems_num", __FILE__, __LINE__, ctime(&t_time));
+
+    Vector<Type> rez(elems_num);
+    int i = 0;
+    Iterator<double> It1 = this->begin();
+    for (Iterator<double> It2 = vec.begin(); It1 != this->end() || It2 != vec.end(); It1++, It2++)
+    {
+        rez[i++] = (*It1) + (*It2);
+    }
+    return rez;
+}
+
+template<typename Type>
+Vector<Type> &Vector<Type>::operator +=(const Vector<Type> &vec)
+{
+    Vector<Type> sum_vec = *this + vec;
+    *this = Vector<Type>(sum_vec);
+    return *this;
+}
 
 template<typename Type>
 void Vector<Type>::alloc_data()

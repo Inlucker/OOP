@@ -58,6 +58,19 @@ int main()
         cout << "is_orthogonal({1, 1}, {1, 1}) = " << is_orthogonal(Vector<double>{1, 1.0000000000001}, {1, 1.0000000000001}) << endl;
         cout << "is_orthogonal({1, 0}, {0, 1}) = " << is_orthogonal(Vector<double>{1, 0}, {0, 1}) << endl;
 
+        Vector<double> start_vec{3, 2, 1};
+        cout << "start_vec = " << start_vec << endl;
+        cout << "start_vec + 10 = " << start_vec + 10 << endl;
+        start_vec += 20;
+        cout << "start_vec += 20 =" << start_vec << endl;
+
+
+        cout << "{1, 2, 3} + {3, 2, 1} = " << Vector<double>{1, 2, 3} + Vector<double>{3, 2, 1} << endl;
+        Vector<double> slog_vec1{1, 2, 3};
+        cout << "slog_vec1 = " << slog_vec1 << endl;
+        slog_vec1 += slog_vec1;
+        cout << "slog_vec1 += slog_vec1 = " << slog_vec1 << endl;
+
         cout << "\n\n" << endl;
 
         //BaseVector v1();
