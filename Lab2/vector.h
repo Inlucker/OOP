@@ -67,7 +67,10 @@ public:
     Vector<Type> operator -(const Vector<Type>& vec) const;
     Vector<Type>& operator -=(const Vector<Type>& vec);
 
-    Vector<Type>& operator *(const Type val);
+    Vector<Type> operator *(const Type val);
+    Vector<Type>& operator *=(const Type val);
+    Vector<Type> operator /(const Type val);
+    Vector<Type>& operator /=(const Type val);
 
     friend class Iterator<Type>;
 
@@ -356,18 +359,6 @@ Type Vector<Type>::operator *(const Vector<Type> &vec) const
 }
 
 template<typename Type>
-Vector<Type> &Vector<Type>::operator *(const Type val)
-{
-    time_t t_time = time(NULL);
-    if (elems_num <= 0)
-        throw EmptyError("vec elems_num <= 0", __FILE__, __LINE__, ctime(&t_time));
-
-    for (auto &elem:*this)
-        elem = elem * val;
-    return *this;
-}
-
-template<typename Type>
 double Vector<Type>::get_angle(const Vector<Type> &vec) const
 {
     time_t t_time = time(NULL);
@@ -516,6 +507,57 @@ Vector<Type> &Vector<Type>::operator -=(const Vector<Type> &vec)
 {
     Vector<Type> sum_vec = *this - vec;
     *this = Vector<Type>(sum_vec);
+    return *this;
+}
+
+
+template<typename Type>
+Vector<Type> Vector<Type>::operator *(const Type val)
+{
+    time_t t_time = time(NULL);
+    if (elems_num <= 0)
+        throw EmptyError("vec elems_num <= 0", __FILE__, __LINE__, ctime(&t_time));
+
+    Vector<Type> rez(*this);
+    for (auto &elem:rez)
+        elem = elem * val;
+    return rez;
+}
+
+template<typename Type>
+Vector<Type> &Vector<Type>::operator *=(const Type val)
+{
+    time_t t_time = time(NULL);
+    if (elems_num <= 0)
+        throw EmptyError("vec elems_num <= 0", __FILE__, __LINE__, ctime(&t_time));
+
+    for (auto &elem:*this)
+        elem = elem * val;
+    return *this;
+}
+
+template<typename Type>
+Vector<Type> Vector<Type>::operator /(const Type val)
+{
+    time_t t_time = time(NULL);
+    if (elems_num <= 0)
+        throw EmptyError("vec elems_num <= 0", __FILE__, __LINE__, ctime(&t_time));
+
+    Vector<Type> rez(*this);
+    for (auto &elem:rez)
+        elem = elem / val;
+    return rez;
+}
+
+template<typename Type>
+Vector<Type> &Vector<Type>::operator /=(const Type val)
+{
+    time_t t_time = time(NULL);
+    if (elems_num <= 0)
+        throw EmptyError("vec elems_num <= 0", __FILE__, __LINE__, ctime(&t_time));
+
+    for (auto &elem:*this)
+        elem = elem / val;
     return *this;
 }
 

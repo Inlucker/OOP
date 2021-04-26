@@ -84,7 +84,13 @@ int main()
 
         start_vec = Vector<double>{3, 2, 1};
         cout << "start_vec = " << start_vec << endl;
-        cout << "start_vec * 10 = " << start_vec * 10 << endl;
+        cout << "start_vec * 10 " << start_vec * 10 << endl;
+        cout << "start_vec / 10 " << start_vec / 10 << endl;
+        start_vec *= 10;
+        cout << "start_vec *= 10 = " << start_vec << endl;
+        start_vec /= 10;
+        cout << "start_vec /= 10 = " << start_vec << endl;
+
 
         cout << "\n\n" << endl;
 
