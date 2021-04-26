@@ -82,6 +82,10 @@ int main()
         slog_vec1 -= slog_vec1;
         cout << "slog_vec1 -= slog_vec1 = " << slog_vec1 << endl;
 
+        start_vec = Vector<double>{3, 2, 1};
+        cout << "start_vec = " << start_vec << endl;
+        cout << "start_vec * 10 = " << start_vec * 10 << endl;
+
         cout << "\n\n" << endl;
 
         //BaseVector v1();

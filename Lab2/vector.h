@@ -67,6 +67,8 @@ public:
     Vector<Type> operator -(const Vector<Type>& vec) const;
     Vector<Type>& operator -=(const Vector<Type>& vec);
 
+    Vector<Type>& operator *(const Type val);
+
     friend class Iterator<Type>;
 
 private:
@@ -351,6 +353,18 @@ Type Vector<Type>::operator *(const Vector<Type> &vec) const
         rez += (*It1) * (*It2);
     }
     return rez;
+}
+
+template<typename Type>
+Vector<Type> &Vector<Type>::operator *(const Type val)
+{
+    time_t t_time = time(NULL);
+    if (elems_num <= 0)
+        throw EmptyError("vec elems_num <= 0", __FILE__, __LINE__, ctime(&t_time));
+
+    for (auto &elem:*this)
+        elem = elem * val;
+    return *this;
 }
 
 template<typename Type>
