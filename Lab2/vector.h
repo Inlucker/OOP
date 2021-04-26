@@ -21,7 +21,7 @@ class Vector:public BaseVector
 public:
     Vector();
     explicit  Vector(int elements_number);
-    Vector(int elements_number, Type* vec);
+    Vector(int elements_number, Type* mas);
     Vector(int elements_number, Type vec, ...);
     Vector(initializer_list<Type> args);
 
@@ -98,12 +98,12 @@ Vector<Type>::Vector(int elements_number)
 }
 
 template<typename Type>
-Vector<Type>::Vector(int elements_number, Type *vec)
+Vector<Type>::Vector(int elements_number, Type *mas)
 {
     //check elems number?
     time_t t_time = time(NULL);
-    if (elements_number < 0)
-        throw NegativeSizeError("elements_number < 0", __FILE__, __LINE__, ctime(&t_time));
+    if (elements_number < 0 || !mas)
+        throw NegativeSizeError("elements_number < 0 or/and nullptr mas", __FILE__, __LINE__, ctime(&t_time));
 
 
     elems_num = elements_number;
@@ -114,7 +114,7 @@ Vector<Type>::Vector(int elements_number, Type *vec)
         *It = vec[i++];*/
     //for each
     for (auto &elem:*this)
-        elem = vec[i++];
+        elem = mas[i++];
 }
 
 template<typename Type>
@@ -170,7 +170,7 @@ Vector<Type>::Vector(const Vector &vec)
     time_t t_time = time(NULL);
     elems_num = vec.elems_num;
     if (elems_num < 0)
-        throw NegativeSizeError("elements_number < 0", __FILE__, __LINE__, ctime(&t_time));
+        throw NegativeSizeError("vec elements_number < 0", __FILE__, __LINE__, ctime(&t_time));
 
     alloc_data();
 
@@ -184,7 +184,7 @@ Vector<Type> &Vector<Type>::operator =(const Vector<Type> &vec)
     time_t t_time = time(NULL);
     elems_num = vec.elems_num;
     if (elems_num < 0)
-        throw NegativeSizeError("elements_number < 0", __FILE__, __LINE__, ctime(&t_time));
+        throw NegativeSizeError("vec elements_number < 0", __FILE__, __LINE__, ctime(&t_time));
 
     alloc_data();
 
@@ -215,6 +215,9 @@ int Vector<Type>::size() const
 template<typename Type>
 double Vector<Type>::len() const
 {
+    time_t t_time = time(NULL);
+    if (elems_num <= 0)
+        throw EmptyError("vec elems_num <= 0", __FILE__, __LINE__, ctime(&t_time));
     double len = 0;
 
     Vector<double> tmp_vec(*this);
@@ -315,6 +318,10 @@ void Vector<Type>::set_elem(int id, Type value)
 template<typename Type>
 Vector<Type> Vector<Type>::get_unit() const
 {
+    time_t t_time = time(NULL);
+    if (elems_num <= 0)
+        throw EmptyError("vec elems_num <= 0", __FILE__, __LINE__, ctime(&t_time));
+
     Vector<Type> unit_vector(*this);
     double length = len();
     for (auto &elem:unit_vector)
@@ -328,8 +335,8 @@ template<typename Type>
 Type Vector<Type>::operator *(const Vector<Type> &vec) const
 {
     time_t t_time = time(NULL);
-    if (elems_num < 0 || vec.elems_num < 0)
-        throw EmptyError("vec1 or/and vec2 elems_num < 0", __FILE__, __LINE__, ctime(&t_time));
+    if (elems_num <= 0 || vec.elems_num <= 0)
+        throw EmptyError("vec1 or/and vec2 elems_num <= 0", __FILE__, __LINE__, ctime(&t_time));
     if (elems_num != vec.elems_num)
         throw DifSizeError("vec1 elems_num != vec2 elems_num", __FILE__, __LINE__, ctime(&t_time));
 
@@ -346,10 +353,12 @@ template<typename Type>
 double Vector<Type>::get_angle(const Vector<Type> &vec) const
 {
     time_t t_time = time(NULL);
-    if (!this->len() || !vec.len())
-        throw ZeroDivError("vec1 or/and vec2 len", __FILE__, __LINE__, ctime(&t_time));
+    if (elems_num <= 0 || vec.elems_num <= 0)
+        throw EmptyError("vec1 or/and vec2 elems_num <= 0", __FILE__, __LINE__, ctime(&t_time));
     if (elems_num != vec.elems_num)
         throw DifSizeError("vec1 elems_num != vec2 elems_num", __FILE__, __LINE__, ctime(&t_time));
+    if (!this->len() || !vec.len())
+        throw ZeroDivError("vec1 or/and vec2 len = 0", __FILE__, __LINE__, ctime(&t_time));
 
     double numerator = (*this) * vec;
     double denominator = (*this).len() * vec.len();
@@ -392,8 +401,8 @@ template<typename Type>
 Vector<Type> Vector<Type>::operator +(const Type val) const
 {
     time_t t_time = time(NULL);
-    if (elems_num < 0)
-        throw EmptyError("vec1 or/and vec2 elems_num < 0", __FILE__, __LINE__, ctime(&t_time));
+    if (elems_num <= 0)
+        throw EmptyError("vec elems_num <= 0", __FILE__, __LINE__, ctime(&t_time));
 
     Vector<Type> rez(*this);
     for (auto &elem:rez)
@@ -405,8 +414,8 @@ template<typename Type>
 Vector<Type>& Vector<Type>::operator +=(const Type val)
 {
     time_t t_time = time(NULL);
-    if (elems_num < 0)
-        throw EmptyError("vec1 or/and vec2 elems_num < 0", __FILE__, __LINE__, ctime(&t_time));
+    if (elems_num <= 0)
+        throw EmptyError("vec elems_num <= 0", __FILE__, __LINE__, ctime(&t_time));
 
     for (auto &elem:*this)
         elem += val;
@@ -417,8 +426,8 @@ template<typename Type>
 Vector<Type> Vector<Type>::operator +(const Vector<Type> &vec) const
 {
     time_t t_time = time(NULL);
-    if (elems_num < 0 || vec.elems_num < 0)
-        throw EmptyError("vec1 or/and vec2 elems_num < 0", __FILE__, __LINE__, ctime(&t_time));
+    if (elems_num <= 0 || vec.elems_num <= 0)
+        throw EmptyError("vec1 or/and vec2 elems_num <= 0", __FILE__, __LINE__, ctime(&t_time));
     if (elems_num != vec.elems_num)
         throw DifSizeError("vec1 elems_num != vec2 elems_num", __FILE__, __LINE__, ctime(&t_time));
 
@@ -445,11 +454,12 @@ void Vector<Type>::alloc_data()
 {
     data_ptr.reset();
     shared_ptr<Type[]> new_ptr(new Type[elems_num]);
-    data_ptr = new_ptr;
 
     time_t t_time = time(NULL);
-    if (!data_ptr)
+    if (!new_ptr)
         throw MemoryError("data_ptr", __FILE__, __LINE__, ctime(&t_time));
+
+    data_ptr = new_ptr;
 }
 
 //template<typename T> constexpr const T &as_const(T &t) noexcept { return t; }
