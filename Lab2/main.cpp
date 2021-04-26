@@ -30,6 +30,14 @@ int main()
         Vector<double> copy_vec(init_list_vec);
         cout << "copy_vec: " << copy_vec << endl;
 
+        Vector<double> equal_vec{1, 2, 3};
+        equal_vec = param_vec;
+        cout << "equal_vec: " << equal_vec << endl;
+        /*cout << "param_vec[1] = -1" << endl;
+        param_vec[1] = -1;
+        cout << "param_vec: " << param_vec << endl;
+        cout << "equal_vec: " << equal_vec << endl;*/
+
         cout << "\n\n" << endl;
 
         //BaseVector v1();

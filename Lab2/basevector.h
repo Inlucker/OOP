@@ -10,9 +10,9 @@ public:
 
     virtual bool is_empty() const = 0;
     virtual int size() const = 0;
-    virtual bool is_zero() const = 0;
-    virtual bool is_unit() const = 0;
-    virtual double len() const = 0;
+    //virtual bool is_zero() const = 0;
+    //virtual bool is_unit() const = 0;
+    //virtual double len() const = 0;
 
     //virtual void set_size(int size) = 0;
 protected:

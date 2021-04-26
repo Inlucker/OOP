@@ -26,6 +26,9 @@ public:
     Vector(initializer_list<Type> args);
 
     explicit Vector(const Vector& vec); //copy
+
+    Vector<Type>& operator =(const Vector<Type>& vec);
+
     //Vector(Vector<Type>&& vec);
 
     ~Vector();
@@ -146,7 +149,7 @@ Vector<Type>::Vector(initializer_list<Type> args)
     alloc_data();
 
     Iterator<Type> it(*this);
-    for (auto elem : args)
+    for (auto &elem : args)
     {
         *it = elem;
         it++;
@@ -164,11 +167,24 @@ Vector<Type>::Vector(const Vector &vec)
     alloc_data();
 
     for (int i = 0; i < elems_num; i++)
-    {
         data_ptr[i] = vec[i]; //vec.get_elem(i); //vec.data_ptr[i] WHY THIS WORKS?????????
-    }
 
     //data_ptr = shared_ptr(vec.data_ptr); //Check if its ok???
+}
+
+template<typename Type>
+Vector<Type> &Vector<Type>::operator =(const Vector<Type> &vec)
+{
+    time_t t_time = time(NULL);
+    elems_num = vec.elems_num;
+    if (elems_num < 0)
+        throw NegativeSizeError("elements_number < 0", __FILE__, __LINE__, ctime(&t_time));
+
+    alloc_data();
+
+    for (int i = 0; i < elems_num; i++)
+        data_ptr[i] = vec[i];
+    return *this;
 }
 
 template<typename Type>
@@ -195,7 +211,7 @@ double Vector<Type>::len() const
     double len = 0;
 
     Vector<double> tmp_vec(*this);
-    for (auto elem:tmp_vec)
+    for (auto &elem:tmp_vec)
         len += elem * elem;
     return sqrt(len);
 }
