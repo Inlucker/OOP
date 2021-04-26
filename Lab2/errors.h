@@ -71,4 +71,26 @@ public:
     }
 };
 
+class DifSizeError : public BaseError
+{
+public:
+    DifSizeError(string info, string filename, int line, const char *time, string error = "Opearation with different sized vectors")
+        : BaseError(info, filename, line, time, error) {};
+    virtual const char* what() const noexcept
+    {
+        return err_info.c_str();
+    }
+};
+
+class ZeroDivError : public BaseError
+{
+public:
+    ZeroDivError(string info, string filename, int line, const char *time, string error = "Division on zero")
+        : BaseError(info, filename, line, time, error) {};
+    virtual const char* what() const noexcept
+    {
+        return err_info.c_str();
+    }
+};
+
 #endif // ERRORS_H

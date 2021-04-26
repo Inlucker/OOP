@@ -33,9 +33,6 @@ public:
 
     bool is_empty() const;
     int size() const;
-    double len() const;
-    bool is_zero() const;
-    bool is_unit() const;
 
     Iterator<Type> begin();
     Iterator<Type> end();
@@ -50,7 +47,16 @@ public:
     const Type& operator [](int id) const;
     void set_elem(int id, Type value);
 
+    //Math
+    double len() const;
+    bool is_zero() const;
+    bool is_unit() const;
     Vector<Type> get_unit() const;
+    Type operator *(const Vector<Type>& vec) const;
+    double get_angle(const Vector<Type>& vec2) const;
+    bool is_collinear(const Vector<Type>& vec) const;
+    bool is_orthogonal(const Vector<Type>& vec) const;
+
 
     /*template<typename T>
     friend ostream& operator <<(ostream& out, const Vector<T>& vec);*/
@@ -323,6 +329,79 @@ Vector<Type> Vector<Type>::get_unit() const
     }
     return unit_vector;
 }
+
+template<typename Type>
+Type Vector<Type>::operator *(const Vector<Type> &vec) const
+{
+    time_t t_time = time(NULL);
+    if (elems_num < 0 || vec.elems_num < 0)
+        throw EmptyError("vec1 or/and vec2 elems_num < 0", __FILE__, __LINE__, ctime(&t_time));
+
+    if (elems_num != vec.elems_num)
+        throw DifSizeError("vec1 elems_num != vec2 elems_num", __FILE__, __LINE__, ctime(&t_time));
+
+    double rez = 0;
+    Iterator<double> It1 = this->begin();
+    for (Iterator<double> It2 = vec.begin(); It1 != this->end() || It2 != vec.end(); It1++, It2++)
+    {
+        rez += (*It1) * (*It2);
+    }
+    return rez;
+}
+
+template<typename Type>
+double Vector<Type>::get_angle(const Vector<Type> &vec2) const
+{
+    time_t t_time = time(NULL);
+    if (!this->len() || !vec2.len())
+        throw ZeroDivError("vec1 or/and vec2 len", __FILE__, __LINE__, ctime(&t_time));
+
+    double numerator = (*this) * vec2;
+    double denominator = (*this).len() * vec2.len();
+    double angle = numerator / denominator;
+    angle = acos(angle) * 180 / M_PI;
+    return angle;
+}
+
+template<typename Type>
+double get_angle(const Vector<Type> &vec1, const Vector<Type> &vec2)
+{
+    return  vec1.get_angle(vec2);
+    /*time_t t_time = time(NULL);
+    if (!vec1.len() || !vec2.len())
+        throw ZeroDivError("vec1 or/and vec2 len", __FILE__, __LINE__, ctime(&t_time));
+
+    double numerator = vec1 * vec2;
+    double denominator = vec1.len() * vec2.len();
+    double angle = numerator / denominator;
+    angle = acos(angle) * 180 / M_PI;
+    return angle;*/
+}
+
+template<typename Type>
+bool Vector<Type>::is_collinear(const Vector<Type> &vec) const
+{
+    return get_angle(vec) < EPS;
+}
+
+template<typename Type>
+bool is_collinear(const Vector<Type> &vec1, const Vector<Type> &vec2)
+{
+    return vec1.is_collinear(vec2);
+}
+
+template<typename Type>
+bool Vector<Type>::is_orthogonal(const Vector<Type> &vec) const
+{
+    return abs(90 - get_angle(vec)) < EPS;
+}
+
+template<typename Type>
+bool is_orthogonal(const Vector<Type> &vec1, const Vector<Type> &vec2)
+{
+    return vec1.is_orthogonal(vec2);
+}
+
 
 template<typename Type>
 void Vector<Type>::alloc_data()

@@ -24,7 +24,7 @@ int main()
         Vector<double> param_vec(3, 3., 4., 5.);
         cout << "param_vec: " << param_vec << endl;
 
-        Vector<double> init_list_vec{1.1, 2.2, 3.3};
+        Vector<double> init_list_vec{1., 2., 3.};
         cout << "init_list_vec: " << init_list_vec << endl;
 
         Vector<double> copy_vec(init_list_vec);
@@ -42,8 +42,21 @@ int main()
 
         cout << "MATH TESTS:" << endl;
         Vector<double> unit_vec = copy_vec.get_unit();
-        cout << "empty_vec: " << unit_vec << endl;
-        cout << "empty_vec.len(): " << unit_vec.len() << endl;
+        cout << "unit_vec: " << unit_vec << endl;
+        cout << "unit_vec.len(): " << unit_vec.len() << endl;
+
+        cout << "copy_vec * copy_vec = " << copy_vec * copy_vec << endl;
+
+        //cout << "{0, 1}.copy_vec.get_angle({1, 0}) = " << Vector<double>{0, 1}.get_angle(Vector<double>{1, 0}) << endl;
+        cout << "{0, 1}.copy_vec.get_angle({1, 0}) = " << Vector<double>{0, 1}.get_angle({1, 0}) << endl;
+        //cout << "get_angle({0, 1}, {1, 0}) = " << get_angle(Vector<double>{0, 1}, Vector<double>{1, 0}) << endl;
+        cout << "get_angle({0, 1}, {1, 1}) = " << get_angle(Vector<double>{0, 1}, {1, 1}) << endl;
+
+        cout << "is_collinear({1, 1}, {1, 1}) = " << is_collinear(Vector<double>{1, 1.0000000000001}, {1, 1.0000000000001}) << endl;
+        cout << "is_collinear({1, 0}, {0, 1}) = " << is_collinear(Vector<double>{1, 0}, {0, 1}) << endl;
+
+        cout << "is_orthogonal({1, 1}, {1, 1}) = " << is_orthogonal(Vector<double>{1, 1.0000000000001}, {1, 1.0000000000001}) << endl;
+        cout << "is_orthogonal({1, 0}, {0, 1}) = " << is_orthogonal(Vector<double>{1, 0}, {0, 1}) << endl;
 
         cout << "\n\n" << endl;
 
