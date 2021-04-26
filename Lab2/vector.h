@@ -26,6 +26,7 @@ public:
     Vector(initializer_list<Type> args);
 
     explicit Vector(const Vector& vec); //copy
+    //Vector(Vector<Type>&& vec);
 
     ~Vector();
 

@@ -9,6 +9,29 @@ int main()
 {
     try
     {
+        cout << "Constructors tests:\n" << endl;
+
+        Vector<double> empty_vec;
+        cout << "empty_vec: " << empty_vec << endl;
+
+        Vector<double> zero_vec(4);
+        cout << "zero_vec: " << zero_vec << endl;
+
+        double mas[5] = {3, 4, 5, 6, 7};
+        Vector<double> mas_vec(5, mas);
+        cout << "mas_vec: " << mas_vec << endl;
+
+        Vector<double> param_vec(3, 3., 4., 5.);
+        cout << "param_vec: " << param_vec << endl;
+
+        Vector<double> init_list_vec{1.1, 2.2, 3.3};
+        cout << "init_list_vec: " << init_list_vec << endl;
+
+        Vector<double> copy_vec(init_list_vec);
+        cout << "copy_vec: " << copy_vec << endl;
+
+        cout << "\n\n" << endl;
+
         //BaseVector v1();
         //Vector<double> test_vec_zero{1.2, 2.3, 3.4, 4.5, 5.6};
         Vector<double> test_vec_zero(4);
@@ -49,12 +72,6 @@ int main()
             cout << elem << endl;
         }
         cout << endl;
-
-        cout << "From array: \n";
-        double arr[5] = {5, 1, 7, 4, 0};
-        Vector<double> v4(5, arr);
-        cout << v4 << "\n";
-
     }
     catch (BaseError& err)
     {
