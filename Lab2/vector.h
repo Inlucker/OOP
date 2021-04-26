@@ -57,11 +57,15 @@ public:
     bool is_collinear(const Vector<Type>& vec) const;
     bool is_orthogonal(const Vector<Type>& vec) const;
 
-
     Vector<Type> operator +(const Type val) const;
     Vector<Type>& operator +=(const Type val);
     Vector<Type> operator +(const Vector<Type>& vec) const;
     Vector<Type>& operator +=(const Vector<Type>& vec);
+
+    Vector<Type> operator -(const Type val) const;
+    Vector<Type>& operator -=(const Type val);
+    Vector<Type> operator -(const Vector<Type>& vec) const;
+    Vector<Type>& operator -=(const Vector<Type>& vec);
 
     friend class Iterator<Type>;
 
@@ -445,6 +449,58 @@ template<typename Type>
 Vector<Type> &Vector<Type>::operator +=(const Vector<Type> &vec)
 {
     Vector<Type> sum_vec = *this + vec;
+    *this = Vector<Type>(sum_vec);
+    return *this;
+}
+
+template<typename Type>
+Vector<Type> Vector<Type>::operator -(const Type val) const
+{
+    time_t t_time = time(NULL);
+    if (elems_num <= 0)
+        throw EmptyError("vec elems_num <= 0", __FILE__, __LINE__, ctime(&t_time));
+
+    Vector<Type> rez(*this);
+    for (auto &elem:rez)
+        elem -= val;
+    return rez;
+}
+
+template<typename Type>
+Vector<Type>& Vector<Type>::operator -=(const Type val)
+{
+    time_t t_time = time(NULL);
+    if (elems_num <= 0)
+        throw EmptyError("vec elems_num <= 0", __FILE__, __LINE__, ctime(&t_time));
+
+    for (auto &elem:*this)
+        elem -= val;
+    return *this;
+}
+
+template<typename Type>
+Vector<Type> Vector<Type>::operator -(const Vector<Type> &vec) const
+{
+    time_t t_time = time(NULL);
+    if (elems_num <= 0 || vec.elems_num <= 0)
+        throw EmptyError("vec1 or/and vec2 elems_num <= 0", __FILE__, __LINE__, ctime(&t_time));
+    if (elems_num != vec.elems_num)
+        throw DifSizeError("vec1 elems_num != vec2 elems_num", __FILE__, __LINE__, ctime(&t_time));
+
+    Vector<Type> rez(elems_num);
+    int i = 0;
+    Iterator<double> It1 = this->begin();
+    for (Iterator<double> It2 = vec.begin(); It1 != this->end() || It2 != vec.end(); It1++, It2++)
+    {
+        rez[i++] = (*It1) - (*It2);
+    }
+    return rez;
+}
+
+template<typename Type>
+Vector<Type> &Vector<Type>::operator -=(const Vector<Type> &vec)
+{
+    Vector<Type> sum_vec = *this - vec;
     *this = Vector<Type>(sum_vec);
     return *this;
 }

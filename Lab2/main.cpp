@@ -62,14 +62,25 @@ int main()
         cout << "start_vec = " << start_vec << endl;
         cout << "start_vec + 10 = " << start_vec + 10 << endl;
         start_vec += 20;
-        cout << "start_vec += 20 =" << start_vec << endl;
-
+        cout << "start_vec += 20 = " << start_vec << endl;
 
         cout << "{1, 2, 3} + {3, 2, 1} = " << Vector<double>{1, 2, 3} + Vector<double>{3, 2, 1} << endl;
         Vector<double> slog_vec1{1, 2, 3};
         cout << "slog_vec1 = " << slog_vec1 << endl;
         slog_vec1 += slog_vec1;
         cout << "slog_vec1 += slog_vec1 = " << slog_vec1 << endl;
+
+        start_vec = Vector<double>{3, 2, 1};
+        cout << "start_vec = " << start_vec << endl;
+        cout << "start_vec - 10 = " << start_vec - 10 << endl;
+        start_vec -= 20;
+        cout << "start_vec -= 20 = " << start_vec << endl;
+
+        cout << "{1, 2, 3} - {3, 2, 1} = " << Vector<double>{1, 2, 3} - Vector<double>{3, 2, 1} << endl;
+        slog_vec1 = Vector<double>{1, 2, 3};
+        cout << "slog_vec1 = " << slog_vec1 << endl;
+        slog_vec1 -= slog_vec1;
+        cout << "slog_vec1 -= slog_vec1 = " << slog_vec1 << endl;
 
         cout << "\n\n" << endl;
 
