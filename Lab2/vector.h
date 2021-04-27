@@ -116,6 +116,7 @@ private:
 
 protected:
     void alloc_data();
+    shared_ptr<Type[]> get_data_ptr() const;
 };
 
 
@@ -296,7 +297,7 @@ bool Vector<Type>::is_empty() const
     return !elems_num;
 }
 
-template<typename Type>
+template<typename Type> //сделать inline?
 int Vector<Type>::size() const
 {
     return elems_num;
@@ -691,6 +692,12 @@ void Vector<Type>::alloc_data()
 
         data_ptr = new_ptr;
     }
+}
+
+template<typename Type>
+shared_ptr<Type[]> Vector<Type>::get_data_ptr() const
+{
+    return data_ptr;
 }
 
 //template<typename T> constexpr const T &as_const(T &t) noexcept { return t; }

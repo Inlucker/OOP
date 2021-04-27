@@ -166,6 +166,13 @@ int main()
 
         cout << endl;
 
+
+        Iterator<int> it3;
+        it3 = it1;
+        cout << "it3 = it1; *it3 = " << *it1 << endl;
+        it3++;
+        cout << "it3++; *it1 = " << *it1 << "; *it3 = " << *it3 << endl;
+
         cout << "it2 == it1 = " << (it2 == it1) << endl;
         cout << "it2 != it1 = " << (it2 != it1) << endl;
 
@@ -221,14 +228,14 @@ int main()
         cout << "it1 > it2 = " << (it1 > it2) << endl;
         cout << "it1 >= it2 = " << (it1 >= it2) << endl;
 
-        cout << endl;
+        /*cout << endl;
 
-        /*cout << "it1.operator->() = " << it1.operator->() << endl;
+        cout << "it1.operator->() = " << it1.operator->() << endl;
         cout << "it2.operator->() = " << it2.operator->() << endl;
         cout << "*(it1.operator->()) = " << *(it1.operator->()) << endl;
         cout << "*(it2.operator->()) = " << *(it2.operator->()) << endl;*/
 
-        cout << "\n\n" << endl;
+        //cout << "\n\n" << endl;
 
         /*
         //BaseVector v1();

@@ -70,6 +70,7 @@ protected:
     //void alloc_data();
     bool check_ptr(int line) const;
     Type& cur_elem() const;
+    weak_ptr<Type[]> get_data_ptr() const;
 };
 
 template<typename Type>
@@ -98,8 +99,6 @@ Iterator<Type>::Iterator(const Iterator<Type> &it)
 template<typename Type>
 Iterator<Type> &Iterator<Type>::operator =(const Iterator<Type> &it)
 {
-    check_ptr(__LINE__);
-
     id = it.get_id();
     elems_num = get_els_num();
     data_ptr = it.data_ptr;
@@ -119,8 +118,6 @@ Iterator<Type>::Iterator(Iterator<Type> &&it)
 template<typename Type>
 Iterator<Type> &Iterator<Type>::operator =(Iterator<Type> &&it)
 {
-    check_ptr(__LINE__);
-
     id = it.id;
     elems_num = it.elems_num;
     data_ptr = it.data_ptr;
@@ -354,6 +351,12 @@ Type &Iterator<Type>::cur_elem() const
 {
     shared_ptr<Type[]> copy_ptr = data_ptr.lock();
     return (copy_ptr[id]);
+}
+
+template<typename Type>
+weak_ptr<Type[]> Iterator<Type>::get_data_ptr() const
+{
+    return data_ptr;
 }
 
 
