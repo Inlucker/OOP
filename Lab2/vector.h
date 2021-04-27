@@ -560,14 +560,26 @@ template<typename Type>
 Vector<Type> Vector<Type>::operator &(const Vector<Type> &vec) const
 {
     time_t t_time = time(NULL);
-    if (is_empty())
-        throw EmptyError("vec is empty", __FILE__, __LINE__, ctime(&t_time));
+    if (is_empty() || vec.is_empty())
+        throw EmptyError("vec1 or/and vec2 is empty", __FILE__, __LINE__, ctime(&t_time));
+    if (elems_num != vec.elems_num)
+        throw DifSizeError("vec1 size != vec2 size", __FILE__, __LINE__, ctime(&t_time));
     if (size() != 2 && size() != 3)
         throw SizeError("vec is not 2D or 3D", __FILE__, __LINE__, ctime(&t_time));
 
-    Type x = (*this)[1] * vec[2] - (*this)[2] * vec[1];
-    Type y = (*this)[2] * vec[0] - (*this)[0] * vec[2];
-    Type z = (*this)[0] * vec[1] - (*this)[1] * vec[0];
+    Type x = 0, y = 0, z = 0;
+    if (elems_num == 3)
+    {
+        x = (*this)[1] * vec[2] - (*this)[2] * vec[1];
+        y = (*this)[2] * vec[0] - (*this)[0] * vec[2];
+        z = (*this)[0] * vec[1] - (*this)[1] * vec[0];
+    }
+    else if (elems_num == 2)
+    {
+        //x = (*this)[1] * 0 - 0 * vec[1];
+        //y = 0 * vec[0] - (*this)[0] * 0;
+        z = (*this)[0] * vec[1] - (*this)[1] * vec[0];
+    }
 
     Vector<Type> rez{x, y, z};
     return rez;
