@@ -136,9 +136,9 @@ Vector<Type>::Vector(int elements_number)
     elems_num = elements_number;
     alloc_data();
 
-    //for each
-    for (auto &elem:*this)
-        elem = 0;
+        //for each
+        for (auto &elem:*this)
+            elem = 0;
     /*for (Iterator<Type> It = this->begin(); It != this->end(); ++It)
         *It = 0;*/
 }
@@ -238,7 +238,7 @@ Vector<Type> &Vector<Type>::operator =(const Vector<Type> &vec)
 
     for (int i = 0; i < elems_num; i++)
         data_ptr[i] = vec[i];
-    //cout << "HERE copy constructor" << endl;
+    //cout << "HERE copy operator =" << endl;
     return *this;
 }
 
@@ -255,7 +255,7 @@ Vector<Type>::Vector(Vector<Type> &&vec)
     for (int i = 0; i < elems_num; i++)
         data_ptr[i] = vec[i];*/
     data_ptr = vec.data_ptr;
-    //cout << "HERE transfer operator =" << endl;
+    //cout << "HERE transfer constructor" << endl; //Почему не печатается?
     //vec.data_ptr.reset(); // Не обязательно с умными указателями
 }
 

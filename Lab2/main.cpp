@@ -85,6 +85,7 @@ int main()
         Vector<double> start_vec{3, 2, 1};
         cout << "start_vec = " << start_vec << endl;
         cout << "start_vec + 10 = " << start_vec + 10 << endl;
+        cout << "start_vec + start_vec = " << start_vec + start_vec << endl;
         start_vec += 20;
         cout << "start_vec += 20 = " << start_vec << endl;
 
@@ -101,6 +102,7 @@ int main()
         start_vec = Vector<double>{3, 2, 1};
         cout << "start_vec = " << start_vec << endl;
         cout << "start_vec - 10 = " << start_vec - 10 << endl;
+        cout << "start_vec - start_vec = " << start_vec - start_vec << endl;
         start_vec -= 20;
         cout << "start_vec -= 20 = " << start_vec << endl;
 
@@ -151,6 +153,76 @@ int main()
         Vector<double> gen_vec;
         gen_vec = generate_double_Vector(7);
         cout << "gen_vec = " << gen_vec << endl;
+
+        cout << "\n" << endl;
+
+        cout << "ITERATOR TESTS:" << endl;
+        Vector<int> vec{10, 9, 8, 7, 6, 5};
+        cout << "vec = " << vec << endl;
+        Iterator<int> it1 = vec.begin();
+        Iterator<int> it2 = vec.end();
+        cout << "*it1 = " << *it1 << endl;
+        cout << "*it2 = " << *it2 << endl;
+
+        cout << endl;
+
+        cout << "it2 == it1 = " << (it2 == it1) << endl;
+        cout << "it2 != it1 = " << (it2 != it1) << endl;
+
+        cout << endl;
+
+        cout << "*++it1 = " << *++it1 << endl;
+        cout << "*it1++ = " << *it1++ << endl;
+        cout << "*it1 = " << *it1 << endl;
+
+        cout << endl;
+
+        cout << "*--it2 = " << *--it2 << endl;
+        cout << "*it2-- = " << *it2-- << endl;
+        cout << "*it2 = " << *it2 << endl;
+
+        cout << endl;
+
+        cout << "*(it1 + 2) = " << *(it1 + 2) << endl;
+        it1 += 3;
+        cout << "it1 += 3; *it1 = " << *it1 << endl;
+
+        cout << endl;
+
+        cout << "*(it2 - 2) = " << *(it2 - 2) << endl;
+        it2 -= 3;
+        cout << "it2 -= 3; *it2 = " << *it2 << endl;
+
+        cout << endl;
+
+        cout << "it1 - it2 = " << it1 - it2 << endl;
+
+        cout << endl;
+
+        cout << "it1[-4] = " << it1[-4] << endl;
+        cout << "it2[4] = " << it2[4] << endl;
+
+        cout << endl;
+
+        cout << "*it1 = " << *it1 << "; *it2 = " << *it2 << endl;
+        cout << "it1 < it2 = " << (it1 < it2) << endl;
+        cout << "it1 <= it2 = " << (it1 <= it2) << endl;
+        cout << "it1 > it2 = " << (it1 > it2) << endl;
+        cout << "it1 >= it2 = " << (it2 >= it1) << endl;
+
+        cout << endl;
+
+        it1 -= 4;
+        cout << "*it1 = " << *it1 << "; *it2 = " << *it2 << endl;
+        cout << "it1 < it2 = " << (it1 < it2) << endl;
+        cout << "it1 <= it2 = " << (it1 <= it2) << endl;
+        cout << "it1 > it2 = " << (it1 > it2) << endl;
+        cout << "it1 >= it2 = " << (it1 >= it2) << endl;
+
+        cout << endl;
+
+        cout << "it1.operator->()" << it1.operator->() << endl;
+        cout << "it2.operator->()" << it2.operator->() << endl;
 
         cout << "\n\n" << endl;
 

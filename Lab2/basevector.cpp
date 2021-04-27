@@ -6,11 +6,11 @@ BaseVector::BaseVector()
     elems_num = 0;
 }
 
-BaseVector::BaseVector(const BaseVector &copy_base)
+/*BaseVector::BaseVector(const BaseVector &copy_base)
 {
-    //constructor
+    //copy constructor
     elems_num = copy_base.elems_num;
-}
+}*/
 
 BaseVector::~BaseVector()
 {

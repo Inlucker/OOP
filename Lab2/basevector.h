@@ -5,7 +5,7 @@ class BaseVector
 {
 public:
     BaseVector();
-    explicit BaseVector(const BaseVector& copy_base);
+    //explicit BaseVector(const BaseVector& copy_base);
     virtual ~BaseVector() = 0;
 
     virtual bool is_empty() const = 0;
