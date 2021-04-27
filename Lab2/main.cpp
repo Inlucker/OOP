@@ -5,6 +5,12 @@
 
 using namespace std;
 
+Vector<double> generate_double_Vector(int n)
+{
+    Vector<double> item(n);
+    return item; // это возвращаемое значение приведет к вызову конструктора перемещения
+}
+
 int main()
 {
     try
@@ -139,6 +145,12 @@ int main()
         cout << "int_vec * double_vec = " << int_vec * double_vec << endl;
         double_vec *= int_vec;
         cout << "double_vec *= int_vec = " << double_vec << endl;
+
+        cout << endl;
+
+        Vector<double> gen_vec;
+        gen_vec = generate_double_Vector(7);
+        cout << "gen_vec = " << gen_vec << endl;
 
         cout << "\n\n" << endl;
 

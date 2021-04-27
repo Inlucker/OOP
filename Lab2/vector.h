@@ -26,8 +26,9 @@ public:
     Vector(initializer_list<Type> args);
 
     explicit Vector(const Vector& vec); //copy //why explicit
-    Vector(Vector<Type>&& vec);
-    Vector<Type>& operator =(const Vector<Type>& vec);
+    Vector<Type>& operator =(const Vector& vec);
+    Vector(Vector<Type>&& vec); //Перенеос //explicit?
+    Vector<Type>& operator =(Vector<Type>&& vec);
 
     ~Vector();
 
@@ -75,6 +76,8 @@ public:
     Vector<Type> operator &(const Vector<Type>& vec) const;
     Vector<Type>& operator &=(const Vector<Type>& vec);
 
+    //template<typename Type2>
+    //Vector<Type> operator *(const Vector<Type2>& vec) const;
     template<typename Type2>
     Vector<Type> operator *(const Vector<Type2>& vec) const
     {
@@ -94,6 +97,8 @@ public:
         return rez;
     }
 
+    //template<typename Type2>
+    //Vector<Type>& operator *=(const Vector<Type2>& vec);
     template<typename Type2>
     Vector<Type>& operator *=(const Vector<Type2>& vec)
     {
@@ -102,6 +107,7 @@ public:
         return *this;
     }
 
+    bool is_null() const;
 
     friend class Iterator<Type>;
 
@@ -208,36 +214,80 @@ template<typename Type>
 Vector<Type>::Vector(const Vector &vec)
 {
     time_t t_time = time(NULL);
-    elems_num = vec.elems_num;
-    if (elems_num < 0)
+    if (vec.size() < 0)
         throw NegativeSizeError("vec elements_number < 0", __FILE__, __LINE__, ctime(&t_time));
+    elems_num = vec.size();
 
     alloc_data();
 
     for (int i = 0; i < elems_num; i++)
         data_ptr[i] = vec[i]; //vec.get_elem(i); //vec.data_ptr[i] WHY THIS WORKS?????????
+    //cout << "HERE copy constructor" << endl;
 }
 
 template<typename Type>
 Vector<Type> &Vector<Type>::operator =(const Vector<Type> &vec)
 {
     time_t t_time = time(NULL);
-    elems_num = vec.elems_num;
-    if (elems_num < 0)
+    //Не обязательно, потому что мы не допускаем создание векторов с отрицательным кол-вом элементов
+    if (vec.size() < 0)
         throw NegativeSizeError("vec elements_number < 0", __FILE__, __LINE__, ctime(&t_time));
+    elems_num = vec.size();
 
     alloc_data();
 
     for (int i = 0; i < elems_num; i++)
         data_ptr[i] = vec[i];
+    //cout << "HERE copy constructor" << endl;
+    return *this;
+}
+
+template<typename Type>
+Vector<Type>::Vector(Vector<Type> &&vec)
+{
+    time_t t_time = time(NULL);
+    if (vec.size() < 0)
+        throw NegativeSizeError("vec elements_number < 0", __FILE__, __LINE__, ctime(&t_time));
+    elems_num = vec.size();
+
+    /*alloc_data();
+
+    for (int i = 0; i < elems_num; i++)
+        data_ptr[i] = vec[i];*/
+    data_ptr = vec.data_ptr;
+    //cout << "HERE transfer operator =" << endl;
+    //vec.data_ptr.reset(); // Не обязательно с умными указателями
+}
+
+template<typename Type>
+Vector<Type> &Vector<Type>::operator =(Vector<Type> &&vec)
+{
+    time_t t_time = time(NULL);
+    //Не обязательно, потому что мы не допускаем создание векторов с отрицательным кол-вом элементов
+    if (vec.size() < 0)
+        throw NegativeSizeError("vec elements_number < 0", __FILE__, __LINE__, ctime(&t_time));
+    elems_num = vec.size();
+
+    /*alloc_data();
+
+    for (int i = 0; i < elems_num; i++)
+        data_ptr[i] = vec[i];*/
+    data_ptr = vec.data_ptr;
+    //cout << "HERE transfer operator =" << endl;
+    //vec.data_ptr.reset(); // Не обязательно с умными указателями
     return *this;
 }
 
 template<typename Type>
 Vector<Type>::~Vector()
 {
+    //cout << "vector: ";
     if (data_ptr)
+    {
+        //cout << *this;
         data_ptr.reset();
+    }
+    //cout << " destroyed" << endl;
 }
 
 template<typename Type>
@@ -622,6 +672,12 @@ Vector<Type>& Vector<Type>::operator &=(const Vector<Type> &vec)
 }
 
 template<typename Type>
+bool Vector<Type>::is_null() const
+{
+    return data_ptr == nullptr;
+}
+
+template<typename Type>
 void Vector<Type>::alloc_data()
 {
     data_ptr.reset();
@@ -629,7 +685,7 @@ void Vector<Type>::alloc_data()
 
     time_t t_time = time(NULL);
     if (!new_ptr)
-        throw MemoryError("data_ptr", __FILE__, __LINE__, ctime(&t_time));
+        throw MemoryError("allocationg data_ptr error", __FILE__, __LINE__, ctime(&t_time));
 
     data_ptr = new_ptr;
 }
@@ -640,6 +696,10 @@ void Vector<Type>::alloc_data()
 template<typename Type>
 ostream& operator <<(ostream& os, const Vector<Type>& vec)
 {
+    time_t t_time = time(NULL);
+    if (vec.is_null())
+        throw MemoryError("data_ptr = NULL", __FILE__, __LINE__, ctime(&t_time));
+
     if (vec.is_empty())
     {
         os << "Vector is empty.";

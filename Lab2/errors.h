@@ -52,7 +52,7 @@ public:
 class MemoryError : public BaseError
 {
 public:
-    MemoryError(string info, string filename, int line, const char *time, string error = "Allocation error")
+    MemoryError(string info, string filename, int line, const char *time, string error = "Memory error")
         : BaseError(info, filename, line, time, error) {};
     virtual const char* what() const noexcept
     {

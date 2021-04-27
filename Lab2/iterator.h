@@ -26,6 +26,7 @@ public:
     Type& operator *();
     Iterator<Type> &operator ++(); //++it
     Iterator<Type> operator ++(int); //it++
+    //--, +=, -=, +, -, -It, [], <, >, <=, >=
 
 private:
     weak_ptr<Type[]> data_ptr;
