@@ -129,6 +129,17 @@ int main()
         mn_vec2 &= mn_vec1;
         cout << "mn_vec2 &= mn_vec1 =" << mn_vec2 << endl;
 
+        cout << endl;
+
+        Vector<double> double_vec{1.5, 2.5, 3.5};
+        cout << "double_vec = " << double_vec << endl;
+        Vector<int> int_vec{30, 15, 10};
+        cout << "int_vec = " << int_vec << endl;
+        cout << "double_vec * int_vec = " << double_vec * int_vec << endl;
+        cout << "int_vec * double_vec = " << int_vec * double_vec << endl;
+        double_vec *= int_vec;
+        cout << "double_vec *= int_vec = " << double_vec << endl;
+
         cout << "\n\n" << endl;
 
         /*

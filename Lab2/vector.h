@@ -75,6 +75,34 @@ public:
     Vector<Type> operator &(const Vector<Type>& vec) const;
     Vector<Type>& operator &=(const Vector<Type>& vec);
 
+    template<typename Type2>
+    Vector<Type> operator *(const Vector<Type2>& vec) const
+    {
+        time_t t_time = time(NULL);
+        if (is_empty() || vec.is_empty())
+            throw EmptyError("vec1 or/and vec2 is empty", __FILE__, __LINE__, ctime(&t_time));
+        if (size() != vec.size())
+            throw DifSizeError("vec1 size != vec2 size", __FILE__, __LINE__, ctime(&t_time));
+
+        Vector<Type> rez(elems_num);
+        int i = 0;
+        Iterator<Type> It1 = this->begin();
+        for (Iterator<Type2> It2 = vec.begin(); It1 != this->end() || It2 != vec.end(); It1++, It2++)
+        {
+            rez[i++] = (*It1) * (*It2);
+        }
+        return rez;
+    }
+
+    template<typename Type2>
+    Vector<Type>& operator *=(const Vector<Type2>& vec)
+    {
+        Vector<Type> mult_vec = *this * vec;
+        *this = Vector<Type>(mult_vec);
+        return *this;
+    }
+
+
     friend class Iterator<Type>;
 
 private:
@@ -349,12 +377,12 @@ Type Vector<Type>::operator *(const Vector<Type> &vec) const
     time_t t_time = time(NULL);
     if (is_empty() || vec.is_empty())
         throw EmptyError("vec1 or/and vec2 is empty", __FILE__, __LINE__, ctime(&t_time));
-    if (elems_num != vec.elems_num)
+    if (size() != vec.size())
         throw DifSizeError("vec1 size != vec2 size", __FILE__, __LINE__, ctime(&t_time));
 
     double rez = 0;
-    Iterator<double> It1 = this->begin();
-    for (Iterator<double> It2 = vec.begin(); It1 != this->end() || It2 != vec.end(); It1++, It2++)
+    Iterator<Type> It1 = this->begin();
+    for (Iterator<Type> It2 = vec.begin(); It1 != this->end() || It2 != vec.end(); It1++, It2++)
     {
         rez += (*It1) * (*It2);
     }
@@ -367,7 +395,7 @@ double Vector<Type>::get_angle(const Vector<Type> &vec) const
     time_t t_time = time(NULL);
     if (is_empty() || vec.is_empty())
         throw EmptyError("vec1 or/and vec2 is empty", __FILE__, __LINE__, ctime(&t_time));
-    if (elems_num != vec.elems_num)
+    if (size() != vec.size())
         throw DifSizeError("vec1 size != vec2 size", __FILE__, __LINE__, ctime(&t_time));
     if (!this->len() || !vec.len())
         throw ZeroDivError("vec1 or/and vec2 len = 0", __FILE__, __LINE__, ctime(&t_time));
@@ -440,13 +468,13 @@ Vector<Type> Vector<Type>::operator +(const Vector<Type> &vec) const
     time_t t_time = time(NULL);
     if (is_empty() || vec.is_empty())
         throw EmptyError("vec1 or/and vec2 is empty", __FILE__, __LINE__, ctime(&t_time));
-    if (elems_num != vec.elems_num)
+    if (size() != vec.size())
         throw DifSizeError("vec1 size != vec2 size", __FILE__, __LINE__, ctime(&t_time));
 
     Vector<Type> rez(elems_num);
     int i = 0;
-    Iterator<double> It1 = this->begin();
-    for (Iterator<double> It2 = vec.begin(); It1 != this->end() || It2 != vec.end(); It1++, It2++)
+    Iterator<Type> It1 = this->begin();
+    for (Iterator<Type> It2 = vec.begin(); It1 != this->end() || It2 != vec.end(); It1++, It2++)
     {
         rez[i++] = (*It1) + (*It2);
     }
@@ -492,13 +520,13 @@ Vector<Type> Vector<Type>::operator -(const Vector<Type> &vec) const
     time_t t_time = time(NULL);
     if (is_empty() || vec.is_empty())
         throw EmptyError("vec1 or/and vec2 is empty", __FILE__, __LINE__, ctime(&t_time));
-    if (elems_num != vec.elems_num)
+    if (size() != vec.size())
         throw DifSizeError("vec1 size != vec2 size", __FILE__, __LINE__, ctime(&t_time));
 
     Vector<Type> rez(elems_num);
     int i = 0;
-    Iterator<double> It1 = this->begin();
-    for (Iterator<double> It2 = vec.begin(); It1 != this->end() || It2 != vec.end(); It1++, It2++)
+    Iterator<Type> It1 = this->begin();
+    for (Iterator<Type> It2 = vec.begin(); It1 != this->end() || It2 != vec.end(); It1++, It2++)
     {
         rez[i++] = (*It1) - (*It2);
     }
@@ -562,7 +590,7 @@ Vector<Type> Vector<Type>::operator &(const Vector<Type> &vec) const
     time_t t_time = time(NULL);
     if (is_empty() || vec.is_empty())
         throw EmptyError("vec1 or/and vec2 is empty", __FILE__, __LINE__, ctime(&t_time));
-    if (elems_num != vec.elems_num)
+    if (size() != vec.size())
         throw DifSizeError("vec1 size != vec2 size", __FILE__, __LINE__, ctime(&t_time));
     if (size() != 2 && size() != 3)
         throw SizeError("vec is not 2D or 3D", __FILE__, __LINE__, ctime(&t_time));
