@@ -3,6 +3,7 @@
 
 #include <memory>
 #include <time.h>
+#include <iostream>
 
 #include "baseiterator.h"
 #include "errors.h"
@@ -10,7 +11,7 @@
 using namespace std;
 
 template<class Type>
-class Vector; //почему не #include "vector.h"
+class Vector;
 
 template<typename Type>
 class Iterator:public BaseIterator
@@ -24,6 +25,9 @@ public:
     //Iterator<Type>& operator =(Iterator<Type>&& it);
 
     explicit Iterator(const Vector<Type>& vec, int index = 0); //init
+
+    int get_id() const;
+    int get_els_num() const;
 
     //bool operator !=(const weak_ptr<Type>, const weak_ptr<Type>) const;
     bool operator ==(const Iterator<Type>& it) const;
@@ -46,7 +50,7 @@ public:
     Iterator<Type>& operator -=(int n);
     Iterator<Type> operator -(int n) const;
 
-    int operator -(Iterator<Type>& it) const;
+    int operator -(const Iterator<Type>& it) const;
 
     Type& operator [](int id); //?
 
@@ -78,6 +82,7 @@ Iterator<Type>::Iterator()
 template<typename Type>
 Iterator<Type>::~Iterator()
 {
+    //Нужно ли что то делать для weak_ptr?
     /*if (data_ptr)
         data_ptr.reset();*/
 }
@@ -85,8 +90,8 @@ Iterator<Type>::~Iterator()
 template<typename Type>
 Iterator<Type>::Iterator(const Iterator<Type> &it)
 {
-    id = it.id;
-    elems_num = it.elems_num;
+    id = it.get_id(); // it.id как правильней?
+    elems_num = get_els_num();
     data_ptr = it.data_ptr; // Check is this ok? //Its ok for iterator
 }
 
@@ -95,8 +100,8 @@ Iterator<Type> &Iterator<Type>::operator =(const Iterator<Type> &it)
 {
     check_ptr(__LINE__);
 
-    id = it.id;
-    elems_num = it.elems_num;
+    id = it.get_id();
+    elems_num = get_els_num();
     data_ptr = it.data_ptr;
     return *this;
 }
@@ -136,7 +141,19 @@ Iterator<Type>::Iterator(const Vector<Type> &vec, int index)
 
     for (int i = 0; i < elems_num; i++)
         data_ptr[i] = vec[i]; //vec.get_elem(i); //vec.data_ptr[i] WHY THIS WORKS?????????*/
-    data_ptr = vec.data_ptr; //wrong
+    data_ptr = vec.data_ptr; //wrong?
+}
+
+template<typename Type>
+int Iterator<Type>::get_id() const
+{
+    return id;
+}
+
+template<typename Type>
+int Iterator<Type>::get_els_num() const
+{
+    return elems_num;
 }
 
 template<typename Type>
@@ -144,7 +161,7 @@ bool Iterator<Type>::operator ==(const Iterator<Type> &it) const
 {
     check_ptr(__LINE__);
 
-    return !(id != it.id || data_ptr.lock() != it.data_ptr.lock());
+    return !(id != it.get_id() || data_ptr.lock() != it.data_ptr.lock());
 }
 
 template<typename Type>
@@ -154,7 +171,7 @@ bool Iterator<Type>::operator !=(const Iterator<Type> &it) const
 
     //bool test1 = id != it.id;
     //bool test2 = data_ptr.lock() != it.data_ptr.lock();
-    return id != it.id || data_ptr.lock() != it.data_ptr.lock();// && data_ptr.lock() != it.data_ptr.lock();
+    return id != it.get_id() || data_ptr.lock() != it.data_ptr.lock();// && data_ptr.lock() != it.data_ptr.lock();
 }
 
 template<typename Type>
@@ -170,8 +187,9 @@ Type& Iterator<Type>::operator *()
 {
     check_ptr(__LINE__);
 
-    shared_ptr<Type[]> copy_ptr = data_ptr.lock();
-    return (copy_ptr[id]);
+    return cur_elem();
+    /*shared_ptr<Type[]> copy_ptr = data_ptr.lock();
+    return (copy_ptr[id]);*/
 }
 
 template<class Type>
@@ -179,8 +197,9 @@ const Type& Iterator<Type>::operator *() const
 {
     check_ptr(__LINE__);
 
-    shared_ptr<Type[]> copy_ptr = data_ptr.lock();
-    return (copy_ptr[id]);
+    return cur_elem();
+    /*shared_ptr<Type[]> copy_ptr = data_ptr.lock();
+    return (copy_ptr[id]);*/
 }
 
 template<typename Type>
@@ -259,13 +278,12 @@ Iterator<Type> Iterator<Type>::operator -(int n) const
     return dif_it;
 }
 
-//Верно ведь?
 template<class Type>
-int Iterator<Type>::operator -(Iterator<Type>& it) const
+int Iterator<Type>::operator -(const Iterator<Type>& it) const
 {
     check_ptr(__LINE__);
 
-    int dif = id - it.id;
+    int dif = id - it.get_id();
     return dif;
 }
 
@@ -278,43 +296,46 @@ Type &Iterator<Type>::operator [](int id)
 template<typename Type>
 bool Iterator<Type>::operator <(const Iterator<Type> &it) const
 {
-    return id < it.id;
+    return id < it.get_id();
     //return cur_elem() < *it;
 }
 
 template<typename Type>
 bool Iterator<Type>::operator <=(const Iterator<Type> &it) const
 {
-    return id <= it.id;
+    return id <= it.get_id();
     //return cur_elem() <= *it;
 }
 
 template<typename Type>
 bool Iterator<Type>::operator >(const Iterator<Type> &it) const
 {
-    return id > it.id;
+    return id > it.get_id();
     //return cur_elem() > *it;
 }
 
 template<typename Type>
 bool Iterator<Type>::operator >=(const Iterator<Type> &it) const
 {
-    return id >= it.id;
+    return id >= it.get_id();
     //return cur_elem() >= *it;
 }
 
 template<typename Type>
 Type *Iterator<Type>::operator ->()
 {
-    std::shared_ptr<Type[]> copy_ptr = data_ptr.lock();
-    return &copy_ptr[id];
+    return &cur_elem();
+    /*std::shared_ptr<Type[]> copy_ptr = data_ptr.lock();
+    return &copy_ptr[id];*/
 }
 
+//Верно?
 template<typename Type>
 const Type *Iterator<Type>::operator ->() const
 {
-    std::shared_ptr<Type> copy_ptr = data_ptr.lock();
-    return &copy_ptr[id];
+    return &cur_elem();
+    /*std::shared_ptr<Type> copy_ptr = data_ptr.lock();
+    return &copy_ptr[id];*/
 }
 
 template<typename Type>

@@ -216,12 +216,12 @@ Vector<Type>::Vector(const Vector &vec)
     time_t t_time = time(NULL);
     if (vec.size() < 0)
         throw NegativeSizeError("vec elements_number < 0", __FILE__, __LINE__, ctime(&t_time));
-    elems_num = vec.size();
+    elems_num = vec.size(); // vec.elems_num как правильней?
 
     alloc_data();
 
     for (int i = 0; i < elems_num; i++)
-        data_ptr[i] = vec[i]; //vec.get_elem(i); //vec.data_ptr[i] WHY THIS WORKS?????????
+        data_ptr[i] = vec[i]; //vec.get_elem(i); //vec.data_ptr[i] WHY THIS WORKS????????? Почему vec.data_ptr[i] работает именно внутри методов класса? Потому что они друзья?
     //cout << "HERE copy constructor" << endl;
 }
 
@@ -681,13 +681,16 @@ template<typename Type>
 void Vector<Type>::alloc_data()
 {
     data_ptr.reset();
-    shared_ptr<Type[]> new_ptr(new Type[elems_num]);
+    if (elems_num != 0)
+    {
+        shared_ptr<Type[]> new_ptr(new Type[elems_num]);
 
-    time_t t_time = time(NULL);
-    if (!new_ptr)
-        throw MemoryError("allocationg data_ptr error", __FILE__, __LINE__, ctime(&t_time));
+        time_t t_time = time(NULL);
+        if (!new_ptr)
+            throw MemoryError("allocationg data_ptr error", __FILE__, __LINE__, ctime(&t_time));
 
-    data_ptr = new_ptr;
+        data_ptr = new_ptr;
+    }
 }
 
 //template<typename T> constexpr const T &as_const(T &t) noexcept { return t; }
@@ -696,11 +699,11 @@ void Vector<Type>::alloc_data()
 template<typename Type>
 ostream& operator <<(ostream& os, const Vector<Type>& vec)
 {
-    time_t t_time = time(NULL);
-    if (vec.is_null())
-        throw MemoryError("data_ptr = NULL", __FILE__, __LINE__, ctime(&t_time));
+    //time_t t_time = time(NULL);
+    /*if (vec.is_null())
+        throw MemoryError("data_ptr = NULL", __FILE__, __LINE__, ctime(&t_time));*/
 
-    if (vec.is_empty())
+    if (vec.is_empty() || vec.is_null())
     {
         os << "Vector is empty.";
         return os;
