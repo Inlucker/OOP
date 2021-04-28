@@ -150,9 +150,9 @@ int main()
         cout << "mn_vec4 = " << mn_vec4 << endl;
         cout << "mn_vec3 & mn_vec4" << (mn_vec3 & mn_vec4) << endl;
         /*mn_vec3 &= mn_vec4;
-        cout << "mn_vec3 &= mn_vec4 =" << mn_vec3 << endl;*/
+        cout << "mn_vec3 &= mn_vec4 =" << mn_vec3 << endl;
         mn_vec4 &= mn_vec3;
-        cout << "mn_vec4 &= mn_vec3 =" << mn_vec4 << endl;
+        cout << "mn_vec4 &= mn_vec3 =" << mn_vec4 << endl;*/
 
         cout << endl;
 

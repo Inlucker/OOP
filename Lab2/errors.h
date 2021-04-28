@@ -11,9 +11,6 @@ class BaseError : public exception
 public:
     BaseError(string info, string filename, int line, const char *time, string error = "Error")
     {
-       /* err_info = "\nFile name: " + filename + "\nClass: " + classname +
-                "\nLine#: " + to_string(line) +
-                "\nTime: " + time + "Info: " + info;*/
         err_info = "\nError: " + error;
         err_info = err_info + "\nTime: " + time;
         err_info += "File name: " + filename +"\nLine#: " + to_string(line);

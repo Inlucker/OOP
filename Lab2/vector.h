@@ -61,6 +61,8 @@ public:
     bool is_collinear(const Vector<Type>& vec) const;
     bool is_orthogonal(const Vector<Type>& vec) const;
 
+    //Добавить методы которые делают тоже что и операторы
+
     //added & to const Type(нет смысла в const в таком случае), потому что нам не нужно чтобы конструктор вызывался лишний раз
     Vector<Type> operator +(const Type& val) const;
     Vector<Type>& operator +=(const Type& val);
@@ -79,8 +81,6 @@ public:
 
     Vector<Type> operator &(const Vector<Type>& vec) const;
     Vector<Type>& operator &=(const Vector<Type>& vec);
-
-    int operator &(Vector<Type>&& vec) const;
 
     //Реализация перенесена во вне класса и добавлен decltype(auto)
     template<typename Type2>
@@ -103,8 +103,6 @@ private:
 
 protected:
     void alloc_data();
-    shared_ptr<Type[]> get_data_ptr() const;
-    bool is_null() const;
 };
 
 
@@ -645,27 +643,32 @@ Vector<Type> Vector<Type>::operator &(const Vector<Type> &vec) const
     {
         x = (*this)[1] * vec[2] - (*this)[2] * vec[1];
         y = (*this)[2] * vec[0] - (*this)[0] * vec[2];
-    }
-    z = (*this)[0] * vec[1] - (*this)[1] * vec[0];
+        z = (*this)[0] * vec[1] - (*this)[1] * vec[0];
 
-    Vector<Type> rez{x, y, z};
-    return rez;
+        Vector<Type> rez_vec{x, y, z};
+        return rez_vec;
+    }
+    else if (size() == 2)
+    {
+        z = (*this)[0] * vec[1] - (*this)[1] * vec[0];
+
+        Vector<Type> rez_vec{x, y, z};
+        return rez_vec;
+    }
+    //return nullptr; // ??? shouldn't be here
 }
 
 template<typename Type>
-int Vector<Type>::operator &(Vector<Type> &&vec) const
+Vector<Type>& Vector<Type>::operator &=(const Vector<Type> &vec)
 {
+    Vector<Type> mult_vec = *this & vec;
+
     time_t t_time = time(NULL);
-    if (is_empty() || vec.is_empty())
-        throw EmptyError("vec1 or/and vec2 is empty", __FILE__, __LINE__, ctime(&t_time));
-    if (size() != vec.size())
-        throw DifSizeError("vec1 size != vec2 size", __FILE__, __LINE__, ctime(&t_time));
-    if (size() != 2)
-        throw SizeError("vec is not 2D", __FILE__, __LINE__, ctime(&t_time));
+    if (size() != 2 && size() != 3)
+        throw SizeError("vec is not 2D or 3D", __FILE__, __LINE__, ctime(&t_time));
 
-    Type rez = (*this)[0] * vec[1] - (*this)[1] * vec[0];
-
-    return rez;
+    *this = Vector<Type>(mult_vec);
+    return *this;
 }
 
 template<typename Type>
@@ -753,20 +756,6 @@ Vector<Type>& Vector<Type>::operator +=(const Vector<Type2>& vec)
 }
 
 template<typename Type>
-Vector<Type>& Vector<Type>::operator &=(const Vector<Type> &vec)
-{
-    Vector<Type> mult_vec = *this & vec;
-    *this = Vector<Type>(mult_vec);
-    return *this;
-}
-
-template<typename Type>
-bool Vector<Type>::is_null() const
-{
-    return data_ptr == nullptr;
-}
-
-template<typename Type>
 void Vector<Type>::alloc_data()
 {
     data_ptr.reset();
@@ -781,15 +770,6 @@ void Vector<Type>::alloc_data()
         data_ptr = new_ptr;
     }
 }
-
-template<typename Type>
-shared_ptr<Type[]> Vector<Type>::get_data_ptr() const
-{
-    return data_ptr;
-}
-
-//template<typename T> constexpr const T &as_const(T &t) noexcept { return t; }
-//for (auto &v: as_const(container))
 
 template<typename Type>
 ostream& operator <<(ostream& os, const Vector<Type>& vec)
