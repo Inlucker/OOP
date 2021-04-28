@@ -25,8 +25,8 @@ public:
     explicit  Vector(int elements_number);
     Vector(int elements_number, Type* mas);
     Vector(int elements_number, Type vec, ...);
-    Vector(initializer_list<Type> args);//operator =
-    Vector<Type>& operator =(initializer_list<Type> args);
+    Vector(initializer_list<Type> args);
+    Vector<Type>& operator =(initializer_list<Type> args); //added operator =
 
     explicit Vector(const Vector<Type>& vec); //copy
     Vector<Type>& operator =(const Vector<Type>& vec);
@@ -40,12 +40,12 @@ public:
 
     Iterator<Type> begin() noexcept;
     Iterator<Type> end() noexcept;
-    ConstIterator<Type> cbegin() const noexcept;
+    ConstIterator<Type> cbegin() const noexcept; //Added constIterator
     ConstIterator<Type> cend() const noexcept;
     ConstIterator<Type> begin() const noexcept;
     ConstIterator<Type> end() const noexcept;
 
-    Type &get_elem(int id);
+    Type& get_elem(int id);
     const Type& get_elem(int id) const;
     Type& operator [](int id);
     const Type& operator [](int id) const;
@@ -61,7 +61,8 @@ public:
     bool is_collinear(const Vector<Type>& vec) const;
     bool is_orthogonal(const Vector<Type>& vec) const;
 
-    Vector<Type> operator +(const Type& val) const;//&
+    //added & to const Type(нет смысла в const в таком случае), потому что нам не нужно чтобы конструктор вызывался лишний раз
+    Vector<Type> operator +(const Type& val) const;
     Vector<Type>& operator +=(const Type& val);
     Vector<Type> operator +(const Vector<Type>& vec) const;
     Vector<Type>& operator +=(const Vector<Type>& vec);
@@ -81,71 +82,19 @@ public:
 
     int operator &(Vector<Type>&& vec) const;
 
+    //Реализация перенесена во вне класса и добавлен decltype(auto)
     template<typename Type2>
-    decltype(auto) operator *(const Vector<Type2>& vec) const; //decltype(auto)
-    /*template<typename Type2>
-    Vdecltype(auto) operator *(const Vector<Type2>& vec) const
-    {
-        time_t t_time = time(NULL);
-        if (is_empty() || vec.is_empty())
-            throw EmptyError("vec1 or/and vec2 is empty", __FILE__, __LINE__, ctime(&t_time));
-        if (size() != vec.size())
-            throw DifSizeError("vec1 size != vec2 size", __FILE__, __LINE__, ctime(&t_time));
-
-        Vector<Type> rez(elems_num);
-        int i = 0;
-        Iterator<Type> It1 = this->begin();
-        for (Iterator<Type2> It2 = vec.begin(); It1 != this->end() || It2 != vec.end(); It1++, It2++)
-        {
-            rez[i++] = (*It1) * (*It2);
-        }
-        return rez;
-    }*/
+    decltype(auto) operator *(const Vector<Type2>& vec) const;
 
     template<typename Type2>
     Vector<Type>& operator *=(const Vector<Type2>& vec);
-    /*template<typename Type2>
-    Vector<Type>& operator *=(const Vector<Type2>& vec)
-    {
-        Vector<Type> mult_vec = *this * vec;
-        *this = Vector<Type>(mult_vec);
-        return *this;
-    }*/
 
     template<typename Type2>
     decltype(auto) operator +(const Vector<Type2>& vec) const;
-    /*template<typename Type2>
-    decltype(auto) operator +(const Vector<Type2>& vec) const
-    {
-        time_t t_time = time(NULL);
-        if (is_empty() || vec.is_empty())
-            throw EmptyError("vec1 or/and vec2 is empty", __FILE__, __LINE__, ctime(&t_time));
-        if (size() != vec.size())
-            throw DifSizeError("vec1 size != vec2 size", __FILE__, __LINE__, ctime(&t_time));
-
-        Vector<Type> rez(elems_num);
-        int i = 0;
-        ConstIterator<Type> It1 = this->cbegin();
-        for (ConstIterator<Type2> It2 = vec.cbegin(); It1 != this->cend() || It2 != vec.cend(); It1++, It2++)
-        {
-            rez[i++] = (*It1) + (*It2);
-        }
-        return rez;
-    }*/
 
     template<typename Type2>
     Vector<Type>& operator +=(const Vector<Type2>& vec);
-    /*template<typename Type2>
-    Vector<Type>& operator +=(const Vector<Type2>& vec)
-    {
-        Vector<Type> mult_vec = *this + vec;
-        *this = Vector<Type>(mult_vec);
-        return *this;
-    }*/
 
-    //bool is_null() const;
-
-    //friend class BaseIterator<Type>;
     friend class Iterator<Type>;
     friend class ConstIterator<Type>;
 
@@ -186,7 +135,6 @@ Vector<Type>::Vector(int elements_number)
 template<typename Type>
 Vector<Type>::Vector(int elements_number, Type *mas)
 {
-    //check elems number?
     time_t t_time = time(NULL);
     if (elements_number < 0 || !mas)
         throw NegativeSizeError("elements_number < 0 or/and nullptr mas", __FILE__, __LINE__, ctime(&t_time));
@@ -206,16 +154,12 @@ Vector<Type>::Vector(int elements_number, Type *mas)
 template<typename Type>
 Vector<Type>::Vector(int elements_number, Type vec, ...)
 {
-    //check args number?
     time_t t_time = time(NULL);
     if (elements_number < 0)
         throw NegativeSizeError("elements_number < 0", __FILE__, __LINE__, ctime(&t_time));
 
     elems_num = elements_number;
-    alloc_data();// inside allocationg check
-
-    //if (!data_ptr)
-    //    throw MemoryError("data_ptr", __FILE__, __LINE__, ctime(&t_time));
+    alloc_data();
 
     va_list ap;
     va_start(ap, vec);
@@ -274,17 +218,17 @@ Vector<Type>::Vector(const Vector<Type> &vec)
     time_t t_time = time(NULL);
     if (vec.size() < 0)
         throw NegativeSizeError("vec elements_number < 0", __FILE__, __LINE__, ctime(&t_time));
-    elems_num = vec.size(); // vec.elems_num как правильней?
+    elems_num = vec.size();
 
     alloc_data();
 
     for (int i = 0; i < elems_num; i++)
-        data_ptr[i] = vec[i]; //vec.get_elem(i); //vec.data_ptr[i] WHY THIS WORKS????????? Почему vec.data_ptr[i] работает именно внутри методов класса? Потому что они друзья?
+        data_ptr[i] = vec[i];
     //cout << "HERE copy constructor" << endl;
 }
 
 template<typename Type>
-Vector<Type> &Vector<Type>::operator =(const Vector<Type> &vec)
+Vector<Type>& Vector<Type>::operator =(const Vector<Type> &vec)
 {
     time_t t_time = time(NULL);
     //Не обязательно, потому что мы не допускаем создание векторов с отрицательным кол-вом элементов
@@ -309,17 +253,13 @@ Vector<Type>::Vector(Vector<Type> &&vec) noexcept
         throw NegativeSizeError("vec elements_number < 0", __FILE__, __LINE__, ctime(&t_time));
     elems_num = vec.size();
 
-    /*alloc_data();
-
-    for (int i = 0; i < elems_num; i++)
-        data_ptr[i] = vec[i];*/
     data_ptr = vec.data_ptr;
     //cout << "HERE transfer constructor" << endl; //Почему не печатается?
     //vec.data_ptr.reset(); // Не обязательно с умными указателями
 }
 
 template<typename Type>
-Vector<Type> &Vector<Type>::operator =(Vector<Type> &&vec) noexcept
+Vector<Type>& Vector<Type>::operator =(Vector<Type> &&vec) noexcept
 {
     time_t t_time = time(NULL);
     //Не обязательно, потому что мы не допускаем создание векторов с отрицательным кол-вом элементов
@@ -327,10 +267,6 @@ Vector<Type> &Vector<Type>::operator =(Vector<Type> &&vec) noexcept
         throw NegativeSizeError("vec elements_number < 0", __FILE__, __LINE__, ctime(&t_time));
     elems_num = vec.size();
 
-    /*alloc_data();
-
-    for (int i = 0; i < elems_num; i++)
-        data_ptr[i] = vec[i];*/
     data_ptr = vec.data_ptr;
     //cout << "HERE transfer operator =" << endl;
     //vec.data_ptr.reset(); // Не обязательно с умными указателями
@@ -433,7 +369,7 @@ Type& Vector<Type>::get_elem(int id)
 }
 
 template<typename Type>
-const Type &Vector<Type>::get_elem(int id) const
+const Type& Vector<Type>::get_elem(int id) const
 {
     time_t t_time = time(NULL);
     if (id < 0 || id >= elems_num)
@@ -443,13 +379,13 @@ const Type &Vector<Type>::get_elem(int id) const
 }
 
 template<typename Type>
-Type &Vector<Type>::operator [](int id)
+Type& Vector<Type>::operator [](int id)
 {
     return get_elem(id);
 }
 
 template<typename Type>
-const Type &Vector<Type>::operator [](int id) const
+const Type& Vector<Type>::operator [](int id) const
 {
     return get_elem(id);
 }
@@ -591,7 +527,7 @@ Vector<Type> Vector<Type>::operator +(const Vector<Type> &vec) const
 }
 
 template<typename Type>
-Vector<Type> &Vector<Type>::operator +=(const Vector<Type> &vec)
+Vector<Type>& Vector<Type>::operator +=(const Vector<Type> &vec)
 {
     Vector<Type> sum_vec = *this + vec;
     *this = Vector<Type>(sum_vec);
@@ -643,7 +579,7 @@ Vector<Type> Vector<Type>::operator -(const Vector<Type> &vec) const
 }
 
 template<typename Type>
-Vector<Type> &Vector<Type>::operator -=(const Vector<Type> &vec)
+Vector<Type>& Vector<Type>::operator -=(const Vector<Type> &vec)
 {
     Vector<Type> sum_vec = *this - vec;
     *this = Vector<Type>(sum_vec);
@@ -665,7 +601,7 @@ Vector<Type> Vector<Type>::operator *(const Type& val)
 }
 
 template<typename Type>
-Vector<Type> &Vector<Type>::operator *=(const Type& val)
+Vector<Type>& Vector<Type>::operator *=(const Type& val)
 {
     Vector<Type> mul_vec = *this * val;
     *this = Vector<Type>(mul_vec);
@@ -686,7 +622,7 @@ Vector<Type> Vector<Type>::operator /(const Type& val)
 }
 
 template<typename Type>
-Vector<Type> &Vector<Type>::operator /=(const Type& val)
+Vector<Type>& Vector<Type>::operator /=(const Type& val)
 {
     Vector<Type> div_vec = *this / val;
     *this = Vector<Type>(div_vec);
