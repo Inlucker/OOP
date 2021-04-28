@@ -65,34 +65,46 @@ public:
     //added & to const Type(нет смысла в const в таком случае), потому что нам не нужно чтобы конструктор вызывался лишний раз
     Vector<Type> operator +(const Type& val) const;
     Vector<Type>& operator +=(const Type& val);
+    Vector<Type> scalar_add(const Type& val);
+
     Vector<Type> operator +(const Vector<Type>& vec) const;
     Vector<Type>& operator +=(const Vector<Type>& vec);
+    Vector<Type> vector_add(const Vector<Type>& vec);
 
     Vector<Type> operator -(const Type& val) const;
     Vector<Type>& operator -=(const Type& val);
+    Vector<Type> scalar_dif(const Type& val);
+
     Vector<Type> operator -(const Vector<Type>& vec) const;
     Vector<Type>& operator -=(const Vector<Type>& vec);
+    Vector<Type> vector_dif(const Vector<Type>& vec);
 
     Vector<Type> operator *(const Type& val);
     Vector<Type>& operator *=(const Type& val);
+    Vector<Type> scalar_mul(const Type& val);
+
     Vector<Type> operator /(const Type& val);
     Vector<Type>& operator /=(const Type& val);
+    Vector<Type> scalar_div(const Type& val);
 
     Vector<Type> operator &(const Vector<Type>& vec) const;
     Vector<Type>& operator &=(const Vector<Type>& vec);
+    Vector<Type> vector_mul(const Vector<Type>& vec);
 
     //Реализация перенесена во вне класса и добавлен decltype(auto)
     template<typename Type2>
     decltype(auto) operator *(const Vector<Type2>& vec) const;
-
     template<typename Type2>
     Vector<Type>& operator *=(const Vector<Type2>& vec);
+    template<typename Type2>
+    Vector<Type> elems_mul(const Vector<Type2>& vec);
 
     template<typename Type2>
     decltype(auto) operator +(const Vector<Type2>& vec) const;
-
     template<typename Type2>
     Vector<Type>& operator +=(const Vector<Type2>& vec);
+    template<typename Type2>
+    Vector<Type> elems_add(const Vector<Type2>& vec);
 
     friend class Iterator<Type>;
     friend class ConstIterator<Type>;
@@ -103,7 +115,6 @@ private:
 protected:
     void alloc_data();
 };
-
 
 template<typename Type>
 Vector<Type>::Vector()
@@ -251,7 +262,7 @@ Vector<Type>::Vector(Vector<Type> &&vec) noexcept
     elems_num = vec.size();
 
     data_ptr = vec.data_ptr;
-    //cout << "HERE transfer constructor" << endl; //Почему не печатается?
+    //cout << "HERE transfer constructor!!!!!!!!!!!!!!!!!" << endl;
     //vec.data_ptr.reset(); // Не обязательно с умными указателями
 }
 
@@ -505,6 +516,14 @@ Vector<Type>& Vector<Type>::operator +=(const Type& val)
 }
 
 template<typename Type>
+Vector<Type> Vector<Type>::scalar_add(const Type &val)
+{
+    Vector<Type> rez = *this + val;
+    *this = Vector<Type>(rez);
+    return rez;
+}
+
+template<typename Type>
 Vector<Type> Vector<Type>::operator +(const Vector<Type> &vec) const
 {
     time_t t_time = time(NULL);
@@ -532,6 +551,14 @@ Vector<Type>& Vector<Type>::operator +=(const Vector<Type> &vec)
 }
 
 template<typename Type>
+Vector<Type> Vector<Type>::vector_add(const Vector<Type> &vec)
+{
+    Vector<Type> rez = *this + vec;
+    *this = Vector<Type>(rez);
+    return rez;
+}
+
+template<typename Type>
 Vector<Type> Vector<Type>::operator -(const Type& val) const
 {
     time_t t_time = time(NULL);
@@ -554,6 +581,14 @@ Vector<Type>& Vector<Type>::operator -=(const Type& val)
     for (auto &elem:*this)
         elem -= val;
     return *this;
+}
+
+template<typename Type>
+Vector<Type> Vector<Type>::scalar_dif(const Type &val)
+{
+    Vector<Type> rez = *this - val;
+    *this = Vector<Type>(rez);
+    return rez;
 }
 
 template<typename Type>
@@ -583,6 +618,13 @@ Vector<Type>& Vector<Type>::operator -=(const Vector<Type> &vec)
     return *this;
 }
 
+template<typename Type>
+Vector<Type> Vector<Type>::vector_dif(const Vector<Type>& vec)
+{
+    Vector<Type> rez = *this - vec;
+    *this = Vector<Type>(rez);
+    return rez;
+}
 
 template<typename Type>
 Vector<Type> Vector<Type>::operator *(const Type& val)
@@ -606,6 +648,14 @@ Vector<Type>& Vector<Type>::operator *=(const Type& val)
 }
 
 template<typename Type>
+Vector<Type> Vector<Type>::scalar_mul(const Type &val)
+{
+    Vector<Type> rez = *this * val;
+    *this = Vector<Type>(rez);
+    return rez;
+}
+
+template<typename Type>
 Vector<Type> Vector<Type>::operator /(const Type& val)
 {
     time_t t_time = time(NULL);
@@ -624,6 +674,14 @@ Vector<Type>& Vector<Type>::operator /=(const Type& val)
     Vector<Type> div_vec = *this / val;
     *this = Vector<Type>(div_vec);
     return *this;
+}
+
+template<typename Type>
+Vector<Type> Vector<Type>::scalar_div(const Type &val)
+{
+    Vector<Type> rez = *this / val;
+    *this = Vector<Type>(rez);
+    return rez;
 }
 
 template<typename Type>
@@ -671,6 +729,14 @@ Vector<Type>& Vector<Type>::operator &=(const Vector<Type> &vec)
 }
 
 template<typename Type>
+Vector<Type> Vector<Type>::vector_mul(const Vector<Type>& vec)
+{
+    Vector<Type> rez = *this & vec;
+    *this = Vector<Type>(rez);
+    return rez;
+}
+
+template<typename Type>
 template<typename Type2>
 decltype(auto) Vector<Type>::operator *(const Vector<Type2> &vec) const //decltype(auto)
 {
@@ -709,6 +775,15 @@ Vector<Type>& Vector<Type>::operator *=(const Vector<Type2>& vec)
     }
     *this = Vector<Type>(rez);
     return *this;
+}
+
+template<typename Type>
+template<typename Type2>
+Vector<Type> Vector<Type>::elems_mul(const Vector<Type2>& vec)
+{
+    Vector<Type> rez = *this * vec;
+    *this = Vector<Type>(rez);
+    return rez;
 }
 
 template<typename Type>
@@ -752,6 +827,15 @@ Vector<Type>& Vector<Type>::operator +=(const Vector<Type2>& vec)
     }
     *this = Vector<Type>(rez);
     return *this;
+}
+
+template<typename Type>
+template<typename Type2>
+Vector<Type> Vector<Type>::elems_add(const Vector<Type2>& vec)
+{
+    Vector<Type> rez = *this + vec;
+    *this = Vector<Type>(rez);
+    return rez;
 }
 
 template<typename Type>

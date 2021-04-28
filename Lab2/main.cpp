@@ -89,6 +89,7 @@ int main()
         Vector<double> start_vec{3, 2, 1};
         cout << "start_vec = " << start_vec << endl;
         cout << "start_vec + 10 = " << start_vec + 10 << endl;
+        //cout << "start_vec.scalar_addition(10) = " << start_vec.scalar_add(10) << endl;
         cout << "start_vec + start_vec = " << start_vec + start_vec << endl;
         start_vec += 20;
         cout << "start_vec += 20 = " << start_vec << endl;
@@ -98,7 +99,6 @@ int main()
         cout << "{1, 2, 3} + {3, 2, 1} = " << Vector<double>{1, 2, 3} + Vector<double>{3, 2, 1} << endl;
         Vector<double> slog_vec1{1, 2, 3};
         cout << "slog_vec1 = " << slog_vec1 << endl;
-        //slog_vec1 = (slog_vec1 + slog_vec1); // нельзя вызвать конструктор переноса явно
         slog_vec1 += slog_vec1;
         cout << "slog_vec1 += slog_vec1 = " << slog_vec1 << endl;
 
