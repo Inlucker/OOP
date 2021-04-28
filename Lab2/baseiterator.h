@@ -46,7 +46,7 @@ public:
     int operator -(const BaseIterator<Type>& it) const;
 
     const Type& operator *() const;
-    const Type& operator [](int index) const;
+    const Type& operator [](int index) const; //added const[]
     const Type* operator ->() const;
 
     bool operator <(const BaseIterator<Type>& it) const;

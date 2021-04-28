@@ -8,7 +8,6 @@
 #include <time.h>
 
 #include "basevector.h"
-//#include "baseiterator.h"
 #include "iterator.h"
 #include "constiterator.h"
 #include "errors.h"

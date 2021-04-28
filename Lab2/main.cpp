@@ -207,25 +207,25 @@ int main()
 
         cout << endl;
 
-        cout << "*++it1 = " << (++it1) << endl;
-        cout << "*it1++ = " << (it1++) << endl;
+        cout << "*++it1 = " << *++it1 << endl;
+        cout << "*it1++ = " << *it1++ << endl;
         cout << "*it1 = " << *it1 << endl;
 
         cout << endl;
 
-        cout << "*--it2 = " << --it2 << endl;
-        cout << "*it2-- = " << it2-- << endl;
+        cout << "*--it2 = " << *--it2 << endl;
+        cout << "*it2-- = " << *it2-- << endl;
         cout << "*it2 = " << *it2 << endl;
 
         cout << endl;
 
-        cout << "*(it1 + 2) = " << (it1 + 2) << endl;
+        cout << "*(it1 + 2) = " << *(it1 + 2) << endl;
         it1 += 3;
         cout << "it1 += 3; *it1 = " << *it1 << endl;
 
         cout << endl;
 
-        cout << "*(it2 - 2) = " << (it2 - 2) << endl;
+        cout << "*(it2 - 2) = " << *(it2 - 2) << endl;
         it2 -= 3;
         cout << "it2 -= 3; *it2 = " << *it2 << endl;
 
@@ -241,7 +241,7 @@ int main()
         cout << endl;
 
         cout << "*it1 = " << *it1 << "; *it2 = " << *it2 << endl;
-        cout << "it1 id = " << it1.get_id() << "; it2 id = " << it1.get_id() << endl;
+        cout << "it1 id = " << it1.get_id() << "; it2 id = " << it2.get_id() << endl;
         cout << "it1 < it2 = " << (it1 < it2) << endl;
         cout << "it1 <= it2 = " << (it1 <= it2) << endl;
         cout << "it1 > it2 = " << (it1 > it2) << endl;
@@ -251,7 +251,7 @@ int main()
 
         it1 -= 4;
         cout << "*it1 = " << *it1 << "; *it2 = " << *it2 << endl;
-        cout << "it1 id = " << it1.get_id() << "; it2 id = " << it1.get_id() << endl;
+        cout << "it1 id = " << it1.get_id() << "; it2 id = " << it2.get_id() << endl;
         cout << "it1 < it2 = " << (it1 < it2) << endl;
         cout << "it1 <= it2 = " << (it1 <= it2) << endl;
         cout << "it1 > it2 = " << (it1 > it2) << endl;
