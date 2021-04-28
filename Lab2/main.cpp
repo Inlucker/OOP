@@ -188,15 +188,18 @@ int main()
         cout << "ITERATOR TESTS:" << endl;
         Vector<int> vec{10, 9, 8, 7, 6, 5};
         cout << "vec = " << vec << endl;
-        Iterator<int> it1 = vec.begin();
-        Iterator<int> it2 = vec.end();
+        ConstIterator<int> it1 = vec.cbegin();
+        ConstIterator<int> it2 = vec.cend();
+        //Iterator<int> it1 = vec.begin();
+        //Iterator<int> it2 = vec.end();
         cout << "*it1 = " << *it1 << endl;
         cout << "*it2 = " << *it2 << endl;
 
         cout << endl;
 
 
-        Iterator<int> it3;
+        ConstIterator<int> it3;
+        //Iterator<int> it3;
         it3 = it1;
         cout << "it3 = it1; *it3 = " << *it1 << endl;
         it3++;

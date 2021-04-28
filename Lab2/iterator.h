@@ -28,20 +28,20 @@ protected:
 };
 
 template<typename Type>
-Iterator<Type>::Iterator()
+Iterator<Type>::Iterator()//: BaseIterator<Type>()
 {
 }
 
 template<typename Type>
-Iterator<Type>::Iterator(const Iterator<Type> &it)
+Iterator<Type>::Iterator(const Iterator<Type> &it) : BaseIterator<Type>(it)
 {
-    this->id = it.id;
+    /*this->id = it.id;
     this->elems_num = it.elems_num;
-    this->data_ptr = it.data_ptr;
+    this->data_ptr = it.data_ptr;*/
 }
 
 template<typename Type>
-Iterator<Type>::Iterator(const Vector<Type> &vec, int index)
+Iterator<Type>::Iterator(const Vector<Type> &vec, int index)// : BaseIterator<Type>(vec, index)
 {
     this->id = index;
     this->elems_num = vec.elems_num;
