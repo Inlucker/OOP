@@ -45,12 +45,16 @@ int main()
 
         Vector<double> copy_vec(init_list_vec);
         cout << "copy_vec: " << copy_vec << endl;
+        copy_vec[2] = 333;
+        cout << "copy_vec[2] = 333; copy_vec: " << copy_vec << endl;
 
         cout << endl;
 
         Vector<double> equal_vec{1, 2, 3};
         equal_vec = copy_vec;
         cout << "equal_vec: " << equal_vec << endl;
+        equal_vec.set_elem(2, 222);
+        cout << "equal_vec.set_elem(2, 222); equal_vec: " << copy_vec << endl;
 
         cout << "\n" << endl;
 
@@ -94,6 +98,7 @@ int main()
         cout << "{1, 2, 3} + {3, 2, 1} = " << Vector<double>{1, 2, 3} + Vector<double>{3, 2, 1} << endl;
         Vector<double> slog_vec1{1, 2, 3};
         cout << "slog_vec1 = " << slog_vec1 << endl;
+        //slog_vec1 = (slog_vec1 + slog_vec1); // нельзя вызвать конструктор переноса явно
         slog_vec1 += slog_vec1;
         cout << "slog_vec1 += slog_vec1 = " << slog_vec1 << endl;
 
@@ -150,6 +155,14 @@ int main()
 
         cout << endl;
 
+        cout << "double_vec = " << double_vec << "; int_vec = " << int_vec << endl;
+        cout << "int_vec + double_vec" << int_vec + double_vec << endl;
+        cout << "double_vec + int_vec" << double_vec + int_vec << endl;
+        int_vec += double_vec;
+        cout << "int_vec += double_vec = " << int_vec << endl;
+
+        cout << endl;
+
         Vector<double> gen_vec;
         gen_vec = generate_double_Vector(7);
         cout << "gen_vec = " << gen_vec << endl;
@@ -178,25 +191,25 @@ int main()
 
         cout << endl;
 
-        cout << "*++it1 = " << *++it1 << endl;
-        cout << "*it1++ = " << *it1++ << endl;
+        cout << "*++it1 = " << (++it1) << endl;
+        cout << "*it1++ = " << (it1++) << endl;
         cout << "*it1 = " << *it1 << endl;
 
         cout << endl;
 
-        cout << "*--it2 = " << *--it2 << endl;
-        cout << "*it2-- = " << *it2-- << endl;
+        cout << "*--it2 = " << --it2 << endl;
+        cout << "*it2-- = " << it2-- << endl;
         cout << "*it2 = " << *it2 << endl;
 
         cout << endl;
 
-        cout << "*(it1 + 2) = " << *(it1 + 2) << endl;
+        cout << "*(it1 + 2) = " << (it1 + 2) << endl;
         it1 += 3;
         cout << "it1 += 3; *it1 = " << *it1 << endl;
 
         cout << endl;
 
-        cout << "*(it2 - 2) = " << *(it2 - 2) << endl;
+        cout << "*(it2 - 2) = " << (it2 - 2) << endl;
         it2 -= 3;
         cout << "it2 -= 3; *it2 = " << *it2 << endl;
 

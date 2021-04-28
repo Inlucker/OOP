@@ -8,7 +8,9 @@
 #include <time.h>
 
 #include "basevector.h"
+#include "baseiterator.h"
 #include "iterator.h"
+#include "constiterator.h"
 #include "errors.h"
 
 #define EPS 1e-6
@@ -23,24 +25,25 @@ public:
     explicit  Vector(int elements_number);
     Vector(int elements_number, Type* mas);
     Vector(int elements_number, Type vec, ...);
-    Vector(initializer_list<Type> args);
+    Vector(initializer_list<Type> args);//operator =
+    Vector<Type>& operator =(initializer_list<Type> args);
 
-    explicit Vector(const Vector& vec); //copy //why explicit
+    explicit Vector(const Vector& vec); //copy
     Vector<Type>& operator =(const Vector& vec);
-    Vector(Vector<Type>&& vec); //Перенеос //explicit?
-    Vector<Type>& operator =(Vector<Type>&& vec);
+    Vector(Vector<Type>&& vec) noexcept; //Перенеос
+    Vector<Type>& operator =(Vector<Type>&& vec) noexcept;
 
     ~Vector();
 
-    bool is_empty() const;
-    int size() const;
+    bool is_empty() const noexcept;
+    int size() const noexcept;
 
-    Iterator<Type> begin();
-    Iterator<Type> end();
-    Iterator<Type> cbegin() const;
-    Iterator<Type> cend() const;
-    Iterator<Type> begin() const;
-    Iterator<Type> end() const;
+    Iterator<Type> begin() noexcept;
+    Iterator<Type> end() noexcept;
+    ConstIterator<Type> cbegin() const; //Const Iterator
+    ConstIterator<Type> cend() const;
+    ConstIterator<Type> begin() const;
+    ConstIterator<Type> end() const;
 
     Type &get_elem(int id);
     const Type& get_elem(int id) const;
@@ -58,20 +61,20 @@ public:
     bool is_collinear(const Vector<Type>& vec) const;
     bool is_orthogonal(const Vector<Type>& vec) const;
 
-    Vector<Type> operator +(const Type val) const;
-    Vector<Type>& operator +=(const Type val);
+    Vector<Type> operator +(const Type& val) const;//&
+    Vector<Type>& operator +=(const Type& val);
     Vector<Type> operator +(const Vector<Type>& vec) const;
     Vector<Type>& operator +=(const Vector<Type>& vec);
 
-    Vector<Type> operator -(const Type val) const;
-    Vector<Type>& operator -=(const Type val);
+    Vector<Type> operator -(const Type& val) const;
+    Vector<Type>& operator -=(const Type& val);
     Vector<Type> operator -(const Vector<Type>& vec) const;
     Vector<Type>& operator -=(const Vector<Type>& vec);
 
-    Vector<Type> operator *(const Type val);
-    Vector<Type>& operator *=(const Type val);
-    Vector<Type> operator /(const Type val);
-    Vector<Type>& operator /=(const Type val);
+    Vector<Type> operator *(const Type& val);
+    Vector<Type>& operator *=(const Type& val);
+    Vector<Type> operator /(const Type& val);
+    Vector<Type>& operator /=(const Type& val);
 
     Vector<Type> operator &(const Vector<Type>& vec) const;
     Vector<Type>& operator &=(const Vector<Type>& vec);
@@ -79,8 +82,8 @@ public:
     //template<typename Type2>
     //Vector<Type> operator *(const Vector<Type2>& vec) const;
     template<typename Type2>
-    Vector<Type> operator *(const Vector<Type2>& vec) const
-    {
+    Vector<Type> operator *(const Vector<Type2>& vec) const; //decltype(auto)
+    /*{
         time_t t_time = time(NULL);
         if (is_empty() || vec.is_empty())
             throw EmptyError("vec1 or/and vec2 is empty", __FILE__, __LINE__, ctime(&t_time));
@@ -95,7 +98,7 @@ public:
             rez[i++] = (*It1) * (*It2);
         }
         return rez;
-    }
+    }*/
 
     //template<typename Type2>
     //Vector<Type>& operator *=(const Vector<Type2>& vec);
@@ -107,9 +110,40 @@ public:
         return *this;
     }
 
-    bool is_null() const;
+    template<typename Type2>
+    Vector<Type> operator +(const Vector<Type2>& vec) const
+    {
+        time_t t_time = time(NULL);
+        if (is_empty() || vec.is_empty())
+            throw EmptyError("vec1 or/and vec2 is empty", __FILE__, __LINE__, ctime(&t_time));
+        if (size() != vec.size())
+            throw DifSizeError("vec1 size != vec2 size", __FILE__, __LINE__, ctime(&t_time));
 
+        Vector<Type> rez(elems_num);
+        int i = 0;
+        BaseIterator<Type> It1 = this->begin();
+        for (BaseIterator<Type2> It2 = vec.begin(); It1 != this->end() || It2 != vec.end(); It1++, It2++) //why not Iterator?
+        {
+            rez[i++] = (*It1) + (*It2);
+        }
+        return rez;
+    }
+
+    //template<typename Type2>
+    //Vector<Type>& operator *=(const Vector<Type2>& vec);
+    template<typename Type2>
+    Vector<Type>& operator +=(const Vector<Type2>& vec)
+    {
+        Vector<Type> mult_vec = *this + vec;
+        *this = Vector<Type>(mult_vec);
+        return *this;
+    }
+
+    //bool is_null() const;
+
+    //friend class BaseIterator<Type>;
     friend class Iterator<Type>;
+    friend class ConstIterator<Type>;
 
 private:
     shared_ptr<Type[]> data_ptr;
@@ -117,6 +151,7 @@ private:
 protected:
     void alloc_data();
     shared_ptr<Type[]> get_data_ptr() const;
+    bool is_null() const;
 };
 
 
@@ -137,9 +172,9 @@ Vector<Type>::Vector(int elements_number)
     elems_num = elements_number;
     alloc_data();
 
-        //for each
-        for (auto &elem:*this)
-            elem = 0;
+    //for each
+    for (auto &elem:*this)
+        elem = 0;
     /*for (Iterator<Type> It = this->begin(); It != this->end(); ++It)
         *It = 0;*/
 }
@@ -212,6 +247,24 @@ Vector<Type>::Vector(initializer_list<Type> args)
 }
 
 template<typename Type>
+Vector<Type>& Vector<Type>::operator =(initializer_list<Type> args)
+{
+    if (args.size() == 0)
+        Vector();
+
+    elems_num = int(args.size());
+    alloc_data();
+
+    Iterator<Type> it(*this);
+    for (auto &elem : args)
+    {
+        *it = elem;
+        it++;
+    }
+    return *this;
+}
+
+template<typename Type>
 Vector<Type>::Vector(const Vector &vec)
 {
     time_t t_time = time(NULL);
@@ -243,8 +296,9 @@ Vector<Type> &Vector<Type>::operator =(const Vector<Type> &vec)
     return *this;
 }
 
+//Нужно ли это реализовывать?
 template<typename Type>
-Vector<Type>::Vector(Vector<Type> &&vec)
+Vector<Type>::Vector(Vector<Type> &&vec) noexcept
 {
     time_t t_time = time(NULL);
     if (vec.size() < 0)
@@ -261,7 +315,7 @@ Vector<Type>::Vector(Vector<Type> &&vec)
 }
 
 template<typename Type>
-Vector<Type> &Vector<Type>::operator =(Vector<Type> &&vec)
+Vector<Type> &Vector<Type>::operator =(Vector<Type> &&vec) noexcept
 {
     time_t t_time = time(NULL);
     //Не обязательно, потому что мы не допускаем создание векторов с отрицательным кол-вом элементов
@@ -292,13 +346,13 @@ Vector<Type>::~Vector()
 }
 
 template<typename Type>
-bool Vector<Type>::is_empty() const
+bool Vector<Type>::is_empty() const noexcept
 {
     return !elems_num;
 }
 
 template<typename Type> //сделать inline?
-int Vector<Type>::size() const
+int Vector<Type>::size() const noexcept
 {
     return elems_num;
 }
@@ -330,39 +384,39 @@ bool Vector<Type>::is_unit() const
 }
 
 template<typename Type>
-Iterator<Type> Vector<Type>::begin()
+Iterator<Type> Vector<Type>::begin() noexcept
 {
     return Iterator<Type>(*this, 0);
 }
 
 template<typename Type>
-Iterator<Type> Vector<Type>::end()
+Iterator<Type> Vector<Type>::end() noexcept
 {
     return Iterator<Type>(*this, elems_num);
 }
 
 template<typename Type>
-Iterator<Type> Vector<Type>::cbegin() const
+ConstIterator<Type> Vector<Type>::cbegin() const
 {
-    return Iterator<Type>(*this, 0);
+    return ConstIterator<Type>(*this, 0);
 }
 
 template<typename Type>
-Iterator<Type> Vector<Type>::cend() const
+ConstIterator<Type> Vector<Type>::cend() const
 {
-    return Iterator<Type>(*this, elems_num);
+    return ConstIterator<Type>(*this, elems_num);
 }
 
 template<typename Type>
-Iterator<Type> Vector<Type>::begin() const
+ConstIterator<Type> Vector<Type>::begin() const
 {
-    return Iterator<Type>(*this, 0);
+    return ConstIterator<Type>(*this, 0);
 }
 
 template<typename Type>
-Iterator<Type> Vector<Type>::end() const
+ConstIterator<Type> Vector<Type>::end() const
 {
-    return Iterator<Type>(*this, elems_num);
+    return ConstIterator<Type>(*this, elems_num);
 }
 
 template<typename Type>
@@ -432,8 +486,8 @@ Type Vector<Type>::operator *(const Vector<Type> &vec) const
         throw DifSizeError("vec1 size != vec2 size", __FILE__, __LINE__, ctime(&t_time));
 
     double rez = 0;
-    Iterator<Type> It1 = this->begin();
-    for (Iterator<Type> It2 = vec.begin(); It1 != this->end() || It2 != vec.end(); It1++, It2++)
+    BaseIterator<Type> It1 = this->begin();
+    for (BaseIterator<Type> It2 = vec.begin(); It1 != this->end() || It2 != vec.end(); It1++, It2++)
     {
         rez += (*It1) * (*It2);
     }
@@ -489,7 +543,7 @@ bool is_orthogonal(const Vector<Type> &vec1, const Vector<Type> &vec2)
 }
 
 template<typename Type>
-Vector<Type> Vector<Type>::operator +(const Type val) const
+Vector<Type> Vector<Type>::operator +(const Type& val) const
 {
     time_t t_time = time(NULL);
     if (is_empty())
@@ -502,7 +556,7 @@ Vector<Type> Vector<Type>::operator +(const Type val) const
 }
 
 template<typename Type>
-Vector<Type>& Vector<Type>::operator +=(const Type val)
+Vector<Type>& Vector<Type>::operator +=(const Type& val)
 {
     time_t t_time = time(NULL);
     if (is_empty())
@@ -524,8 +578,8 @@ Vector<Type> Vector<Type>::operator +(const Vector<Type> &vec) const
 
     Vector<Type> rez(elems_num);
     int i = 0;
-    Iterator<Type> It1 = this->begin();
-    for (Iterator<Type> It2 = vec.begin(); It1 != this->end() || It2 != vec.end(); It1++, It2++)
+    BaseIterator<Type> It1 = this->begin();
+    for (BaseIterator<Type> It2 = vec.begin(); It1 != this->end() || It2 != vec.end(); It1++, It2++)//why not Iterator?
     {
         rez[i++] = (*It1) + (*It2);
     }
@@ -541,7 +595,7 @@ Vector<Type> &Vector<Type>::operator +=(const Vector<Type> &vec)
 }
 
 template<typename Type>
-Vector<Type> Vector<Type>::operator -(const Type val) const
+Vector<Type> Vector<Type>::operator -(const Type& val) const
 {
     time_t t_time = time(NULL);
     if (is_empty())
@@ -554,7 +608,7 @@ Vector<Type> Vector<Type>::operator -(const Type val) const
 }
 
 template<typename Type>
-Vector<Type>& Vector<Type>::operator -=(const Type val)
+Vector<Type>& Vector<Type>::operator -=(const Type& val)
 {
     time_t t_time = time(NULL);
     if (is_empty())
@@ -576,8 +630,8 @@ Vector<Type> Vector<Type>::operator -(const Vector<Type> &vec) const
 
     Vector<Type> rez(elems_num);
     int i = 0;
-    Iterator<Type> It1 = this->begin();
-    for (Iterator<Type> It2 = vec.begin(); It1 != this->end() || It2 != vec.end(); It1++, It2++)
+    BaseIterator<Type> It1 = this->begin();
+    for (BaseIterator<Type> It2 = vec.begin(); It1 != this->end() || It2 != vec.end(); It1++, It2++) // why not Iterator?
     {
         rez[i++] = (*It1) - (*It2);
     }
@@ -594,7 +648,7 @@ Vector<Type> &Vector<Type>::operator -=(const Vector<Type> &vec)
 
 
 template<typename Type>
-Vector<Type> Vector<Type>::operator *(const Type val)
+Vector<Type> Vector<Type>::operator *(const Type& val)
 {
     time_t t_time = time(NULL);
     if (is_empty())
@@ -607,7 +661,7 @@ Vector<Type> Vector<Type>::operator *(const Type val)
 }
 
 template<typename Type>
-Vector<Type> &Vector<Type>::operator *=(const Type val)
+Vector<Type> &Vector<Type>::operator *=(const Type& val)
 {
     Vector<Type> mul_vec = *this * val;
     *this = Vector<Type>(mul_vec);
@@ -615,7 +669,7 @@ Vector<Type> &Vector<Type>::operator *=(const Type val)
 }
 
 template<typename Type>
-Vector<Type> Vector<Type>::operator /(const Type val)
+Vector<Type> Vector<Type>::operator /(const Type& val)
 {
     time_t t_time = time(NULL);
     if (is_empty())
@@ -628,7 +682,7 @@ Vector<Type> Vector<Type>::operator /(const Type val)
 }
 
 template<typename Type>
-Vector<Type> &Vector<Type>::operator /=(const Type val)
+Vector<Type> &Vector<Type>::operator /=(const Type& val)
 {
     Vector<Type> div_vec = *this / val;
     *this = Vector<Type>(div_vec);
@@ -647,7 +701,10 @@ Vector<Type> Vector<Type>::operator &(const Vector<Type> &vec) const
         throw SizeError("vec is not 2D or 3D", __FILE__, __LINE__, ctime(&t_time));
 
     Type x = 0, y = 0, z = 0;
-    if (elems_num == 3)
+    x = (*this)[1] * vec[2] - (*this)[2] * vec[1];
+    y = (*this)[2] * vec[0] - (*this)[0] * vec[2];
+    z = (*this)[0] * vec[1] - (*this)[1] * vec[0];
+    /*if (elems_num == 3)
     {
         x = (*this)[1] * vec[2] - (*this)[2] * vec[1];
         y = (*this)[2] * vec[0] - (*this)[0] * vec[2];
@@ -658,11 +715,28 @@ Vector<Type> Vector<Type>::operator &(const Vector<Type> &vec) const
         //x = (*this)[1] * 0 - 0 * vec[1];
         //y = 0 * vec[0] - (*this)[0] * 0;
         z = (*this)[0] * vec[1] - (*this)[1] * vec[0];
-    }
+    }*/
 
     Vector<Type> rez{x, y, z};
     return rez;
 }
+
+/*template<typename Type>
+int Vector<Type>::operator &(const Vector<Type> &vec) const
+{
+    time_t t_time = time(NULL);
+    if (is_empty() || vec.is_empty())
+        throw EmptyError("vec1 or/and vec2 is empty", __FILE__, __LINE__, ctime(&t_time));
+    if (size() != vec.size())
+        throw DifSizeError("vec1 size != vec2 size", __FILE__, __LINE__, ctime(&t_time));
+    if (size() != 2 && size() != 3)
+        throw SizeError("vec is not 2D or 3D", __FILE__, __LINE__, ctime(&t_time));
+
+    Type rez = (*this)[0] * vec[1] - (*this)[1] * vec[0];
+
+    Vector<Type> rez{x, y, z};
+    return rez;
+}*/
 
 template<typename Type>
 Vector<Type>& Vector<Type>::operator &=(const Vector<Type> &vec)
@@ -710,13 +784,14 @@ ostream& operator <<(ostream& os, const Vector<Type>& vec)
     /*if (vec.is_null())
         throw MemoryError("data_ptr = NULL", __FILE__, __LINE__, ctime(&t_time));*/
 
-    if (vec.is_empty() || vec.is_null())
+    //if (vec.is_empty() || vec.is_null())
+    if (vec.is_empty())
     {
         os << "Vector is empty.";
         return os;
     }
 
-    Iterator It = vec.cbegin();
+    BaseIterator<Type> It = vec.cbegin();
     os << '(' << *It++;
     for (; It != vec.cend(); It++)
         os << ", " << *It ;
@@ -737,3 +812,23 @@ ostream& operator <<(ostream& os, const Vector<Type>& vec)
 }
 
 #endif // VECTOR_H
+
+template<typename Type>
+template<typename Type2>
+Vector<Type> Vector<Type>::operator *(const Vector<Type2> &vec) const //decltype(auto)
+{
+    time_t t_time = time(NULL);
+    if (is_empty() || vec.is_empty())
+        throw EmptyError("vec1 or/and vec2 is empty", __FILE__, __LINE__, ctime(&t_time));
+    if (size() != vec.size())
+        throw DifSizeError("vec1 size != vec2 size", __FILE__, __LINE__, ctime(&t_time));
+
+    Vector<Type> rez(elems_num);
+    int i = 0;
+    BaseIterator<Type> It1 = this->begin();
+    for (BaseIterator<Type2> It2 = vec.begin(); It1 != this->end() || It2 != vec.end(); It1++, It2++) //why not Iterator?
+    {
+        rez[i++] = (*It1) * (*It2);
+    }
+    return rez;
+}

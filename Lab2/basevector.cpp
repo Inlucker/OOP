@@ -6,28 +6,7 @@ BaseVector::BaseVector()
     elems_num = 0;
 }
 
-/*BaseVector::BaseVector(const BaseVector &copy_base)
-{
-    //copy constructor
-    elems_num = copy_base.elems_num;
-}*/
-
 BaseVector::~BaseVector()
 {
     //destructor
 }
-
-/*BaseVector::BaseVector(const BaseVector &base)
-{
-    elem_num = base.elem_num;
-}
-
-bool BaseVector::is_empty() const
-{
-    return !elem_num;
-}
-
-int BaseVector::size() const
-{
-    return elem_num;
-}*/
