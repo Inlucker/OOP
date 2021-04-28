@@ -8,7 +8,7 @@
 #include <time.h>
 
 #include "basevector.h"
-#include "baseiterator.h"
+//#include "baseiterator.h"
 #include "iterator.h"
 #include "constiterator.h"
 #include "errors.h"
@@ -28,8 +28,8 @@ public:
     Vector(initializer_list<Type> args);//operator =
     Vector<Type>& operator =(initializer_list<Type> args);
 
-    explicit Vector(const Vector& vec); //copy
-    Vector<Type>& operator =(const Vector& vec);
+    explicit Vector(const Vector<Type>& vec); //copy
+    Vector<Type>& operator =(const Vector<Type>& vec);
     Vector(Vector<Type>&& vec) noexcept; //Перенеос
     Vector<Type>& operator =(Vector<Type>&& vec) noexcept;
 
@@ -40,10 +40,10 @@ public:
 
     Iterator<Type> begin() noexcept;
     Iterator<Type> end() noexcept;
-    ConstIterator<Type> cbegin() const; //Const Iterator
-    ConstIterator<Type> cend() const;
-    ConstIterator<Type> begin() const;
-    ConstIterator<Type> end() const;
+    ConstIterator<Type> cbegin() const noexcept;
+    ConstIterator<Type> cend() const noexcept;
+    ConstIterator<Type> begin() const noexcept;
+    ConstIterator<Type> end() const noexcept;
 
     Type &get_elem(int id);
     const Type& get_elem(int id) const;
@@ -79,11 +79,13 @@ public:
     Vector<Type> operator &(const Vector<Type>& vec) const;
     Vector<Type>& operator &=(const Vector<Type>& vec);
 
-    //template<typename Type2>
-    //Vector<Type> operator *(const Vector<Type2>& vec) const;
+    int operator &(Vector<Type>&& vec) const;
+
     template<typename Type2>
-    Vector<Type> operator *(const Vector<Type2>& vec) const; //decltype(auto)
-    /*{
+    decltype(auto) operator *(const Vector<Type2>& vec) const; //decltype(auto)
+    /*template<typename Type2>
+    Vdecltype(auto) operator *(const Vector<Type2>& vec) const
+    {
         time_t t_time = time(NULL);
         if (is_empty() || vec.is_empty())
             throw EmptyError("vec1 or/and vec2 is empty", __FILE__, __LINE__, ctime(&t_time));
@@ -100,18 +102,20 @@ public:
         return rez;
     }*/
 
-    //template<typename Type2>
-    //Vector<Type>& operator *=(const Vector<Type2>& vec);
     template<typename Type2>
+    Vector<Type>& operator *=(const Vector<Type2>& vec);
+    /*template<typename Type2>
     Vector<Type>& operator *=(const Vector<Type2>& vec)
     {
         Vector<Type> mult_vec = *this * vec;
         *this = Vector<Type>(mult_vec);
         return *this;
-    }
+    }*/
 
     template<typename Type2>
-    Vector<Type> operator +(const Vector<Type2>& vec) const
+    decltype(auto) operator +(const Vector<Type2>& vec) const;
+    /*template<typename Type2>
+    decltype(auto) operator +(const Vector<Type2>& vec) const
     {
         time_t t_time = time(NULL);
         if (is_empty() || vec.is_empty())
@@ -121,23 +125,23 @@ public:
 
         Vector<Type> rez(elems_num);
         int i = 0;
-        BaseIterator<Type> It1 = this->begin();
-        for (BaseIterator<Type2> It2 = vec.begin(); It1 != this->end() || It2 != vec.end(); It1++, It2++) //why not Iterator?
+        ConstIterator<Type> It1 = this->cbegin();
+        for (ConstIterator<Type2> It2 = vec.cbegin(); It1 != this->cend() || It2 != vec.cend(); It1++, It2++)
         {
             rez[i++] = (*It1) + (*It2);
         }
         return rez;
-    }
+    }*/
 
-    //template<typename Type2>
-    //Vector<Type>& operator *=(const Vector<Type2>& vec);
     template<typename Type2>
+    Vector<Type>& operator +=(const Vector<Type2>& vec);
+    /*template<typename Type2>
     Vector<Type>& operator +=(const Vector<Type2>& vec)
     {
         Vector<Type> mult_vec = *this + vec;
         *this = Vector<Type>(mult_vec);
         return *this;
-    }
+    }*/
 
     //bool is_null() const;
 
@@ -265,7 +269,7 @@ Vector<Type>& Vector<Type>::operator =(initializer_list<Type> args)
 }
 
 template<typename Type>
-Vector<Type>::Vector(const Vector &vec)
+Vector<Type>::Vector(const Vector<Type> &vec)
 {
     time_t t_time = time(NULL);
     if (vec.size() < 0)
@@ -396,25 +400,25 @@ Iterator<Type> Vector<Type>::end() noexcept
 }
 
 template<typename Type>
-ConstIterator<Type> Vector<Type>::cbegin() const
+ConstIterator<Type> Vector<Type>::cbegin() const noexcept
 {
     return ConstIterator<Type>(*this, 0);
 }
 
 template<typename Type>
-ConstIterator<Type> Vector<Type>::cend() const
+ConstIterator<Type> Vector<Type>::cend() const noexcept
 {
     return ConstIterator<Type>(*this, elems_num);
 }
 
 template<typename Type>
-ConstIterator<Type> Vector<Type>::begin() const
+ConstIterator<Type> Vector<Type>::begin() const noexcept
 {
     return ConstIterator<Type>(*this, 0);
 }
 
 template<typename Type>
-ConstIterator<Type> Vector<Type>::end() const
+ConstIterator<Type> Vector<Type>::end() const noexcept
 {
     return ConstIterator<Type>(*this, elems_num);
 }
@@ -486,8 +490,8 @@ Type Vector<Type>::operator *(const Vector<Type> &vec) const
         throw DifSizeError("vec1 size != vec2 size", __FILE__, __LINE__, ctime(&t_time));
 
     double rez = 0;
-    BaseIterator<Type> It1 = this->begin();
-    for (BaseIterator<Type> It2 = vec.begin(); It1 != this->end() || It2 != vec.end(); It1++, It2++)
+    ConstIterator<Type> It1 = this->cbegin();
+    for (ConstIterator<Type> It2 = vec.cbegin(); It1 != this->cend() || It2 != vec.cend(); It1++, It2++)
     {
         rez += (*It1) * (*It2);
     }
@@ -578,8 +582,8 @@ Vector<Type> Vector<Type>::operator +(const Vector<Type> &vec) const
 
     Vector<Type> rez(elems_num);
     int i = 0;
-    BaseIterator<Type> It1 = this->begin();
-    for (BaseIterator<Type> It2 = vec.begin(); It1 != this->end() || It2 != vec.end(); It1++, It2++)//why not Iterator?
+    ConstIterator<Type> It1 = this->cbegin();
+    for (ConstIterator<Type> It2 = vec.cbegin(); It1 != this->cend() || It2 != vec.cend(); It1++, It2++)
     {
         rez[i++] = (*It1) + (*It2);
     }
@@ -630,8 +634,8 @@ Vector<Type> Vector<Type>::operator -(const Vector<Type> &vec) const
 
     Vector<Type> rez(elems_num);
     int i = 0;
-    BaseIterator<Type> It1 = this->begin();
-    for (BaseIterator<Type> It2 = vec.begin(); It1 != this->end() || It2 != vec.end(); It1++, It2++) // why not Iterator?
+    ConstIterator<Type> It1 = this->cbegin();
+    for (ConstIterator<Type> It2 = vec.cbegin(); It1 != this->cend() || It2 != vec.cend(); It1++, It2++)
     {
         rez[i++] = (*It1) - (*It2);
     }
@@ -701,42 +705,116 @@ Vector<Type> Vector<Type>::operator &(const Vector<Type> &vec) const
         throw SizeError("vec is not 2D or 3D", __FILE__, __LINE__, ctime(&t_time));
 
     Type x = 0, y = 0, z = 0;
-    x = (*this)[1] * vec[2] - (*this)[2] * vec[1];
-    y = (*this)[2] * vec[0] - (*this)[0] * vec[2];
-    z = (*this)[0] * vec[1] - (*this)[1] * vec[0];
-    /*if (elems_num == 3)
+    if (size() == 3)
     {
         x = (*this)[1] * vec[2] - (*this)[2] * vec[1];
         y = (*this)[2] * vec[0] - (*this)[0] * vec[2];
-        z = (*this)[0] * vec[1] - (*this)[1] * vec[0];
     }
-    else if (elems_num == 2)
-    {
-        //x = (*this)[1] * 0 - 0 * vec[1];
-        //y = 0 * vec[0] - (*this)[0] * 0;
-        z = (*this)[0] * vec[1] - (*this)[1] * vec[0];
-    }*/
+    z = (*this)[0] * vec[1] - (*this)[1] * vec[0];
 
     Vector<Type> rez{x, y, z};
     return rez;
 }
 
-/*template<typename Type>
-int Vector<Type>::operator &(const Vector<Type> &vec) const
+template<typename Type>
+int Vector<Type>::operator &(Vector<Type> &&vec) const
 {
     time_t t_time = time(NULL);
     if (is_empty() || vec.is_empty())
         throw EmptyError("vec1 or/and vec2 is empty", __FILE__, __LINE__, ctime(&t_time));
     if (size() != vec.size())
         throw DifSizeError("vec1 size != vec2 size", __FILE__, __LINE__, ctime(&t_time));
-    if (size() != 2 && size() != 3)
-        throw SizeError("vec is not 2D or 3D", __FILE__, __LINE__, ctime(&t_time));
+    if (size() != 2)
+        throw SizeError("vec is not 2D", __FILE__, __LINE__, ctime(&t_time));
 
     Type rez = (*this)[0] * vec[1] - (*this)[1] * vec[0];
 
-    Vector<Type> rez{x, y, z};
     return rez;
-}*/
+}
+
+template<typename Type>
+template<typename Type2>
+decltype(auto) Vector<Type>::operator *(const Vector<Type2> &vec) const //decltype(auto)
+{
+    time_t t_time = time(NULL);
+    if (is_empty() || vec.is_empty())
+        throw EmptyError("vec1 or/and vec2 is empty", __FILE__, __LINE__, ctime(&t_time));
+    if (size() != vec.size())
+        throw DifSizeError("vec1 size != vec2 size", __FILE__, __LINE__, ctime(&t_time));
+
+    Vector<decltype((*this)[0] * vec[0])> rez(elems_num);
+    int i = 0;
+    ConstIterator<Type> It1 = this->cbegin();
+    for (ConstIterator<Type2> It2 = vec.cbegin(); It1 != this->cend() || It2 != vec.cend(); It1++, It2++)
+    {
+        rez[i++] = (*It1) * (*It2);
+    }
+    return rez;
+}
+
+template<typename Type>
+template<typename Type2>
+Vector<Type>& Vector<Type>::operator *=(const Vector<Type2>& vec)
+{
+    time_t t_time = time(NULL);
+    if (is_empty() || vec.is_empty())
+        throw EmptyError("vec1 or/and vec2 is empty", __FILE__, __LINE__, ctime(&t_time));
+    if (size() != vec.size())
+        throw DifSizeError("vec1 size != vec2 size", __FILE__, __LINE__, ctime(&t_time));
+
+    Vector<Type> rez(elems_num);
+    int i = 0;
+    ConstIterator<Type> It1 = this->cbegin();
+    for (ConstIterator<Type2> It2 = vec.cbegin(); It1 != this->cend() || It2 != vec.cend(); It1++, It2++)
+    {
+        rez[i++] = (*It1) * (*It2);
+    }
+    *this = Vector<Type>(rez);
+    return *this;
+}
+
+template<typename Type>
+template<typename Type2>
+decltype(auto) Vector<Type>::operator +(const Vector<Type2>& vec) const
+{
+    time_t t_time = time(NULL);
+    if (is_empty() || vec.is_empty())
+        throw EmptyError("vec1 or/and vec2 is empty", __FILE__, __LINE__, ctime(&t_time));
+    if (size() != vec.size())
+        throw DifSizeError("vec1 size != vec2 size", __FILE__, __LINE__, ctime(&t_time));
+
+    //Vector<Type> rez(elems_num);
+    Vector<decltype((*this)[0] + vec[0])> rez(elems_num);
+    int i = 0;
+    ConstIterator<Type> It1 = this->cbegin();
+    for (ConstIterator<Type2> It2 = vec.cbegin(); It1 != this->cend() || It2 != vec.cend(); It1++, It2++)
+    {
+        rez[i++] = (*It1) + (*It2);
+    }
+    return rez;
+}
+
+template<typename Type>
+template<typename Type2>
+Vector<Type>& Vector<Type>::operator +=(const Vector<Type2>& vec)
+{
+    time_t t_time = time(NULL);
+    if (is_empty() || vec.is_empty())
+        throw EmptyError("vec1 or/and vec2 is empty", __FILE__, __LINE__, ctime(&t_time));
+    if (size() != vec.size())
+        throw DifSizeError("vec1 size != vec2 size", __FILE__, __LINE__, ctime(&t_time));
+
+    //Vector<Type> rez(elems_num);
+    Vector<Type> rez(elems_num);
+    int i = 0;
+    ConstIterator<Type> It1 = this->cbegin();
+    for (ConstIterator<Type2> It2 = vec.cbegin(); It1 != this->cend() || It2 != vec.cend(); It1++, It2++)
+    {
+        rez[i++] = (*It1) + (*It2);
+    }
+    *this = Vector<Type>(rez);
+    return *this;
+}
 
 template<typename Type>
 Vector<Type>& Vector<Type>::operator &=(const Vector<Type> &vec)
@@ -791,7 +869,7 @@ ostream& operator <<(ostream& os, const Vector<Type>& vec)
         return os;
     }
 
-    BaseIterator<Type> It = vec.cbegin();
+    ConstIterator<Type> It = vec.cbegin();
     os << '(' << *It++;
     for (; It != vec.cend(); It++)
         os << ", " << *It ;
@@ -812,23 +890,3 @@ ostream& operator <<(ostream& os, const Vector<Type>& vec)
 }
 
 #endif // VECTOR_H
-
-template<typename Type>
-template<typename Type2>
-Vector<Type> Vector<Type>::operator *(const Vector<Type2> &vec) const //decltype(auto)
-{
-    time_t t_time = time(NULL);
-    if (is_empty() || vec.is_empty())
-        throw EmptyError("vec1 or/and vec2 is empty", __FILE__, __LINE__, ctime(&t_time));
-    if (size() != vec.size())
-        throw DifSizeError("vec1 size != vec2 size", __FILE__, __LINE__, ctime(&t_time));
-
-    Vector<Type> rez(elems_num);
-    int i = 0;
-    BaseIterator<Type> It1 = this->begin();
-    for (BaseIterator<Type2> It2 = vec.begin(); It1 != this->end() || It2 != vec.end(); It1++, It2++) //why not Iterator?
-    {
-        rez[i++] = (*It1) * (*It2);
-    }
-    return rez;
-}

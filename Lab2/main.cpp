@@ -144,6 +144,18 @@ int main()
 
         cout << endl;
 
+        Vector<double> mn_vec3{1, 2};
+        cout << "mn_vec3 = " << mn_vec3 << endl;
+        Vector<double> mn_vec4{3, 2};
+        cout << "mn_vec4 = " << mn_vec4 << endl;
+        cout << "mn_vec3 & mn_vec4" << (mn_vec3 & mn_vec4) << endl;
+        /*mn_vec3 &= mn_vec4;
+        cout << "mn_vec3 &= mn_vec4 =" << mn_vec3 << endl;*/
+        mn_vec4 &= mn_vec3;
+        cout << "mn_vec4 &= mn_vec3 =" << mn_vec4 << endl;
+
+        cout << endl;
+
         Vector<double> double_vec{1.5, 2.5, 3.5};
         cout << "double_vec = " << double_vec << endl;
         Vector<int> int_vec{30, 15, 10};
@@ -152,12 +164,16 @@ int main()
         cout << "int_vec * double_vec = " << int_vec * double_vec << endl;
         double_vec *= int_vec;
         cout << "double_vec *= int_vec = " << double_vec << endl;
+        int_vec *= double_vec;
+        cout << "int_vec *= int_vec = " << int_vec << endl;
 
         cout << endl;
 
         cout << "double_vec = " << double_vec << "; int_vec = " << int_vec << endl;
         cout << "int_vec + double_vec" << int_vec + double_vec << endl;
         cout << "double_vec + int_vec" << double_vec + int_vec << endl;
+        double_vec += int_vec;
+        cout << "double_vec += int_vec = " << double_vec << endl;
         int_vec += double_vec;
         cout << "int_vec += double_vec = " << int_vec << endl;
 
@@ -249,47 +265,6 @@ int main()
         cout << "*(it2.operator->()) = " << *(it2.operator->()) << endl;*/
 
         //cout << "\n\n" << endl;
-
-        /*
-        //BaseVector v1();
-        //Vector<double> test_vec_zero{1.2, 2.3, 3.4, 4.5, 5.6};
-        Vector<double> test_vec_zero(4);
-        cout << test_vec_zero << endl;
-        Vector<double> test_vec(3, 3., 4., 5.);
-        //Vector<double> test_vec2(3, 5., 4., 3.);
-
-        // checking copy constructor
-        const Vector<double> test_vec2(test_vec);
-        double test_double = test_vec2[0];
-        cout << "test_vec2[0] = " << test_double << endl;
-        test_vec[0] = 55;
-
-        //Vector3D<double> v3;
-        cout << "Length of vector "<< test_vec <<": " << test_vec.len() << "\n";
-        for (auto elem:test_vec)
-            cout << elem << endl;
-        cout << endl;*/
-
-        /*Iterator It2 = test_vec2.begin();
-        for (Iterator<double> It = test_vec.begin(); It != test_vec.end(); It++)
-        {
-            auto elem = *It;
-            cout << elem << endl;
-            elem = *It2;
-            cout << elem << endl;
-            cout << bool(It2 == It) << endl;
-            It2++;
-        }
-        cout << endl;*/
-
-        //checkinh postfix increment
-        /*for (Iterator<double> It = test_vec2.cbegin(); It != test_vec2.cend(); )
-        {
-            auto elem = *It++;
-            //++It;
-            cout << elem << endl;
-        }
-        cout << endl;*/
     }
     catch (BaseError& err)
     {
