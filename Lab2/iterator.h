@@ -41,11 +41,11 @@ Iterator<Type>::Iterator(const Iterator<Type> &it) : BaseIterator<Type>(it)
 }
 
 template<typename Type>
-Iterator<Type>::Iterator(const Vector<Type> &vec, int index)// : BaseIterator<Type>(vec, index)
+Iterator<Type>::Iterator(const Vector<Type> &vec, int index) : BaseIterator<Type>(vec, index)
 {
-    this->id = index;
+    /*this->id = index;
     this->elems_num = vec.elems_num;
-    this->data_ptr = vec.data_ptr;
+    this->data_ptr = vec.data_ptr;*/
 }
 
 template<typename Type>

@@ -106,8 +106,9 @@ public:
     template<typename Type2>
     Vector<Type> elems_add(const Vector<Type2>& vec);
 
-    friend class Iterator<Type>;
-    friend class ConstIterator<Type>;
+    friend class BaseIterator<Type>;
+    //friend class Iterator<Type>;
+    //friend class ConstIterator<Type>;
 
 private:
     shared_ptr<Type[]> data_ptr;

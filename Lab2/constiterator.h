@@ -39,11 +39,11 @@ ConstIterator<Type>::ConstIterator(const ConstIterator<Type> &it) : BaseIterator
 }
 
 template<typename Type>
-ConstIterator<Type>::ConstIterator(const Vector<Type> &vec, int index)// : BaseIterator<Type>(vec, index)
+ConstIterator<Type>::ConstIterator(const Vector<Type> &vec, int index) : BaseIterator<Type>(vec, index)
 {
-    this->id = index;
+    /*this->id = index;
     this->elems_num = vec.elems_num;
-    this->data_ptr = vec.data_ptr;
+    this->data_ptr = vec.data_ptr;*/
 }
 
 #endif // CONSTConstIterator_H
