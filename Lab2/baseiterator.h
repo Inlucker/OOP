@@ -21,7 +21,8 @@ public:
     BaseIterator(const BaseIterator<Type>& it); //copy
     BaseIterator<Type>& operator =(const BaseIterator<Type>& it);
 
-    explicit BaseIterator(const Vector<Type>& vec, int index = 0); //init
+    explicit BaseIterator(shared_ptr<Type[]> ptr, int num, int index = 0); //init
+    //explicit BaseIterator(const Vector<Type>& vec, int index = 0); //init
 
     int get_id() const;
     int get_els_num() const;
@@ -87,12 +88,20 @@ BaseIterator<Type> &BaseIterator<Type>::operator =(const BaseIterator<Type> &it)
 }
 
 template<typename Type>
+BaseIterator<Type>::BaseIterator(shared_ptr<Type[]> ptr, int num, int index)
+{
+    id = index;
+    elems_num = num;
+    data_ptr = ptr;
+}
+
+/*template<typename Type>
 BaseIterator<Type>::BaseIterator(const Vector<Type> &vec, int index)
 {
     id = index;
-    elems_num = vec.elems_num;
-    data_ptr = vec.data_ptr;
-}
+    elems_num = vec.size();
+    data_ptr = vec.get_data_ptr();
+}*/
 
 template<typename Type>
 int BaseIterator<Type>::get_id() const

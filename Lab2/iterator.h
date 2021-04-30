@@ -13,7 +13,8 @@ public:
     virtual ~Iterator() = default;
     Iterator(const Iterator<Type>& it); //copy
 
-    explicit Iterator(const Vector<Type>& vec, int index = 0); //init
+    explicit Iterator(shared_ptr<Type[]> ptr, int num, int index = 0);
+    //explicit Iterator(const Vector<Type>& vec, int index = 0); //init
 
     Type& operator *();
 
@@ -41,12 +42,14 @@ Iterator<Type>::Iterator(const Iterator<Type> &it) : BaseIterator<Type>(it)
 }
 
 template<typename Type>
+Iterator<Type>::Iterator(shared_ptr<Type[]> ptr, int num, int index) : BaseIterator<Type>(ptr, num, index)
+{
+}
+
+/*template<typename Type>
 Iterator<Type>::Iterator(const Vector<Type> &vec, int index) : BaseIterator<Type>(vec, index)
 {
-    /*this->id = index;
-    this->elems_num = vec.elems_num;
-    this->data_ptr = vec.data_ptr;*/
-}
+}*/
 
 template<typename Type>
 Type& Iterator<Type>::operator *()

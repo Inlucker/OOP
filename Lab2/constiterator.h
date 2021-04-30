@@ -16,7 +16,8 @@ public:
     virtual ~ConstIterator() = default;
     ConstIterator(const ConstIterator<Type>& it); //copy
 
-    explicit ConstIterator(const Vector<Type>& vec, int index = 0); //init
+    explicit ConstIterator(shared_ptr<Type[]> ptr, int num, int index = 0);
+    //explicit ConstIterator(const Vector<Type>& vec, int index = 0); //init
 
 protected:
     /*weak_ptr<Type[]> data_ptr;
@@ -39,11 +40,13 @@ ConstIterator<Type>::ConstIterator(const ConstIterator<Type> &it) : BaseIterator
 }
 
 template<typename Type>
+ConstIterator<Type>::ConstIterator(shared_ptr<Type[]> ptr, int num, int index) : BaseIterator<Type>(ptr, num, index)
+{
+}
+
+/*template<typename Type>
 ConstIterator<Type>::ConstIterator(const Vector<Type> &vec, int index) : BaseIterator<Type>(vec, index)
 {
-    /*this->id = index;
-    this->elems_num = vec.elems_num;
-    this->data_ptr = vec.data_ptr;*/
-}
+}*/
 
 #endif // CONSTConstIterator_H

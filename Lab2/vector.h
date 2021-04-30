@@ -106,10 +106,11 @@ public:
     template<typename Type2>
     Vector<Type> elems_add(const Vector<Type2>& vec);
 
-    friend class BaseIterator<Type>;
+    //friend class BaseIterator<Type>;
     //friend class Iterator<Type>;
     //friend class ConstIterator<Type>;
 
+    //shared_ptr<Type[]> get_data_ptr() const;
 private:
     shared_ptr<Type[]> data_ptr;
 
@@ -195,7 +196,7 @@ Vector<Type>::Vector(initializer_list<Type> args)
     elems_num = int(args.size());
     alloc_data();
 
-    Iterator<Type> it(*this);
+    Iterator<Type> it = this->begin();
     for (auto &elem : args)
     {
         *it = elem;
@@ -212,7 +213,7 @@ Vector<Type>& Vector<Type>::operator =(initializer_list<Type> args)
     elems_num = int(args.size());
     alloc_data();
 
-    Iterator<Type> it(*this);
+    Iterator<Type> it = this->begin();
     for (auto &elem : args)
     {
         *it = elem;
@@ -335,37 +336,43 @@ bool Vector<Type>::is_unit() const
 template<typename Type>
 Iterator<Type> Vector<Type>::begin() noexcept
 {
-    return Iterator<Type>(*this, 0);
+    return Iterator<Type>(data_ptr, elems_num, 0);
+    //return Iterator<Type>(*this, 0);
 }
 
 template<typename Type>
 Iterator<Type> Vector<Type>::end() noexcept
 {
-    return Iterator<Type>(*this, elems_num);
+    return Iterator<Type>(data_ptr, elems_num, elems_num);
+    //return Iterator<Type>(*this, elems_num);
 }
 
 template<typename Type>
 ConstIterator<Type> Vector<Type>::cbegin() const noexcept
 {
-    return ConstIterator<Type>(*this, 0);
+    return ConstIterator<Type>(data_ptr, elems_num, 0);
+    //return ConstIterator<Type>(*this, 0);
 }
 
 template<typename Type>
 ConstIterator<Type> Vector<Type>::cend() const noexcept
 {
-    return ConstIterator<Type>(*this, elems_num);
+    return ConstIterator<Type>(data_ptr, elems_num, elems_num);
+    //return ConstIterator<Type>(*this, elems_num);
 }
 
 template<typename Type>
 ConstIterator<Type> Vector<Type>::begin() const noexcept
 {
-    return ConstIterator<Type>(*this, 0);
+    return ConstIterator<Type>(data_ptr, elems_num, 0);
+    //return ConstIterator<Type>(*this, 0);
 }
 
 template<typename Type>
 ConstIterator<Type> Vector<Type>::end() const noexcept
 {
-    return ConstIterator<Type>(*this, elems_num);
+    return ConstIterator<Type>(data_ptr, elems_num, elems_num);
+    //return ConstIterator<Type>(*this, elems_num);
 }
 
 template<typename Type>
@@ -838,6 +845,12 @@ Vector<Type> Vector<Type>::elems_add(const Vector<Type2>& vec)
     *this = Vector<Type>(rez);
     return rez;
 }
+
+/*template<typename Type>
+shared_ptr<Type[]> Vector<Type>::get_data_ptr() const
+{
+    return data_ptr;
+}*/
 
 template<typename Type>
 void Vector<Type>::alloc_data()
