@@ -11,8 +11,12 @@ SOURCES += \
 HEADERS += \
     abstractiterator.h \
     baseiterator.h \
+    baseiterator.hpp \
     basevector.h \
     constiterator.h \
+    constiterator.hpp \
     errors.h \
     iterator.h \
-    vector.h
+    iterator.hpp \
+    vector.h \
+    vector.hpp

@@ -1,7 +1,7 @@
 #include <iostream>
 #include <iterator>
 
-#include "vector.h"
+#include "vector.hpp"
 
 using namespace std;
 

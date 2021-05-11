@@ -1,5 +1,5 @@
-#ifndef BASEITERATOR_H
-#define BASEITERATOR_H
+#ifndef ABSRACTITERATOR_H
+#define ABSRACTITERATOR_H
 
 class AbstractIterator
 {
@@ -14,4 +14,4 @@ protected:
     int elems_num = 0;
 };
 
-#endif // BASEITERATOR_H
+#endif // ABSRACTITERATOR_H
