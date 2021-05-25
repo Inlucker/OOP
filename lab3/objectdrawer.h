@@ -12,7 +12,7 @@ using namespace std;
 class ObjectDrawer : BaseVisitor
 {
 public:
-    //ObjectDrawer();
+    ObjectDrawer();
 
     virtual void visit(const Model &model) override;
 private:

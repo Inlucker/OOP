@@ -5,6 +5,7 @@
 #include "scene.h"
 #include "model.h"
 #include "camera.h"
+#include "objectdrawer.h"
 
 class SceneManager : BaseManager
 {
@@ -21,6 +22,7 @@ public:
     //void useCamera(shared_ptr<Camera> new_camera);
 private:
     unique_ptr<Scene> scene;
+    unique_ptr<ObjectDrawer> objectDrawer;
 };
 
 #endif // SCENEMANAGER_H

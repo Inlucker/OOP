@@ -18,6 +18,7 @@ SOURCES += \
     composite.cpp \
     edge.cpp \
     facade.cpp \
+    graphicsolution.cpp \
     main.cpp \
     mainwindow.cpp \
     model.cpp \
@@ -40,6 +41,7 @@ HEADERS += \
     composite.h \
     edge.h \
     facade.h \
+    graphicsolution.h \
     mainwindow.h \
     model.h \
     modelelements.h \

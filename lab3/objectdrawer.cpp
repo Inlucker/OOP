@@ -1,11 +1,18 @@
 #include "objectdrawer.h"
 
-/*ObjectDrawer::ObjectDrawer()
+#include "graphicsolution.h"
+
+ObjectDrawer::ObjectDrawer()
 {
-    //here create QtDrawer with solution
-}*/
+    GraphicSolution solution;
+
+    solution.registration(1, createQtFactory);
+
+    shared_ptr<AbstractFactory> cr(solution.create(1));
+    drawer = cr->createGraphics();
+}
 
 void ObjectDrawer::visit(const Model &model)
 {
-    cout << "model;" << endl;
+    cout << "Visited Model;" << endl;
 }

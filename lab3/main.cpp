@@ -2,13 +2,18 @@
 
 #include <QApplication>
 
-#include "model.h"
+#include "facade.h"
+
+//Composite tests
+/*#include "model.h"
 #include "camera.h"
-#include "composite.h"
+#include "composite.h"*/
 
 int main(int argc, char *argv[])
 {
-    shared_ptr<Object> fig1(new Model()), fig2(new Model), cam1(new Camera()), cam2(new Camera());
+    Facade facade;
+    //Composite tests
+    /*shared_ptr<Object> fig1(new Model()), fig2(new Model), cam1(new Camera()), cam2(new Camera());
     shared_ptr<Object> composite1(new Composite{fig1, cam1, fig2, cam2});
 
     composite1->transform();
@@ -29,7 +34,7 @@ int main(int argc, char *argv[])
     composite2->transform();
     cout << endl;
     composite2->isVisible();
-    cout << endl;
+    cout << endl;*/
 
     QApplication a(argc, argv);
     MainWindow w;

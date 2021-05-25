@@ -3,6 +3,7 @@
 SceneManager::SceneManager()
 {
     scene = unique_ptr<Scene>(new Scene());
+    objectDrawer = unique_ptr<ObjectDrawer>(new ObjectDrawer());
 }
 
 void SceneManager::addModel(shared_ptr<Model> new_model)

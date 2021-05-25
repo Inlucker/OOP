@@ -9,6 +9,8 @@ public:
     //QtFactory() = default;
     //~QtFactory() = default;
     virtual unique_ptr<BaseDrawer> createGraphics() override;
+
+    unique_ptr<AbstractFactory> getAbstractFactoryPtr();
 };
 
 #endif // QTFACTORY_H
