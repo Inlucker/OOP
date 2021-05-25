@@ -3,7 +3,14 @@
 SceneManager::SceneManager()
 {
     scene = unique_ptr<Scene>(new Scene());
-    objectDrawer = unique_ptr<ObjectDrawer>(new ObjectDrawer());
+    ObjectVisitor* tmpObjVis = new ObjectVisitor();
+    objectDrawer = tmpObjVis->getBaseVisitorPtr();
+    //objectDrawer = shared_ptr<BaseVisitor>(new ObjectVisitor()) //не работает
+}
+
+void SceneManager::drawScene()
+{
+    scene->getModels()->accept(objectDrawer);
 }
 
 void SceneManager::addModel(shared_ptr<Model> new_model)

@@ -11,3 +11,8 @@ bool Model::isVisible()
     cout << "Model isVisible method;" << endl;
     return true;
 }
+
+void Model::accept(shared_ptr<BaseVisitor> visitor)
+{
+    visitor->visit(*this);
+}

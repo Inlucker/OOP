@@ -4,6 +4,7 @@
 //#include "object.h"
 
 class Model;
+class Camera;
 
 class BaseVisitor
 {
@@ -13,7 +14,7 @@ public:
 
     //virtual void visit(const Object &obj) = 0;
     virtual void visit(const Model &obj) = 0;
-    //virtual void visit(const Camera &obj) = 0;
+    virtual void visit(const Camera &obj) = 0;
 };
 
 #endif // BASEVISITOR_H

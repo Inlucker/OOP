@@ -6,7 +6,7 @@
 class Composite : public Object
 {
 private:
-    VectorObject vec;
+    VectorObject objectsVec;
 
 public:
     Composite() = default;
@@ -14,6 +14,7 @@ public:
 
     virtual void transform() override;
     virtual bool isVisible() override;
+    virtual void accept(shared_ptr<BaseVisitor> visitor) override;
 
     virtual bool add(shared_ptr<Object> comp) override;
     virtual bool remove(const IteratorObject& it) override;

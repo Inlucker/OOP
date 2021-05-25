@@ -8,6 +8,8 @@
 
 using namespace std;
 
+class BaseVisitor;
+
 class Object;
 
 using VectorObject = vector<shared_ptr<Object>>;
@@ -21,7 +23,7 @@ public:
 
     virtual void transform() = 0;
     virtual bool isVisible() = 0;
-    //virtual void accept(ObjectDrawer visitor) = 0;
+    virtual void accept(shared_ptr<BaseVisitor> visitor) = 0;
 
     virtual bool add(shared_ptr<Object> comp);
     virtual bool remove(const IteratorObject& it);

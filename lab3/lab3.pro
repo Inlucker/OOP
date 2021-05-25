@@ -24,7 +24,7 @@ SOURCES += \
     model.cpp \
     modelelements.cpp \
     object.cpp \
-    objectdrawer.cpp \
+    objectvisitor.cpp \
     point.cpp \
     qtdrawer.cpp \
     qtfactory.cpp \
@@ -46,7 +46,7 @@ HEADERS += \
     model.h \
     modelelements.h \
     object.h \
-    objectdrawer.h \
+    objectvisitor.h \
     point.h \
     qtdrawer.h \
     qtfactory.h \
