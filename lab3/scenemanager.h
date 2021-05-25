@@ -20,6 +20,8 @@ public:
     void deleteModel(const size_t model_id);
     void deleteCamera(const size_t camera_id);
     //void useCamera(shared_ptr<Camera> new_camera);
+
+    //int method1(string str); //test
 private:
     unique_ptr<Scene> scene;
     shared_ptr<BaseVisitor> objectDrawer;

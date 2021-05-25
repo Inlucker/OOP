@@ -22,11 +22,11 @@ void ObjectVisitor::visit(const Camera &camera)
     cout << "Visited Camera;" << endl;
 }
 
-shared_ptr<BaseVisitor> ObjectVisitor::getBaseVisitorPtr() //Костыль?
+/*shared_ptr<BaseVisitor> ObjectVisitor::getBaseVisitorPtr() //Костыль?
 {
     unique_ptr<BaseVisitor> u_ptr = unique_ptr<BaseVisitor>(this);
     shared_ptr<BaseVisitor> rez(move(u_ptr));
     return rez;
     //return shared_ptr<BaseVisitor>(this);
-}
+}*/
 

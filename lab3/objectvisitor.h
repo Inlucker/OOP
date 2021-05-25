@@ -9,7 +9,7 @@ using namespace std;
 #include "basevisitor.h"
 #include "basedrawer.h"
 
-class ObjectVisitor : BaseVisitor
+class ObjectVisitor : public BaseVisitor
 {
 public:
     ObjectVisitor();
@@ -17,7 +17,7 @@ public:
     virtual void visit(const Model &model) override;
     virtual void visit(const Camera &camera) override;
 
-    shared_ptr<BaseVisitor> getBaseVisitorPtr(); //Костыль?
+    //shared_ptr<BaseVisitor> getBaseVisitorPtr(); //Костыль?
 private:
     shared_ptr<BaseDrawer> drawer;
 };

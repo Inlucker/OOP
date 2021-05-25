@@ -15,6 +15,7 @@ SOURCES += \
     basemanager.cpp \
     basevisitor.cpp \
     camera.cpp \
+    commands.cpp \
     composite.cpp \
     edge.cpp \
     facade.cpp \
@@ -38,6 +39,7 @@ HEADERS += \
     basemanager.h \
     basevisitor.h \
     camera.h \
+    commands.h \
     composite.h \
     edge.h \
     facade.h \

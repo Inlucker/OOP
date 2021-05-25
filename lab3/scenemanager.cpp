@@ -3,9 +3,10 @@
 SceneManager::SceneManager()
 {
     scene = unique_ptr<Scene>(new Scene());
-    ObjectVisitor* tmpObjVis = new ObjectVisitor();
-    objectDrawer = tmpObjVis->getBaseVisitorPtr();
-    //objectDrawer = shared_ptr<BaseVisitor>(new ObjectVisitor()) //не работает
+    /*ObjectVisitor* tmpObjVis = new ObjectVisitor();
+    objectDrawer = tmpObjVis->getBaseVisitorPtr();*/
+
+    objectDrawer = shared_ptr<BaseVisitor>(new ObjectVisitor()); //не работала (исправлено с помощью public наследования)
 }
 
 void SceneManager::drawScene()
@@ -32,3 +33,9 @@ void SceneManager::deleteCamera(const size_t camera_id)
 {
     scene->deleteCamera(camera_id);
 }
+
+/*int SceneManager::method1(string str) //test
+{
+    cout << "method1 - " << str << endl;
+    return 1;
+}*/

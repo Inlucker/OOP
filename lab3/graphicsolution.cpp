@@ -9,11 +9,11 @@
 
 unique_ptr<AbstractFactory> createQtFactory()
 {
-    QtFactory* tmp = new QtFactory();
+    /*QtFactory* tmp = new QtFactory();
     unique_ptr<AbstractFactory> rez = tmp->getAbstractFactoryPtr();
-    return rez;
+    return rez;*/
 
-    //return unique_ptr<AbstractFactory>(new QtFactory()); //doesn't work
+    return unique_ptr<AbstractFactory>(new QtFactory()); //didn't work (fixed by public наследование)
 }
 
 bool GraphicSolution::registration(size_t id, GraphicSolution::CreateFactory createfun)

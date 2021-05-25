@@ -3,6 +3,7 @@
 #include <QApplication>
 
 #include "facade.h"
+#include "commands.h"
 
 //Composite tests
 /*#include "model.h"
@@ -12,6 +13,15 @@
 int main(int argc, char *argv[])
 {
     Facade facade;
+
+    //commands tests
+    shared_ptr<SceneManager> man = shared_ptr<SceneManager>(new SceneManager());
+    DrawScene drawCmd(man);
+    facade.execute(drawCmd);
+
+    CommandA cmd1(1.2, 3.4, man);
+    facade.execute(cmd1);
+
     //Composite tests
     /*shared_ptr<Object> fig1(new Model()), fig2(new Model), cam1(new Camera()), cam2(new Camera());
     shared_ptr<Object> composite1(new Composite{fig1, cam1, fig2, cam2});
