@@ -3,6 +3,8 @@
 
 #include "object.h"
 
+#include "modelelements.h"
+
 class Model : public Object
 {
 public:
@@ -10,6 +12,8 @@ public:
     ~Model() = default;
     virtual void transform() override;
     virtual bool isVisible() override;
+private:
+    ModelElements modelElements;
 };
 
 #endif // MODEL_H

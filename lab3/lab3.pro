@@ -14,11 +14,14 @@ SOURCES += \
     basevisitor.cpp \
     camera.cpp \
     composite.cpp \
+    edge.cpp \
     facade.cpp \
     main.cpp \
     mainwindow.cpp \
     model.cpp \
+    modelelements.cpp \
     object.cpp \
+    point.cpp \
     scene.cpp \
     scenemanager.cpp
 
@@ -28,10 +31,13 @@ HEADERS += \
     basevisitor.h \
     camera.h \
     composite.h \
+    edge.h \
     facade.h \
     mainwindow.h \
     model.h \
+    modelelements.h \
     object.h \
+    point.h \
     scene.h \
     scenemanager.h
 

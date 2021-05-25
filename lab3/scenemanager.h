@@ -9,12 +9,13 @@ public:
     SceneManager();
     ~SceneManager() = default;
 
-    /*void drawScene();
-    void clearScene();
+    //void drawScene();
+    //void clearScene();
     void addModel();
     void addCamera();
+    void deleteModel();
     void deleteCamera();
-    void useCamera();*/
+    void useCamera();
 };
 
 #endif // SCENEMANAGER_H
