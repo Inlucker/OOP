@@ -9,13 +9,14 @@
 class Model : public Object
 {
 public:
-    Model() = default;
+    //Model() = default;
+    Model();
     ~Model() = default;
     virtual void transform() override;
     virtual bool isVisible() override;
     virtual void accept(shared_ptr<BaseVisitor> visitor) override;
 private:
-    ModelElements modelElements;
+    shared_ptr<ModelElements> modelElements;
 };
 
 #endif // MODEL_H

@@ -24,7 +24,7 @@ class CommandA : public BaseCommand
 
 public:
     CommandA() = delete;
-    CommandA(double x, double y, shared_ptr<SceneManager> manager);
+    CommandA(double x, double y);
     ~CommandA() = default;
     virtual void execute() override;
 

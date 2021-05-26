@@ -1,9 +1,14 @@
 #include "model.h"
 
+Model::Model()
+{
+    modelElements = shared_ptr<ModelElements>(new ModelElements());
+}
+
 void Model::transform()
 {
     cout << "Model Transform method;" << endl;
-    modelElements.transform();
+    modelElements->transform();
 }
 
 bool Model::isVisible()

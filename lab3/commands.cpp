@@ -1,4 +1,5 @@
 #include "commands.h"
+#include "scenemanagercreator.h"
 
 DrawScene::DrawScene(shared_ptr<SceneManager> manager)
 {
@@ -11,9 +12,9 @@ void DrawScene::execute()
     ((*man).*act)();
 }
 
-CommandA::CommandA(double x, double y, shared_ptr<SceneManager> manager) : x(x), y(y)
+CommandA::CommandA(double x, double y) : x(x), y(y)
 {
-    man = manager;
+    man = SceneManagerCreator::getManager();
     act = &SceneManager::drawScene;
 }
 
