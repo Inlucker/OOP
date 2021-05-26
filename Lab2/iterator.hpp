@@ -31,12 +31,22 @@ Type& Iterator<Type>::operator *()
 {
     this->check_ptr(__LINE__);
 
+    /*time_t t_time = time(NULL);
+    if (this->id < 0 || this->id >= this->elems_num)
+        throw IndexError("id", __FILE__, __LINE__, ctime(&t_time));*/
+
     return this->cur_elem();
 }
 
 template<typename Type>
 Type &Iterator<Type>::operator [](int index)
 {
+    this->check_ptr(__LINE__);
+
+    /*time_t t_time = time(NULL);
+    if (this->id < 0 || this->id >= this->elems_num)
+        throw IndexError("id", __FILE__, __LINE__, ctime(&t_time));*/
+
     Iterator<Type> tmp(*this);
     tmp += index;
     return *tmp;
@@ -45,6 +55,12 @@ Type &Iterator<Type>::operator [](int index)
 template<typename Type>
 Type *Iterator<Type>::operator ->()
 {
+    this->check_ptr(__LINE__);
+
+    time_t t_time = time(NULL);
+    if (this->id < 0 || this->id >= this->elems_num)
+        throw IndexError("id", __FILE__, __LINE__, ctime(&t_time));
+
     return &(this->cur_elem());
 }
 

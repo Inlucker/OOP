@@ -170,12 +170,22 @@ const Type& BaseIterator<Type>::operator *() const
 {
     this->check_ptr(__LINE__);
 
+    /*time_t t_time = time(NULL);
+    if (id < 0 || id >= elems_num)
+        throw IndexError("id", __FILE__, __LINE__, ctime(&t_time));*/
+
     return this->cur_elem();
 }
 
 template<typename Type>
 const Type &BaseIterator<Type>::operator [](int index) const
 {
+    this->check_ptr(__LINE__);
+
+    /*time_t t_time = time(NULL);
+    if (index < 0 || index >= elems_num)
+        throw IndexError("index", __FILE__, __LINE__, ctime(&t_time));*/
+
     BaseIterator<Type> tmp(*this);
     tmp += index;
     return *tmp;
@@ -184,6 +194,12 @@ const Type &BaseIterator<Type>::operator [](int index) const
 template<typename Type>
 const Type *BaseIterator<Type>::operator ->() const
 {
+    check_ptr(__LINE__);
+
+    time_t t_time = time(NULL);
+    if (id < 0 || id >= elems_num)
+        throw IndexError("id", __FILE__, __LINE__, ctime(&t_time));
+
     return &(this->cur_elem());
 }
 
@@ -218,7 +234,7 @@ bool BaseIterator<Type>::check_ptr(int line) const
         return true;
 
     time_t t_time = time(NULL);
-    throw MemoryError("BaseIterator with no ptr", __FILE__, line, ctime(&t_time)); //Выделить отдельно
+    throw IteratorMemoryError("BaseIterator with no ptr", __FILE__, line, ctime(&t_time)); //Выделить отдельно DONE
     return false;
 }
 
