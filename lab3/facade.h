@@ -7,7 +7,9 @@
 
 using namespace std;
 
-#include "scenemanager.h"
+//#include "scenemanager.h"
+//#include "scenemanagersingleton.h"
+#include "scenemanagercreator.h"
 
 class Facade
 {

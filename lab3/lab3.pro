@@ -30,7 +30,8 @@ SOURCES += \
     qtdrawer.cpp \
     qtfactory.cpp \
     scene.cpp \
-    scenemanager.cpp
+    scenemanager.cpp \
+    scenemanagercreator.cpp
 
 HEADERS += \
     abstractfactory.h \
@@ -53,7 +54,8 @@ HEADERS += \
     qtdrawer.h \
     qtfactory.h \
     scene.h \
-    scenemanager.h
+    scenemanager.h \
+    scenemanagercreator.h
 
 FORMS += \
     mainwindow.ui
