@@ -191,14 +191,23 @@ int main()
         ConstIterator<int> it1 = vec.cbegin();
         ConstIterator<int> it2 = vec.cend();
         //vec.~Vector();
-        cout << "it2 == it1 = " << (it2 == it1) << endl;
+        //cout << "it2 == it1 = " << (it2 == it1) << endl;
+
         //Iterator<int> it1 = vec.begin();
         //Iterator<int> it2 = vec.end();
-        cout << "*it1 = " << *it1 << endl;
-        cout << "*it2 = " << *it2 << endl;
 
+        cout << "it1.get_id() = " << it1.get_id() << "; *it1 = " << *it1 << endl;
+        cout << "it2.get_id() = " << it2.get_id() << endl;
+
+        /*for(auto elem : vec)
+            cout << elem << "; ";
         cout << endl;
 
+        for (Iterator<int> It = vec.begin(); It != vec.end(); It++)
+            cout << *It << "; ";
+        cout << endl;*/
+
+        cout << endl;
 
         ConstIterator<int> it3;
         //Iterator<int> it3;
@@ -264,10 +273,10 @@ int main()
 
         cout << endl;
 
-        cout << "it1.operator->() = " << it1.operator->() << endl;
+        /*cout << "it1.operator->() = " << it1.operator->() << endl;
         cout << "it2.operator->() = " << it2.operator->() << endl;
         cout << "*(it1.operator->()) = " << *(it1.operator->()) << endl;
-        cout << "*(it2.operator->()) = " << *(it2.operator->()) << endl;
+        cout << "*(it2.operator->()) = " << *(it2.operator->()) << endl;*/
 
         /*it1-=3;
         cout << "it1.operator->() = " << it1.operator->() << endl;

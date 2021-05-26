@@ -3,6 +3,8 @@
 
 #include "vector.h"
 
+#include <math.h>
+
 template<typename Type>
 Vector<Type>::Vector()
 {

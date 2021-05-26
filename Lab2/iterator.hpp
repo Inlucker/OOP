@@ -31,9 +31,10 @@ Type& Iterator<Type>::operator *()
 {
     this->check_ptr(__LINE__);
 
-    /*time_t t_time = time(NULL);
+    time_t t_time = time(NULL);
     if (this->id < 0 || this->id >= this->elems_num)
-        throw IndexError("id", __FILE__, __LINE__, ctime(&t_time));*/
+        throw IndexError("id", __FILE__, __LINE__, ctime(&t_time));
+        //throw IteratorIdError("id", __FILE__, __LINE__, ctime(&t_time));
 
     return this->cur_elem();
 }
@@ -43,9 +44,10 @@ Type &Iterator<Type>::operator [](int index)
 {
     this->check_ptr(__LINE__);
 
-    /*time_t t_time = time(NULL);
-    if (this->id < 0 || this->id >= this->elems_num)
-        throw IndexError("id", __FILE__, __LINE__, ctime(&t_time));*/
+    time_t t_time = time(NULL);
+    if (this->id + index < 0 || this->id + index >= this->elems_num)
+        throw IndexError("index", __FILE__, __LINE__, ctime(&t_time));
+        //throw IteratorIdError("index", __FILE__, __LINE__, ctime(&t_time));
 
     Iterator<Type> tmp(*this);
     tmp += index;
@@ -60,6 +62,7 @@ Type *Iterator<Type>::operator ->()
     time_t t_time = time(NULL);
     if (this->id < 0 || this->id >= this->elems_num)
         throw IndexError("id", __FILE__, __LINE__, ctime(&t_time));
+        //throw IteratorIdError("id", __FILE__, __LINE__, ctime(&t_time));
 
     return &(this->cur_elem());
 }

@@ -57,10 +57,10 @@ public:
     }
 };
 
-class IteratorMemoryError : public BaseError
+class IteratorWeakPtrError : public BaseError
 {
 public:
-    IteratorMemoryError(string info, string filename, int line, const char *time, string error = "Iterator memory error")
+    IteratorWeakPtrError(string info, string filename, int line, const char *time, string error = "Iterator weak_ptr error")
         : BaseError(info, filename, line, time, error) {};
     virtual const char* what() const noexcept
     {
@@ -78,6 +78,18 @@ public:
         return err_info.c_str();
     }
 };
+
+//NO NEED?
+/*class IteratorIdError : public BaseError
+{
+public:
+    IteratorIdError(string info, string filename, int line, const char *time, string error = "Iterator id out of range")
+        : BaseError(info, filename, line, time, error) {};
+    virtual const char* what() const noexcept
+    {
+        return err_info.c_str();
+    }
+};*/
 
 class DifSizeError : public BaseError
 {
