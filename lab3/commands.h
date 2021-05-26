@@ -8,8 +8,8 @@ class DrawScene : public BaseCommand
 {
     using Action = void(SceneManager::*)();
 public:
-    DrawScene() = delete;
-    DrawScene(shared_ptr<SceneManager> manager);
+    //DrawScene() = delete;
+    DrawScene();
     ~DrawScene() = default;
     virtual void execute() override;
 

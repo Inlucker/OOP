@@ -17,7 +17,7 @@ int main(int argc, char *argv[])
     //commands tests
     //shared_ptr<SceneManager> man = shared_ptr<SceneManager>(new SceneManager());
     //shared_ptr<SceneManager> man = SceneManagerCreator::getManager();
-    DrawScene drawCmd(SceneManagerCreator::getManager());
+    DrawScene drawCmd;
     facade.execute(drawCmd);
 
     CommandA cmd1(1.2, 3.4);

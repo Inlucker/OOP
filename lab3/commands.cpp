@@ -1,9 +1,9 @@
 #include "commands.h"
 #include "scenemanagercreator.h"
 
-DrawScene::DrawScene(shared_ptr<SceneManager> manager)
+DrawScene::DrawScene()
 {
-    man = manager;
+    man = SceneManagerCreator::getManager();
     act = &SceneManager::drawScene;
 }
 
