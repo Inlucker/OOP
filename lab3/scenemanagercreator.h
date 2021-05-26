@@ -1,19 +1,26 @@
 #ifndef SCENEMANAGERCREATOR_H
 #define SCENEMANAGERCREATOR_H
 
-#include "scenemanager.h"
+# include <memory>
+
+using namespace std;
+
+//#include "scenemanager.h"
+
+class SceneManager;
 
 class SceneManagerCreator
 {
 public:
-    static shared_ptr<SceneManager> getManager();
-    ~SceneManagerCreator();
+    SceneManagerCreator() = default;
+    ~SceneManagerCreator() = default;
 
-    SceneManagerCreator(const SceneManagerCreator&) = delete; //нет смысла?
-    SceneManagerCreator& operator=(const SceneManagerCreator&) = delete; //нет смысла?
+    shared_ptr<SceneManager> getManager();
 
 private:
-    SceneManagerCreator();
+    shared_ptr<SceneManager> createManager();
+
+    shared_ptr<SceneManager> manager;
 };
 
 #endif // SCENEMANAGERCREATOR_H

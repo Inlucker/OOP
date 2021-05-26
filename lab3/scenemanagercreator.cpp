@@ -1,13 +1,17 @@
 #include "scenemanagercreator.h"
 
+#include "scenemanager.h"
+
 shared_ptr<SceneManager> SceneManagerCreator::getManager()
 {
-    static shared_ptr<SceneManager> myInstance(new SceneManager());
+    if (!manager)
+        manager = createManager();
 
-    return myInstance;
+    return manager;
 }
 
-SceneManagerCreator::SceneManagerCreator()
+shared_ptr<SceneManager> SceneManagerCreator::createManager()
 {
-
+    static shared_ptr<SceneManager> created_man(new SceneManager());
+    return created_man;
 }
