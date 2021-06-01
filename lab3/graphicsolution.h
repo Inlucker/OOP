@@ -7,11 +7,17 @@ using namespace std;
 
 #include "abstractfactory.h"
 
+class FactoryCreator
+{
+public:
+    unique_ptr<AbstractFactory> createQtFactory();
+};
+
 class GraphicSolution
 {
 public:
     //GraphicSolution();
-    typedef unique_ptr<AbstractFactory> (*CreateFactory)();
+    typedef unique_ptr<AbstractFactory> (FactoryCreator::*CreateFactory)();
 
     bool registration(size_t id, CreateFactory createfun);
     bool check(size_t id);
@@ -22,7 +28,5 @@ private:
 
     CallBackMap callbacks;
 };
-
-unique_ptr<AbstractFactory> createQtFactory();
 
 #endif // GRAPHICSOLUTION_H

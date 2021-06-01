@@ -2,21 +2,26 @@
 
 #include "qtfactory.h"
 
+/*unique_ptr<AbstractFactory> createQtFactory()
+{
+    //QtFactory* tmp = new QtFactory();
+    //unique_ptr<AbstractFactory> rez = tmp->getAbstractFactoryPtr();
+    //return rez;
+
+    return unique_ptr<AbstractFactory>(new QtFactory()); //didn't work (fixed by public наследование)
+}*/
+
+unique_ptr<AbstractFactory> FactoryCreator::createQtFactory()
+{
+    return unique_ptr<AbstractFactory>(new QtFactory());
+}
+
 /*GraphicSolution::GraphicSolution()
 {
 
 }*/
 
-unique_ptr<AbstractFactory> createQtFactory()
-{
-    /*QtFactory* tmp = new QtFactory();
-    unique_ptr<AbstractFactory> rez = tmp->getAbstractFactoryPtr();
-    return rez;*/
-
-    return unique_ptr<AbstractFactory>(new QtFactory()); //didn't work (fixed by public наследование)
-}
-
-bool GraphicSolution::registration(size_t id, GraphicSolution::CreateFactory createfun)
+bool GraphicSolution::registration(size_t id, /*GraphicSolution::*/CreateFactory createfun)
 {
     return callbacks.insert(CallBackMap::value_type(id, createfun)).second;
 }
@@ -35,5 +40,5 @@ unique_ptr<AbstractFactory> GraphicSolution::create(size_t id)
         //			throw IdError();
     }
 
-    return unique_ptr<AbstractFactory>((it->second)());
+    return unique_ptr<AbstractFactory>((FactoryCreator().*it->second)()); //(FactoryCreator().*it->second)() is this OK? Or I should have ptr on FactoryCreator object?
 }
