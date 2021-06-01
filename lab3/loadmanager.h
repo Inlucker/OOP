@@ -17,7 +17,7 @@ public:
 
     void loadModel(string fileName);
 private:
-    shared_ptr<BaseModelLoader> loader;
+    shared_ptr<BaseModelLoader> modelLoader;
 };
 
 #endif // LOADMANAGER_H

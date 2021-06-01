@@ -12,20 +12,27 @@ SOURCES += \
     abstractfactory.cpp \
     basecommand.cpp \
     basedrawer.cpp \
+    basefileloader.cpp \
     basemanager.cpp \
+    basemodelbuilder.cpp \
+    basemodelloader.cpp \
     basevisitor.cpp \
     camera.cpp \
+    carcasmodelbuilder.cpp \
     commands.cpp \
     composite.cpp \
     edge.cpp \
     facade.cpp \
+    fileloader.cpp \
     graphicsolution.cpp \
     loadmanager.cpp \
     loadmanagercreator.cpp \
     main.cpp \
     mainwindow.cpp \
     model.cpp \
+    modeldirector.cpp \
     modelelements.cpp \
+    modelloader.cpp \
     object.cpp \
     objectvisitor.cpp \
     point.cpp \
@@ -39,19 +46,26 @@ HEADERS += \
     abstractfactory.h \
     basecommand.h \
     basedrawer.h \
+    basefileloader.h \
     basemanager.h \
+    basemodelbuilder.h \
+    basemodelloader.h \
     basevisitor.h \
     camera.h \
+    carcasmodelbuilder.h \
     commands.h \
     composite.h \
     edge.h \
     facade.h \
+    fileloader.h \
     graphicsolution.h \
     loadmanager.h \
     loadmanagercreator.h \
     mainwindow.h \
     model.h \
+    modeldirector.h \
     modelelements.h \
+    modelloader.h \
     object.h \
     objectvisitor.h \
     point.h \
