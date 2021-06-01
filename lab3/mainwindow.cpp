@@ -64,13 +64,19 @@ void MainWindow::on_ClearSceneBtn_clicked()
 
 void MainWindow::on_AddModelBtn_clicked()
 {
-    LoadModel loadCmd("cube.txt");
+    //LoadModel loadCmd("cube.txt");
+    LoadModel loadCmd("12granSec.txt");
     interface->execute(loadCmd);
+
+    DrawScene drawCmd;
+    interface->execute(drawCmd);
+
+    canvas->update();
 }
 
 void MainWindow::on_RotateModelBtn_clicked()
 {
-    TransformModel transformCmd(0, Point(0, 0, 0), Point(1, 1, 1), Point(45, 0, 0));
+    TransformModel transformCmd(0, Point(0, 0, 0), Point(1, 1, 1), Point(0, 15, 0));
     interface->execute(transformCmd);
 
     DrawScene drawCmd;

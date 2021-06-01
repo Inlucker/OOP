@@ -51,7 +51,7 @@ void Scene::deleteCamera(const size_t camera_id)
 
 void Scene::clear()
 {
-    cout << "clear" << endl;
+    cout << "SceneClear" << endl;
     models->clear();
     /*IteratorObject it = models->begin();
     for (size_t i = 0; it != models->end(); i++)

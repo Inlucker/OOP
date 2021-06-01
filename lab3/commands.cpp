@@ -47,6 +47,7 @@ DrawScene::DrawScene()
 void DrawScene::execute()
 {
     shared_ptr<SceneManager> sceneMan = SceneManagerCreator().getManager();
+    sceneMan->clearScene();
     sceneMan->drawScene();
     //SceneManagerCreator().getManager()->drawScene();
     //((*man).*act)();
@@ -54,8 +55,9 @@ void DrawScene::execute()
 
 void ClearScene::execute()
 {
-    shared_ptr<SceneManager> man = SceneManagerCreator().getManager();
-    man->clearScene();
+    shared_ptr<SceneManager> sceneMan = SceneManagerCreator().getManager();
+    sceneMan->getScene()->getModels()->clear();
+    //sceneMan->getScene()->getCameras()->clear();
     //((*man).*act)();
 }
 

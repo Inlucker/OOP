@@ -16,7 +16,8 @@ void SceneManager::drawScene()
 
 void SceneManager::clearScene()
 {
-    scene->clear();
+    //scene->clear();
+    objectDrawer->clear();
 }
 
 shared_ptr<Scene> SceneManager::getScene() const
