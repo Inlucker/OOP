@@ -4,6 +4,7 @@
 #include "basemodelloader.h"
 
 //class Model;
+#include "fileloader.h"
 
 class ModelLoader : public BaseModelLoader
 {

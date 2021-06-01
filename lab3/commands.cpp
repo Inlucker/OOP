@@ -7,6 +7,9 @@ using namespace std;
 #include "scenemanagercreator.h"
 #include "scenemanager.h"
 
+#include "loadmanagercreator.h"
+#include "loadmanager.h"
+
 DrawScene::DrawScene()
 {
     //man = SceneManagerCreator().getManager();
@@ -15,8 +18,8 @@ DrawScene::DrawScene()
 
 void DrawScene::execute()
 {
-    shared_ptr<SceneManager> man = SceneManagerCreator().getManager();
-    man->drawScene();
+    shared_ptr<SceneManager> sceneMan = SceneManagerCreator().getManager();
+    sceneMan->drawScene();
     //SceneManagerCreator().getManager()->drawScene();
     //((*man).*act)();
 }
@@ -32,4 +35,17 @@ void CommandA::execute()
     shared_ptr<SceneManager> man = SceneManagerCreator().getManager();
     man->drawScene();
     //((*man).*act)();
+}
+
+LoadModel::LoadModel(string fileName) : fileName(fileName)
+{
+
+}
+
+void LoadModel::execute()
+{
+    shared_ptr<LoadManager> loadMan = LoadManagerCreator().getManager();
+    shared_ptr<Model> newModel = loadMan->loadModel(fileName);
+    shared_ptr<SceneManager> sceneMan = SceneManagerCreator().getManager();
+    sceneMan->addModel(newModel);
 }

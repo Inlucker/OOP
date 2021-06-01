@@ -2,6 +2,11 @@
 
 #include <iostream>
 
+FileLoader::FileLoader()
+{
+    file = shared_ptr<ifstream>(new ifstream());
+}
+
 void FileLoader::open(string filename)
 {
     if (file)

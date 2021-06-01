@@ -7,7 +7,8 @@ using namespace std;
 
 #include "basemanager.h"
 
-class BaseModelLoader; //ToDo
+class BaseModelLoader;
+class Model;
 
 class LoadManager : public BaseManager
 {
@@ -15,7 +16,7 @@ public:
     LoadManager();
     ~LoadManager() = default;
 
-    void loadModel(string fileName);
+    shared_ptr<Model> loadModel(string fileName);
 private:
     shared_ptr<BaseModelLoader> modelLoader;
 };

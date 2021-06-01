@@ -9,8 +9,32 @@
 
 shared_ptr<Model> ModelDirector::create(shared_ptr<BaseModelBuilder> builder, shared_ptr<ifstream> file)
 {
+    builder->build();
 
-    if (builder->build(file)) return builder->getModel();
+    size_t points_count;
+    *file >> points_count;
 
-    return shared_ptr<Model>();
+    for (size_t i = 0; i < points_count; i++)
+    {
+        double x, y, z;
+        *file >> x >> y >> z;
+        builder->addPoint(x, y, z);
+    }
+
+    size_t links_count;
+    *file >> links_count;
+
+    for (size_t i = 0; i < links_count; i++)
+    {
+        size_t pt1, pt2;
+        *file >> pt1 >> pt2;
+        builder->addEdge(pt1, pt2);
+    }
+
+    return builder->getModel();
+
+
+    //if (builder->build()) return builder->getModel();
+
+    //return shared_ptr<Model>();
 }

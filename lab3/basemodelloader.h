@@ -5,9 +5,9 @@
 
 using namespace std;
 
-class BaseFileLoader; //ToDo
-
+class BaseFileLoader;
 class Model;
+class ModelDirector;
 
 class BaseModelLoader
 {
@@ -17,7 +17,7 @@ public:
     virtual shared_ptr<Model> loadModel(string fileName) = 0;
 protected:
     shared_ptr<BaseFileLoader> fileLoader;
-    //file IfStream?
+    //shared_ptr<ModelDirector> modelDirector;
 };
 
 #endif // BASEMODELLOADER_H

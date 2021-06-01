@@ -11,6 +11,7 @@ class Model : public Object
 public:
     //Model() = default;
     Model();
+    Model(shared_ptr<ModelElements> modelElements);
     ~Model() = default;
     virtual void transform() override;
     virtual bool isVisible() override;

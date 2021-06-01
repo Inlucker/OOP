@@ -17,10 +17,10 @@ public:
 
     virtual bool isBuild() const override;
 
-    virtual bool build(shared_ptr<ifstream> file) override;
+    bool addPoint(const double &x, const double &y, const double &z) override;
+    bool addEdge(const int &p1, const int &p2) override;
 
-    bool addPoint(const double &x, const double &y, const double &z);
-    bool addEdge(const int &p1, const int &p2);
+    virtual bool build() override;
 
 protected:
     virtual shared_ptr<Model> createModel() override;

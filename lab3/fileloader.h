@@ -10,7 +10,7 @@ using namespace std;
 class FileLoader : public BaseFileLoader
 {
 public:
-    FileLoader() = default;
+    FileLoader();
     virtual ~FileLoader() override = default;
     virtual void open(string filename) override;
     virtual void close() override;

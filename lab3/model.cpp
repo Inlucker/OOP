@@ -5,6 +5,11 @@ Model::Model()
     modelElements = shared_ptr<ModelElements>(new ModelElements());
 }
 
+Model::Model(shared_ptr<ModelElements> modelElements) : modelElements(modelElements)
+{
+
+}
+
 void Model::transform()
 {
     cout << "Model Transform method;" << endl;

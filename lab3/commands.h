@@ -1,6 +1,10 @@
 #ifndef COMMANDS_H
 #define COMMANDS_H
 
+#include <iostream>
+
+using namespace std;
+
 #include "basecommand.h"
 //#include "scenemanager.h"
 //class scenemanager;
@@ -34,6 +38,18 @@ private:
     //Action act;
     double x;
     double y;
+};
+
+class LoadModel : public BaseCommand
+{
+public:
+    LoadModel() = delete;
+    LoadModel(string fileName);
+    ~LoadModel() = default;
+    virtual void execute() override;
+
+private:
+    string fileName;
 };
 
 #endif // COMMANDS_H

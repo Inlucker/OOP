@@ -23,6 +23,10 @@ int main(int argc, char *argv[])
     CommandA cmd1(1.2, 3.4);
     facade.execute(cmd1);
 
+
+    LoadModel loadCmd("cube.txt");
+    facade.execute(loadCmd);
+
     //Composite tests
     /*shared_ptr<Object> fig1(new Model()), fig2(new Model), cam1(new Camera()), cam2(new Camera());
     shared_ptr<Object> composite1(new Composite{fig1, cam1, fig2, cam2});

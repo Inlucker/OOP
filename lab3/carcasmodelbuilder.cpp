@@ -4,7 +4,7 @@
 shared_ptr<Model> CarcasModelBuilder::createModel()
 {
     if (this->isBuild())
-        model = shared_ptr<Model>(new Model());
+        model = shared_ptr<Model>(new Model(modelElements));
 
     return model;
 }
@@ -13,9 +13,8 @@ bool CarcasModelBuilder::isBuild() const
     return nullptr != modelElements;
 }
 
-bool CarcasModelBuilder::build(shared_ptr<ifstream> file)
+bool CarcasModelBuilder::build()
 {
-    //addPoints and addEdges by file info
     modelElements = make_shared<ModelElements>();
     return true;
 }
