@@ -48,6 +48,12 @@ bool Composite::isComposite() const
     return true;
 }
 
+bool Composite::clear()
+{
+    objectsVec.clear();
+    return true;
+}
+
 IteratorObject Composite::begin() const
 {
     return objectsVec.begin();

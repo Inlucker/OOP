@@ -24,16 +24,10 @@ void DrawScene::execute()
     //((*man).*act)();
 }
 
-CommandA::CommandA(double x, double y) : x(x), y(y)
-{
-    //man = SceneManagerCreator().getManager();
-    //act = &SceneManager::drawScene;
-}
-
-void CommandA::execute()
+void ClearScene::execute()
 {
     shared_ptr<SceneManager> man = SceneManagerCreator().getManager();
-    man->drawScene();
+    man->clearScene();
     //((*man).*act)();
 }
 

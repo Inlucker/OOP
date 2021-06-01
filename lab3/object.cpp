@@ -15,6 +15,11 @@ bool Object::isComposite() const
     return false;
 }
 
+bool Object::clear()
+{
+    return false;
+}
+
 IteratorObject Object::begin() const
 {
     return IteratorObject();

@@ -37,16 +37,35 @@ void Scene::deleteModel(const size_t model_id)
 
 void Scene::addCamera(shared_ptr<Object> new_camera)
 {
-    models->add(new_camera);
+    cameras->add(new_camera);
 }
 
 void Scene::deleteCamera(const size_t camera_id)
 {
-    IteratorObject it = models->begin();
+    IteratorObject it = cameras->begin();
     for (size_t i = 0; i <= camera_id; i++)
         it++;
 
-    models->remove(it);
+    cameras->remove(it);
+}
+
+void Scene::clear()
+{
+    cout << "clear" << endl;
+    models->clear();
+    /*IteratorObject it = models->begin();
+    for (size_t i = 0; it != models->end(); i++)
+    {
+        models->remove(it);
+        it++;
+    }
+
+    IteratorObject it2 = cameras->begin();
+    for (size_t i = 0; it2 != cameras->end(); i++)
+    {
+        cameras->remove(it2);
+        it2++;
+    }*/
 }
 
 shared_ptr<Object> Scene::getModels()

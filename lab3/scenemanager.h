@@ -16,7 +16,7 @@ public:
     ~SceneManager() = default;
 
     void drawScene();
-    //void clearScene();
+    void clearScene();
     void addModel(shared_ptr<Model> new_model);
     void addCamera(shared_ptr<Camera> new_camera);
     void deleteModel(const size_t model_id);

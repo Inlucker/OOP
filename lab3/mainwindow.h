@@ -21,9 +21,13 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_pushButton_clicked();
+    void on_SetSceneBtn_clicked();
 
-    void on_pushButton_2_clicked();
+    void on_DrawBtn_clicked();
+
+    void on_ClearSceneBtn_clicked();
+
+    void on_AddModelBtn_clicked();
 
 private:
     Canvas *canvas;

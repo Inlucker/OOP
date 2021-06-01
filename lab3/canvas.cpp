@@ -32,6 +32,7 @@ void Canvas::clean()
         delete canvasPixmap;
     canvasPixmap = new QPixmap(2000, 2000);
     canvasPixmap->fill(QColor(0, 0, 0, 0));*/
+    scene->getPixMap()->fill(QColor(0, 0, 0, 0));
 
     /*painter = new QPainter(canvasPixmap);
     painter->setPen(mainPen);*/

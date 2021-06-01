@@ -19,6 +19,7 @@ public:
     virtual bool add(shared_ptr<Object> comp) override;
     virtual bool remove(const IteratorObject& it) override;
     virtual bool isComposite() const override;
+    virtual bool clear() override;
     virtual IteratorObject begin() const override;
     virtual IteratorObject end() const override;
 };

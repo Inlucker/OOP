@@ -5,8 +5,8 @@ QtScene::QtScene()
     myPixmap = shared_ptr<QPixmap>(new QPixmap(2000, 2000));
     myPixmap->fill(QColor(0, 0, 0, 0));
 
-    painter = shared_ptr<QPainter>(new QPainter(&*myPixmap));
-    painter->setPen(Qt::black);
+    //painter = shared_ptr<QPainter>(new QPainter(&*myPixmap));
+    //painter->setPen(Qt::black);
 }
 
 QtScene::QtScene(shared_ptr<QPixmap> newPixmap)

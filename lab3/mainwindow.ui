@@ -25,7 +25,7 @@
     </property>
     <layout class="QGridLayout" name="gridLayout"/>
    </widget>
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QPushButton" name="SetSceneBtn">
     <property name="geometry">
      <rect>
       <x>360</x>
@@ -38,7 +38,7 @@
      <string>SetScene</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_2">
+   <widget class="QPushButton" name="DrawBtn">
     <property name="geometry">
      <rect>
       <x>490</x>
@@ -49,6 +49,32 @@
     </property>
     <property name="text">
      <string>Draw</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="ClearSceneBtn">
+    <property name="geometry">
+     <rect>
+      <x>610</x>
+      <y>530</y>
+      <width>80</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>ClearScene</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="AddModelBtn">
+    <property name="geometry">
+     <rect>
+      <x>200</x>
+      <y>530</y>
+      <width>80</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>AddModel</string>
     </property>
    </widget>
   </widget>

@@ -25,21 +25,17 @@ private:
     //Action act;
 };
 
-class CommandA : public BaseCommand
+class ClearScene : public BaseCommand
 {
     //using Action = void(SceneManager::*)();
 
 public:
-    CommandA() = delete;
-    CommandA(double x, double y);
-    ~CommandA() = default;
+    //CLearScene() = delete;
+    ClearScene() = default;
+    ~ClearScene() = default;
     virtual void execute() override;
 
 private:
-    //shared_ptr<SceneManager> man;
-    //Action act;
-    double x;
-    double y;
 };
 
 class LoadModel : public BaseCommand

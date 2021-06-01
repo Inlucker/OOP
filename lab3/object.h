@@ -28,6 +28,7 @@ public:
     virtual bool add(shared_ptr<Object> comp);
     virtual bool remove(const IteratorObject& it);
     virtual bool isComposite() const;
+    virtual bool clear();
     virtual IteratorObject begin() const;
     virtual IteratorObject end() const;
 };

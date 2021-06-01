@@ -14,6 +14,11 @@ void SceneManager::drawScene()
     scene->getModels()->accept(objectDrawer);
 }
 
+void SceneManager::clearScene()
+{
+    scene->clear();
+}
+
 void SceneManager::addModel(shared_ptr<Model> new_model)
 {
     scene->addModel(new_model);
