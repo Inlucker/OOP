@@ -17,8 +17,8 @@ public:
     //void addPoint(Point new_p);
     //void addEdge(Edge new_e);
     void transform();
-    /*vector<Point> getPoints();
-    vector<Edge> getEdges();*/
+    vector<Point> getPoints() const;
+    vector<Edge> getEdges() const;
 
 private:
     vector<Point> points;

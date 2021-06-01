@@ -21,12 +21,12 @@ void ModelElements::transform()
         point.transform();
 }
 
-/*vector<Point> ModelElements::getPoints()
+vector<Point> ModelElements::getPoints() const
 {
     return points;
 }
 
-vector<Edge> ModelElements::getEdges()
+vector<Edge> ModelElements::getEdges() const
 {
     return edges;
-}*/
+}

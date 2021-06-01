@@ -26,3 +26,8 @@ void Model::accept(shared_ptr<BaseVisitor> visitor)
 {
     visitor->visit(*this);
 }
+
+const shared_ptr<ModelElements> Model::getElements() const
+{
+    return modelElements;
+}

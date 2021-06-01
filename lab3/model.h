@@ -16,6 +16,8 @@ public:
     virtual void transform() override;
     virtual bool isVisible() override;
     virtual void accept(shared_ptr<BaseVisitor> visitor) override;
+
+    const shared_ptr<ModelElements> getElements() const;
 private:
     shared_ptr<ModelElements> modelElements;
 };

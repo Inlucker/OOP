@@ -3,7 +3,7 @@
 Facade::Facade()
 {
     //sceneManager = shared_ptr<SceneManager>(new SceneManager());
-    sceneManager = SceneManagerCreator().getManager();
+    //sceneManager = SceneManagerCreator().getManager();
 }
 
 void Facade::execute(BaseCommand &cmd)

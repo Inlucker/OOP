@@ -8,6 +8,9 @@ public:
     Edge(const int new_p1, const int new_p2);
 
     ~Edge() = default;
+
+    int getFirst();
+    int getSecond();
 private:
     int p1, p2;
 };

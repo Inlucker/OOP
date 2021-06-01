@@ -1,23 +1,31 @@
-#include "objectvisitor.h"
+#include "objectdrawer.h"
 
 #include "graphicsolution.h"
+#include "model.h"
 
-ObjectVisitor::ObjectVisitor()
+ObjectDrawer::ObjectDrawer()
 {
     GraphicSolution solution;
 
     solution.registration(1, FactoryCreator::createQtFactory);
 
     shared_ptr<AbstractFactory> cr(solution.create(1));
-    drawer = cr->createGraphics();
+    this->drawer = cr->createGraphics();
+    //drawer.setScene();
 }
 
-void ObjectVisitor::visit(const Model &model)
+void ObjectDrawer::visit(const Model &model)
 {
+    auto points = model.getElements()->getPoints();
+
+    for (auto edge: model.getElements()->getEdges())
+    {
+        this->drawer->drawLine(points.at(edge.getFirst()), points.at(edge.getSecond()));
+    }
     cout << "Visited Model;" << endl;
 }
 
-void ObjectVisitor::visit(const Camera &camera)
+void ObjectDrawer::visit(const Camera &camera)
 {
     cout << "Visited Camera;" << endl;
 }

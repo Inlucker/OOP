@@ -19,7 +19,7 @@ public:
     void execute(BaseCommand &cmd);
 
 private:
-    shared_ptr<SceneManager> sceneManager;
+    //shared_ptr<SceneManager> sceneManager;
 };
 
 #endif // FACADE_H

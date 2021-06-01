@@ -13,7 +13,8 @@
 
 unique_ptr<AbstractFactory> FactoryCreator::createQtFactory()
 {
-    return unique_ptr<AbstractFactory>(new QtFactory());
+    unique_ptr<AbstractFactory> newQtFactory = unique_ptr<AbstractFactory>(new QtFactory());
+    return newQtFactory;
 }
 
 /*GraphicSolution::GraphicSolution()

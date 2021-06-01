@@ -49,3 +49,14 @@ void LoadModel::execute()
     shared_ptr<SceneManager> sceneMan = SceneManagerCreator().getManager();
     sceneMan->addModel(newModel);
 }
+
+SetDrawerScene::SetDrawerScene(shared_ptr<BaseScene> newScene) : scene(newScene)
+{
+
+}
+
+void SetDrawerScene::execute()
+{
+    shared_ptr<SceneManager> sceneMan = SceneManagerCreator().getManager();
+    sceneMan->setDrawerScene(scene);
+}

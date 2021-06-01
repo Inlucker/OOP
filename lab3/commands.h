@@ -2,10 +2,12 @@
 #define COMMANDS_H
 
 #include <iostream>
+#include <memory>
 
 using namespace std;
 
 #include "basecommand.h"
+#include "basescene.h"
 //#include "scenemanager.h"
 //class scenemanager;
 
@@ -50,6 +52,18 @@ public:
 
 private:
     string fileName;
+};
+
+class SetDrawerScene : public BaseCommand
+{
+public:
+    SetDrawerScene() = delete;
+    SetDrawerScene(shared_ptr<BaseScene> newScene);
+    ~SetDrawerScene() = default;
+    virtual void execute() override;
+
+private:
+    shared_ptr<BaseScene> scene;
 };
 
 #endif // COMMANDS_H

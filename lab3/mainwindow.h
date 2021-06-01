@@ -2,6 +2,11 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QPainter>
+
+#include "facade.h"
+#include "commands.h"
+#include "canvas.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -15,7 +20,15 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+private slots:
+    void on_pushButton_clicked();
+
+    void on_pushButton_2_clicked();
+
 private:
+    Canvas *canvas;
+    shared_ptr<Facade> interface;
+    //shared_ptr<QPainter> painter;
     Ui::MainWindow *ui;
 };
 #endif // MAINWINDOW_H

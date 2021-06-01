@@ -2,6 +2,7 @@
 #define BASEVISITOR_H
 
 //#include "object.h"
+#include "basedrawer.h"
 
 class Model;
 class Camera;
@@ -15,6 +16,9 @@ public:
     //virtual void visit(const Object &obj) = 0;
     virtual void visit(const Model &obj) = 0;
     virtual void visit(const Camera &obj) = 0;
+    virtual void setScene(shared_ptr<BaseScene> newScene);
+protected:
+    shared_ptr<BaseDrawer> drawer;
 };
 
 #endif // BASEVISITOR_H

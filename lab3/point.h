@@ -10,6 +10,10 @@ public:
     ~Point() = default;
 
     void transform();
+
+    double getX() const;
+    double getY() const;
+    double getZ() const;
 private:
     void move();
     void scale();

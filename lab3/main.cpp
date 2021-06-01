@@ -2,6 +2,9 @@
 
 #include <QApplication>
 
+//#include <QPixmap>
+//#include <QGraphicsScene>
+
 #include "facade.h"
 #include "commands.h"
 
@@ -12,20 +15,24 @@
 
 int main(int argc, char *argv[])
 {
-    Facade facade;
+    QApplication a(argc, argv);
+    MainWindow w;
+    w.show();
+    return a.exec();
+
+    /*shared_ptr<Facade> facade = shared_ptr<Facade>(new Facade());
 
     //commands tests
     //shared_ptr<SceneManager> man = shared_ptr<SceneManager>(new SceneManager());
     //shared_ptr<SceneManager> man = SceneManagerCreator::getManager();
     DrawScene drawCmd;
-    facade.execute(drawCmd);
+    facade->execute(drawCmd);
 
     CommandA cmd1(1.2, 3.4);
-    facade.execute(cmd1);
-
+    facade->execute(cmd1);
 
     LoadModel loadCmd("cube.txt");
-    facade.execute(loadCmd);
+    facade->execute(loadCmd);*/
 
     //Composite tests
     /*shared_ptr<Object> fig1(new Model()), fig2(new Model), cam1(new Camera()), cam2(new Camera());
@@ -50,9 +57,5 @@ int main(int argc, char *argv[])
     cout << endl;
     composite2->isVisible();
     cout << endl;*/
-
-    QApplication a(argc, argv);
-    MainWindow w;
-    w.show();
-    return a.exec();
+    return 0;
 }

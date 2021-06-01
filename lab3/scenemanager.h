@@ -1,11 +1,13 @@
 #ifndef SCENEMANAGER_H
 #define SCENEMANAGER_H
 
+#include <QWidget>
+
 #include "basemanager.h"
 #include "scene.h"
 #include "model.h"
 #include "camera.h"
-#include "objectvisitor.h"
+#include "objectdrawer.h"
 
 class SceneManager : public BaseManager
 {
@@ -20,6 +22,8 @@ public:
     void deleteModel(const size_t model_id);
     void deleteCamera(const size_t camera_id);
     //void useCamera(shared_ptr<Camera> new_camera);
+
+    void setDrawerScene(shared_ptr<BaseScene> newScene);
 
     //int method1(string str); //test
 private:

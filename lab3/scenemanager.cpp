@@ -6,7 +6,7 @@ SceneManager::SceneManager()
     /*ObjectVisitor* tmpObjVis = new ObjectVisitor();
     objectDrawer = tmpObjVis->getBaseVisitorPtr();*/
 
-    objectDrawer = shared_ptr<BaseVisitor>(new ObjectVisitor()); //не работала (исправлено с помощью public наследования)
+    objectDrawer = shared_ptr<BaseVisitor>(new ObjectDrawer()); //не работала (исправлено с помощью public наследования)
 }
 
 void SceneManager::drawScene()
@@ -32,6 +32,11 @@ void SceneManager::deleteModel(const size_t model_id)
 void SceneManager::deleteCamera(const size_t camera_id)
 {
     scene->deleteCamera(camera_id);
+}
+
+void SceneManager::setDrawerScene(shared_ptr<BaseScene> newScene)
+{
+    objectDrawer->setScene(newScene);
 }
 
 /*int SceneManager::method1(string str) //test

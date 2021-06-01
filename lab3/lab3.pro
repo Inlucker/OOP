@@ -16,8 +16,10 @@ SOURCES += \
     basemanager.cpp \
     basemodelbuilder.cpp \
     basemodelloader.cpp \
+    basescene.cpp \
     basevisitor.cpp \
     camera.cpp \
+    canvas.cpp \
     carcasmodelbuilder.cpp \
     commands.cpp \
     composite.cpp \
@@ -34,10 +36,11 @@ SOURCES += \
     modelelements.cpp \
     modelloader.cpp \
     object.cpp \
-    objectvisitor.cpp \
+    objectdrawer.cpp \
     point.cpp \
     qtdrawer.cpp \
     qtfactory.cpp \
+    qtscene.cpp \
     scene.cpp \
     scenemanager.cpp \
     scenemanagercreator.cpp
@@ -50,8 +53,10 @@ HEADERS += \
     basemanager.h \
     basemodelbuilder.h \
     basemodelloader.h \
+    basescene.h \
     basevisitor.h \
     camera.h \
+    canvas.h \
     carcasmodelbuilder.h \
     commands.h \
     composite.h \
@@ -67,10 +72,11 @@ HEADERS += \
     modelelements.h \
     modelloader.h \
     object.h \
-    objectvisitor.h \
+    objectdrawer.h \
     point.h \
     qtdrawer.h \
     qtfactory.h \
+    qtscene.h \
     scene.h \
     scenemanager.h \
     scenemanagercreator.h

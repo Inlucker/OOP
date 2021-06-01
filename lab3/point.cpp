@@ -21,6 +21,21 @@ void Point::transform()
     turn();
 }
 
+double Point::getX() const
+{
+    return x;
+}
+
+double Point::getY() const
+{
+    return y;
+}
+
+double Point::getZ() const
+{
+    return z;
+}
+
 void Point::move()
 {
 
