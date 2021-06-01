@@ -1,7 +1,7 @@
 #ifndef SCENEMANAGERCREATOR_H
 #define SCENEMANAGERCREATOR_H
 
-# include <memory>
+#include <memory>
 
 using namespace std;
 

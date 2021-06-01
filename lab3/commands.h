@@ -2,11 +2,12 @@
 #define COMMANDS_H
 
 #include "basecommand.h"
-#include "scenemanager.h"
+//#include "scenemanager.h"
+//class scenemanager;
 
 class DrawScene : public BaseCommand
 {
-    using Action = void(SceneManager::*)();
+    //using Action = void(SceneManager::*)();
 public:
     //DrawScene() = delete;
     DrawScene();
@@ -14,13 +15,13 @@ public:
     virtual void execute() override;
 
 private:
-    shared_ptr<SceneManager> man;
-    Action act;
+    //shared_ptr<SceneManager> man;
+    //Action act;
 };
 
 class CommandA : public BaseCommand
 {
-    using Action = void(SceneManager::*)();
+    //using Action = void(SceneManager::*)();
 
 public:
     CommandA() = delete;
@@ -29,8 +30,8 @@ public:
     virtual void execute() override;
 
 private:
-    shared_ptr<SceneManager> man;
-    Action act;
+    //shared_ptr<SceneManager> man;
+    //Action act;
     double x;
     double y;
 };

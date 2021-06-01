@@ -7,7 +7,7 @@
 #include "camera.h"
 #include "objectvisitor.h"
 
-class SceneManager : BaseManager
+class SceneManager : public BaseManager
 {
 public:
     SceneManager();

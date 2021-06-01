@@ -1,5 +1,11 @@
 #include "commands.h"
+
+#include <memory>
+
+using namespace std;
+
 #include "scenemanagercreator.h"
+#include "scenemanager.h"
 
 DrawScene::DrawScene()
 {
@@ -17,11 +23,13 @@ void DrawScene::execute()
 
 CommandA::CommandA(double x, double y) : x(x), y(y)
 {
-    man = SceneManagerCreator().getManager();
-    act = &SceneManager::drawScene;
+    //man = SceneManagerCreator().getManager();
+    //act = &SceneManager::drawScene;
 }
 
 void CommandA::execute()
 {
-    ((*man).*act)();
+    shared_ptr<SceneManager> man = SceneManagerCreator().getManager();
+    man->drawScene();
+    //((*man).*act)();
 }

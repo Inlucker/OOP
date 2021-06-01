@@ -20,6 +20,8 @@ SOURCES += \
     edge.cpp \
     facade.cpp \
     graphicsolution.cpp \
+    loadmanager.cpp \
+    loadmanagercreator.cpp \
     main.cpp \
     mainwindow.cpp \
     model.cpp \
@@ -45,6 +47,8 @@ HEADERS += \
     edge.h \
     facade.h \
     graphicsolution.h \
+    loadmanager.h \
+    loadmanagercreator.h \
     mainwindow.h \
     model.h \
     modelelements.h \
