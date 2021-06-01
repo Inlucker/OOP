@@ -26,12 +26,17 @@ void QtScene::drawLine(double x1, double y1, double x2, double y2)
     painter->end();
 }
 
+void QtScene::clear()
+{
+    myPixmap->fill();
+}
+
 /*shared_ptr<QPainter> QtScene::getPainter()
 {
     return painter;
 }*/
 
-shared_ptr<QPixmap> QtScene::getPixMap()
+shared_ptr<QPixmap> QtScene::getPixMap() const
 {
     return myPixmap;
 }

@@ -19,23 +19,17 @@ void Canvas::paintEvent(QPaintEvent *event)
 {
     QPainter pixmap_painter(this);
 
+    /*float x_center = width() / 2;
+    float y_center = height() / 2;
+    pixmap_painter.translate(x_center, y_center);*/
+
     pixmap_painter.drawPixmap(0, 0, *scene->getPixMap());
     //pixmap_painter.drawPixmap(0, 0, *canvasPixmap);
 }
 
 void Canvas::clean()
 {
-    /*if (painter)
-        delete painter;*/
-
-    /*if (canvasPixmap)
-        delete canvasPixmap;
-    canvasPixmap = new QPixmap(2000, 2000);
-    canvasPixmap->fill(QColor(0, 0, 0, 0));*/
     scene->getPixMap()->fill(QColor(0, 0, 0, 0));
-
-    /*painter = new QPainter(canvasPixmap);
-    painter->setPen(mainPen);*/
 
     update();
 }

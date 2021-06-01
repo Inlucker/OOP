@@ -1,6 +1,6 @@
 #include "camera.h"
 
-void Camera::transform()
+void Camera::transform(const Point move, const Point scale, const Point rotate)
 {
     cout << "Camera Transform method;" << endl;
 }

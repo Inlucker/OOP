@@ -16,6 +16,7 @@ ObjectDrawer::ObjectDrawer()
 
 void ObjectDrawer::visit(const Model &model)
 {
+    drawer->clear();
     auto points = model.getElements()->getPoints();
 
     for (auto edge: model.getElements()->getEdges())
@@ -27,6 +28,7 @@ void ObjectDrawer::visit(const Model &model)
 
 void ObjectDrawer::visit(const Camera &camera)
 {
+    drawer->clear();
     cout << "Visited Camera;" << endl;
 }
 

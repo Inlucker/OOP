@@ -5,14 +5,11 @@
 
 class Composite : public Object
 {
-private:
-    VectorObject objectsVec;
-
 public:
     Composite() = default;
     Composite(initializer_list<shared_ptr<Object>> args);
 
-    virtual void transform() override;
+    virtual void transform(const Point move, const Point scale, const Point rotate) override;
     virtual bool isVisible() override;
     virtual void accept(shared_ptr<BaseVisitor> visitor) override;
 
@@ -22,6 +19,9 @@ public:
     virtual bool clear() override;
     virtual IteratorObject begin() const override;
     virtual IteratorObject end() const override;
+
+private:
+    VectorObject objectsVec;
 };
 
 #endif // COMPOSITE_H

@@ -8,8 +8,37 @@ using namespace std;
 
 #include "basecommand.h"
 #include "basescene.h"
+#include "point.h"
 //#include "scenemanager.h"
 //class scenemanager;
+
+/*class MoveModel : public BaseCommand
+{
+public:
+    MoveModel() = delete;
+    MoveModel(const Point move, const int id);
+    ~MoveModel() = default;
+    virtual void execute() override;
+
+private:
+    int id;
+    Point move;
+};*/
+
+class TransformModel : public BaseCommand
+{
+public:
+    TransformModel() = delete;
+    TransformModel(const int id, const Point move, const Point scale, const Point rotate);
+    ~TransformModel() = default;
+    virtual void execute() override;
+
+private:
+    int id;
+    const Point move;
+    const Point scale;
+    const Point rotate;
+};
 
 class DrawScene : public BaseCommand
 {

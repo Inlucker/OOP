@@ -1,7 +1,7 @@
 #ifndef SCENEMANAGER_H
 #define SCENEMANAGER_H
 
-#include <QWidget>
+//#include <QWidget>
 
 #include "basemanager.h"
 #include "scene.h"
@@ -17,6 +17,7 @@ public:
 
     void drawScene();
     void clearScene();
+    shared_ptr<Scene> getScene() const;
     void addModel(shared_ptr<Model> new_model);
     void addCamera(shared_ptr<Camera> new_camera);
     void deleteModel(const size_t model_id);
@@ -27,7 +28,7 @@ public:
 
     //int method1(string str); //test
 private:
-    unique_ptr<Scene> scene;
+    shared_ptr<Scene> scene;
     shared_ptr<BaseVisitor> objectDrawer;
 };
 

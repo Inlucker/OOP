@@ -31,6 +31,11 @@ void QtDrawer::drawLine(const Point &p1, const Point &p2)
     this->scene->drawLine(p1.getX(), p1.getY(), p2.getX(), p2.getY());
 }
 
+void QtDrawer::clear()
+{
+    this->scene->clear();
+}
+
 /*void QtDrawer::setScene(shared_ptr<BaseScene> newScene)
 {
     this->scene = newScene;

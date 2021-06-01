@@ -9,8 +9,8 @@
 using namespace std;
 
 class BaseVisitor;
-
 class Object;
+class Point;
 
 using VectorObject = vector<shared_ptr<Object>>;
 using IteratorObject = VectorObject::const_iterator;
@@ -21,7 +21,7 @@ public:
     Object() = default;
     virtual ~Object() = default;
 
-    virtual void transform() = 0;
+    virtual void transform(const Point move, const Point scale, const Point rotate) = 0;
     virtual bool isVisible() = 0;
     virtual void accept(shared_ptr<BaseVisitor> visitor) = 0;
 

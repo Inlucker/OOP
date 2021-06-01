@@ -53,7 +53,12 @@ void MainWindow::on_ClearSceneBtn_clicked()
 {
     ClearScene clearCmd;
     interface->execute(clearCmd);
+
+    /*DrawScene drawCmd;
+    interface->execute(drawCmd);*/
+
     canvas->clean();
+
     canvas->update();
 }
 
@@ -61,4 +66,37 @@ void MainWindow::on_AddModelBtn_clicked()
 {
     LoadModel loadCmd("cube.txt");
     interface->execute(loadCmd);
+}
+
+void MainWindow::on_RotateModelBtn_clicked()
+{
+    TransformModel transformCmd(0, Point(0, 0, 0), Point(1, 1, 1), Point(45, 0, 0));
+    interface->execute(transformCmd);
+
+    DrawScene drawCmd;
+    interface->execute(drawCmd);
+
+    canvas->update();
+}
+
+void MainWindow::on_MoveModelBtn_clicked()
+{
+    TransformModel transformCmd(0, Point(100, 100, 100), Point(1, 1, 1), Point(0, 0, 0));
+    interface->execute(transformCmd);
+
+    DrawScene drawCmd;
+    interface->execute(drawCmd);
+
+    canvas->update();
+}
+
+void MainWindow::on_ScaleModelBtn_clicked()
+{
+    TransformModel transformCmd(0, Point(0, 0, 0), Point(0.5, 0.5, 0.5), Point(0, 0, 0));
+    interface->execute(transformCmd);
+
+    DrawScene drawCmd;
+    interface->execute(drawCmd);
+
+    canvas->update();
 }

@@ -16,7 +16,7 @@ public:
     void addEdge(int new_p1, int new_p2);
     //void addPoint(Point new_p);
     //void addEdge(Edge new_e);
-    void transform();
+    void transform(const Point move, const Point scale, const Point rotate);
     vector<Point> getPoints() const;
     vector<Edge> getEdges() const;
 

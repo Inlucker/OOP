@@ -15,10 +15,12 @@ void ModelElements::addEdge(int new_p1, int new_p2)
     edges.push_back(Edge(new_p1, new_p2));
 }
 
-void ModelElements::transform()
+void ModelElements::transform(const Point move, const Point scale, const Point rotate)
 {
-    for (auto point : points)
-        point.transform();
+    /*for (auto point : points)
+        point.transform(move, scale, rotate);*/
+    for (size_t i = 0; i < points.size(); i++)
+        points.at(i).transform(move, scale, rotate);
 }
 
 vector<Point> ModelElements::getPoints() const

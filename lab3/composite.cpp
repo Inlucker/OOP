@@ -1,4 +1,5 @@
 #include "composite.h"
+#include "point.h"
 
 Composite::Composite(initializer_list<shared_ptr<Object>> args)
 {
@@ -8,11 +9,11 @@ Composite::Composite(initializer_list<shared_ptr<Object>> args)
     }
 }
 
-void Composite::transform()
+void Composite::transform(const Point move, const Point scale, const Point rotate)
 {
     cout << "Composite transform method:" << endl;
     for (auto elem : objectsVec)
-        elem->transform();
+        elem->transform(move, scale, rotate);
 }
 
 bool Composite::isVisible() //what do I do here?

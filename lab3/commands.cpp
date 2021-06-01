@@ -10,6 +10,34 @@ using namespace std;
 #include "loadmanagercreator.h"
 #include "loadmanager.h"
 
+#include "transformmanagercreator.h"
+#include "transformmanager.h"
+
+/*MoveModel::MoveModel(const Point move, const int id) : move(move), id(id)
+{
+
+}
+
+void MoveModel::execute()
+{
+    shared_ptr<TransformManager> transformMan = TransformManagerCreator().getManager();
+    transformMan->MoveModel(move, id);
+}*/
+
+TransformModel::TransformModel(const int id, const Point move, const Point scale, const Point rotate) : id(id), move(move), scale(scale), rotate(rotate)
+{
+
+}
+
+void TransformModel::execute()
+{
+    shared_ptr<SceneManager> sceneMan = SceneManagerCreator().getManager();
+
+    shared_ptr<TransformManager> transformMan = TransformManagerCreator().getManager();
+    transformMan->transformModel(sceneMan->getScene()->getModels(), move, scale, rotate);
+
+}
+
 DrawScene::DrawScene()
 {
     //man = SceneManagerCreator().getManager();

@@ -9,15 +9,18 @@ public:
 
     ~Point() = default;
 
-    void transform();
+    void transform(const Point moveK, const Point scaleK, const Point rotateK);
 
     double getX() const;
     double getY() const;
     double getZ() const;
 private:
-    void move();
-    void scale();
-    void turn();
+    void move(const Point move);
+    void scale(const Point scale);
+    void rotateX(const double angle);
+    void rotateY(const double angle);
+    void rotateZ(const double angle);
+    void rotate(const Point rotate);
 
     double x, y, z;
 };

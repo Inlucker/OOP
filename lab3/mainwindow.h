@@ -29,6 +29,12 @@ private slots:
 
     void on_AddModelBtn_clicked();
 
+    void on_RotateModelBtn_clicked();
+
+    void on_MoveModelBtn_clicked();
+
+    void on_ScaleModelBtn_clicked();
+
 private:
     Canvas *canvas;
     shared_ptr<Facade> interface;

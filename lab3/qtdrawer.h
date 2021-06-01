@@ -17,6 +17,7 @@ public:
     virtual ~QtDrawer() override;
 
     virtual void drawLine(const Point &p1, const Point &p2) override;
+    virtual void clear() override;
     //virtual void setScene(shared_ptr<BaseScene> newScene) override;
 
 private:

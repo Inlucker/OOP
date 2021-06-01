@@ -43,7 +43,9 @@ SOURCES += \
     qtscene.cpp \
     scene.cpp \
     scenemanager.cpp \
-    scenemanagercreator.cpp
+    scenemanagercreator.cpp \
+    transformmanager.cpp \
+    transformmanagercreator.cpp
 
 HEADERS += \
     abstractfactory.h \
@@ -79,7 +81,9 @@ HEADERS += \
     qtscene.h \
     scene.h \
     scenemanager.h \
-    scenemanagercreator.h
+    scenemanagercreator.h \
+    transformmanager.h \
+    transformmanagercreator.h
 
 FORMS += \
     mainwindow.ui
