@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QPainter>
+#include <QKeyEvent>
 
 #include "facade.h"
 #include "commands.h"
@@ -19,6 +20,11 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+
+protected:
+   virtual void mouseReleaseEvent(QMouseEvent *event);
+   virtual void mousePressEvent(QMouseEvent *event);
+   virtual void mouseMoveEvent(QMouseEvent *event);
 
 private slots:
     void on_SetSceneBtn_clicked();
@@ -38,6 +44,9 @@ private slots:
 private:
     Canvas *canvas;
     shared_ptr<Facade> interface;
+
+    bool LMB_is_pressed = false;
+    int previous_x = 0, previous_y = 0;
     //shared_ptr<QPainter> painter;
     Ui::MainWindow *ui;
 };

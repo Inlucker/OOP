@@ -36,6 +36,48 @@ MainWindow::~MainWindow()
     delete canvas;
 }
 
+void MainWindow::mouseReleaseEvent(QMouseEvent *event)
+{
+    if (event->button() == Qt::LeftButton)
+    {
+        LMB_is_pressed = false;
+    }
+}
+
+void MainWindow::mousePressEvent(QMouseEvent *event)
+{
+    if (event->button() == Qt::LeftButton && !LMB_is_pressed && this->canvas->rect().contains(event->pos()))
+    {
+        //cout << "Set" << endl;
+        previous_x = event->position().x();
+        previous_y = event->position().y();
+        LMB_is_pressed = true;
+    }
+}
+
+#define ROTATE_SPEED 5
+
+void MainWindow::mouseMoveEvent(QMouseEvent *event)
+{
+    if (LMB_is_pressed)
+    {
+        double x = double(previous_x - event->position().x()) / ROTATE_SPEED;
+        double y = double(-previous_y + event->position().y()) / ROTATE_SPEED;
+
+
+        TransformModel transformCmd(0, Point(0, 0, 0), Point(1, 1, 1), Point(-y, x, 0));
+        interface->execute(transformCmd);
+
+        DrawScene drawCmd;
+        interface->execute(drawCmd);
+
+        canvas->update();
+
+        previous_x = event->position().x();
+        previous_y = event->position().y();
+    }
+}
+
 void MainWindow::on_SetSceneBtn_clicked()
 {
     SetDrawerScene setDrawerCmd(canvas->scene);
