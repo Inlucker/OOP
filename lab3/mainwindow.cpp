@@ -76,7 +76,7 @@ void MainWindow::on_AddModelBtn_clicked()
 
 void MainWindow::on_RotateModelBtn_clicked()
 {
-    TransformModel transformCmd(0, Point(0, 0, 0), Point(1, 1, 1), Point(0, 15, 0));
+    TransformModel transformCmd(0, Point(0, 0, 0), Point(1, 1, 1), Point(0, 45, 0));
     interface->execute(transformCmd);
 
     DrawScene drawCmd;

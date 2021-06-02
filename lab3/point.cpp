@@ -16,11 +16,11 @@ Point::Point(const double new_x, const double new_y, const double new_z)
     z = new_z;
 }
 
-void Point::transform(const Point moveK, const Point scaleK, const Point rotateK)
+void Point::transform(const Point moveK, const Point scaleK, const Point rotateK, const Point center)
 {
     move(moveK);
-    scale(scaleK);
-    rotate(rotateK);
+    scale(scaleK, center);
+    rotate(rotateK, center);
 }
 
 double Point::getX() const
@@ -38,6 +38,21 @@ double Point::getZ() const
     return z;
 }
 
+void Point::setX(double new_x)
+{
+    x = new_x;
+}
+
+void Point::setY(double new_y)
+{
+    y = new_y;
+}
+
+void Point::setZ(double new_z)
+{
+    z = new_z;
+}
+
 void Point::move(const Point move)
 {
     x += move.getX();
@@ -45,45 +60,78 @@ void Point::move(const Point move)
     z += move.getZ();
 }
 
-void Point::scale(const Point scale)
+void Point::scale(const Point scale, const Point center)
 {
-    this->x *= scale.getX();
+    /*this->x *= scale.getX();
     this->y *= scale.getY();
-    this->z *= scale.getZ();
+    this->z *= scale.getZ();*/
+    double kx = scale.getX();
+    double ky = scale.getY();
+    double kz = scale.getZ();
+    double xc = center.getX();
+    double yc = center.getY();
+    double zc = center.getZ();
+    x = kx * x + xc * (1 - kx);
+    y = ky * y + yc * (1 - ky);
+    z = kz * z + zc * (1 - kz);
 }
 
 
-void Point::rotateX(const double angle)
+void Point::rotateX(const double angle, const Point center)
 {
-    double radians = angle * M_PI / 180;
+    /*double radians = angle * M_PI / 180;
     double tmp_y = y;
     double tmp_z = z;
     y = tmp_y * cos(radians) + tmp_z * sin(radians);
-    z  = -tmp_y * sin(radians) + tmp_z * cos(radians);
+    z  = -tmp_y * sin(radians) + tmp_z * cos(radians);*/
+    double xc = center.getX();
+    double yc = center.getY();
+    double zc = center.getZ();
+    double radians = angle * M_PI / 180;
+    double tmp_y = y;
+    double tmp_z = z;
+    y = yc + (tmp_y - yc) * cos(radians) + (tmp_z - zc) * sin(radians);
+    z = zc - (tmp_y - yc) * sin(radians) + (tmp_z - zc) * cos(radians);
 }
 
-void Point::rotateY(const double angle)
+void Point::rotateY(const double angle, const Point center)
 {
-    double radians = angle * M_PI / 180;
+    /*double radians = angle * M_PI / 180;
     double tmp_x = x;
     double tmp_z = z;
     x = tmp_x * cos(radians) + tmp_z * sin(radians);
-    z = -tmp_x * sin(radians) + tmp_z * cos(radians);
+    z = -tmp_x * sin(radians) + tmp_z * cos(radians);*/
+    double xc = center.getX();
+    double yc = center.getY();
+    double zc = center.getZ();
+    double radians = angle * M_PI / 180;
+    double tmp_x = x;
+    double tmp_z = z;
+    x = xc + (tmp_x - xc) * cos(radians) + (tmp_z - zc) * sin(radians);
+    z = zc - (tmp_x - xc) * sin(radians) + (tmp_z - zc) * cos(radians);
 }
 
-void Point::rotateZ(const double angle)
+void Point::rotateZ(const double angle, const Point center)
 {
-    double radians = angle * M_PI / 180;
+    /*double radians = angle * M_PI / 180;
     double tmp_x = x;
     double tmp_y = y;
     x = tmp_x * cos(radians) - tmp_y * sin(radians);
-    y = tmp_x * sin(radians) + tmp_y * cos(radians);
+    y = tmp_x * sin(radians) + tmp_y * cos(radians);*/
+    double xc = center.getX();
+    double yc = center.getY();
+    double zc = center.getZ();
+    double radians = angle * M_PI / 180;
+    double tmp_x = x;
+    double tmp_y = y;
+    x = xc + (tmp_x - xc) * cos(radians) - (tmp_y - yc) * sin(radians);
+    y = yc + (tmp_x - xc) * sin(radians) + (tmp_y - yc) * cos(radians);
 }
 
-void Point::rotate(const Point rotate)
+void Point::rotate(const Point rotate, const Point center)
 {
-    rotateX(rotate.getX());
-    rotateY(rotate.getY());
-    rotateZ(rotate.getZ());
+    rotateX(rotate.getX(), center);
+    rotateY(rotate.getY(), center);
+    rotateZ(rotate.getZ(), center);
 }
 

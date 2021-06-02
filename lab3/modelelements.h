@@ -21,6 +21,8 @@ public:
     vector<Edge> getEdges() const;
 
 private:
+    void updateCenter();
+    Point center;
     vector<Point> points;
     vector<Edge> edges;
 };
