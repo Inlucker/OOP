@@ -12,10 +12,8 @@ Doors::Doors(QObject *parent) : QObject(parent), current_state(CLOSED)
 
   QObject::connect(&doors_open_timer, SIGNAL(timeout()), this, SLOT(open()));
   QObject::connect(&doors_close_timer, SIGNAL(timeout()), this, SLOT(close()));
-  QObject::connect(this, SIGNAL(opened_doors()), &doors_stay_open_timer,
-                   SLOT(start()));
-  QObject::connect(&doors_stay_open_timer, SIGNAL(timeout()), this,
-                   SLOT(start_closing()));
+  QObject::connect(this, SIGNAL(opened_doors()), &doors_stay_open_timer, SLOT(start()));
+  QObject::connect(&doors_stay_open_timer, SIGNAL(timeout()), this, SLOT(start_closing()));
 }
 
 void Doors::start_openning()

@@ -37,8 +37,6 @@ void Cabin::cabin_move()
 
   if (current_state == MOVE)
   {
-    current_state = MOVE;
-
     current_floor += current_direction;
 
     if (current_floor == target)
