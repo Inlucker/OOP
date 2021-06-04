@@ -24,6 +24,7 @@ SOURCES += \
     commands.cpp \
     composite.cpp \
     edge.cpp \
+    errors.cpp \
     facade.cpp \
     fileloader.cpp \
     graphicsolution.cpp \
@@ -63,6 +64,7 @@ HEADERS += \
     commands.h \
     composite.h \
     edge.h \
+    errors.h \
     facade.h \
     fileloader.h \
     graphicsolution.h \

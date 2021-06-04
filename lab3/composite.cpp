@@ -55,6 +55,11 @@ bool Composite::clear()
     return true;
 }
 
+int Composite::size()
+{
+    return objectsVec.size();
+}
+
 IteratorObject Composite::begin() const
 {
     return objectsVec.begin();

@@ -67,7 +67,7 @@ public:
 private:
 };
 
-class LoadModel : public BaseCommand
+class LoadModel : public BaseCommand //AddModel
 {
 public:
     LoadModel() = delete;
@@ -78,6 +78,11 @@ public:
 private:
     string fileName;
 };
+
+//class AddCamera : public BaseCommand
+//class DeleteModel : public BaseCommand
+//class DeleteCamera : public BaseCommand
+//class UseCamera : public BaseCommand
 
 class SetDrawerScene : public BaseCommand
 {

@@ -17,11 +17,13 @@ public:
     void deleteCamera(const size_t camera_id);
     void clear();
     shared_ptr<Object> getModels();
+    shared_ptr<Object> getModel(const size_t id);
     shared_ptr<Object> getCameras();
+    shared_ptr<Object> getCamera(const size_t id);
     shared_ptr<Object> getObjects(); //no need?
 private:
     //objects;
-    //shared_ptr<Object> objects;
+    //shared_ptr<Object> objects; //Объеденить модели и камеры
     shared_ptr<Object> models;
     shared_ptr<Object> cameras;
 };

@@ -29,6 +29,7 @@ public:
     virtual bool remove(const IteratorObject& it);
     virtual bool isComposite() const;
     virtual bool clear();
+    virtual int size(); //Added = OK?
     virtual IteratorObject begin() const;
     virtual IteratorObject end() const;
 };

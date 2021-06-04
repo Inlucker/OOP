@@ -4,10 +4,12 @@
 #include <QMainWindow>
 #include <QPainter>
 #include <QKeyEvent>
+#include <QMessageBox>
 
 #include "facade.h"
 #include "commands.h"
 #include "canvas.h"
+#include "errors.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }

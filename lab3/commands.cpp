@@ -4,6 +4,8 @@
 
 using namespace std;
 
+#include "errors.h"
+
 #include "scenemanagercreator.h"
 #include "scenemanager.h"
 
@@ -34,7 +36,7 @@ void TransformModel::execute()
     shared_ptr<SceneManager> sceneMan = SceneManagerCreator().getManager();
 
     shared_ptr<TransformManager> transformMan = TransformManagerCreator().getManager();
-    transformMan->transformModel(sceneMan->getScene()->getModels(), move, scale, rotate);
+    transformMan->transformModel(sceneMan->getScene()->getModel(id), move, scale, rotate);
 
 }
 

@@ -6,6 +6,8 @@
 #include "modelelements.h"
 #include "basevisitor.h"
 
+class ObjectDrawer;
+
 class Model : public Object
 {
 public:
@@ -17,9 +19,12 @@ public:
     virtual bool isVisible() override;
     virtual void accept(shared_ptr<BaseVisitor> visitor) override;
 
-    const shared_ptr<ModelElements> getElements() const;
 private:
     shared_ptr<ModelElements> modelElements;
+
+private:
+    const shared_ptr<ModelElements> getElements() const;
+    friend ObjectDrawer;
 };
 
 #endif // MODEL_H

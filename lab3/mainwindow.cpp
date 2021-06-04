@@ -47,6 +47,17 @@ void MainWindow::mouseReleaseEvent(QMouseEvent *event)
     {
         RMB_is_pressed = true;
     }
+    /*try
+    {
+    }
+    catch (BaseError &er)
+    {
+        QMessageBox::information(this, "Error", er.what());
+    }
+    catch (...)
+    {
+        QMessageBox::information(this, "Error", "Unexpected Error");
+    }*/
 }
 
 void MainWindow::mousePressEvent(QMouseEvent *event)
@@ -56,15 +67,15 @@ void MainWindow::mousePressEvent(QMouseEvent *event)
     if (event->button() == Qt::LeftButton && !LMB_is_pressed && this->canvas->rect().contains(event->pos()))
     {
         //cout << "Set" << endl;
-        //previous_x = event->position().x();
-        //previous_y = event->position().y();
+        //previous_x = event->x();
+        //previous_y = event->y();
         LMB_is_pressed = true;
     }
     if (event->button() == Qt::RightButton && !RMB_is_pressed && this->canvas->rect().contains(event->pos()))
     {
         //cout << "Set" << endl;
-        //previous_x = event->position().x();
-        //previous_y = event->position().y();
+        //previous_x = event->x();
+        //previous_y = event->y();
         RMB_is_pressed = true;
     }
 }
@@ -74,47 +85,60 @@ void MainWindow::mousePressEvent(QMouseEvent *event)
 
 void MainWindow::mouseMoveEvent(QMouseEvent *event)
 {
-    if (LMB_is_pressed)
+    try
     {
-        double x = double(previous_x - event->position().x()) / ROTATE_SPEED;
-        double y = double(previous_y - event->position().y()) / ROTATE_SPEED;
+        if (LMB_is_pressed)
+        {
+            double x = double(previous_x - event->position().x()) / ROTATE_SPEED;
+            double y = double(previous_y - event->position().y()) / ROTATE_SPEED;
+
+            //ui->Model_IDs->text().toInt()
+            QString modelIds = ui->Model_IDs->text();
+            int n = modelIds.toInt();
+            string test_str = "0, 1";
+            TransformModel transformCmd(n, Point(0, 0, 0), Point(1, 1, 1), Point(y, x, 0));
+            interface->execute(transformCmd);
+
+            DrawScene drawCmd;
+            interface->execute(drawCmd);
+
+            /*canvas->update();
+
+            previous_x = event->x();
+            previous_y = event->y();*/
+        }
+        else if (RMB_is_pressed)
+        {
+            double x = double(previous_x - event->position().x()) / MOVE_SPEED;
+            double y = double(previous_y - event->position().y()) / MOVE_SPEED;
 
 
-        TransformModel transformCmd(0, Point(0, 0, 0), Point(1, 1, 1), Point(y, x, 0));
-        interface->execute(transformCmd);
+            TransformModel transformCmd(ui->Model_IDs->text().toInt(), Point(-x, -y, 0), Point(1, 1, 1), Point(0, 0, 0));
+            interface->execute(transformCmd);
 
-        DrawScene drawCmd;
-        interface->execute(drawCmd);
+            DrawScene drawCmd;
+            interface->execute(drawCmd);
 
-        /*canvas->update();
+            /*canvas->update();
+
+            previous_x = event->x();
+            previous_y = event->y();*/
+        }
+
+        canvas->update();
 
         previous_x = event->position().x();
-        previous_y = event->position().y();*/
+        previous_y = event->position().y();
     }
-    else if (RMB_is_pressed)
+    catch (BaseError &er)
     {
-        double x = double(previous_x - event->position().x()) / MOVE_SPEED;
-        double y = double(previous_y - event->position().y()) / MOVE_SPEED;
-
-
-        TransformModel transformCmd(0, Point(-x, -y, 0), Point(1, 1, 1), Point(0, 0, 0));
-        interface->execute(transformCmd);
-
-        DrawScene drawCmd;
-        interface->execute(drawCmd);
-
-        /*canvas->update();
-
-        previous_x = event->position().x();
-        previous_y = event->position().y();*/
+        QMessageBox::information(this, "Error", er.what());
     }
-
-    canvas->update();
-
-    previous_x = event->position().x();
-    previous_y = event->position().y();
+    catch (...)
+    {
+        QMessageBox::information(this, "Error", "Unexpected Error");
+    }
 }
-
 
 #define SCALE_SPEED 10
 
@@ -130,7 +154,7 @@ void MainWindow::wheelEvent(QWheelEvent *event)
         cout <<  kx << endl;
         cout <<  ky << endl;
 
-        TransformModel transformCmd(0, Point(0, 0, 0), Point(ky, ky, ky), Point(0, 0, 0));
+        TransformModel transformCmd(ui->Model_IDs->text().toInt(), Point(0, 0, 0), Point(ky, ky, ky), Point(0, 0, 0));
         interface->execute(transformCmd);
 
         DrawScene drawCmd;

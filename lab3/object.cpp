@@ -20,6 +20,11 @@ bool Object::clear()
     return false;
 }
 
+int Object::size()
+{
+    return 1;
+}
+
 IteratorObject Object::begin() const
 {
     return IteratorObject();

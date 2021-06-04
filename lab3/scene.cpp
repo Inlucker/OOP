@@ -1,4 +1,7 @@
 #include "scene.h"
+#include "errors.h"
+
+using namespace std;
 
 Scene::Scene()
 {
@@ -73,9 +76,39 @@ shared_ptr<Object> Scene::getModels()
     return models;
 }
 
+shared_ptr<Object> Scene::getModel(const size_t id)
+{
+    if (id + 1 > models->size())
+    {
+        //return *cameras->begin(); //THROW
+        //cout << "HERE?";
+        time_t t_time = time(NULL);
+        throw IndexError("Id error", __FILE__, __LINE__, ctime(&t_time));
+    }
+    IteratorObject it = models->begin();
+    for (size_t i = 0; i < id; i++)
+        it++;
+    return *it;
+}
+
 shared_ptr<Object> Scene::getCameras()
 {
     return cameras;
+}
+
+shared_ptr<Object> Scene::getCamera(const size_t id)
+{
+    if (id + 1 > models->size())
+    {
+        //return *cameras->begin(); //THROW
+        //cout << "HERE?";
+        time_t t_time = time(NULL);
+        throw IndexError("Id error", __FILE__, __LINE__, ctime(&t_time));
+    }
+    IteratorObject it = cameras->begin();
+    for (size_t i = 0; i < id; i++)
+        it++;
+    return *it;
 }
 
 shared_ptr<Object> Scene::getObjects()
