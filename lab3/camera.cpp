@@ -1,13 +1,20 @@
 #include "camera.h"
 
-void Camera::transform(const Point move, const Point scale, const Point rotate)
+Camera::Camera(const Point &pos, const Point &angs)
 {
-    cout << "Camera Transform method;" << endl;
+    position = pos;
+    angles = angs;
+}
+
+void Camera::transform(const Point moveK, const Point scaleK, const Point rotateK)
+{
+    //move(moveK);
+    //rotate(rotateK);
+    position.transform(moveK, scaleK, rotateK, position);
 }
 
 bool Camera::isVisible()
 {
-    cout << "Camera isVisible method;" << endl;
     return false;
 }
 
@@ -15,3 +22,27 @@ void Camera::accept(shared_ptr<BaseVisitor> visitor)
 {
     visitor->visit(*this);
 }
+
+void Camera::rotate(Point rotateK)
+{
+    angles.setX(position.getX()+rotateK.getX());
+    angles.setY(position.getY()+rotateK.getY());
+    angles.setZ(position.getZ()+rotateK.getZ());
+}
+
+const Point &Camera::getPosition() const
+{
+    return position;
+}
+
+const Point &Camera::getAngles() const
+{
+    return angles;
+}
+
+/*void Camera::move(Point moveK)
+{
+    position.setX(position.getX()+moveK.getX());
+    position.setY(position.getY()+moveK.getY());
+    position.setZ(position.getZ()+moveK.getZ());
+}*/

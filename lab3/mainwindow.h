@@ -44,6 +44,8 @@ private slots:
 
     void on_ScaleModelBtn_clicked();
 
+    void on_AddCameraBtn_clicked();
+
 private:
     Canvas *canvas;
     shared_ptr<Facade> interface;

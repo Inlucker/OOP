@@ -19,6 +19,24 @@ MainWindow::MainWindow(QWidget *parent)
     SetDrawerScene setDrawerCmd(canvas->scene);
     interface->execute(setDrawerCmd);
 
+    try
+    {
+        AddCamera addCameraCmd(Point(0, 0, 0), Point(0, 0, 0));
+        //AddCamera addCameraCmd(Point(200, 200, 300), Point(45, 45, 35));
+        interface->execute(addCameraCmd);
+
+        UseCamera useCamera(0);
+        //interface->execute(useCamera); //STOPED HERE TODO: UseCamera
+    }
+    catch (BaseError &er)
+    {
+        QMessageBox::information(this, "Error", er.what());
+    }
+    catch (...)
+    {
+        QMessageBox::information(this, "Error", "Unexpected Error");
+    }
+
     /*LoadModel loadCmd("cube.txt");
     interface->execute(loadCmd);
 
@@ -192,8 +210,8 @@ void MainWindow::on_ClearSceneBtn_clicked()
 
 void MainWindow::on_AddModelBtn_clicked()
 {
-    //LoadModel loadCmd("cube.txt");
-    LoadModel loadCmd("12granSec.txt");
+    LoadModel loadCmd("cube1.txt");
+    //LoadModel loadCmd("12granSec.txt");
     interface->execute(loadCmd);
 
     DrawScene drawCmd;
@@ -228,6 +246,17 @@ void MainWindow::on_ScaleModelBtn_clicked()
 {
     TransformModel transformCmd(0, Point(0, 0, 0), Point(0.5, 0.5, 0.5), Point(0, 0, 0));
     interface->execute(transformCmd);
+
+    DrawScene drawCmd;
+    interface->execute(drawCmd);
+
+    canvas->update();
+}
+
+void MainWindow::on_AddCameraBtn_clicked()
+{
+    AddCamera addCameraCmd(Point(0, 0, 0), Point(0, 0, 0));
+    interface->execute(addCameraCmd);
 
     DrawScene drawCmd;
     interface->execute(drawCmd);

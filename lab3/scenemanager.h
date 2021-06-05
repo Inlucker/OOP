@@ -20,15 +20,16 @@ public:
     shared_ptr<Scene> getScene() const;
     void addModel(shared_ptr<Model> new_model);
     void addCamera(shared_ptr<Camera> new_camera);
-    void deleteModel(const size_t model_id);
-    void deleteCamera(const size_t camera_id);
-    //void useCamera(shared_ptr<Camera> new_camera);
+    void deleteModel(const size_t modelId);
+    void deleteCamera(const size_t cameraId);
+    void useCamera(shared_ptr<Camera> newCamera);
 
     void setDrawerScene(shared_ptr<BaseScene> newScene);
 
     //int method1(string str); //test
 private:
     shared_ptr<Scene> scene;
+    shared_ptr<Camera> curCamera;
     shared_ptr<BaseVisitor> objectDrawer;
 };
 

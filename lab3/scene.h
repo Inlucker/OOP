@@ -23,9 +23,9 @@ public:
     shared_ptr<Object> getObjects(); //no need?
 private:
     //objects;
-    //shared_ptr<Object> objects; //Объеденить модели и камеры
-    shared_ptr<Object> models;
-    shared_ptr<Object> cameras;
+    shared_ptr<Object> objects; //Объеденить модели и камеры
+    //shared_ptr<Object> models;
+    //shared_ptr<Object> cameras;
 };
 
 #endif // SCENE_H

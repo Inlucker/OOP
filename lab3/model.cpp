@@ -12,13 +12,11 @@ Model::Model(shared_ptr<ModelElements> modelElements) : modelElements(modelEleme
 
 void Model::transform(const Point move, const Point scale, const Point rotate)
 {
-    cout << "Model Transform method;" << endl;
     modelElements->transform(move, scale, rotate);
 }
 
 bool Model::isVisible()
 {
-    cout << "Model isVisible method;" << endl;
     return true;
 }
 

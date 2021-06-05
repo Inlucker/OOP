@@ -1,33 +1,83 @@
 #include "objectdrawer.h"
 
 #include "graphicsolution.h"
+#include "object.h"
 #include "model.h"
+#include "camera.h"
+#include "errors.h"
+
 
 ObjectDrawer::ObjectDrawer()
 {
     GraphicSolution solution;
 
-    solution.registration(1, FactoryCreator::createQtFactory);
+    solution.registration(1, FactoryCreator::createQtFactory); //???
 
     shared_ptr<AbstractFactory> cr(solution.create(1));
     this->drawer = cr->createGraphics();
+
+    curCamera = shared_ptr<Camera>(new Camera());
     //drawer.setScene();
+}
+
+ObjectDrawer::ObjectDrawer(const shared_ptr<Camera> newCamera)
+{
+    GraphicSolution solution;
+
+    solution.registration(1, FactoryCreator::createQtFactory); //???
+
+    shared_ptr<AbstractFactory> cr(solution.create(1));
+    this->drawer = cr->createGraphics();
+
+    curCamera = newCamera;
 }
 
 void ObjectDrawer::visit(const Model &model)
 {
+    cout << "Visited Model;" << endl;
     auto points = model.getElements()->getPoints();
 
     for (auto edge: model.getElements()->getEdges())
     {
-        this->drawer->drawLine(points.at(edge.getFirst()), points.at(edge.getSecond()));
+        //this->drawer->drawLine(points.at(edge.getFirst()), points.at(edge.getSecond()));
+        this->drawer->drawLine(getProection(points.at(edge.getFirst())), getProection(points.at(edge.getSecond())));
     }
-    cout << "Visited Model;" << endl;
 }
 
 void ObjectDrawer::visit(const Camera &camera)
 {
     cout << "Visited Camera;" << endl;
+}
+
+Point ObjectDrawer::getProection(Point &_point)
+{
+    time_t t_time = time(NULL);
+    if (!curCamera)
+        throw NoCameraError("No active camera", __FILE__, __LINE__, ctime(&t_time));
+
+    Point proection(_point);
+    //Point move(-curCamera->getPosition().getX(), -curCamera->getPosition().getY(), 0);
+
+    //proection.transform(move, Point(1, 1, 1), Point(0, 0, 0));
+    //std::shared_ptr<Matrix<double>> reform_mtr(std::make_shared<MoveMatrix>(curCamera->get_position()));
+
+    //projection.reform(reform_mtr);
+    proection.transform(Point(curCamera->getPosition()), Point(1, 1, 1), Point(0, 0, 0));
+
+    Point angles = curCamera->getAngles();//.deg_to_rad();
+
+    /*reform_mtr = std::make_shared<RotateOxMatrix>(-angles.get_x());
+    projection.reform(reform_mtr);
+
+    reform_mtr = std::make_shared<RotateOyMatrix>(-angles.get_y());
+    projection.reform(reform_mtr);
+
+    reform_mtr = std::make_shared<RotateOzMatrix>(-angles.get_z());
+    projection.reform(reform_mtr);*/
+
+    proection.transform(Point(0, 0, 0), Point(1, 1, 1), Point(-angles.getX(), -angles.getY(), -angles.getZ()));
+
+    return proection;
 }
 
 /*shared_ptr<BaseVisitor> ObjectVisitor::getBaseVisitorPtr() //Костыль?
