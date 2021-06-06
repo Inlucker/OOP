@@ -24,17 +24,10 @@ public:
 signals:
     void addedTarget(int floor, direction new_dir);
     void cabinAchievedTarget();
-    /*void addedTarget(int floor);
-    void startMoving(direction cur_dir);
-    void stopCabin(direction new_dir);
-    void noTargets();
-    void move();*/
 
 public slots:
     void getBusy(int floor, direction new_dir);
-    void getFree(int floor);
-    /*void getBusy(int floor); //BUSY
-    void getFree(); //FREE*/
+    void getFree();
 
 private:
     int cur_floor;
@@ -45,7 +38,4 @@ private:
 
 private:
     void nextTarget();
-    //void findNewTarget();
-    //bool getClosestTarget(int &floor);
-    //void find_new_target();
 };
