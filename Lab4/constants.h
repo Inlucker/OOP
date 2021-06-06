@@ -8,11 +8,11 @@
 enum direction
 {
     DOWN = -1,
-    STAY,
-    UP
+    STAY = 0,
+    UP = 1
 };
 
-#define CROSSING_FLOOR 1500
+#define CROSSING_FLOOR_TIME 1500
 #define DOORS_TIME 2000
 #define WAITING_TIME 2000
 

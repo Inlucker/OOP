@@ -4,35 +4,39 @@
 
 #include <constants.h>
 
+
 class Doors : public QObject
 {
-  Q_OBJECT
-  enum doors_state
-  {
-      OPENNING,
-      OPENED,
-      CLOSING,
-      CLOSED
-  };
+    Q_OBJECT
+
+    enum doors_status
+    {
+        OPENNING,
+        OPENED,
+        CLOSING,
+        CLOSED
+    };
 
 public:
-  explicit Doors(QObject *parent = nullptr);
+    explicit Doors(QObject *parent = nullptr);
+
+    //const doors_status &getDoorsStatus() const; // Можно ли так?
 
 signals:
-  void closed_doors();
-  void opened_doors();
+    void closedDoors();
+    void openedDoors();
 
 public slots:
-  void start_openning();
-  void start_closing();
+    void startOpening();
+    void startClosing();
 
 private slots:
-  void open();
-  void close();
+    void open();
+    void close();
 
 private:
-  doors_state current_state;
-  QTimer doors_open_timer;
-  QTimer doors_close_timer;
-  QTimer doors_stay_open_timer;
+    doors_status status;
+    QTimer doors_open_timer;
+    QTimer doors_close_timer;
+    QTimer doors_stay_open_timer;
 };

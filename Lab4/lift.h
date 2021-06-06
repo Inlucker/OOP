@@ -9,13 +9,13 @@
 
 class Lift : public QObject
 {
-  Q_OBJECT
+    Q_OBJECT
 
 public:
-  Lift();
-  void click(int floor);
+    Lift();
+    void click(int floor);
 
 private:
-  ControlPanel control_panel;
-  Cabin cabin;
+    ControlPanel control_panel;
+    Cabin cabin;
 };
