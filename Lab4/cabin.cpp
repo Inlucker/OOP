@@ -27,7 +27,8 @@ void Cabin::startMoving(int floor, direction new_dir)
     {
         status = START_MOVING;
         dir = new_dir;
-        emit becomeMoving();
+        //emit becomeMoving();
+        crossing_floor_timer.start(CROSSING_FLOOR_TIME);
     }
 }
 
@@ -35,10 +36,11 @@ void Cabin::move()
 {
     if (status == START_MOVING || status == MOVING)
     {
-        if (status == MOVING)
+        /*if (status == MOVING)
         {
             cur_floor += dir;
-        }
+        }*/
+        cur_floor += dir;
 
         status = MOVING;
         emit cabinCrossedFloor(cur_floor, dir);
