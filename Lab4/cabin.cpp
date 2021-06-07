@@ -21,7 +21,7 @@ Cabin::Cabin(QObject *parent) : QObject(parent)
     QObject::connect(this, SIGNAL(becomeMoving()), this, SLOT(move()));
 }
 
-void Cabin::startMoving(int floor, direction new_dir)
+void Cabin::startMoving(direction new_dir)
 {
     if (status == STAY_CLOSED)
     {
@@ -43,7 +43,7 @@ void Cabin::move()
         cur_floor += dir;
 
         status = MOVING;
-        emit cabinCrossedFloor(cur_floor, dir);
+        emit cabinCrossedFloor(dir);
         crossing_floor_timer.start(CROSSING_FLOOR_TIME);
     }
 }

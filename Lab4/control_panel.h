@@ -14,7 +14,8 @@ class ControlPanel : public QObject
       BECOMING_BUSY,
       PASSING_FLOOR*/
       FREE,
-      BUSY
+      BUSY,
+      PASSING_FLOOR
   };
 
 public:
@@ -22,11 +23,13 @@ public:
     void addTarget(int floor);
 
 signals:
-    void addedTarget(int floor, direction new_dir);
+    void addedTarget(direction new_dir);
     void cabinAchievedTarget();
+    void stayOnFloor(direction new_dir);
 
 public slots:
-    void getBusy(int floor, direction new_dir);
+    void getBusy(direction new_dir);
+    void passFloor(direction new_dir);
     void getFree();
 
 private:

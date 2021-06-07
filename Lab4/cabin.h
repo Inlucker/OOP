@@ -22,13 +22,13 @@ public:
     explicit Cabin(QObject *parent = nullptr);
 
 signals:
-    void cabinCrossedFloor(int floor, direction new_dir);
+    void cabinCrossedFloor(direction new_dir);
     void becomeMoving();
     void cabinStayClosed();
     void cabinStopped();
 
 public slots:
-    void startMoving(int floor, direction new_dir);
+    void startMoving(direction new_dir);
     void move();
     void becomeClosed();
     void stopOnFloor();

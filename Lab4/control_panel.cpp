@@ -12,7 +12,9 @@ ControlPanel::ControlPanel(QObject *parent) : QObject(parent)
     status = FREE;
     dir = STAY;
 
-    QObject::connect(this, SIGNAL(addedTarget(int, direction)), this, SLOT(getBusy(int, direction)));
+    QObject::connect(this, SIGNAL(addedTarget(direction)), this, SLOT(getBusy(direction)));
+    QObject::connect(this, SIGNAL(stayOnFloor(direction)), this, SLOT(passFloor(direction)));
+
 }
 
 void ControlPanel::addTarget(int floor)
@@ -23,7 +25,7 @@ void ControlPanel::addTarget(int floor)
     nextTarget();
 }
 
-void ControlPanel::getBusy(int floor, direction new_dir)
+void ControlPanel::getBusy(direction new_dir)
 {
     if (status == FREE)
     {
@@ -31,21 +33,27 @@ void ControlPanel::getBusy(int floor, direction new_dir)
         //cur_target = floor;
         dir = new_dir;
     }
-    else if (status == BUSY)
+}
+
+void ControlPanel::passFloor(direction new_dir)
+{
+    if (status == BUSY || status == PASSING_FLOOR)
     {
-        cur_floor = floor;
-        if (targets[floor - 1])
+        status = PASSING_FLOOR;
+        cur_floor += new_dir;
+        if (targets[cur_floor - 1])
         {
-            targets[floor - 1] = false;
+            targets[cur_floor - 1] = false;
             emit cabinAchievedTarget();
         }
         else
-            qDebug() << "Passed floor" << floor;
+            qDebug() << "Passed floor" << cur_floor;
     }
 }
 
 void ControlPanel::getFree()
 {
+    if (status == PASSING_FLOOR)
     status = FREE;
     //cur_floor = floor;
     nextTarget();
@@ -55,7 +63,8 @@ void ControlPanel::nextTarget()
 {
     if (targets[cur_floor - 1])
     {
-        emit addedTarget(cur_floor, STAY);
+        //emit addedTarget(STAY);
+        emit stayOnFloor(STAY);
     }
     else if (status == FREE)
     {
@@ -64,13 +73,13 @@ void ControlPanel::nextTarget()
             for (int i = cur_floor; i <= NUM_FLOORS; i++)
                 if (targets[i-1])
                 {
-                    emit addedTarget(i, UP);
+                    emit addedTarget(UP);
                     return;
                 }
             for (int i = cur_floor; i > 0; i--)
                 if (targets[i-1])
                 {
-                    emit addedTarget(i, DOWN);
+                    emit addedTarget(DOWN);
                     return;
                 }
         }
@@ -79,13 +88,13 @@ void ControlPanel::nextTarget()
             for (int i = cur_floor; i > 0; i--)
                 if (targets[i-1])
                 {
-                    emit addedTarget(i, DOWN);
+                    emit addedTarget(DOWN);
                     return;
                 }
             for (int i = cur_floor; i <= NUM_FLOORS; i++)
                 if (targets[i-1])
                 {
-                    emit addedTarget(i, UP);
+                    emit addedTarget(UP);
                     return;
                 }
         }
