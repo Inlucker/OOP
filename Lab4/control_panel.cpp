@@ -59,14 +59,35 @@ void ControlPanel::nextTarget()
     }
     else if (status == FREE)
     {
-        for (int i = 0; i < NUM_FLOORS; i++)
-            if (targets[i])
-            {
-                if (i + 1 > cur_floor)
-                    emit addedTarget(i + 1, UP);
-                else
-                    emit addedTarget(i + 1, DOWN);
-                break;
-            }
+        if (dir == UP || (dir == STAY && cur_floor > NUM_FLOORS/2))
+        {
+            for (int i = cur_floor; i <= NUM_FLOORS; i++)
+                if (targets[i-1])
+                {
+                    emit addedTarget(i, UP);
+                    return;
+                }
+            for (int i = cur_floor; i > 0; i--)
+                if (targets[i-1])
+                {
+                    emit addedTarget(i, DOWN);
+                    return;
+                }
+        }
+        else //if (dir == DOWN)
+        {
+            for (int i = cur_floor; i > 0; i--)
+                if (targets[i-1])
+                {
+                    emit addedTarget(i, DOWN);
+                    return;
+                }
+            for (int i = cur_floor; i <= NUM_FLOORS; i++)
+                if (targets[i-1])
+                {
+                    emit addedTarget(i, UP);
+                    return;
+                }
+        }
     }
 }
