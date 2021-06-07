@@ -7,7 +7,7 @@
 ControlPanel::ControlPanel(QObject *parent) : QObject(parent)
 {
     cur_floor = 1;
-    cur_target = -1;
+    //cur_target = -1;
     targets = QVector<bool>(NUM_FLOORS, false);
     status = FREE;
     dir = STAY;
@@ -28,7 +28,7 @@ void ControlPanel::getBusy(int floor, direction new_dir)
     if (status == FREE)
     {
         status = BUSY;
-        cur_target = floor;
+        //cur_target = floor;
         dir = new_dir;
     }
     else if (status == BUSY)

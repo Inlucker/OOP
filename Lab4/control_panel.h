@@ -31,7 +31,7 @@ public slots:
 
 private:
     int cur_floor;
-    int cur_target;
+    //int cur_target;
     QVector<bool> targets;
     panel_status status;
     direction dir;
