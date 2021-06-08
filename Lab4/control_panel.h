@@ -13,8 +13,8 @@ class ControlPanel : public QObject
       /*FREE,
       BECOMING_BUSY,
       PASSING_FLOOR*/
-      FREE,
-      BUSY,
+      WAITING_NEXT_TARGET,
+      SETTING_DIRECTION,
       PASSING_FLOOR
   };
 
@@ -28,9 +28,9 @@ signals:
     void stayOnFloor(direction new_dir);
 
 public slots:
-    void getBusy(direction new_dir);
+    void getDirection(direction new_dir);
     void passFloor(direction new_dir);
-    void getFree();
+    void findNextTarget();
 
 private:
     int cur_floor;

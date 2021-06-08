@@ -9,10 +9,10 @@ ControlPanel::ControlPanel(QObject *parent) : QObject(parent)
     cur_floor = 1;
     //cur_target = -1;
     targets = QVector<bool>(NUM_FLOORS, false);
-    status = FREE;
+    status = WAITING_NEXT_TARGET;
     dir = STAY;
 
-    QObject::connect(this, SIGNAL(addedTarget(direction)), this, SLOT(getBusy(direction)));
+    QObject::connect(this, SIGNAL(addedTarget(direction)), this, SLOT(getDirection(direction)));
     QObject::connect(this, SIGNAL(stayOnFloor(direction)), this, SLOT(passFloor(direction)));
 
 }
@@ -25,11 +25,11 @@ void ControlPanel::addTarget(int floor)
     nextTarget();
 }
 
-void ControlPanel::getBusy(direction new_dir)
+void ControlPanel::getDirection(direction new_dir)
 {
-    if (status == FREE)
+    if (status == WAITING_NEXT_TARGET)
     {
-        status = BUSY;
+        status = SETTING_DIRECTION;
         //cur_target = floor;
         dir = new_dir;
     }
@@ -37,7 +37,7 @@ void ControlPanel::getBusy(direction new_dir)
 
 void ControlPanel::passFloor(direction new_dir)
 {
-    if (status == BUSY || status == PASSING_FLOOR)
+    if (status == SETTING_DIRECTION || status == PASSING_FLOOR)
     {
         status = PASSING_FLOOR;
         cur_floor += new_dir;
@@ -51,10 +51,10 @@ void ControlPanel::passFloor(direction new_dir)
     }
 }
 
-void ControlPanel::getFree()
+void ControlPanel::findNextTarget()
 {
     if (status == PASSING_FLOOR)
-    status = FREE;
+    status = WAITING_NEXT_TARGET;
     //cur_floor = floor;
     nextTarget();
 }
@@ -66,7 +66,7 @@ void ControlPanel::nextTarget()
         //emit addedTarget(STAY);
         emit stayOnFloor(STAY);
     }
-    else if (status == FREE)
+    else if (status == WAITING_NEXT_TARGET)
     {
         if (dir == UP || (dir == STAY && cur_floor > NUM_FLOORS/2))
         {
