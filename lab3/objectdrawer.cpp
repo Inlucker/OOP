@@ -16,11 +16,11 @@ ObjectDrawer::ObjectDrawer()
     shared_ptr<AbstractFactory> cr(solution.create(1));
     this->drawer = cr->createGraphics();
 
-    curCamera = shared_ptr<Camera>(new Camera());
+    curCamera = shared_ptr<Camera>(new Camera(Point(0, 300, -300), Point(45, 45, 45)));
     //drawer.setScene();
 }
 
-ObjectDrawer::ObjectDrawer(const shared_ptr<Camera> newCamera)
+ObjectDrawer::ObjectDrawer(const shared_ptr<Camera> newCamera, const shared_ptr<BaseScene> scene)
 {
     GraphicSolution solution;
 
@@ -30,6 +30,7 @@ ObjectDrawer::ObjectDrawer(const shared_ptr<Camera> newCamera)
     this->drawer = cr->createGraphics();
 
     curCamera = newCamera;
+    setScene(scene);
 }
 
 void ObjectDrawer::visit(const Model &model)
@@ -47,6 +48,11 @@ void ObjectDrawer::visit(const Model &model)
 void ObjectDrawer::visit(const Camera &camera)
 {
     cout << "Visited Camera;" << endl;
+}
+
+void ObjectDrawer::visit(const Composite &comp)
+{
+    cout << "Visited compisite;" << endl;
 }
 
 Point ObjectDrawer::getProection(Point &_point)

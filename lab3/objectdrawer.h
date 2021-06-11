@@ -14,14 +14,11 @@ class ObjectDrawer : public BaseVisitor
 {
 public:
     ObjectDrawer();
-    ObjectDrawer(const shared_ptr<Camera> newCamera);
+    ObjectDrawer(const shared_ptr<Camera> newCamera, const shared_ptr<BaseScene> scene);
 
     virtual void visit(const Model &model) override;
     virtual void visit(const Camera &camera) override;
-
-    //shared_ptr<BaseVisitor> getBaseVisitorPtr(); //РљРѕСЃС‚С‹Р»СЊ?
-/*private:
-    shared_ptr<BaseDrawer> drawer;*/
+    virtual void visit(const Composite &comp) override;
 
 private:
     Point getProection(Point &_point);

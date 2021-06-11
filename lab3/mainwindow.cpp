@@ -26,7 +26,7 @@ MainWindow::MainWindow(QWidget *parent)
         interface->execute(addCameraCmd);
 
         UseCamera useCamera(0);
-        //interface->execute(useCamera); //STOPED HERE TODO: UseCamera
+        interface->execute(useCamera);
     }
     catch (BaseError &er)
     {
@@ -63,7 +63,7 @@ void MainWindow::mouseReleaseEvent(QMouseEvent *event)
 
     if (event->button() == Qt::RightButton)
     {
-        RMB_is_pressed = true;
+        RMB_is_pressed = false;
     }
     /*try
     {
@@ -113,7 +113,6 @@ void MainWindow::mouseMoveEvent(QMouseEvent *event)
             //ui->Model_IDs->text().toInt()
             QString modelIds = ui->Model_IDs->text();
             int n = modelIds.toInt();
-            string test_str = "0, 1";
             TransformModel transformCmd(n, Point(0, 0, 0), Point(1, 1, 1), Point(y, x, 0));
             interface->execute(transformCmd);
 
@@ -131,7 +130,9 @@ void MainWindow::mouseMoveEvent(QMouseEvent *event)
             double y = double(previous_y - event->position().y()) / MOVE_SPEED;
 
 
-            TransformModel transformCmd(ui->Model_IDs->text().toInt(), Point(-x, -y, 0), Point(1, 1, 1), Point(0, 0, 0));
+            QString modelIds = ui->Model_IDs->text();
+            int n = modelIds.toInt();
+            TransformModel transformCmd(n, Point(-x, -y, 0), Point(1, 1, 1), Point(0, 0, 0));
             interface->execute(transformCmd);
 
             DrawScene drawCmd;
@@ -164,21 +165,32 @@ void MainWindow::wheelEvent(QWheelEvent *event)
 {
     if (this->canvas->rect().contains(int(event->position().x()), int(event->position().y())))
     {
-        QPoint numDegrees = event->angleDelta() / 120;
-        cout <<  numDegrees.x() << endl;
-        cout <<  numDegrees.y() << endl;
-        double kx = 1 + double(numDegrees.x()) / SCALE_SPEED;
-        double ky = 1 + double(numDegrees.y()) / SCALE_SPEED;
-        cout <<  kx << endl;
-        cout <<  ky << endl;
+        try
+        {
+            QPoint numDegrees = event->angleDelta() / 120;
+            cout <<  numDegrees.x() << endl;
+            cout <<  numDegrees.y() << endl;
+            double kx = 1 + double(numDegrees.x()) / SCALE_SPEED;
+            double ky = 1 + double(numDegrees.y()) / SCALE_SPEED;
+            cout <<  kx << endl;
+            cout <<  ky << endl;
 
-        TransformModel transformCmd(ui->Model_IDs->text().toInt(), Point(0, 0, 0), Point(ky, ky, ky), Point(0, 0, 0));
-        interface->execute(transformCmd);
+            TransformModel transformCmd(ui->Model_IDs->text().toInt(), Point(0, 0, 0), Point(ky, ky, ky), Point(0, 0, 0));
+            interface->execute(transformCmd);
 
-        DrawScene drawCmd;
-        interface->execute(drawCmd);
+            DrawScene drawCmd;
+            interface->execute(drawCmd);
 
-        canvas->update();
+            canvas->update();
+        }
+        catch (BaseError &er)
+        {
+            QMessageBox::information(this, "Error", er.what());
+        }
+        catch (...)
+        {
+            QMessageBox::information(this, "Error", "Unexpected Error");
+        }
     }
 }
 

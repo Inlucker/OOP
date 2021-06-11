@@ -31,6 +31,7 @@ private:
     shared_ptr<Scene> scene;
     shared_ptr<Camera> curCamera;
     shared_ptr<BaseVisitor> objectDrawer;
+    shared_ptr<BaseScene> drawerScene;
 };
 
 #endif // SCENEMANAGER_H

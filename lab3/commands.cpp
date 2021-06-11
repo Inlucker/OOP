@@ -36,7 +36,7 @@ void TransformModel::execute()
     shared_ptr<SceneManager> sceneMan = SceneManagerCreator().getManager();
 
     shared_ptr<TransformManager> transformMan = TransformManagerCreator().getManager();
-    transformMan->transformModel(sceneMan->getScene()->getModel(id), move, scale, rotate);
+    transformMan->transformModel(sceneMan->getScene()->getObject(id), move, scale, rotate);
 
 }
 
@@ -55,7 +55,7 @@ void DrawScene::execute()
 void ClearScene::execute()
 {
     shared_ptr<SceneManager> sceneMan = SceneManagerCreator().getManager();
-    sceneMan->getScene()->getModels()->clear();
+    sceneMan->getScene()->getObjects()->clear();
 }
 
 LoadModel::LoadModel(string fileName) : fileName(fileName)
@@ -104,6 +104,7 @@ UseCamera::UseCamera(size_t newId)
 void UseCamera::execute()
 {
     shared_ptr<SceneManager> sceneMan = SceneManagerCreator().getManager();
-    shared_ptr<Object> newCurCam = sceneMan->getScene()->getCamera(id);
+    //shared_ptr<Object> newCurCam = sceneMan->getScene()->getCamera(id);
+    shared_ptr<Object> newCurCam = sceneMan->getScene()->getObject(id);
     sceneMan->useCamera(dynamic_pointer_cast<Camera>(newCurCam));
 }
