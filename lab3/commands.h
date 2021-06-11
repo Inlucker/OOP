@@ -12,25 +12,12 @@ using namespace std;
 //#include "scenemanager.h"
 //class scenemanager;
 
-/*class MoveModel : public BaseCommand
+class TransformObject : public BaseCommand
 {
 public:
-    MoveModel() = delete;
-    MoveModel(const Point move, const int id);
-    ~MoveModel() = default;
-    virtual void execute() override;
-
-private:
-    int id;
-    Point move;
-};*/
-
-class TransformModel : public BaseCommand
-{
-public:
-    TransformModel() = delete;
-    TransformModel(const int id, const Point move, const Point scale, const Point rotate);
-    ~TransformModel() = default;
+    TransformObject() = delete;
+    TransformObject(const int id, const Point move, const Point scale, const Point rotate);
+    ~TransformObject() = default;
     virtual void execute() override;
 
 private:

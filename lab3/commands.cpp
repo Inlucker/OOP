@@ -15,23 +15,12 @@ using namespace std;
 #include "transformmanagercreator.h"
 #include "transformmanager.h"
 
-/*MoveModel::MoveModel(const Point move, const int id) : move(move), id(id)
+TransformObject::TransformObject(const int id, const Point move, const Point scale, const Point rotate) : id(id), move(move), scale(scale), rotate(rotate)
 {
 
 }
 
-void MoveModel::execute()
-{
-    shared_ptr<TransformManager> transformMan = TransformManagerCreator().getManager();
-    transformMan->MoveModel(move, id);
-}*/
-
-TransformModel::TransformModel(const int id, const Point move, const Point scale, const Point rotate) : id(id), move(move), scale(scale), rotate(rotate)
-{
-
-}
-
-void TransformModel::execute()
+void TransformObject::execute()
 {
     shared_ptr<SceneManager> sceneMan = SceneManagerCreator().getManager();
 

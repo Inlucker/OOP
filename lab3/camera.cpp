@@ -8,9 +8,8 @@ Camera::Camera(const Point &pos, const Point &angs)
 
 void Camera::transform(const Point moveK, const Point scaleK, const Point rotateK)
 {
-    //move(moveK);
-    //rotate(rotateK);
     position.transform(moveK, scaleK, rotateK, position);
+    rotate(rotateK);
 }
 
 bool Camera::isVisible()
@@ -26,9 +25,9 @@ void Camera::accept(shared_ptr<BaseVisitor> visitor)
 
 void Camera::rotate(Point rotateK)
 {
-    angles.setX(position.getX()+rotateK.getX());
-    angles.setY(position.getY()+rotateK.getY());
-    angles.setZ(position.getZ()+rotateK.getZ());
+    angles.setX(angles.getX()+rotateK.getX());
+    angles.setY(angles.getY()+rotateK.getY());
+    angles.setZ(angles.getZ()+rotateK.getZ());
 }
 
 const Point &Camera::getPosition() const

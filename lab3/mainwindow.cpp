@@ -113,7 +113,7 @@ void MainWindow::mouseMoveEvent(QMouseEvent *event)
             //ui->Model_IDs->text().toInt()
             QString modelIds = ui->Model_IDs->text();
             int n = modelIds.toInt();
-            TransformModel transformCmd(n, Point(0, 0, 0), Point(1, 1, 1), Point(y, x, 0));
+            TransformObject transformCmd(n, Point(0, 0, 0), Point(1, 1, 1), Point(y, x, 0));
             interface->execute(transformCmd);
 
             DrawScene drawCmd;
@@ -132,7 +132,7 @@ void MainWindow::mouseMoveEvent(QMouseEvent *event)
 
             QString modelIds = ui->Model_IDs->text();
             int n = modelIds.toInt();
-            TransformModel transformCmd(n, Point(-x, -y, 0), Point(1, 1, 1), Point(0, 0, 0));
+            TransformObject transformCmd(n, Point(-x, -y, 0), Point(1, 1, 1), Point(0, 0, 0));
             interface->execute(transformCmd);
 
             DrawScene drawCmd;
@@ -175,7 +175,7 @@ void MainWindow::wheelEvent(QWheelEvent *event)
             cout <<  kx << endl;
             cout <<  ky << endl;
 
-            TransformModel transformCmd(ui->Model_IDs->text().toInt(), Point(0, 0, 0), Point(ky, ky, ky), Point(0, 0, 0));
+            TransformObject transformCmd(ui->Model_IDs->text().toInt(), Point(0, 0, 0), Point(ky, ky, ky), Point(0, 0, 0));
             interface->execute(transformCmd);
 
             DrawScene drawCmd;
@@ -234,7 +234,7 @@ void MainWindow::on_AddModelBtn_clicked()
 
 void MainWindow::on_RotateModelBtn_clicked()
 {
-    TransformModel transformCmd(0, Point(0, 0, 0), Point(1, 1, 1), Point(0, 45, 0));
+    TransformObject transformCmd(0, Point(0, 0, 0), Point(1, 1, 1), Point(0, 45, 0));
     interface->execute(transformCmd);
 
     DrawScene drawCmd;
@@ -245,7 +245,7 @@ void MainWindow::on_RotateModelBtn_clicked()
 
 void MainWindow::on_MoveModelBtn_clicked()
 {
-    TransformModel transformCmd(0, Point(100, 100, 100), Point(1, 1, 1), Point(0, 0, 0));
+    TransformObject transformCmd(0, Point(100, 100, 100), Point(1, 1, 1), Point(0, 0, 0));
     interface->execute(transformCmd);
 
     DrawScene drawCmd;
@@ -256,7 +256,7 @@ void MainWindow::on_MoveModelBtn_clicked()
 
 void MainWindow::on_ScaleModelBtn_clicked()
 {
-    TransformModel transformCmd(0, Point(0, 0, 0), Point(0.5, 0.5, 0.5), Point(0, 0, 0));
+    TransformObject transformCmd(0, Point(0, 0, 0), Point(0.5, 0.5, 0.5), Point(0, 0, 0));
     interface->execute(transformCmd);
 
     DrawScene drawCmd;
