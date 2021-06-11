@@ -17,11 +17,13 @@ public:
 
     void drawScene();
     void clearScene();
+    void clearObjects();
     shared_ptr<Scene> getScene() const;
     void addModel(shared_ptr<Model> new_model);
     void addCamera(shared_ptr<Camera> new_camera);
-    void deleteModel(const size_t modelId);
-    void deleteCamera(const size_t cameraId);
+    //void deleteModel(const size_t modelId);
+    //void deleteCamera(const size_t cameraId);
+    void deleteObject(const size_t objId);
     void useCamera(shared_ptr<Camera> newCamera);
 
     void setDrawerScene(shared_ptr<BaseScene> newScene);

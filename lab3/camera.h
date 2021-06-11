@@ -17,7 +17,6 @@ public:
     virtual void accept(shared_ptr<BaseVisitor> visitor) override;
 
 private:
-    //void move(Point move);
     void rotate(Point move);
     const Point &getPosition() const;
     const Point &getAngles() const;

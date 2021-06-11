@@ -152,6 +152,32 @@
      <string>AddCamera</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="DeleteObjBtn">
+    <property name="geometry">
+     <rect>
+      <x>340</x>
+      <y>630</y>
+      <width>111</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>DeleteObj</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="SetCameraBtn">
+    <property name="geometry">
+     <rect>
+      <x>230</x>
+      <y>630</y>
+      <width>111</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>SetCamera</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">

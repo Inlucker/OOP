@@ -39,12 +39,12 @@ void Scene::addCamera(shared_ptr<Object> new_camera)
     cameras->remove(it);
 }*/
 
-void Scene::deleteObject(const size_t camera_id)
+void Scene::deleteObject(const size_t obg_id)
 {
     IteratorObject it = objects->begin();
-        for (size_t i = 0; i <= camera_id; i++)
-            it++;
-        objects->remove(it);
+    for (size_t i = 0; i < obg_id; i++)
+        it++;
+    objects->remove(it);
 }
 
 void Scene::clear()

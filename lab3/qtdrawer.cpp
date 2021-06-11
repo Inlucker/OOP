@@ -1,5 +1,6 @@
 #include "qtdrawer.h"
 #include "qtscene.h"
+#include "errors.h"
 
 QtDrawer::QtDrawer()
 {
@@ -28,7 +29,13 @@ QtDrawer::~QtDrawer()
 void QtDrawer::drawLine(const Point &p1, const Point &p2)
 {
     //canvas->drawLine(p1, p2);
-    this->scene->drawLine(p1.getX(), p1.getY(), p2.getX(), p2.getY());
+    if (scene)
+        this->scene->drawLine(p1.getX(), p1.getY(), p2.getX(), p2.getY());
+    else
+    {
+        time_t t_time = time(NULL);
+        throw NoCameraError("No active camera", __FILE__, __LINE__, ctime(&t_time));
+    }
 }
 
 void QtDrawer::clear()

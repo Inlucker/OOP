@@ -41,10 +41,16 @@ void DrawScene::execute()
     sceneMan->drawScene();
 }
 
-void ClearScene::execute()
+ClearObjects::ClearObjects()
+{
+
+}
+
+void ClearObjects::execute()
 {
     shared_ptr<SceneManager> sceneMan = SceneManagerCreator().getManager();
-    sceneMan->getScene()->getObjects()->clear();
+    sceneMan->clearObjects();
+    //sceneMan->getScene()->getObjects()->clear();
 }
 
 LoadModel::LoadModel(string fileName) : fileName(fileName)
@@ -83,6 +89,17 @@ void AddCamera::execute()
     shared_ptr<Camera> newCamera = shared_ptr<Camera>(new Camera(position, angles));
     shared_ptr<SceneManager> sceneMan = SceneManagerCreator().getManager();
     sceneMan->addCamera(newCamera);
+}
+
+DeleteObject::DeleteObject(size_t newId)
+{
+    id = newId;
+}
+
+void DeleteObject::execute()
+{
+    shared_ptr<SceneManager> sceneMan = SceneManagerCreator().getManager();
+    sceneMan->deleteObject(id);
 }
 
 UseCamera::UseCamera(size_t newId)

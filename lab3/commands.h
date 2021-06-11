@@ -41,14 +41,14 @@ private:
     //Action act;
 };
 
-class ClearScene : public BaseCommand
+class ClearObjects : public BaseCommand
 {
     //using Action = void(SceneManager::*)();
 
 public:
     //CLearScene() = delete;
-    ClearScene() = default;
-    ~ClearScene() = default;
+    ClearObjects();
+    ~ClearObjects() = default;
     virtual void execute() override;
 
 private:
@@ -79,9 +79,29 @@ private:
     Point angles;
 };
 
-//class DeleteModel : public BaseCommand
-//class DeleteCamera : public BaseCommand
-//
+class DeleteModel : public BaseCommand
+{
+public:
+    DeleteModel() = delete;
+    DeleteModel(size_t newId);
+    ~DeleteModel() = default;
+    virtual void execute() override;
+
+private:
+    size_t id;
+};
+
+class DeleteObject : public BaseCommand
+{
+public:
+    DeleteObject() = delete;
+    DeleteObject(size_t newId);
+    ~DeleteObject() = default;
+    virtual void execute() override;
+
+private:
+    size_t id;
+};
 
 class UseCamera : public BaseCommand
 {

@@ -22,8 +22,13 @@ void SceneManager::drawScene()
 
 void SceneManager::clearScene()
 {
-    //scene->clear();
     objectDrawer->clear();
+}
+
+void SceneManager::clearObjects()
+{
+    scene->clear();
+    useCamera(nullptr);
 }
 
 shared_ptr<Scene> SceneManager::getScene() const
@@ -41,7 +46,12 @@ void SceneManager::addCamera(shared_ptr<Camera> new_camera)
     scene->addCamera(new_camera);
 }
 
-void SceneManager::deleteModel(const size_t modelId)
+void SceneManager::deleteObject(const size_t objId)
+{
+    scene->deleteObject(objId);
+}
+
+/*void SceneManager::deleteModel(const size_t modelId)
 {
     //scene->deleteModel(modelId);
     scene->deleteObject(modelId);
@@ -51,7 +61,7 @@ void SceneManager::deleteCamera(const size_t cameraId)
 {
     //scene->deleteCamera(cameraId);
     scene->deleteObject(cameraId);
-}
+}*/
 
 void SceneManager::useCamera(shared_ptr<Camera> newCamera)
 {

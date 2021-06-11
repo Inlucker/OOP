@@ -46,6 +46,10 @@ private slots:
 
     void on_AddCameraBtn_clicked();
 
+    void on_DeleteObjBtn_clicked();
+
+    void on_SetCameraBtn_clicked();
+
 private:
     Canvas *canvas;
     shared_ptr<Facade> interface;
