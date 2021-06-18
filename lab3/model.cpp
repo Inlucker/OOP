@@ -15,7 +15,7 @@ void Model::transform(const Point move, const Point scale, const Point rotate)
     modelElements->transform(move, scale, rotate);
 }
 
-bool Model::isVisible()
+bool Model::isVisible() const
 {
     return true;
 }

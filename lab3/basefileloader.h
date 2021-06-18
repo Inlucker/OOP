@@ -18,7 +18,7 @@ public:
     virtual void close() = 0;
     virtual shared_ptr<ifstream> loadFile() = 0;
 protected:
-    //shared_ptr<ifstream> file;??
+    shared_ptr<ifstream> file; //Должен быть здесь
 };
 
 #endif // BASEFILELOADER_H

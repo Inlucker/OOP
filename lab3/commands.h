@@ -9,8 +9,6 @@ using namespace std;
 #include "basecommand.h"
 #include "basecanvas.h"
 #include "point.h"
-//#include "scenemanager.h"
-//class scenemanager;
 
 class TransformObject : public BaseCommand
 {
@@ -29,24 +27,16 @@ private:
 
 class DrawScene : public BaseCommand
 {
-    //using Action = void(SceneManager::*)();
 public:
     //DrawScene() = delete;
     DrawScene();
     ~DrawScene() = default;
     virtual void execute() override;
-
-private:
-    //shared_ptr<SceneManager> man;
-    //Action act;
 };
 
 class ClearObjects : public BaseCommand
 {
-    //using Action = void(SceneManager::*)();
-
 public:
-    //CLearScene() = delete;
     ClearObjects();
     ~ClearObjects() = default;
     virtual void execute() override;
@@ -78,18 +68,6 @@ private:
     Point position;
     Point angles;
 };
-
-/*class DeleteModel : public BaseCommand
-{
-public:
-    DeleteModel() = delete;
-    explicit DeleteModel(size_t newId);
-    ~DeleteModel() = default;
-    virtual void execute() override;
-
-private:
-    size_t id;
-};*/
 
 class DeleteObject : public BaseCommand
 {

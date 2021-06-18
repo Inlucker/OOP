@@ -16,11 +16,11 @@ void Composite::transform(const Point move, const Point scale, const Point rotat
         elem->transform(move, scale, rotate);
 }
 
-bool Composite::isVisible() //what do I do here?
+bool Composite::isVisible() const//what do I do here?
 {
     cout << "Composite isVisible method:" << endl;
     bool rez = false;
-    for (auto elem : objectsVec)
+    for (const auto &elem : objectsVec)
         if (elem->isVisible())
             rez = true;
     return rez; //return true????

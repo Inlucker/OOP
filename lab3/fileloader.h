@@ -16,7 +16,7 @@ public:
     virtual void close() override;
     virtual shared_ptr<ifstream> loadFile() override;
 protected:
-    shared_ptr<ifstream> file; //shared_ptr<ifstream> or just ifstream?
+    //shared_ptr<ifstream> file;
 };
 
 #endif // FILELOADER_H

@@ -1,6 +1,7 @@
 #include "graphicsolution.h"
 
 #include "qtfactory.h"
+#include "errors.h"
 
 /*unique_ptr<AbstractFactory> createQtFactory()
 {
@@ -38,7 +39,8 @@ unique_ptr<AbstractFactory> GraphicSolution::create(size_t id)
 
     if (it == callbacks.end())
     {
-        //			throw IdError();
+        time_t t_time = time(NULL);
+        throw GraphicsSolutionKeyError("Wrong id", __FILE__, __LINE__, ctime(&t_time));
     }
 
     return unique_ptr<AbstractFactory>((FactoryCreator().*it->second)()); //(FactoryCreator().*it->second)() is this OK? Or I should have ptr on FactoryCreator object?

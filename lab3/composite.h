@@ -10,7 +10,7 @@ public:
     Composite(initializer_list<shared_ptr<Object>> args);
 
     virtual void transform(const Point move, const Point scale, const Point rotate) override;
-    virtual bool isVisible() override;
+    virtual bool isVisible() const override;
     virtual void accept(shared_ptr<BaseVisitor> visitor) override;
 
     virtual bool add(shared_ptr<Object> comp) override;

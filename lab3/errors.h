@@ -36,10 +36,32 @@ public:
     }
 };
 
+class GraphicsSolutionKeyError : public BaseError
+{
+public:
+    GraphicsSolutionKeyError(string info, string filename, int line, const char *time, string error = "No such key in map")
+        : BaseError(info, filename, line, time, error) {};
+    virtual const char* what() const noexcept
+    {
+        return err_info.c_str();
+    }
+};
+
 class NoCameraError : public BaseError
 {
 public:
     NoCameraError(string info, string filename, int line, const char *time, string error = "No camera")
+        : BaseError(info, filename, line, time, error) {};
+    virtual const char* what() const noexcept
+    {
+        return err_info.c_str();
+    }
+};
+
+class FileOpenError : public BaseError
+{
+public:
+    FileOpenError(string info, string filename, int line, const char *time, string error = "File open error")
         : BaseError(info, filename, line, time, error) {};
     virtual const char* what() const noexcept
     {

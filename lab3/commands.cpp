@@ -25,7 +25,7 @@ void TransformObject::execute()
     shared_ptr<SceneManager> sceneMan = SceneManagerCreator().getManager();
 
     shared_ptr<TransformManager> transformMan = TransformManagerCreator().getManager();
-    transformMan->transformModel(sceneMan->getScene()->getObject(id), move, scale, rotate);
+    transformMan->transformObject(sceneMan->getScene()->getObject(id), move, scale, rotate);
 
 }
 
@@ -51,7 +51,6 @@ void ClearObjects::execute()
     shared_ptr<SceneManager> sceneMan = SceneManagerCreator().getManager();
     sceneMan->clearObjects();
     sceneMan->clearScene();
-    //sceneMan->getScene()->getObjects()->clear();
 }
 
 LoadModel::LoadModel(string fileName) : fileName(fileName)
@@ -65,17 +64,6 @@ void LoadModel::execute()
     shared_ptr<Model> newModel = loadMan->loadModel(fileName);
     shared_ptr<SceneManager> sceneMan = SceneManagerCreator().getManager();
     sceneMan->addModel(newModel);
-}
-
-SetDrawerScene::SetDrawerScene(shared_ptr<BaseCanvas> newScene) : scene(newScene)
-{
-
-}
-
-void SetDrawerScene::execute()
-{
-    shared_ptr<SceneManager> sceneMan = SceneManagerCreator().getManager();
-    sceneMan->setCanvas(scene);
 }
 
 AddCamera::AddCamera(Point pos, Point angs)
@@ -111,7 +99,17 @@ UseCamera::UseCamera(size_t newId)
 void UseCamera::execute()
 {
     shared_ptr<SceneManager> sceneMan = SceneManagerCreator().getManager();
-    //shared_ptr<Object> newCurCam = sceneMan->getScene()->getCamera(id);
     shared_ptr<Object> newCurCam = sceneMan->getScene()->getObject(id);
     sceneMan->useCamera(dynamic_pointer_cast<Camera>(newCurCam));
+}
+
+SetDrawerScene::SetDrawerScene(shared_ptr<BaseCanvas> newScene) : scene(newScene)
+{
+
+}
+
+void SetDrawerScene::execute()
+{
+    shared_ptr<SceneManager> sceneMan = SceneManagerCreator().getManager();
+    sceneMan->setCanvas(scene);
 }

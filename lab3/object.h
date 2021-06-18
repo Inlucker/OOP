@@ -22,7 +22,7 @@ public:
     virtual ~Object() = default;
 
     virtual void transform(const Point move, const Point scale, const Point rotate) = 0;
-    virtual bool isVisible() = 0;
+    virtual bool isVisible() const = 0;
     virtual void accept(shared_ptr<BaseVisitor> visitor) = 0;
 
     virtual bool add(shared_ptr<Object> comp);

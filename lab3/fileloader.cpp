@@ -1,4 +1,5 @@
 #include "fileloader.h"
+#include "errors.h"
 
 #include <iostream>
 
@@ -9,13 +10,16 @@ FileLoader::FileLoader()
 
 void FileLoader::open(string filename)
 {
-    if (file)
+    if (file->is_open())
         file->close();
 
     file->open(filename);
-    if (!file)
-        cout << "file not found" << endl;
-        // throw file not found
+    if (!file->is_open())
+    {
+        cout << "Couldn't open file" << endl;
+        time_t t_time = time(NULL);
+        throw FileOpenError("Couldn't open file", __FILE__, __LINE__, ctime(&t_time));
+    }
 }
 
 void FileLoader::close()

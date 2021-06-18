@@ -11,7 +11,7 @@ TransformManager::TransformManager()
 
 }*/
 
-void TransformManager::transformModel(shared_ptr<Object> model, const Point move, const Point scale, const Point rotate)
+void TransformManager::transformObject(shared_ptr<Object> object, const Point move, const Point scale, const Point rotate)
 {
-    model->transform(move, scale, rotate);
+    object->transform(move, scale, rotate);
 }

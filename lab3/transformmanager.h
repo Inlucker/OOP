@@ -17,7 +17,7 @@ public:
     TransformManager();
     ~TransformManager() = default;
     //void MoveModel(Point move, int id);
-    void transformModel(shared_ptr<Object> model, const Point move, const Point scale, const Point rotate);
+    void transformObject(shared_ptr<Object> object, const Point move, const Point scale, const Point rotate);
 };
 
 #endif // TRANSFORMMANAGER_H

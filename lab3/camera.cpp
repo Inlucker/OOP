@@ -12,7 +12,7 @@ void Camera::transform(const Point moveK, const Point scaleK, const Point rotate
     rotate(rotateK);
 }
 
-bool Camera::isVisible()
+bool Camera::isVisible() const
 {
     return false;
 }

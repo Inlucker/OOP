@@ -4,6 +4,7 @@
 #include "object.h"
 #include "model.h"
 #include "camera.h"
+#include "composite.h"
 #include "errors.h"
 
 
@@ -47,12 +48,14 @@ void ObjectDrawer::visit(const Model &model)
 
 void ObjectDrawer::visit(const Camera &camera)
 {
-    //cout << "Visited Camera;" << endl;
+    if (camera.isVisible())
+        cout << "Visited Camera;" << endl;
 }
 
 void ObjectDrawer::visit(const Composite &comp)
 {
-    //cout << "Visited compisite;" << endl;
+    if (comp.isVisible())
+        cout << "Visited compisite;" << endl;
 }
 
 Point ObjectDrawer::getProection(Point &_point)
