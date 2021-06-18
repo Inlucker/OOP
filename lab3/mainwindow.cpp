@@ -306,7 +306,9 @@ void MainWindow::on_AddModelBtn_clicked()
 {
     try
     {
-        LoadModel loadCmd("cube1.txt");
+        ui->lineEdit_model->text().toStdString();
+        LoadModel loadCmd(ui->lineEdit_model->text().toStdString());
+        //LoadModel loadCmd("cube1.txt");
         //LoadModel loadCmd("12granSec.txt");
         interface->execute(loadCmd);
 
@@ -495,7 +497,50 @@ void MainWindow::on_AddCameraBtn_clicked()
 {
     try
     {
-        AddCamera addCameraCmd(Point(0, 0, 0), Point(0, 0, 0));
+        bool isDouble;
+
+        double x = ui->lineEdit_camera_x->text().toDouble(&isDouble);
+        if (!isDouble)
+        {
+            QMessageBox::information(this, "Error", "Параметры преобразовнний должны быть вещественным числами");
+            return;
+        }
+
+        double y = ui->lineEdit_camera_y->text().toDouble(&isDouble);
+        if (!isDouble)
+        {
+            QMessageBox::information(this, "Error", "Параметры преобразовнний должны быть вещественным числами");
+            return;
+        }
+
+        double z = ui->lineEdit_camera_z->text().toDouble(&isDouble);
+        if (!isDouble)
+        {
+            QMessageBox::information(this, "Error", "Параметры преобразовнний должны быть вещественным числами");
+            return;
+        }
+
+        double angle_x = ui->lineEdit_camera_x_2->text().toDouble(&isDouble);
+        if (!isDouble)
+        {
+            QMessageBox::information(this, "Error", "Параметры преобразовнний должны быть вещественным числами");
+            return;
+        }
+
+        double angle_y = ui->lineEdit_camera_y_2->text().toDouble(&isDouble);
+        if (!isDouble)
+        {
+            QMessageBox::information(this, "Error", "Параметры преобразовнний должны быть вещественным числами");
+            return;
+        }
+
+        double angle_z = ui->lineEdit_camera_z_2->text().toDouble(&isDouble);
+        if (!isDouble)
+        {
+            QMessageBox::information(this, "Error", "Параметры преобразовнний должны быть вещественным числами");
+            return;
+        }
+        AddCamera addCameraCmd(Point(x, y, z), Point(angle_x, angle_y, angle_z));
         interface->execute(addCameraCmd);
 
         ui->tableWidget->setRowCount(ui->tableWidget->rowCount() + 1);
