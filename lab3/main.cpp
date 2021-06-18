@@ -15,7 +15,7 @@ int main(int argc, char *argv[])
 
 
 /*TODO:
- * Need to delete curCamera from sceneManager, when deleting it from composite
+ * Need to make NORMAL INTERTFACE
  *
  *
  *
