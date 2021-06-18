@@ -35,6 +35,8 @@ MainWindow::MainWindow(QWidget *parent)
         /*QTableWidgetItem *id_itm = new QTableWidgetItem("0");
         ui->tableWidget->setItem(0, 0, id_itm);*/
         QTableWidgetItem *obj_itm = new QTableWidgetItem("Camera");
+        obj_itm->setBackground(QBrush(Qt::green));
+        cur_camera_id = 0;
         ui->tableWidget->setItem(0, 0, obj_itm);
 
         /*QTableWidgetItem *id_itm2 = new QTableWidgetItem("1");
@@ -131,6 +133,11 @@ void MainWindow::mouseMoveEvent(QMouseEvent *event)
             int n = modelIds.toInt();*/
 
             QModelIndexList selectedRows = ui->tableWidget->selectionModel()->selectedRows();
+            if (selectedRows.size() <= 0)
+            {
+                QMessageBox::information(this, "Error", "Выберите хотябы один объект из списка");
+                return;
+            }
             for (int i = 0; i < selectedRows.size(); i++)
             {
                 TransformObject transformCmd(selectedRows[i].row(), Point(0, 0, 0), Point(1, 1, 1), Point(y, x, 0));
@@ -154,6 +161,11 @@ void MainWindow::mouseMoveEvent(QMouseEvent *event)
             double y = double(previous_y - event->position().y()) / MOVE_SPEED;
 
             QModelIndexList selectedRows = ui->tableWidget->selectionModel()->selectedRows();
+            if (selectedRows.size() <= 0)
+            {
+                QMessageBox::information(this, "Error", "Выберите хотябы один объект из списка");
+                return;
+            }
             for (int i = 0; i < selectedRows.size(); i++)
             {
                 TransformObject transformCmd(selectedRows[i].row(), Point(-x, -y, 0), Point(1, 1, 1), Point(0, 0, 0));
@@ -193,14 +205,19 @@ void MainWindow::wheelEvent(QWheelEvent *event)
         try
         {
             QPoint numDegrees = event->angleDelta() / 120;
-            cout <<  numDegrees.x() << endl;
-            cout <<  numDegrees.y() << endl;
+            //cout <<  numDegrees.x() << endl;
+            //cout <<  numDegrees.y() << endl;
             double kx = 1 + double(numDegrees.x()) / SCALE_SPEED;
             double ky = 1 + double(numDegrees.y()) / SCALE_SPEED;
-            cout <<  kx << endl;
-            cout <<  ky << endl;
+            //cout <<  kx << endl;
+            //cout <<  ky << endl;
 
             QModelIndexList selectedRows = ui->tableWidget->selectionModel()->selectedRows();
+            if (selectedRows.size() <= 0)
+            {
+                QMessageBox::information(this, "Error", "Выберите хотябы один объект из списка");
+                return;
+            }
             for (int i = 0; i < selectedRows.size(); i++)
             {
                 TransformObject transformCmd(selectedRows[i].row(), Point(0, 0, 0), Point(ky, ky, ky), Point(0, 0, 0));
@@ -316,10 +333,38 @@ void MainWindow::on_RotateModelBtn_clicked()
 {
     try
     {
+        bool isDouble;
+
+        double x = ui->lineEdit_x_3->text().toDouble(&isDouble);
+        if (!isDouble)
+        {
+            QMessageBox::information(this, "Error", "Параметры преобразовнний должны быть вещественным числами");
+            return;
+        }
+
+        double y = ui->lineEdit_y_3->text().toDouble(&isDouble);
+        if (!isDouble)
+        {
+            QMessageBox::information(this, "Error", "Параметры преобразовнний должны быть вещественным числами");
+            return;
+        }
+
+        double z = ui->lineEdit_z_3->text().toDouble(&isDouble);
+        if (!isDouble)
+        {
+            QMessageBox::information(this, "Error", "Параметры преобразовнний должны быть вещественным числами");
+            return;
+        }
+
         QModelIndexList selectedRows = ui->tableWidget->selectionModel()->selectedRows();
+        if (selectedRows.size() <= 0)
+        {
+            QMessageBox::information(this, "Error", "Выберите хотябы один объект из списка");
+            return;
+        }
         for (int i = 0; i < selectedRows.size(); i++)
         {
-            TransformObject transformCmd(selectedRows[i].row(), Point(0, 0, 0), Point(1, 1, 1), Point(0, 45, 0));
+            TransformObject transformCmd(selectedRows[i].row(), Point(0, 0, 0), Point(1, 1, 1), Point(x, y, z));
             interface->execute(transformCmd);
         }
 
@@ -342,10 +387,38 @@ void MainWindow::on_MoveModelBtn_clicked()
 {
     try
     {
+        bool isDouble;
+
+        double x = ui->lineEdit_x->text().toDouble(&isDouble);
+        if (!isDouble)
+        {
+            QMessageBox::information(this, "Error", "Параметры преобразовнний должны быть вещественным числами");
+            return;
+        }
+
+        double y = ui->lineEdit_y->text().toDouble(&isDouble);
+        if (!isDouble)
+        {
+            QMessageBox::information(this, "Error", "Параметры преобразовнний должны быть вещественным числами");
+            return;
+        }
+
+        double z = ui->lineEdit_z->text().toDouble(&isDouble);
+        if (!isDouble)
+        {
+            QMessageBox::information(this, "Error", "Параметры преобразовнний должны быть вещественным числами");
+            return;
+        }
+
         QModelIndexList selectedRows = ui->tableWidget->selectionModel()->selectedRows();
+        if (selectedRows.size() <= 0)
+        {
+            QMessageBox::information(this, "Error", "Выберите хотябы один объект из списка");
+            return;
+        }
         for (int i = 0; i < selectedRows.size(); i++)
         {
-            TransformObject transformCmd(0, Point(100, 100, 100), Point(1, 1, 1), Point(0, 0, 0));
+            TransformObject transformCmd(selectedRows[i].row(), Point(x, y, z), Point(1, 1, 1), Point(0, 0, 0));
             interface->execute(transformCmd);
         }
 
@@ -368,10 +441,38 @@ void MainWindow::on_ScaleModelBtn_clicked()
 {
     try
     {
+        bool isDouble;
+
+        double x = ui->lineEdit_x_2->text().toDouble(&isDouble);
+        if (!isDouble)
+        {
+            QMessageBox::information(this, "Error", "Параметры преобразовнний должны быть вещественным числами");
+            return;
+        }
+
+        double y = ui->lineEdit_y_2->text().toDouble(&isDouble);
+        if (!isDouble)
+        {
+            QMessageBox::information(this, "Error", "Параметры преобразовнний должны быть вещественным числами");
+            return;
+        }
+
+        double z = ui->lineEdit_z_2->text().toDouble(&isDouble);
+        if (!isDouble)
+        {
+            QMessageBox::information(this, "Error", "Параметры преобразовнний должны быть вещественным числами");
+            return;
+        }
+
         QModelIndexList selectedRows = ui->tableWidget->selectionModel()->selectedRows();
+        if (selectedRows.size() <= 0)
+        {
+            QMessageBox::information(this, "Error", "Выберите хотябы один объект из списка");
+            return;
+        }
         for (int i = 0; i < selectedRows.size(); i++)
         {
-            TransformObject transformCmd(0, Point(0, 0, 0), Point(0.5, 0.5, 0.5), Point(0, 0, 0));
+            TransformObject transformCmd(selectedRows[i].row(), Point(0, 0, 0), Point(x, y, z), Point(0, 0, 0));
             interface->execute(transformCmd);
         }
 
@@ -421,6 +522,11 @@ void MainWindow::on_DeleteObjBtn_clicked()
     try
     {
         QModelIndexList selectedRows = ui->tableWidget->selectionModel()->selectedRows();
+        if (selectedRows.size() <= 0)
+        {
+            QMessageBox::information(this, "Error", "Выберите хотябы один объект из списка");
+            return;
+        }
         for (int i = 0; i < selectedRows.size(); i++)
         {
             while (!selectedRows.empty())
@@ -452,8 +558,17 @@ void MainWindow::on_SetCameraBtn_clicked()
     try
     {
         QModelIndexList selectedRows = ui->tableWidget->selectionModel()->selectedRows();
+        if (selectedRows.size() <= 0)
+        {
+            QMessageBox::information(this, "Error", "Выберите хотябы один объект из списка");
+            return;
+        }
         UseCamera useCameraCmd(selectedRows[0].row());
         interface->execute(useCameraCmd);
+
+        ui->tableWidget->item(cur_camera_id, 0)->setBackground(QBrush(Qt::white));
+        ui->tableWidget->item(selectedRows[0].row(), 0)->setBackground(QBrush(Qt::green));
+        cur_camera_id = selectedRows[0].row();
 
         DrawScene drawCmd;
         interface->execute(drawCmd);

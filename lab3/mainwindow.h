@@ -54,6 +54,8 @@ private:
     Canvas *canvas;
     shared_ptr<Facade> interface;
 
+    int cur_camera_id;
+
     bool LMB_is_pressed = false;
     bool RMB_is_pressed = false;
     int previous_x = 0, previous_y = 0;

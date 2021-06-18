@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>920</width>
-    <height>695</height>
+    <height>732</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -28,9 +28,9 @@
    <widget class="QPushButton" name="SetSceneBtn">
     <property name="geometry">
      <rect>
-      <x>540</x>
-      <y>600</y>
-      <width>111</width>
+      <x>430</x>
+      <y>620</y>
+      <width>91</width>
       <height>31</height>
      </rect>
     </property>
@@ -41,118 +41,14 @@
    <widget class="QPushButton" name="DrawBtn">
     <property name="geometry">
      <rect>
-      <x>670</x>
-      <y>640</y>
-      <width>111</width>
+      <x>430</x>
+      <y>660</y>
+      <width>91</width>
       <height>31</height>
      </rect>
     </property>
     <property name="text">
      <string>Draw</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="ClearSceneBtn">
-    <property name="geometry">
-     <rect>
-      <x>670</x>
-      <y>600</y>
-      <width>111</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>ClearScene</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="AddModelBtn">
-    <property name="geometry">
-     <rect>
-      <x>540</x>
-      <y>640</y>
-      <width>111</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>AddModel</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="RotateModelBtn">
-    <property name="geometry">
-     <rect>
-      <x>410</x>
-      <y>600</y>
-      <width>111</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>RotateModels</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="MoveModelBtn">
-    <property name="geometry">
-     <rect>
-      <x>280</x>
-      <y>600</y>
-      <width>111</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>MoveModels</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="ScaleModelBtn">
-    <property name="geometry">
-     <rect>
-      <x>150</x>
-      <y>600</y>
-      <width>111</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>ScaleModels</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="AddCameraBtn">
-    <property name="geometry">
-     <rect>
-      <x>410</x>
-      <y>640</y>
-      <width>111</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>AddCamera</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="DeleteObjBtn">
-    <property name="geometry">
-     <rect>
-      <x>280</x>
-      <y>640</y>
-      <width>111</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>DeleteObj</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="SetCameraBtn">
-    <property name="geometry">
-     <rect>
-      <x>150</x>
-      <y>640</y>
-      <width>111</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>SetCamera</string>
     </property>
    </widget>
    <widget class="QTableWidget" name="tableWidget">
@@ -161,8 +57,281 @@
       <x>790</x>
       <y>10</y>
       <width>121</width>
-      <height>651</height>
+      <height>641</height>
      </rect>
+    </property>
+   </widget>
+   <widget class="QGroupBox" name="groupBox">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>600</y>
+      <width>131</width>
+      <height>101</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>Move</string>
+    </property>
+    <widget class="QLineEdit" name="lineEdit_z">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>20</y>
+       <width>31</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>100</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lineEdit_y">
+     <property name="geometry">
+      <rect>
+       <x>50</x>
+       <y>20</y>
+       <width>31</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>100</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="MoveModelBtn">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>60</y>
+       <width>111</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>MoveModels</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lineEdit_x">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>20</y>
+       <width>31</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>100</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QGroupBox" name="groupBox_2">
+    <property name="geometry">
+     <rect>
+      <x>150</x>
+      <y>600</y>
+      <width>131</width>
+      <height>101</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>Scale</string>
+    </property>
+    <widget class="QLineEdit" name="lineEdit_x_2">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>20</y>
+       <width>31</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>0.75</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lineEdit_z_2">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>20</y>
+       <width>31</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>0.75</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lineEdit_y_2">
+     <property name="geometry">
+      <rect>
+       <x>50</x>
+       <y>20</y>
+       <width>31</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>0.75</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="ScaleModelBtn">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>60</y>
+       <width>111</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>ScaleModels</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QGroupBox" name="groupBox_3">
+    <property name="geometry">
+     <rect>
+      <x>290</x>
+      <y>600</y>
+      <width>131</width>
+      <height>101</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>GroupBox</string>
+    </property>
+    <widget class="QLineEdit" name="lineEdit_z_3">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>20</y>
+       <width>31</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>0</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lineEdit_x_3">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>20</y>
+       <width>31</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>0</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="RotateModelBtn">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>60</y>
+       <width>111</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>RotateModels</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lineEdit_y_3">
+     <property name="geometry">
+      <rect>
+       <x>50</x>
+       <y>20</y>
+       <width>31</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>45</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QGroupBox" name="groupBox_4">
+    <property name="geometry">
+     <rect>
+      <x>530</x>
+      <y>600</y>
+      <width>251</width>
+      <height>101</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>ObjectCommands</string>
+    </property>
+    <widget class="QPushButton" name="AddCameraBtn">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>60</y>
+       <width>111</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>AddCamera</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="SetCameraBtn">
+     <property name="geometry">
+      <rect>
+       <x>130</x>
+       <y>20</y>
+       <width>111</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>SetCamera</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="AddModelBtn">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>20</y>
+       <width>111</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>AddModel</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="DeleteObjBtn">
+     <property name="geometry">
+      <rect>
+       <x>130</x>
+       <y>60</y>
+       <width>111</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>DeleteObj</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QPushButton" name="ClearSceneBtn">
+    <property name="geometry">
+     <rect>
+      <x>790</x>
+      <y>660</y>
+      <width>121</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>ClearScene</string>
     </property>
    </widget>
   </widget>
