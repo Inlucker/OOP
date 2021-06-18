@@ -41,6 +41,11 @@ void Scene::addCamera(shared_ptr<Object> new_camera)
 
 void Scene::deleteObject(const size_t obg_id)
 {
+    if (obg_id + 1 > objects->size())
+    {
+        time_t t_time = time(NULL);
+        throw IndexError("Id error", __FILE__, __LINE__, ctime(&t_time));
+    }
     IteratorObject it = objects->begin();
     for (size_t i = 0; i < obg_id; i++)
         it++;
