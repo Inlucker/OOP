@@ -31,7 +31,7 @@ public:
     //int method1(string str); //test
 private:
     shared_ptr<Scene> scene;
-    shared_ptr<Camera> curCamera;
+    weak_ptr<Camera> curCamera;
     shared_ptr<BaseVisitor> objectDrawer;
     shared_ptr<BaseScene> drawerScene;
 };
