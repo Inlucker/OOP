@@ -5,7 +5,7 @@
 
 }*/
 
-void BaseVisitor::setScene(shared_ptr<BaseScene> newScene)
+/*void BaseVisitor::setScene(shared_ptr<BaseScene> newScene)
 {
     drawer->setScene(newScene);
 }
@@ -13,4 +13,4 @@ void BaseVisitor::setScene(shared_ptr<BaseScene> newScene)
 void BaseVisitor::clear()
 {
     drawer->clear();
-}
+}*/

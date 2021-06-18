@@ -16,7 +16,7 @@ ObjectDrawer::ObjectDrawer()
     shared_ptr<AbstractFactory> cr(solution.create(1));
     this->drawer = cr->createGraphics();
 
-    curCamera = shared_ptr<Camera>(new Camera(Point(0, 300, -300), Point(45, 45, 45)));
+    curCamera = shared_ptr<Camera>(new Camera(Point(0, 0, 0), Point(0, 0, 0)));
     //drawer.setScene();
 }
 
@@ -28,9 +28,9 @@ ObjectDrawer::ObjectDrawer(const weak_ptr<Camera> newCamera, const shared_ptr<Ba
 
     shared_ptr<AbstractFactory> cr(solution.create(1));
     this->drawer = cr->createGraphics();
+    this->drawer->setScene(scene);
 
     curCamera = newCamera.lock();
-    setScene(scene);
 }
 
 void ObjectDrawer::visit(const Model &model)
