@@ -27,6 +27,21 @@ MainWindow::MainWindow(QWidget *parent)
         interface->execute(addCameraCmd);
         interface->execute(addCameraCmd2);
 
+        ui->tableWidget->setRowCount(2);
+        ui->tableWidget->setColumnCount(1);
+        ui->tableWidget->setHorizontalHeaderLabels(QStringList() << "Object");
+
+
+        /*QTableWidgetItem *id_itm = new QTableWidgetItem("0");
+        ui->tableWidget->setItem(0, 0, id_itm);*/
+        QTableWidgetItem *obj_itm = new QTableWidgetItem("Camera");
+        ui->tableWidget->setItem(0, 0, obj_itm);
+
+        /*QTableWidgetItem *id_itm2 = new QTableWidgetItem("1");
+        ui->tableWidget->setItem(1, 0, id_itm2);*/
+        QTableWidgetItem *obj_itm2 = new QTableWidgetItem("Camera");
+        ui->tableWidget->setItem(1, 0, obj_itm2);
+
         UseCamera useCamera(0);
         interface->execute(useCamera);
     }
@@ -112,11 +127,18 @@ void MainWindow::mouseMoveEvent(QMouseEvent *event)
             double x = double(previous_x - event->position().x()) / ROTATE_SPEED;
             double y = double(previous_y - event->position().y()) / ROTATE_SPEED;
 
-            //ui->Model_IDs->text().toInt()
-            QString modelIds = ui->Model_IDs->text();
-            int n = modelIds.toInt();
-            TransformObject transformCmd(n, Point(0, 0, 0), Point(1, 1, 1), Point(y, x, 0));
-            interface->execute(transformCmd);
+            /*QString modelIds = ui->Model_IDs->text();
+            int n = modelIds.toInt();*/
+
+            QModelIndexList selectedRows = ui->tableWidget->selectionModel()->selectedRows();
+            for (int i = 0; i < selectedRows.size(); i++)
+            {
+                TransformObject transformCmd(selectedRows[i].row(), Point(0, 0, 0), Point(1, 1, 1), Point(y, x, 0));
+                interface->execute(transformCmd);
+            }
+
+            /*TransformObject transformCmd(n, Point(0, 0, 0), Point(1, 1, 1), Point(y, x, 0));
+            interface->execute(transformCmd);*/
 
             DrawScene drawCmd;
             interface->execute(drawCmd);
@@ -131,11 +153,12 @@ void MainWindow::mouseMoveEvent(QMouseEvent *event)
             double x = double(previous_x - event->position().x()) / MOVE_SPEED;
             double y = double(previous_y - event->position().y()) / MOVE_SPEED;
 
-
-            QString modelIds = ui->Model_IDs->text();
-            int n = modelIds.toInt();
-            TransformObject transformCmd(n, Point(-x, -y, 0), Point(1, 1, 1), Point(0, 0, 0));
-            interface->execute(transformCmd);
+            QModelIndexList selectedRows = ui->tableWidget->selectionModel()->selectedRows();
+            for (int i = 0; i < selectedRows.size(); i++)
+            {
+                TransformObject transformCmd(selectedRows[i].row(), Point(-x, -y, 0), Point(1, 1, 1), Point(0, 0, 0));
+                interface->execute(transformCmd);
+            }
 
             DrawScene drawCmd;
             interface->execute(drawCmd);
@@ -177,8 +200,12 @@ void MainWindow::wheelEvent(QWheelEvent *event)
             cout <<  kx << endl;
             cout <<  ky << endl;
 
-            TransformObject transformCmd(ui->Model_IDs->text().toInt(), Point(0, 0, 0), Point(ky, ky, ky), Point(0, 0, 0));
-            interface->execute(transformCmd);
+            QModelIndexList selectedRows = ui->tableWidget->selectionModel()->selectedRows();
+            for (int i = 0; i < selectedRows.size(); i++)
+            {
+                TransformObject transformCmd(selectedRows[i].row(), Point(0, 0, 0), Point(ky, ky, ky), Point(0, 0, 0));
+                interface->execute(transformCmd);
+            }
 
             DrawScene drawCmd;
             interface->execute(drawCmd);
@@ -238,10 +265,13 @@ void MainWindow::on_ClearSceneBtn_clicked()
         ClearObjects clearCmd;
         interface->execute(clearCmd);
 
+        //ui->tableWidget->clear();
+        ui->tableWidget->setRowCount(0);
+
         /*DrawScene drawCmd;
         interface->execute(drawCmd);*/
 
-        canvas->clean();
+        //canvas->clean();
 
         canvas->update();
     }
@@ -263,6 +293,10 @@ void MainWindow::on_AddModelBtn_clicked()
         //LoadModel loadCmd("12granSec.txt");
         interface->execute(loadCmd);
 
+        ui->tableWidget->setRowCount(ui->tableWidget->rowCount() + 1);
+        QTableWidgetItem *obj_itm = new QTableWidgetItem("Model");
+        ui->tableWidget->setItem(ui->tableWidget->rowCount()-1, 0, obj_itm);
+
         DrawScene drawCmd;
         interface->execute(drawCmd);
 
@@ -282,8 +316,12 @@ void MainWindow::on_RotateModelBtn_clicked()
 {
     try
     {
-        TransformObject transformCmd(0, Point(0, 0, 0), Point(1, 1, 1), Point(0, 45, 0));
-        interface->execute(transformCmd);
+        QModelIndexList selectedRows = ui->tableWidget->selectionModel()->selectedRows();
+        for (int i = 0; i < selectedRows.size(); i++)
+        {
+            TransformObject transformCmd(selectedRows[i].row(), Point(0, 0, 0), Point(1, 1, 1), Point(0, 45, 0));
+            interface->execute(transformCmd);
+        }
 
         DrawScene drawCmd;
         interface->execute(drawCmd);
@@ -304,8 +342,12 @@ void MainWindow::on_MoveModelBtn_clicked()
 {
     try
     {
-        TransformObject transformCmd(0, Point(100, 100, 100), Point(1, 1, 1), Point(0, 0, 0));
-        interface->execute(transformCmd);
+        QModelIndexList selectedRows = ui->tableWidget->selectionModel()->selectedRows();
+        for (int i = 0; i < selectedRows.size(); i++)
+        {
+            TransformObject transformCmd(0, Point(100, 100, 100), Point(1, 1, 1), Point(0, 0, 0));
+            interface->execute(transformCmd);
+        }
 
         DrawScene drawCmd;
         interface->execute(drawCmd);
@@ -326,8 +368,12 @@ void MainWindow::on_ScaleModelBtn_clicked()
 {
     try
     {
-        TransformObject transformCmd(0, Point(0, 0, 0), Point(0.5, 0.5, 0.5), Point(0, 0, 0));
-        interface->execute(transformCmd);
+        QModelIndexList selectedRows = ui->tableWidget->selectionModel()->selectedRows();
+        for (int i = 0; i < selectedRows.size(); i++)
+        {
+            TransformObject transformCmd(0, Point(0, 0, 0), Point(0.5, 0.5, 0.5), Point(0, 0, 0));
+            interface->execute(transformCmd);
+        }
 
         DrawScene drawCmd;
         interface->execute(drawCmd);
@@ -351,6 +397,10 @@ void MainWindow::on_AddCameraBtn_clicked()
         AddCamera addCameraCmd(Point(0, 0, 0), Point(0, 0, 0));
         interface->execute(addCameraCmd);
 
+        ui->tableWidget->setRowCount(ui->tableWidget->rowCount() + 1);
+        QTableWidgetItem *obj_itm = new QTableWidgetItem("Camera");
+        ui->tableWidget->setItem(ui->tableWidget->rowCount()-1, 0, obj_itm);
+
         DrawScene drawCmd;
         interface->execute(drawCmd);
 
@@ -370,8 +420,17 @@ void MainWindow::on_DeleteObjBtn_clicked()
 {
     try
     {
-        DeleteObject deleteObjectCmd(ui->Model_IDs->text().toInt());
-        interface->execute(deleteObjectCmd);
+        QModelIndexList selectedRows = ui->tableWidget->selectionModel()->selectedRows();
+        for (int i = 0; i < selectedRows.size(); i++)
+        {
+            while (!selectedRows.empty())
+            {
+                DeleteObject deleteObjectCmd(selectedRows[0].row());
+                interface->execute(deleteObjectCmd);
+                ui->tableWidget->removeRow(selectedRows[0].row());
+                selectedRows = ui->tableWidget->selectionModel()->selectedRows();
+            }
+        }
 
         DrawScene drawCmd;
         interface->execute(drawCmd);
@@ -392,7 +451,8 @@ void MainWindow::on_SetCameraBtn_clicked()
 {
     try
     {
-        UseCamera useCameraCmd(ui->Model_IDs->text().toInt());
+        QModelIndexList selectedRows = ui->tableWidget->selectionModel()->selectedRows();
+        UseCamera useCameraCmd(selectedRows[0].row());
         interface->execute(useCameraCmd);
 
         DrawScene drawCmd;

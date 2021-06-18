@@ -50,6 +50,7 @@ void ClearObjects::execute()
 {
     shared_ptr<SceneManager> sceneMan = SceneManagerCreator().getManager();
     sceneMan->clearObjects();
+    sceneMan->clearScene();
     //sceneMan->getScene()->getObjects()->clear();
 }
 

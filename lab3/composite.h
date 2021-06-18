@@ -17,7 +17,7 @@ public:
     virtual bool remove(const IteratorObject& it) override;
     virtual bool isComposite() const override;
     virtual bool clear() override;
-    virtual int size() override;
+    virtual size_t size() override;
     virtual IteratorObject begin() const override;
     virtual IteratorObject end() const override;
 

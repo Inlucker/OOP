@@ -55,7 +55,7 @@ bool Composite::clear()
     return true;
 }
 
-int Composite::size()
+size_t Composite::size()
 {
     return objectsVec.size();
 }

@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>805</width>
+    <width>920</width>
     <height>695</height>
    </rect>
   </property>
@@ -28,7 +28,7 @@
    <widget class="QPushButton" name="SetSceneBtn">
     <property name="geometry">
      <rect>
-      <x>560</x>
+      <x>540</x>
       <y>600</y>
       <width>111</width>
       <height>31</height>
@@ -42,7 +42,7 @@
     <property name="geometry">
      <rect>
       <x>670</x>
-      <y>630</y>
+      <y>640</y>
       <width>111</width>
       <height>31</height>
      </rect>
@@ -67,8 +67,8 @@
    <widget class="QPushButton" name="AddModelBtn">
     <property name="geometry">
      <rect>
-      <x>560</x>
-      <y>630</y>
+      <x>540</x>
+      <y>640</y>
       <width>111</width>
       <height>31</height>
      </rect>
@@ -80,7 +80,7 @@
    <widget class="QPushButton" name="RotateModelBtn">
     <property name="geometry">
      <rect>
-      <x>450</x>
+      <x>410</x>
       <y>600</y>
       <width>111</width>
       <height>31</height>
@@ -93,7 +93,7 @@
    <widget class="QPushButton" name="MoveModelBtn">
     <property name="geometry">
      <rect>
-      <x>340</x>
+      <x>280</x>
       <y>600</y>
       <width>111</width>
       <height>31</height>
@@ -106,7 +106,7 @@
    <widget class="QPushButton" name="ScaleModelBtn">
     <property name="geometry">
      <rect>
-      <x>230</x>
+      <x>150</x>
       <y>600</y>
       <width>111</width>
       <height>31</height>
@@ -116,34 +116,11 @@
      <string>ScaleModels</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>600</y>
-      <width>71</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Model IDs:</string>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="Model_IDs">
-    <property name="geometry">
-     <rect>
-      <x>100</x>
-      <y>600</y>
-      <width>121</width>
-      <height>31</height>
-     </rect>
-    </property>
-   </widget>
    <widget class="QPushButton" name="AddCameraBtn">
     <property name="geometry">
      <rect>
-      <x>450</x>
-      <y>630</y>
+      <x>410</x>
+      <y>640</y>
       <width>111</width>
       <height>31</height>
      </rect>
@@ -155,8 +132,8 @@
    <widget class="QPushButton" name="DeleteObjBtn">
     <property name="geometry">
      <rect>
-      <x>340</x>
-      <y>630</y>
+      <x>280</x>
+      <y>640</y>
       <width>111</width>
       <height>31</height>
      </rect>
@@ -168,8 +145,8 @@
    <widget class="QPushButton" name="SetCameraBtn">
     <property name="geometry">
      <rect>
-      <x>230</x>
-      <y>630</y>
+      <x>150</x>
+      <y>640</y>
       <width>111</width>
       <height>31</height>
      </rect>
@@ -178,13 +155,23 @@
      <string>SetCamera</string>
     </property>
    </widget>
+   <widget class="QTableWidget" name="tableWidget">
+    <property name="geometry">
+     <rect>
+      <x>790</x>
+      <y>10</y>
+      <width>121</width>
+      <height>651</height>
+     </rect>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>805</width>
+     <width>920</width>
      <height>20</height>
     </rect>
    </property>

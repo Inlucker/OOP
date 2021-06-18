@@ -99,7 +99,7 @@ shared_ptr<Object> Scene::getCamera(const size_t id)
 
 shared_ptr<Object> Scene::getObject(const size_t id)
 {
-    if (id + 1 > objects->size())
+    if (id + 1 > objects->size() || id < 0)
     {
         time_t t_time = time(NULL);
         throw IndexError("Id error", __FILE__, __LINE__, ctime(&t_time));

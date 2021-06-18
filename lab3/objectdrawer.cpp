@@ -35,7 +35,7 @@ ObjectDrawer::ObjectDrawer(const weak_ptr<Camera> newCamera, const shared_ptr<Ba
 
 void ObjectDrawer::visit(const Model &model)
 {
-    cout << "Visited Model;" << endl;
+    //cout << "Visited Model;" << endl;
     auto points = model.getElements()->getPoints();
 
     for (auto edge: model.getElements()->getEdges())
@@ -47,12 +47,12 @@ void ObjectDrawer::visit(const Model &model)
 
 void ObjectDrawer::visit(const Camera &camera)
 {
-    cout << "Visited Camera;" << endl;
+    //cout << "Visited Camera;" << endl;
 }
 
 void ObjectDrawer::visit(const Composite &comp)
 {
-    cout << "Visited compisite;" << endl;
+    //cout << "Visited compisite;" << endl;
 }
 
 Point ObjectDrawer::getProection(Point &_point)

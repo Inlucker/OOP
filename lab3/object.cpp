@@ -20,7 +20,7 @@ bool Object::clear()
     return false;
 }
 
-int Object::size()
+size_t Object::size()
 {
     return 1;
 }
