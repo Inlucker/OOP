@@ -79,23 +79,23 @@ private:
     Point angles;
 };
 
-class DeleteModel : public BaseCommand
+/*class DeleteModel : public BaseCommand
 {
 public:
     DeleteModel() = delete;
-    DeleteModel(size_t newId);
+    explicit DeleteModel(size_t newId);
     ~DeleteModel() = default;
     virtual void execute() override;
 
 private:
     size_t id;
-};
+};*/
 
 class DeleteObject : public BaseCommand
 {
 public:
     DeleteObject() = delete;
-    DeleteObject(size_t newId);
+    explicit DeleteObject(size_t newId);
     ~DeleteObject() = default;
     virtual void execute() override;
 
@@ -107,7 +107,7 @@ class UseCamera : public BaseCommand
 {
 public:
     UseCamera() = delete;
-    UseCamera(size_t newId);
+    explicit UseCamera(size_t newId);
     ~UseCamera() = default;
     virtual void execute() override;
 
@@ -119,7 +119,7 @@ class SetDrawerScene : public BaseCommand
 {
 public:
     SetDrawerScene() = delete;
-    SetDrawerScene(shared_ptr<BaseCanvas> newScene);
+    explicit SetDrawerScene(shared_ptr<BaseCanvas> newScene);
     ~SetDrawerScene() = default;
     virtual void execute() override;
 
