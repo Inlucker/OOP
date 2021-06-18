@@ -26,14 +26,14 @@ public:
     void deleteObject(const size_t objId);
     void useCamera(shared_ptr<Camera> newCamera);
 
-    void setDrawerScene(shared_ptr<BaseScene> newScene);
+    void setCanvas(shared_ptr<BaseCanvas> newCanvas);
 
     //int method1(string str); //test
 private:
     shared_ptr<Scene> scene;
     weak_ptr<Camera> curCamera;
     //shared_ptr<BaseVisitor> objectDrawer;
-    shared_ptr<BaseScene> drawerScene;
+    shared_ptr<BaseCanvas> canvas;
 };
 
 #endif // SCENEMANAGER_H

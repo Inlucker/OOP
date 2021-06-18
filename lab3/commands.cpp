@@ -66,7 +66,7 @@ void LoadModel::execute()
     sceneMan->addModel(newModel);
 }
 
-SetDrawerScene::SetDrawerScene(shared_ptr<BaseScene> newScene) : scene(newScene)
+SetDrawerScene::SetDrawerScene(shared_ptr<BaseCanvas> newScene) : scene(newScene)
 {
 
 }
@@ -74,7 +74,7 @@ SetDrawerScene::SetDrawerScene(shared_ptr<BaseScene> newScene) : scene(newScene)
 void SetDrawerScene::execute()
 {
     shared_ptr<SceneManager> sceneMan = SceneManagerCreator().getManager();
-    sceneMan->setDrawerScene(scene);
+    sceneMan->setCanvas(scene);
 }
 
 AddCamera::AddCamera(Point pos, Point angs)

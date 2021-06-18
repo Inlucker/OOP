@@ -16,14 +16,14 @@ SceneManager::SceneManager()
 void SceneManager::drawScene()
 {
     //scene->getModels()->accept(objectDrawer);
-    shared_ptr<BaseVisitor> objectDrawer = shared_ptr<BaseVisitor>(new ObjectDrawer(curCamera, drawerScene));
+    shared_ptr<BaseVisitor> objectDrawer = shared_ptr<BaseVisitor>(new ObjectDrawer(curCamera, canvas));
     scene->getObjects()->accept(objectDrawer);
 }
 
 void SceneManager::clearScene()
 {
     //objectDrawer->clear();
-    drawerScene->clear();
+    canvas->clear();
 }
 
 void SceneManager::clearObjects()
@@ -70,9 +70,9 @@ void SceneManager::useCamera(shared_ptr<Camera> newCamera)
     //objectDrawer = shared_ptr<BaseVisitor>(new ObjectDrawer(curCamera, drawerScene));
 }
 
-void SceneManager::setDrawerScene(shared_ptr<BaseScene> newScene)
+void SceneManager::setCanvas(shared_ptr<BaseCanvas> newCanvas)
 {
-    drawerScene = newScene;
+    canvas = newCanvas;
     //objectDrawer->setScene(newScene);
 }
 

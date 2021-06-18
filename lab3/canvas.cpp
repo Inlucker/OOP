@@ -3,7 +3,7 @@
 Canvas::Canvas(QWidget *parent) : QWidget(parent)
 {
     //mainPen = QPen(Qt::black);
-    scene = shared_ptr<QtScene>(new QtScene());
+    scene = shared_ptr<QtCanvas>(new QtCanvas());
     setStyleSheet("background-color:white;");
 
     clean();

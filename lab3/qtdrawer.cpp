@@ -1,5 +1,5 @@
 #include "qtdrawer.h"
-#include "qtscene.h"
+#include "qtcanvas.h"
 #include "errors.h"
 
 QtDrawer::QtDrawer()
@@ -9,7 +9,7 @@ QtDrawer::QtDrawer()
 
     painter = shared_ptr<QPainter>(new QPainter(&*myPixmap));
     painter->setPen(Qt::black);*/
-    scene = shared_ptr<BaseScene> (new QtScene());
+    canvas = shared_ptr<BaseCanvas> (new QtCanvas());
 }
 
 /*QtDrawer::QtDrawer(shared_ptr<QPixmap> newPixMap)
@@ -29,8 +29,8 @@ QtDrawer::~QtDrawer()
 void QtDrawer::drawLine(const Point &p1, const Point &p2)
 {
     //canvas->drawLine(p1, p2);
-    if (scene)
-        this->scene->drawLine(p1.getX(), p1.getY(), p2.getX(), p2.getY());
+    if (canvas)
+        this->canvas->drawLine(p1.getX(), p1.getY(), p2.getX(), p2.getY());
     else
     {
         time_t t_time = time(NULL);
@@ -40,7 +40,7 @@ void QtDrawer::drawLine(const Point &p1, const Point &p2)
 
 void QtDrawer::clear()
 {
-    this->scene->clear();
+    this->canvas->clear();
 }
 
 /*void QtDrawer::setScene(shared_ptr<BaseScene> newScene)

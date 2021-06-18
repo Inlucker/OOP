@@ -7,7 +7,7 @@
 using namespace std;
 
 #include "basecommand.h"
-#include "basescene.h"
+#include "basecanvas.h"
 #include "point.h"
 //#include "scenemanager.h"
 //class scenemanager;
@@ -119,12 +119,12 @@ class SetDrawerScene : public BaseCommand
 {
 public:
     SetDrawerScene() = delete;
-    SetDrawerScene(shared_ptr<BaseScene> newScene);
+    SetDrawerScene(shared_ptr<BaseCanvas> newScene);
     ~SetDrawerScene() = default;
     virtual void execute() override;
 
 private:
-    shared_ptr<BaseScene> scene;
+    shared_ptr<BaseCanvas> scene;
 };
 
 #endif // COMMANDS_H

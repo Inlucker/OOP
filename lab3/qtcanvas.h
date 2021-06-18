@@ -1,5 +1,5 @@
-#ifndef QTSCENE_H
-#define QTSCENE_H
+#ifndef QTCANVAS_H
+#define QTCANVAS_H
 
 #include <QWidget>
 #include <QPainter>
@@ -7,14 +7,14 @@
 
 using namespace std;
 
-#include "basescene.h"
+#include "basecanvas.h"
 
-class QtScene : public BaseScene
+class QtCanvas : public BaseCanvas
 {
 public:
-    QtScene();
-    QtScene(shared_ptr<QPixmap> newPixmap);
-    ~QtScene() = default;
+    QtCanvas();
+    QtCanvas(shared_ptr<QPixmap> newPixmap);
+    ~QtCanvas() = default;
 
     virtual void drawLine(double x1, double y1, double x2, double y2) override;
     virtual void clear() override;
@@ -28,4 +28,4 @@ private:
 
 };
 
-#endif // QTSCENE_H
+#endif // QTCANVAS_H

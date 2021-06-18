@@ -20,7 +20,7 @@ ObjectDrawer::ObjectDrawer()
     //drawer.setScene();
 }
 
-ObjectDrawer::ObjectDrawer(const weak_ptr<Camera> newCamera, const shared_ptr<BaseScene> scene)
+ObjectDrawer::ObjectDrawer(const weak_ptr<Camera> newCamera, const shared_ptr<BaseCanvas> scene)
 {
     GraphicSolution solution;
 
@@ -28,7 +28,7 @@ ObjectDrawer::ObjectDrawer(const weak_ptr<Camera> newCamera, const shared_ptr<Ba
 
     shared_ptr<AbstractFactory> cr(solution.create(1));
     this->drawer = cr->createGraphics();
-    this->drawer->setScene(scene);
+    this->drawer->setCanvas(scene);
 
     curCamera = newCamera.lock();
 }

@@ -5,7 +5,7 @@ BaseDrawer::~BaseDrawer()
 
 }
 
-void BaseDrawer::setScene(shared_ptr<BaseScene> newScene)
+void BaseDrawer::setCanvas(shared_ptr<BaseCanvas> newScene)
 {
-    this->scene = newScene;
+    this->canvas = newScene;
 }

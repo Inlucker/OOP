@@ -10,13 +10,13 @@ CONFIG += c++14
 
 SOURCES += \
     abstractfactory.cpp \
+    basecanvas.cpp \
     basecommand.cpp \
     basedrawer.cpp \
     basefileloader.cpp \
     basemanager.cpp \
     basemodelbuilder.cpp \
     basemodelloader.cpp \
-    basescene.cpp \
     basevisitor.cpp \
     camera.cpp \
     canvas.cpp \
@@ -39,9 +39,9 @@ SOURCES += \
     object.cpp \
     objectdrawer.cpp \
     point.cpp \
+    qtcanvas.cpp \
     qtdrawer.cpp \
     qtfactory.cpp \
-    qtscene.cpp \
     scene.cpp \
     scenemanager.cpp \
     scenemanagercreator.cpp \
@@ -50,13 +50,13 @@ SOURCES += \
 
 HEADERS += \
     abstractfactory.h \
+    basecanvas.h \
     basecommand.h \
     basedrawer.h \
     basefileloader.h \
     basemanager.h \
     basemodelbuilder.h \
     basemodelloader.h \
-    basescene.h \
     basevisitor.h \
     camera.h \
     canvas.h \
@@ -78,9 +78,9 @@ HEADERS += \
     object.h \
     objectdrawer.h \
     point.h \
+    qtcanvas.h \
     qtdrawer.h \
     qtfactory.h \
-    qtscene.h \
     scene.h \
     scenemanager.h \
     scenemanagercreator.h \

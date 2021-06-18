@@ -1,6 +1,6 @@
-#include "qtscene.h"
+#include "qtcanvas.h"
 
-QtScene::QtScene()
+QtCanvas::QtCanvas()
 {
     myPixmap = shared_ptr<QPixmap>(new QPixmap(2000, 2000));
     myPixmap->fill(QColor(0, 0, 0, 0));
@@ -9,7 +9,7 @@ QtScene::QtScene()
     //painter->setPen(Qt::black);
 }
 
-QtScene::QtScene(shared_ptr<QPixmap> newPixmap)
+QtCanvas::QtCanvas(shared_ptr<QPixmap> newPixmap)
 {
     myPixmap = newPixmap;
     myPixmap->fill(QColor(0, 0, 0, 0));
@@ -18,7 +18,7 @@ QtScene::QtScene(shared_ptr<QPixmap> newPixmap)
     //painter->setPen(Qt::black);
 }
 
-void QtScene::drawLine(double x1, double y1, double x2, double y2)
+void QtCanvas::drawLine(double x1, double y1, double x2, double y2)
 {
     painter = shared_ptr<QPainter>(new QPainter(&*myPixmap));
     painter->setPen(Qt::black);
@@ -26,7 +26,7 @@ void QtScene::drawLine(double x1, double y1, double x2, double y2)
     painter->end();
 }
 
-void QtScene::clear()
+void QtCanvas::clear()
 {
     myPixmap->fill();
 }
@@ -36,7 +36,7 @@ void QtScene::clear()
     return painter;
 }*/
 
-shared_ptr<QPixmap> QtScene::getPixMap() const
+shared_ptr<QPixmap> QtCanvas::getPixMap() const
 {
     return myPixmap;
 }
