@@ -11,8 +11,7 @@
 ObjectDrawer::ObjectDrawer()
 {
     GraphicSolution solution;
-
-    solution.registration(1, FactoryCreator::createQtFactory); //???
+    solution.registration(1, &FactoryCreator::createQtFactory);
 
     shared_ptr<AbstractFactory> cr(solution.create(1));
     this->drawer = cr->createGraphics();
@@ -25,13 +24,13 @@ ObjectDrawer::ObjectDrawer(const weak_ptr<Camera> newCamera, const shared_ptr<Ba
 {
     GraphicSolution solution;
 
-    solution.registration(1, FactoryCreator::createQtFactory); //???
+    solution.registration(1, &FactoryCreator::createQtFactory);
 
     shared_ptr<AbstractFactory> cr(solution.create(1));
     this->drawer = cr->createGraphics();
     this->drawer->setCanvas(scene);
 
-    curCamera = newCamera.lock();
+    curCamera = newCamera;
 }
 
 void ObjectDrawer::visit(const Model &model)
@@ -48,14 +47,12 @@ void ObjectDrawer::visit(const Model &model)
 
 void ObjectDrawer::visit(const Camera &camera)
 {
-    if (camera.isVisible())
-        cout << "Visited Camera;" << endl;
+    cout << "Visited Camera;" << endl;
 }
 
 void ObjectDrawer::visit(const Composite &comp)
 {
-    if (comp.isVisible())
-        cout << "Visited compisite;" << endl;
+    cout << "Visited compisite;" << endl;
 }
 
 Point ObjectDrawer::getProection(Point &_point)

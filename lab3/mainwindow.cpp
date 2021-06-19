@@ -16,7 +16,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->gridLayout->addWidget(canvas);
 
     //SetScene
-    SetDrawerScene setDrawerCmd(canvas->scene);
+    SetCanvas setDrawerCmd(canvas->scene);
     interface->execute(setDrawerCmd);
 
     try
@@ -244,7 +244,7 @@ void MainWindow::on_SetSceneBtn_clicked()
 {
     try
     {
-        SetDrawerScene setDrawerCmd(canvas->scene);
+        SetCanvas setDrawerCmd(canvas->scene);
         interface->execute(setDrawerCmd);
     }
     catch (BaseError &er)

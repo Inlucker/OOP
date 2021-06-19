@@ -19,8 +19,8 @@ bool Camera::isVisible() const
 
 void Camera::accept(shared_ptr<BaseVisitor> visitor)
 {
-    if (isVisible())
-        visitor->visit(*this);
+    //if (isVisible())
+    visitor->visit(*this);
 }
 
 void Camera::rotate(Point rotateK)

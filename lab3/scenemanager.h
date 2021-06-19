@@ -16,7 +16,7 @@ public:
     ~SceneManager() = default;
 
     void drawScene();
-    void clearScene();
+    void clearCanvas();
     void clearObjects();
     shared_ptr<Scene> getScene() const;
     void addModel(shared_ptr<Model> new_model);

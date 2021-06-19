@@ -22,8 +22,8 @@ bool Model::isVisible() const
 
 void Model::accept(shared_ptr<BaseVisitor> visitor)
 {
-    if (isVisible())
-        visitor->visit(*this);
+    //if (isVisible())
+    visitor->visit(*this);
 }
 
 const shared_ptr<ModelElements> Model::getElements() const

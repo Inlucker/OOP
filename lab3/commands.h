@@ -93,12 +93,12 @@ private:
     size_t id;
 };
 
-class SetDrawerScene : public BaseCommand
+class SetCanvas : public BaseCommand
 {
 public:
-    SetDrawerScene() = delete;
-    explicit SetDrawerScene(shared_ptr<BaseCanvas> newScene);
-    ~SetDrawerScene() = default;
+    SetCanvas() = delete;
+    explicit SetCanvas(shared_ptr<BaseCanvas> newScene);
+    ~SetCanvas() = default;
     virtual void execute() override;
 
 private:

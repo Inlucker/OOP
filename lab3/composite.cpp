@@ -16,7 +16,7 @@ void Composite::transform(const Point move, const Point scale, const Point rotat
         elem->transform(move, scale, rotate);
 }
 
-bool Composite::isVisible() const//what do I do here?
+bool Composite::isVisible() const //what do I do here?
 {
     cout << "Composite isVisible method:" << endl;
     bool rez = false;

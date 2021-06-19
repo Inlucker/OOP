@@ -37,7 +37,7 @@ DrawScene::DrawScene()
 void DrawScene::execute()
 {
     shared_ptr<SceneManager> sceneMan = SceneManagerCreator().getManager();
-    sceneMan->clearScene();
+    sceneMan->clearCanvas();
     sceneMan->drawScene();
 }
 
@@ -50,7 +50,7 @@ void ClearObjects::execute()
 {
     shared_ptr<SceneManager> sceneMan = SceneManagerCreator().getManager();
     sceneMan->clearObjects();
-    sceneMan->clearScene();
+    sceneMan->clearCanvas();
 }
 
 LoadModel::LoadModel(string fileName) : fileName(fileName)
@@ -103,12 +103,12 @@ void UseCamera::execute()
     sceneMan->useCamera(dynamic_pointer_cast<Camera>(newCurCam));
 }
 
-SetDrawerScene::SetDrawerScene(shared_ptr<BaseCanvas> newScene) : scene(newScene)
+SetCanvas::SetCanvas(shared_ptr<BaseCanvas> newScene) : scene(newScene)
 {
 
 }
 
-void SetDrawerScene::execute()
+void SetCanvas::execute()
 {
     shared_ptr<SceneManager> sceneMan = SceneManagerCreator().getManager();
     sceneMan->setCanvas(scene);

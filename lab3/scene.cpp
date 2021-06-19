@@ -10,11 +10,11 @@ Scene::Scene()
     //cameras = shared_ptr<Object>(new Composite);
 }
 
-void Scene::addModel(shared_ptr<Object> new_model)
+/*void Scene::addModel(shared_ptr<Object> new_model)
 {
     //models->add(new_model);
     objects->add(new_model);
-}
+}*/
 
 /*void Scene::deleteModel(const size_t model_id)
 {
@@ -25,10 +25,10 @@ void Scene::addModel(shared_ptr<Object> new_model)
     models->remove(it);
 }*/
 
-void Scene::addCamera(shared_ptr<Object> new_camera)
+/*void Scene::addCamera(shared_ptr<Object> new_camera)
 {
     objects->add(new_camera);
-}
+}*/
 
 /*void Scene::deleteCamera(const size_t camera_id)
 {
@@ -39,9 +39,14 @@ void Scene::addCamera(shared_ptr<Object> new_camera)
     cameras->remove(it);
 }*/
 
+void Scene::addObject(shared_ptr<Object> new_model)
+{
+    objects->add(new_model);
+}
+
 void Scene::deleteObject(const size_t obg_id)
 {
-    if (obg_id + 1 > objects->size())
+    if (obg_id + 1 > objects->size() || obg_id + 1 < 0)
     {
         time_t t_time = time(NULL);
         throw IndexError("Id error", __FILE__, __LINE__, ctime(&t_time));

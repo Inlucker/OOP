@@ -4,23 +4,22 @@ SceneManager::SceneManager()
 {
     scene = shared_ptr<Scene>(new Scene());
     //curCamera = shared_ptr<Camera>(new Camera());
-    curCamera = shared_ptr<Camera>(new Camera(Point(0, 300, -300), Point(45, 45, 45)));
+    //curCamera = shared_ptr<Camera>(new Camera(Point(0, 300, -300), Point(45, 45, 45)));
+    curCamera.reset();
 
     /*ObjectVisitor* tmpObjVis = new ObjectVisitor();
     objectDrawer = tmpObjVis->getBaseVisitorPtr();*/
 
     //objectDrawer = shared_ptr<BaseVisitor>(new ObjectDrawer(curCamera, drawerScene));
-
 }
 
 void SceneManager::drawScene()
 {
-    //scene->getModels()->accept(objectDrawer);
     shared_ptr<BaseVisitor> objectDrawer = shared_ptr<BaseVisitor>(new ObjectDrawer(curCamera, canvas));
     scene->getObjects()->accept(objectDrawer);
 }
 
-void SceneManager::clearScene()
+void SceneManager::clearCanvas()
 {
     //objectDrawer->clear();
     canvas->clear();
@@ -29,7 +28,8 @@ void SceneManager::clearScene()
 void SceneManager::clearObjects()
 {
     scene->clear();
-    useCamera(nullptr);
+    //curCamera.reset();
+    //useCamera(nullptr);
 }
 
 shared_ptr<Scene> SceneManager::getScene() const
@@ -39,12 +39,14 @@ shared_ptr<Scene> SceneManager::getScene() const
 
 void SceneManager::addModel(shared_ptr<Model> new_model)
 {
-    scene->addModel(new_model);
+    //scene->addModel(new_model);
+    scene->addObject(new_model);
 }
 
 void SceneManager::addCamera(shared_ptr<Camera> new_camera)
 {
-    scene->addCamera(new_camera);
+    //scene->addCamera(new_camera);
+    scene->addObject(new_camera);
 }
 
 void SceneManager::deleteObject(const size_t objId)
@@ -66,7 +68,7 @@ void SceneManager::deleteCamera(const size_t cameraId)
 
 void SceneManager::useCamera(shared_ptr<Camera> newCamera)
 {
-    curCamera = newCamera;
+    curCamera = newCamera; // weak_ptr = shared_ptr ok?
     //objectDrawer = shared_ptr<BaseVisitor>(new ObjectDrawer(curCamera, drawerScene));
 }
 

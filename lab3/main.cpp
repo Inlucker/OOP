@@ -15,7 +15,7 @@ int main(int argc, char *argv[])
 
 
 /*TODO:
- * Need to make NORMAL INTERTFACE
+ * Need to CHECK WHEN SETTING MODEL AS CUR CAMERA
  *
  *
  *
