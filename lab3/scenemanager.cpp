@@ -1,4 +1,5 @@
 #include "scenemanager.h"
+#include "errors.h"
 
 SceneManager::SceneManager()
 {
@@ -68,6 +69,11 @@ void SceneManager::deleteCamera(const size_t cameraId)
 
 void SceneManager::useCamera(shared_ptr<Camera> newCamera)
 {
+    if (!newCamera)
+    {
+        time_t t_time = time(NULL);
+        throw UseCameraError("Trying to use nullptr as camera", __FILE__, __LINE__, ctime(&t_time));
+    }
     curCamera = newCamera; // weak_ptr = shared_ptr ok?
     //objectDrawer = shared_ptr<BaseVisitor>(new ObjectDrawer(curCamera, drawerScene));
 }
