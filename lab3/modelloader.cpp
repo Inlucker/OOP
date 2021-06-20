@@ -2,7 +2,7 @@
 
 #include "carcasmodelbuilder.h"
 #include "modeldirector.h"
-//#include "fileloader.h"
+#include "fileloader.h"
 
 ModelLoader::ModelLoader()
 {

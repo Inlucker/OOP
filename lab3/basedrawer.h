@@ -5,13 +5,16 @@
 
 using namespace std;
 
-#include "point.h"
-#include "basecanvas.h"
+class Point;
+class BaseCanvas;
+//#include "point.h"
+//#include "basecanvas.h"
 
 class BaseDrawer
 {
 public:
-    BaseDrawer() = default;
+    //BaseDrawer() = default;
+    BaseDrawer();
     virtual ~BaseDrawer() = 0;
     virtual void drawLine(const Point &p1, const Point &p2) = 0;
     virtual void setCanvas(shared_ptr<BaseCanvas> newScene);

@@ -6,7 +6,9 @@
 
 using namespace std;
 
-#include "basemodelbuilder.h"
+//#include "basemodelbuilder.h"
+class Model;
+class BaseModelBuilder;
 
 class ModelDirector
 {

@@ -5,13 +5,13 @@
 
 using namespace std;
 
-#include "basedrawer.h"
+class BaseDrawer;
 
 class AbstractFactory
 {
 public:
-    //AbstractFactory() = default;
-    //~AbstractFactory() = default;
+    AbstractFactory() = default;
+    virtual ~AbstractFactory() = 0;
     virtual unique_ptr<BaseDrawer> createGraphics() = 0;
 };
 

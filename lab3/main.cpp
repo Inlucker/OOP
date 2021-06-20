@@ -14,7 +14,7 @@ int main(int argc, char *argv[])
 }
 
 /*
- * check Visitor and draw stuff to be correct
+ * check Visitor
  *
  *
  */

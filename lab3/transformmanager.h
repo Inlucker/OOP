@@ -6,10 +6,12 @@
 using namespace std;
 
 #include "basemanager.h"
-#include "point.h"
+
+//#include "point.h"
 
 class BaseModelLoader;
 class Object;
+class Point;
 
 class TransformManager : public BaseManager
 {

@@ -19,8 +19,7 @@ public:
     virtual void drawLine(double x1, double y1, double x2, double y2) override;
     virtual void clear() override;
 
-    //shared_ptr<QPainter>getPainter();
-    shared_ptr<QPixmap>getPixMap() const;
+    shared_ptr<QPixmap> getPixMap() const;
 
 private:
     shared_ptr<QPainter> painter;

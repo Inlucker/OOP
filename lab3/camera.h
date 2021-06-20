@@ -2,9 +2,10 @@
 #define CAMERA_H
 
 #include "object.h"
-#include "basevisitor.h"
 
-class ObjectDrawer;
+#include "point.h"
+
+class ObjectVisitor;
 
 class Camera : public Object
 {
@@ -20,7 +21,7 @@ private:
     void rotate(Point move);
     const Point &getPosition() const;
     const Point &getAngles() const;
-    friend ObjectDrawer;
+    friend ObjectVisitor;
 
 private:
     Point position;

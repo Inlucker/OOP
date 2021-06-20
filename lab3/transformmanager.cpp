@@ -1,5 +1,6 @@
 #include "transformmanager.h"
 #include "object.h"
+#include "point.h"
 
 TransformManager::TransformManager()
 {

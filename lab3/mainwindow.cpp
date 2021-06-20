@@ -15,9 +15,14 @@ MainWindow::MainWindow(QWidget *parent)
     canvas = new Canvas();
     ui->gridLayout->addWidget(canvas);
 
-    //SetScene
-    SetCanvas setDrawerCmd(canvas->scene);
+    //SetDrawer
+    SetDrawer setDrawerCmd(canvas->drawer);
     interface->execute(setDrawerCmd);
+
+    //SetScene
+    SetCanvas setCanvasCmd(canvas->scene);
+    interface->execute(setCanvasCmd);
+
 
     try
     {
@@ -31,16 +36,10 @@ MainWindow::MainWindow(QWidget *parent)
         ui->tableWidget->setColumnCount(1);
         ui->tableWidget->setHorizontalHeaderLabels(QStringList() << "Object");
 
-
-        /*QTableWidgetItem *id_itm = new QTableWidgetItem("0");
-        ui->tableWidget->setItem(0, 0, id_itm);*/
         QTableWidgetItem *obj_itm = new QTableWidgetItem("Camera");
         obj_itm->setBackground(QBrush(Qt::green));
-        cur_camera_id = 0;
         ui->tableWidget->setItem(0, 0, obj_itm);
 
-        /*QTableWidgetItem *id_itm2 = new QTableWidgetItem("1");
-        ui->tableWidget->setItem(1, 0, id_itm2);*/
         QTableWidgetItem *obj_itm2 = new QTableWidgetItem("Camera");
         ui->tableWidget->setItem(1, 0, obj_itm2);
 
@@ -207,7 +206,7 @@ void MainWindow::wheelEvent(QWheelEvent *event)
             QPoint numDegrees = event->angleDelta() / 120;
             //cout <<  numDegrees.x() << endl;
             //cout <<  numDegrees.y() << endl;
-            double kx = 1 + double(numDegrees.x()) / SCALE_SPEED;
+            //double kx = 1 + double(numDegrees.x()) / SCALE_SPEED;
             double ky = 1 + double(numDegrees.y()) / SCALE_SPEED;
             //cout <<  kx << endl;
             //cout <<  ky << endl;
@@ -237,41 +236,6 @@ void MainWindow::wheelEvent(QWheelEvent *event)
         {
             QMessageBox::information(this, "Error", "Unexpected Error");
         }
-    }
-}
-
-void MainWindow::on_SetSceneBtn_clicked()
-{
-    try
-    {
-        SetCanvas setDrawerCmd(canvas->scene);
-        interface->execute(setDrawerCmd);
-    }
-    catch (BaseError &er)
-    {
-        QMessageBox::information(this, "Error", er.what());
-    }
-    catch (...)
-    {
-        QMessageBox::information(this, "Error", "Unexpected Error");
-    }
-}
-
-void MainWindow::on_DrawBtn_clicked()
-{
-    try
-    {
-        DrawScene drawCmd;
-        interface->execute(drawCmd);
-        canvas->update();
-    }
-    catch (BaseError &er)
-    {
-        QMessageBox::information(this, "Error", er.what());
-    }
-    catch (...)
-    {
-        QMessageBox::information(this, "Error", "Unexpected Error");
     }
 }
 
@@ -547,10 +511,10 @@ void MainWindow::on_AddCameraBtn_clicked()
         QTableWidgetItem *obj_itm = new QTableWidgetItem("Camera");
         ui->tableWidget->setItem(ui->tableWidget->rowCount()-1, 0, obj_itm);
 
-        DrawScene drawCmd;
-        interface->execute(drawCmd);
+        /*DrawScene drawCmd;
+        interface->execute(drawCmd);*/
 
-        canvas->update();
+        //canvas->update();
     }
     catch (BaseError &er)
     {
@@ -611,9 +575,11 @@ void MainWindow::on_SetCameraBtn_clicked()
         UseCamera useCameraCmd(selectedRows[0].row());
         interface->execute(useCameraCmd);
 
-        ui->tableWidget->item(cur_camera_id, 0)->setBackground(QBrush(Qt::white));
+        for (int i = 0; i < ui->tableWidget->rowCount(); i++)
+        {
+            ui->tableWidget->item(i, 0)->setBackground(QBrush(Qt::white));
+        }
         ui->tableWidget->item(selectedRows[0].row(), 0)->setBackground(QBrush(Qt::green));
-        cur_camera_id = selectedRows[0].row();
 
         DrawScene drawCmd;
         interface->execute(drawCmd);

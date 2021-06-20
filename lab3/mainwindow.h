@@ -30,10 +30,6 @@ protected:
    virtual void wheelEvent(QWheelEvent *event);
 
 private slots:
-    void on_SetSceneBtn_clicked();
-
-    void on_DrawBtn_clicked();
-
     void on_ClearSceneBtn_clicked();
 
     void on_AddModelBtn_clicked();
@@ -53,8 +49,6 @@ private slots:
 private:
     Canvas *canvas;
     shared_ptr<Facade> interface;
-
-    int cur_camera_id;
 
     bool LMB_is_pressed = false;
     bool RMB_is_pressed = false;

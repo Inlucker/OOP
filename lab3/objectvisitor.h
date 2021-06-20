@@ -1,5 +1,5 @@
-#ifndef OBJECTDRAWER_H
-#define OBJECTDRAWER_H
+#ifndef OBJECTVISITOR_H
+#define OBJECTVISITOR_H
 
 #include <memory>
 #include <iostream>
@@ -10,11 +10,10 @@ using namespace std;
 
 class Object;
 
-class ObjectDrawer : public BaseVisitor
+class ObjectVisitor : public BaseVisitor
 {
 public:
-    ObjectDrawer();
-    ObjectDrawer(/*const weak_ptr<Camera> newCamera, */const shared_ptr<BaseCanvas> scene);
+    ObjectVisitor();
 
     virtual void visit(const Model &model) override;
     virtual void visit(const Camera &camera) override;
@@ -22,7 +21,6 @@ public:
 
 private:
     Point getProection(Point &_point);
-    //weak_ptr<Camera> curCamera;
 };
 
-#endif // OBJECTDRAWER_H
+#endif // OBJECTVISITOR_H

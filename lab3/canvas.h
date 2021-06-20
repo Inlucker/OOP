@@ -7,6 +7,7 @@
 
 using namespace std;
 
+#include "qtdrawer.h"
 #include "qtcanvas.h"
 
 class Canvas : public QWidget
@@ -21,6 +22,7 @@ protected:
     void paintEvent(QPaintEvent *);
 
 public:
+    shared_ptr<BaseDrawer> drawer;
     shared_ptr<QtCanvas> scene;
 
 private:

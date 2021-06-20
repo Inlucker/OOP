@@ -4,9 +4,9 @@
 #include "object.h"
 
 #include "modelelements.h"
-#include "basevisitor.h"
+//#include "basevisitor.h"
 
-class ObjectDrawer;
+class ObjectVisitor;
 
 class Model : public Object
 {
@@ -24,7 +24,7 @@ private:
 
 private:
     const shared_ptr<ModelElements> getElements() const;
-    friend ObjectDrawer;
+    friend ObjectVisitor;
 };
 
 #endif // MODEL_H

@@ -7,8 +7,9 @@
 using namespace std;
 
 #include "basecommand.h"
-#include "basecanvas.h"
 #include "point.h"
+#include "basedrawer.h"
+#include "basecanvas.h"
 
 class TransformObject : public BaseCommand
 {
@@ -91,6 +92,18 @@ public:
 
 private:
     size_t id;
+};
+
+class SetDrawer : public BaseCommand
+{
+public:
+    SetDrawer() = delete;
+    explicit SetDrawer(shared_ptr<BaseDrawer> newDrawer);
+    ~SetDrawer() = default;
+    virtual void execute() override;
+
+private:
+    shared_ptr<BaseDrawer> drawer;
 };
 
 class SetCanvas : public BaseCommand

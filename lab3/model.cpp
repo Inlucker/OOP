@@ -1,4 +1,5 @@
 #include "model.h"
+#include "basevisitor.h"
 
 Model::Model()
 {

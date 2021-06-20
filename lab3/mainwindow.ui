@@ -25,32 +25,6 @@
     </property>
     <layout class="QGridLayout" name="gridLayout"/>
    </widget>
-   <widget class="QPushButton" name="SetSceneBtn">
-    <property name="geometry">
-     <rect>
-      <x>300</x>
-      <y>710</y>
-      <width>111</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>SetScene</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="DrawBtn">
-    <property name="geometry">
-     <rect>
-      <x>160</x>
-      <y>710</y>
-      <width>111</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Draw</string>
-    </property>
-   </widget>
    <widget class="QTableWidget" name="tableWidget">
     <property name="geometry">
      <rect>

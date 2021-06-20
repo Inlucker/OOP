@@ -6,7 +6,6 @@
 using namespace std;
 
 //#include "scenemanager.h"
-
 class SceneManager;
 
 class SceneManagerCreator

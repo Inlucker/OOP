@@ -18,10 +18,6 @@ public:
     virtual void visit(const Model &obj) = 0;
     virtual void visit(const Camera &obj) = 0;
     virtual void visit(const Composite &comp) = 0;
-    //virtual void setScene(shared_ptr<BaseScene> newScene);
-    //virtual void clear();
-protected:
-    shared_ptr<BaseDrawer> drawer;
 };
 
 #endif // BASEVISITOR_H

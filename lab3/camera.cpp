@@ -1,4 +1,5 @@
 #include "camera.h"
+#include "basevisitor.h"
 
 Camera::Camera(const Point &pos, const Point &angs)
 {

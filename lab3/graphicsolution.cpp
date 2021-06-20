@@ -23,15 +23,15 @@ unique_ptr<AbstractFactory> FactoryCreator::createQtFactory()
 
 }*/
 
-bool GraphicSolution::registration(size_t id, /*GraphicSolution::*/CreateFactory createfun)
+bool GraphicSolution::registration(size_t id, CreateFactory createfun)
 {
     return callbacks.insert(CallBackMap::value_type(id, createfun)).second;
 }
 
-bool GraphicSolution::check(size_t id)
+/*bool GraphicSolution::check(size_t id)
 {
     return callbacks.erase(id) == 1;
-}
+}*/
 
 unique_ptr<AbstractFactory> GraphicSolution::create(size_t id)
 {

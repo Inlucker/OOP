@@ -103,13 +103,25 @@ void UseCamera::execute()
     sceneMan->useCamera(dynamic_pointer_cast<Camera>(newCurCam));
 }
 
-SetCanvas::SetCanvas(shared_ptr<BaseCanvas> newScene) : scene(newScene)
-{
 
+SetDrawer::SetDrawer(shared_ptr<BaseDrawer> newDrawer)
+{
+    drawer = newDrawer;
+}
+
+void SetDrawer::execute()
+{
+    shared_ptr<SceneManager> sceneMan = SceneManagerCreator().getManager();
+    sceneMan->setDrawer(drawer);
+}
+
+SetCanvas::SetCanvas(shared_ptr<BaseCanvas> newScene)
+{
+    scene = newScene;
 }
 
 void SetCanvas::execute()
 {
     shared_ptr<SceneManager> sceneMan = SceneManagerCreator().getManager();
-    sceneMan->setCanvas(scene);
+    sceneMan->getDrawer()->setCanvas(scene);
 }

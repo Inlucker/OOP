@@ -1,36 +1,34 @@
 #include "scenemanager.h"
 #include "errors.h"
 
+//#include "graphicsolution.h" //???
+
 SceneManager::SceneManager()
 {
     scene = shared_ptr<Scene>(new Scene());
-    //curCamera = shared_ptr<Camera>(new Camera());
-    //curCamera = shared_ptr<Camera>(new Camera(Point(0, 300, -300), Point(45, 45, 45)));
     curCamera.reset();
 
-    /*ObjectVisitor* tmpObjVis = new ObjectVisitor();
-    objectDrawer = tmpObjVis->getBaseVisitorPtr();*/
+    objectDrawer = shared_ptr<BaseVisitor>(new ObjectVisitor());
 
-    //objectDrawer = shared_ptr<BaseVisitor>(new ObjectDrawer(curCamera, drawerScene));
-}
-
-void SceneManager::drawScene()
-{
-    shared_ptr<BaseVisitor> objectDrawer = shared_ptr<BaseVisitor>(new ObjectDrawer(/*curCamera, */canvas));
-    scene->getObjects()->accept(objectDrawer);
+    drawer.reset();
 }
 
 void SceneManager::clearCanvas()
 {
-    //objectDrawer->clear();
-    canvas->clear();
+    time_t t_time = time(NULL);
+    if (!drawer)
+        throw NoDrawerError("No active drawer", __FILE__, __LINE__, ctime(&t_time));
+    drawer->clear();
+}
+
+void SceneManager::drawScene()
+{
+    scene->getObjects()->accept(objectDrawer);
 }
 
 void SceneManager::clearObjects()
 {
     scene->clear();
-    //curCamera.reset();
-    //useCamera(nullptr);
 }
 
 shared_ptr<Scene> SceneManager::getScene() const
@@ -40,13 +38,11 @@ shared_ptr<Scene> SceneManager::getScene() const
 
 void SceneManager::addModel(shared_ptr<Model> new_model)
 {
-    //scene->addModel(new_model);
     scene->addObject(new_model);
 }
 
 void SceneManager::addCamera(shared_ptr<Camera> new_camera)
 {
-    //scene->addCamera(new_camera);
     scene->addObject(new_camera);
 }
 
@@ -54,18 +50,6 @@ void SceneManager::deleteObject(const size_t objId)
 {
     scene->deleteObject(objId);
 }
-
-/*void SceneManager::deleteModel(const size_t modelId)
-{
-    //scene->deleteModel(modelId);
-    scene->deleteObject(modelId);
-}
-
-void SceneManager::deleteCamera(const size_t cameraId)
-{
-    //scene->deleteCamera(cameraId);
-    scene->deleteObject(cameraId);
-}*/
 
 void SceneManager::useCamera(shared_ptr<Camera> newCamera)
 {
@@ -75,7 +59,6 @@ void SceneManager::useCamera(shared_ptr<Camera> newCamera)
         throw UseCameraError("Trying to use nullptr as camera", __FILE__, __LINE__, ctime(&t_time));
     }
     curCamera = newCamera; // weak_ptr = shared_ptr ok?
-    //objectDrawer = shared_ptr<BaseVisitor>(new ObjectDrawer(curCamera, drawerScene));
 }
 
 weak_ptr<Camera> SceneManager::getCamera() const
@@ -86,14 +69,20 @@ weak_ptr<Camera> SceneManager::getCamera() const
     return curCamera;
 }
 
-void SceneManager::setCanvas(shared_ptr<BaseCanvas> newCanvas)
+void SceneManager::setDrawer(shared_ptr<BaseDrawer> newDrawer)
 {
-    canvas = newCanvas;
-    //objectDrawer->setScene(newScene);
+    drawer = newDrawer;
 }
 
-/*int SceneManager::method1(string str) //test
+shared_ptr<BaseDrawer> SceneManager::getDrawer() const
 {
-    cout << "method1 - " << str << endl;
-    return 1;
+    time_t t_time = time(NULL);
+    if (!drawer)
+        throw NoDrawerError("No active drawer", __FILE__, __LINE__, ctime(&t_time));
+    return drawer;
+}
+
+/*void SceneManager::setCanvas(shared_ptr<BaseCanvas> newCanvas)
+{
+    drawer->setCanvas(newCanvas);
 }*/

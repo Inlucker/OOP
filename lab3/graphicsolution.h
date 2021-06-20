@@ -2,6 +2,7 @@
 #define GRAPHICSOLUTION_H
 
 #include <map>
+#include <memory>
 
 using namespace std;
 
@@ -16,11 +17,12 @@ public:
 class GraphicSolution
 {
 public:
-    //GraphicSolution();
     typedef unique_ptr<AbstractFactory> (FactoryCreator::*CreateFactory)();
+    GraphicSolution() = default;
+    ~GraphicSolution() = default;
 
     bool registration(size_t id, CreateFactory createfun);
-    bool check(size_t id);
+    //bool check(size_t id);
 
     unique_ptr<AbstractFactory> create(size_t id);
 private:

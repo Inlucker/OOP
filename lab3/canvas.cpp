@@ -1,9 +1,20 @@
 #include "canvas.h"
 
+#include "graphicsolution.h"
+
 Canvas::Canvas(QWidget *parent) : QWidget(parent)
 {
     //mainPen = QPen(Qt::black);
+
+    GraphicSolution solution;
+    solution.registration(1, &FactoryCreator::createQtFactory);
+
+    shared_ptr<AbstractFactory> cr(solution.create(1));
+    drawer = cr->createGraphics();
+
     scene = shared_ptr<QtCanvas>(new QtCanvas());
+    //drawer->setCanvas(scene);
+
     setStyleSheet("background-color:white;");
 
     clean();

@@ -37,7 +37,7 @@ SOURCES += \
     modelelements.cpp \
     modelloader.cpp \
     object.cpp \
-    objectdrawer.cpp \
+    objectvisitor.cpp \
     point.cpp \
     qtcanvas.cpp \
     qtdrawer.cpp \
@@ -76,7 +76,7 @@ HEADERS += \
     modelelements.h \
     modelloader.h \
     object.h \
-    objectdrawer.h \
+    objectvisitor.h \
     point.h \
     qtcanvas.h \
     qtdrawer.h \

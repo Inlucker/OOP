@@ -47,6 +47,28 @@ public:
     }
 };
 
+class NoCanvasError : public BaseError
+{
+public:
+    NoCanvasError(string info, string filename, int line, const char *time, string error = "No canvas")
+        : BaseError(info, filename, line, time, error) {};
+    virtual const char* what() const noexcept
+    {
+        return err_info.c_str();
+    }
+};
+
+class NoDrawerError : public BaseError
+{
+public:
+    NoDrawerError(string info, string filename, int line, const char *time, string error = "No drawer")
+        : BaseError(info, filename, line, time, error) {};
+    virtual const char* what() const noexcept
+    {
+        return err_info.c_str();
+    }
+};
+
 class NoCameraError : public BaseError
 {
 public:

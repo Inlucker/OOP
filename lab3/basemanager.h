@@ -1,7 +1,6 @@
 #ifndef BASEMANAGER_H
 #define BASEMANAGER_H
 
-
 class BaseManager
 {
 public:
