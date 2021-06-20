@@ -14,7 +14,7 @@ class ObjectDrawer : public BaseVisitor
 {
 public:
     ObjectDrawer();
-    ObjectDrawer(const weak_ptr<Camera> newCamera, const shared_ptr<BaseCanvas> scene);
+    ObjectDrawer(/*const weak_ptr<Camera> newCamera, */const shared_ptr<BaseCanvas> scene);
 
     virtual void visit(const Model &model) override;
     virtual void visit(const Camera &camera) override;
@@ -22,7 +22,7 @@ public:
 
 private:
     Point getProection(Point &_point);
-    weak_ptr<Camera> curCamera;
+    //weak_ptr<Camera> curCamera;
 };
 
 #endif // OBJECTDRAWER_H

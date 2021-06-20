@@ -16,7 +16,7 @@ SceneManager::SceneManager()
 
 void SceneManager::drawScene()
 {
-    shared_ptr<BaseVisitor> objectDrawer = shared_ptr<BaseVisitor>(new ObjectDrawer(curCamera, canvas));
+    shared_ptr<BaseVisitor> objectDrawer = shared_ptr<BaseVisitor>(new ObjectDrawer(/*curCamera, */canvas));
     scene->getObjects()->accept(objectDrawer);
 }
 
@@ -76,6 +76,14 @@ void SceneManager::useCamera(shared_ptr<Camera> newCamera)
     }
     curCamera = newCamera; // weak_ptr = shared_ptr ok?
     //objectDrawer = shared_ptr<BaseVisitor>(new ObjectDrawer(curCamera, drawerScene));
+}
+
+weak_ptr<Camera> SceneManager::getCamera() const
+{
+    time_t t_time = time(NULL);
+    if (curCamera.expired())
+        throw NoCameraError("No active camera", __FILE__, __LINE__, ctime(&t_time));
+    return curCamera;
 }
 
 void SceneManager::setCanvas(shared_ptr<BaseCanvas> newCanvas)

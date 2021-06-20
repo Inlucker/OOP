@@ -25,6 +25,7 @@ public:
     //void deleteCamera(const size_t cameraId);
     void deleteObject(const size_t objId);
     void useCamera(shared_ptr<Camera> newCamera);
+    weak_ptr<Camera> getCamera() const;
 
     void setCanvas(shared_ptr<BaseCanvas> newCanvas);
 

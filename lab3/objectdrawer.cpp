@@ -7,6 +7,8 @@
 #include "composite.h"
 #include "errors.h"
 
+#include "scenemanagercreator.h"
+#include "scenemanager.h"
 
 ObjectDrawer::ObjectDrawer()
 {
@@ -16,11 +18,11 @@ ObjectDrawer::ObjectDrawer()
     shared_ptr<AbstractFactory> cr(solution.create(1));
     this->drawer = cr->createGraphics();
 
-    curCamera = shared_ptr<Camera>(new Camera(Point(0, 0, 0), Point(0, 0, 0)));
+    //curCamera = shared_ptr<Camera>(new Camera(Point(0, 0, 0), Point(0, 0, 0)));
     //drawer.setScene();
 }
 
-ObjectDrawer::ObjectDrawer(const weak_ptr<Camera> newCamera, const shared_ptr<BaseCanvas> scene)
+ObjectDrawer::ObjectDrawer(const shared_ptr<BaseCanvas> scene)
 {
     GraphicSolution solution;
 
@@ -30,7 +32,7 @@ ObjectDrawer::ObjectDrawer(const weak_ptr<Camera> newCamera, const shared_ptr<Ba
     this->drawer = cr->createGraphics();
     this->drawer->setCanvas(scene);
 
-    curCamera = newCamera;
+    //curCamera = newCamera;
 }
 
 void ObjectDrawer::visit(const Model &model)
@@ -55,11 +57,11 @@ void ObjectDrawer::visit(const Composite &comp)
     cout << "Visited compisite;" << endl;
 }
 
+//Перенести этот метод в отдельный класс вместе с curCamera
 Point ObjectDrawer::getProection(Point &_point)
 {
-    time_t t_time = time(NULL);
-    if (curCamera.expired())
-        throw NoCameraError("No active camera", __FILE__, __LINE__, ctime(&t_time));
+    shared_ptr<SceneManager> sceneMan = SceneManagerCreator().getManager();
+    shared_ptr<Camera> curCamera = sceneMan->getCamera().lock();
 
     Point proection(_point);
     //Point move(-curCamera->getPosition().getX(), -curCamera->getPosition().getY(), 0);
@@ -68,9 +70,11 @@ Point ObjectDrawer::getProection(Point &_point)
     //std::shared_ptr<Matrix<double>> reform_mtr(std::make_shared<MoveMatrix>(curCamera->get_position()));
 
     //projection.reform(reform_mtr);
-    proection.transform(Point(curCamera.lock()->getPosition()), Point(1, 1, 1), Point(0, 0, 0));
+    //proection.transform(Point(curCamera.lock()->getPosition()), Point(1, 1, 1), Point(0, 0, 0));
+    proection.transform(Point(curCamera->getPosition()), Point(1, 1, 1), Point(0, 0, 0));
 
-    Point angles = curCamera.lock()->getAngles();//.deg_to_rad();
+    //Point angles = curCamera.lock()->getAngles();//.deg_to_rad();
+    Point angles = curCamera->getAngles();//.deg_to_rad();
 
     /*reform_mtr = std::make_shared<RotateOxMatrix>(-angles.get_x());
     projection.reform(reform_mtr);

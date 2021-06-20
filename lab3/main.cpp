@@ -13,10 +13,8 @@ int main(int argc, char *argv[])
     return a.exec();
 }
 
-
-/*TODO:
- * camera in ObjectDrawer?????
+/*
+ * check Visitor and draw stuff to be correct
  *
  *
- *
- * */
+ */
