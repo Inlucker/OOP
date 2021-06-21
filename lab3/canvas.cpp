@@ -10,9 +10,10 @@ Canvas::Canvas(QWidget *parent) : QWidget(parent)
     solution.registration(1, &FactoryCreator::createQtFactory);
 
     shared_ptr<AbstractFactory> cr(solution.create(1));
-    drawer = cr->createGraphics();
+    drawer = cr->createDrawer();
+    canvas = cr->createCanvas();
 
-    scene = shared_ptr<QtCanvas>(new QtCanvas());
+    //qtCanvas = shared_ptr<QtCanvas>(new QtCanvas());
     //drawer->setCanvas(scene);
 
     setStyleSheet("background-color:white;");
@@ -34,13 +35,16 @@ void Canvas::paintEvent(QPaintEvent *event)
     float y_center = height() / 2;
     pixmap_painter.translate(x_center, y_center);*/
 
-    pixmap_painter.drawPixmap(0, 0, *scene->getPixMap());
+
+    shared_ptr<QtCanvas> qtCanvas = dynamic_pointer_cast<QtCanvas>(canvas);
+    pixmap_painter.drawPixmap(0, 0, *qtCanvas->getPixMap());
     //pixmap_painter.drawPixmap(0, 0, *canvasPixmap);
 }
 
 void Canvas::clean()
 {
-    scene->getPixMap()->fill(QColor(0, 0, 0, 0));
+    shared_ptr<QtCanvas> qtCanvas = dynamic_pointer_cast<QtCanvas>(canvas);
+    qtCanvas->getPixMap()->fill(QColor(0, 0, 0, 0));
 
     update();
 }

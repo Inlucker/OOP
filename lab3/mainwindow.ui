@@ -304,7 +304,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>cube1.txt</string>
+      <string>12granSec.txt</string>
      </property>
     </widget>
     <widget class="QLineEdit" name="lineEdit_camera_x">

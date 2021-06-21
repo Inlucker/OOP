@@ -1,8 +1,14 @@
 #include "qtfactory.h"
 
 #include "qtdrawer.h"
+#include "qtcanvas.h"
 
-unique_ptr<BaseDrawer> QtFactory::createGraphics()
+unique_ptr<BaseDrawer> QtFactory::createDrawer()
 {
-    return std::unique_ptr<BaseDrawer> (new QtDrawer());
+    return unique_ptr<BaseDrawer> (new QtDrawer());
+}
+
+unique_ptr<BaseCanvas> QtFactory::createCanvas()
+{
+    return unique_ptr<BaseCanvas> (new QtCanvas());
 }

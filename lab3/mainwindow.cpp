@@ -20,7 +20,8 @@ MainWindow::MainWindow(QWidget *parent)
     interface->execute(setDrawerCmd);
 
     //SetScene
-    SetCanvas setCanvasCmd(canvas->scene);
+    //SetCanvas setCanvasCmd(canvas->scene);
+    SetCanvas setCanvasCmd(canvas->canvas);
     interface->execute(setCanvasCmd);
 
 
