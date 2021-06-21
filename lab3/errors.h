@@ -80,6 +80,17 @@ public:
     }
 };
 
+class SetCanvasError : public BaseError
+{
+public:
+    SetCanvasError(string info, string filename, int line, const char *time, string error = "Set canvas error")
+        : BaseError(info, filename, line, time, error) {};
+    virtual const char* what() const noexcept
+    {
+        return err_info.c_str();
+    }
+};
+
 class UseCameraError : public BaseError
 {
 public:

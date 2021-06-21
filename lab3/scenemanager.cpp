@@ -56,7 +56,7 @@ void SceneManager::useCamera(shared_ptr<Camera> newCamera)
     if (!newCamera)
     {
         time_t t_time = time(NULL);
-        throw UseCameraError("Trying to use nullptr as camera", __FILE__, __LINE__, ctime(&t_time));
+        throw UseCameraError("Trying to use not camera object as camera", __FILE__, __LINE__, ctime(&t_time));
     }
     curCamera = newCamera; // weak_ptr = shared_ptr ok?
 }

@@ -17,7 +17,7 @@ public:
     BaseDrawer();
     virtual ~BaseDrawer() = 0;
     virtual void drawLine(const Point &p1, const Point &p2) = 0;
-    virtual void setCanvas(shared_ptr<BaseCanvas> newScene);
+    virtual void setCanvas(shared_ptr<BaseCanvas> newCanvas);
     virtual void clear() = 0;
 
 protected:

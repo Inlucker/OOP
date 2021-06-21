@@ -4,3 +4,13 @@ BaseCanvas::~BaseCanvas()
 {
 
 }
+
+TestCanvas::TestCanvas()
+{
+
+}
+
+void TestCanvas::clear()
+{
+
+}

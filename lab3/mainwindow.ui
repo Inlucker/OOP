@@ -83,7 +83,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>MoveModels</string>
+      <string>MoveObjects</string>
      </property>
     </widget>
     <widget class="QLineEdit" name="lineEdit_x">
@@ -161,7 +161,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>ScaleModels</string>
+      <string>ScaleObjects</string>
      </property>
     </widget>
    </widget>
@@ -213,7 +213,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>RotateModels</string>
+      <string>RotateObjects</string>
      </property>
     </widget>
     <widget class="QLineEdit" name="lineEdit_y_3">
@@ -291,7 +291,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>DeleteObj</string>
+      <string>DeleteObject</string>
      </property>
     </widget>
     <widget class="QLineEdit" name="lineEdit_model">

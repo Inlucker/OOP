@@ -30,12 +30,12 @@ void ObjectVisitor::visit(const Model &model)
 
 void ObjectVisitor::visit(const Camera &camera)
 {
-    cout << "Visited Camera;" << endl;
+    //cout << "Visited Camera;" << endl;
 }
 
 void ObjectVisitor::visit(const Composite &comp)
 {
-    cout << "Visited compisite;" << endl;
+    //cout << "Visited compisite;" << endl;
 }
 
 Point ObjectVisitor::getProection(Point &_point)

@@ -15,18 +15,22 @@ MainWindow::MainWindow(QWidget *parent)
     canvas = new Canvas();
     ui->gridLayout->addWidget(canvas);
 
-    //SetDrawer
-    SetDrawer setDrawerCmd(canvas->drawer);
-    interface->execute(setDrawerCmd);
-
-    //SetScene
-    //SetCanvas setCanvasCmd(canvas->scene);
-    SetCanvas setCanvasCmd(canvas->canvas);
-    interface->execute(setCanvasCmd);
-
+    ui->tableWidget->setRowCount(0);
+    ui->tableWidget->setColumnCount(1);
+    ui->tableWidget->setHorizontalHeaderLabels(QStringList() << "Object");
 
     try
     {
+        //SetDrawer
+        SetDrawer setDrawerCmd(canvas->drawer);
+        interface->execute(setDrawerCmd);
+
+        //SetScene
+        //shared_ptr<TestCanvas> testCanvas = make_shared<TestCanvas>(TestCanvas());
+        //SetCanvas setCanvasCmd(testCanvas);
+        SetCanvas setCanvasCmd(canvas->canvas);
+        interface->execute(setCanvasCmd);
+
         AddCamera addCameraCmd(Point(0, 0, 0), Point(0, 0, 0));
         AddCamera addCameraCmd2(Point(0, 300, -300), Point(45, 45, 45));
         //AddCamera addCameraCmd(Point(200, 200, 300), Point(45, 45, 35));
@@ -34,8 +38,6 @@ MainWindow::MainWindow(QWidget *parent)
         interface->execute(addCameraCmd2);
 
         ui->tableWidget->setRowCount(2);
-        ui->tableWidget->setColumnCount(1);
-        ui->tableWidget->setHorizontalHeaderLabels(QStringList() << "Object");
 
         QTableWidgetItem *obj_itm = new QTableWidgetItem("Camera");
         obj_itm->setBackground(QBrush(Qt::green));
@@ -147,6 +149,8 @@ void MainWindow::mouseMoveEvent(QMouseEvent *event)
             /*TransformObject transformCmd(n, Point(0, 0, 0), Point(1, 1, 1), Point(y, x, 0));
             interface->execute(transformCmd);*/
 
+            ClearCanvas clearCmd;
+            interface->execute(clearCmd);
             DrawScene drawCmd;
             interface->execute(drawCmd);
 
@@ -172,6 +176,8 @@ void MainWindow::mouseMoveEvent(QMouseEvent *event)
                 interface->execute(transformCmd);
             }
 
+            ClearCanvas clearCmd;
+            interface->execute(clearCmd);
             DrawScene drawCmd;
             interface->execute(drawCmd);
 
@@ -224,6 +230,8 @@ void MainWindow::wheelEvent(QWheelEvent *event)
                 interface->execute(transformCmd);
             }
 
+            ClearCanvas clearCmd;
+            interface->execute(clearCmd);
             DrawScene drawCmd;
             interface->execute(drawCmd);
 
@@ -244,11 +252,14 @@ void MainWindow::on_ClearSceneBtn_clicked()
 {
     try
     {
-        ClearObjects clearCmd;
-        interface->execute(clearCmd);
+        ClearObjects clearObjectsCmd;
+        interface->execute(clearObjectsCmd);
 
         //ui->tableWidget->clear();
         ui->tableWidget->setRowCount(0);
+
+        ClearCanvas clearCmd;
+        interface->execute(clearCmd);
 
         /*DrawScene drawCmd;
         interface->execute(drawCmd);*/
@@ -281,6 +292,8 @@ void MainWindow::on_AddModelBtn_clicked()
         QTableWidgetItem *obj_itm = new QTableWidgetItem("Model");
         ui->tableWidget->setItem(ui->tableWidget->rowCount()-1, 0, obj_itm);
 
+        ClearCanvas clearCmd;
+        interface->execute(clearCmd);
         DrawScene drawCmd;
         interface->execute(drawCmd);
 
@@ -335,6 +348,8 @@ void MainWindow::on_RotateModelBtn_clicked()
             interface->execute(transformCmd);
         }
 
+        ClearCanvas clearCmd;
+        interface->execute(clearCmd);
         DrawScene drawCmd;
         interface->execute(drawCmd);
 
@@ -389,6 +404,8 @@ void MainWindow::on_MoveModelBtn_clicked()
             interface->execute(transformCmd);
         }
 
+        ClearCanvas clearCmd;
+        interface->execute(clearCmd);
         DrawScene drawCmd;
         interface->execute(drawCmd);
 
@@ -443,6 +460,8 @@ void MainWindow::on_ScaleModelBtn_clicked()
             interface->execute(transformCmd);
         }
 
+        ClearCanvas clearCmd;
+        interface->execute(clearCmd);
         DrawScene drawCmd;
         interface->execute(drawCmd);
 
@@ -548,6 +567,8 @@ void MainWindow::on_DeleteObjBtn_clicked()
             }
         }
 
+        ClearCanvas clearCmd;
+        interface->execute(clearCmd);
         DrawScene drawCmd;
         interface->execute(drawCmd);
 
@@ -582,6 +603,8 @@ void MainWindow::on_SetCameraBtn_clicked()
         }
         ui->tableWidget->item(selectedRows[0].row(), 0)->setBackground(QBrush(Qt::green));
 
+        ClearCanvas clearCmd;
+        interface->execute(clearCmd);
         DrawScene drawCmd;
         interface->execute(drawCmd);
 

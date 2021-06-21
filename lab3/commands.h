@@ -26,6 +26,15 @@ private:
     const Point rotate;
 };
 
+class ClearCanvas : public BaseCommand
+{
+public:
+    //DrawScene() = delete;
+    ClearCanvas();
+    ~ClearCanvas() = default;
+    virtual void execute() override;
+};
+
 class DrawScene : public BaseCommand
 {
 public:

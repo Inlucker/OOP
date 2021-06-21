@@ -16,7 +16,10 @@ public:
     virtual ~QtDrawer() override;
 
     virtual void drawLine(const Point &p1, const Point &p2) override;
+    virtual void setCanvas(shared_ptr<BaseCanvas> newCanvas) override;
     virtual void clear() override;
+private:
+    shared_ptr<QPainter> painter;
 };
 
 #endif // QTDRAWER_H

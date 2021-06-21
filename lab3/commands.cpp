@@ -29,6 +29,17 @@ void TransformObject::execute()
 
 }
 
+ClearCanvas::ClearCanvas()
+{
+
+}
+
+void ClearCanvas::execute()
+{
+    shared_ptr<SceneManager> sceneMan = SceneManagerCreator().getManager();
+    sceneMan->clearCanvas();
+}
+
 DrawScene::DrawScene()
 {
 
@@ -37,7 +48,7 @@ DrawScene::DrawScene()
 void DrawScene::execute()
 {
     shared_ptr<SceneManager> sceneMan = SceneManagerCreator().getManager();
-    sceneMan->clearCanvas();
+    //sceneMan->clearCanvas();
     sceneMan->drawScene();
 }
 
@@ -50,7 +61,7 @@ void ClearObjects::execute()
 {
     shared_ptr<SceneManager> sceneMan = SceneManagerCreator().getManager();
     sceneMan->clearObjects();
-    sceneMan->clearCanvas();
+    //sceneMan->clearCanvas();
 }
 
 LoadModel::LoadModel(string fileName) : fileName(fileName)
