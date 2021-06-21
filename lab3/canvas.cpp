@@ -12,6 +12,7 @@ Canvas::Canvas(QWidget *parent) : QWidget(parent)
     shared_ptr<AbstractFactory> cr(solution.create(1));
     drawer = cr->createDrawer();
     canvas = cr->createCanvas();
+    qtCanvas = dynamic_pointer_cast<QtCanvas>(canvas);
 
     //qtCanvas = shared_ptr<QtCanvas>(new QtCanvas());
     //drawer->setCanvas(scene);
@@ -31,19 +32,14 @@ void Canvas::paintEvent(QPaintEvent *event)
 {
     QPainter pixmap_painter(this);
 
-    /*float x_center = width() / 2;
-    float y_center = height() / 2;
-    pixmap_painter.translate(x_center, y_center);*/
-
-
-    shared_ptr<QtCanvas> qtCanvas = dynamic_pointer_cast<QtCanvas>(canvas);
+    //shared_ptr<QtCanvas> qtCanvas = dynamic_pointer_cast<QtCanvas>(canvas);
     pixmap_painter.drawPixmap(0, 0, *qtCanvas->getPixMap());
     //pixmap_painter.drawPixmap(0, 0, *canvasPixmap);
 }
 
 void Canvas::clean()
 {
-    shared_ptr<QtCanvas> qtCanvas = dynamic_pointer_cast<QtCanvas>(canvas);
+    //shared_ptr<QtCanvas> qtCanvas = dynamic_pointer_cast<QtCanvas>(canvas);
     qtCanvas->getPixMap()->fill(QColor(0, 0, 0, 0));
 
     update();
