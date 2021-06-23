@@ -25,7 +25,7 @@ public:
     shared_ptr<BaseDrawer> drawer;
     shared_ptr<BaseCanvas> canvas;
     //shared_ptr<QtCanvas> qtCanvas;
-    shared_ptr<QPixmap> qtCanvas;
+    shared_ptr<QPixmap> qtPixmap;
 
 private:
     //QPainter *painter = nullptr;

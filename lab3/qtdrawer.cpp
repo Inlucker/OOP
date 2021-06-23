@@ -49,7 +49,8 @@ void QtDrawer::setCanvas(shared_ptr<BaseCanvas> newCanvas)
         if (painter->isActive())
             painter->end();
         canvas = newCanvas;
-        painter = shared_ptr<QPainter>(new QPainter(&*qtCanvas->getPixMap()));
+        painter->begin(&*qtCanvas->getPixMap());
+        //painter = shared_ptr<QPainter>(new QPainter(&*qtCanvas->getPixMap()));
         painter->setPen(Qt::black);
         //painter->setPen(Qt::red);
     }
