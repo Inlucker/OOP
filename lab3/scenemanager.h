@@ -39,7 +39,7 @@ private:
 private:
     shared_ptr<Scene> scene;
     weak_ptr<Camera> curCamera;
-    size_t curCameraId;
+    long curCameraId;
     //shared_ptr<BaseVisitor> objectDrawer;
     shared_ptr<BaseDrawer> drawer;
     shared_ptr<Caretaker> caretaker;

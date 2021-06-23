@@ -94,9 +94,25 @@ void SceneManager::useCamera(size_t cameraId)
 
 weak_ptr<Camera> SceneManager::getCamera() const
 {
-    time_t t_time = time(NULL);
-    if (curCamera.expired())
+    //IF WANT TO DELETE curCamera
+    /*if (curCameraId < 0)
+    {
+        time_t t_time = time(NULL);
         throw NoCameraError("No active camera", __FILE__, __LINE__, ctime(&t_time));
+    }
+    shared_ptr<Camera> curCamera = dynamic_pointer_cast<Camera>(scene->getObject(curCameraId));
+    if (!curCamera)
+    {
+        time_t t_time = time(NULL);
+        throw UseCameraError("Trying to use not camera object as camera", __FILE__, __LINE__, ctime(&t_time));
+    }
+    return curCamera;*/
+
+    if (curCamera.expired())
+    {
+        time_t t_time = time(NULL);
+        throw NoCameraError("No active camera", __FILE__, __LINE__, ctime(&t_time));
+    }
     return curCamera;
 }
 
