@@ -47,7 +47,8 @@ private slots:
     void on_SetCameraBtn_clicked();
 
 private:
-    Canvas *canvas;
+    //Canvas *canvas;
+    shared_ptr<Canvas> canvas;
     shared_ptr<Facade> interface;
 
     bool LMB_is_pressed = false;

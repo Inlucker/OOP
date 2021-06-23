@@ -8,7 +8,7 @@ unique_ptr<BaseDrawer> QtFactory::createDrawer()
     return unique_ptr<BaseDrawer> (new QtDrawer());
 }
 
-unique_ptr<BaseCanvas> QtFactory::createCanvas()
+/*unique_ptr<BaseCanvas> QtFactory::createCanvas()
 {
     return unique_ptr<BaseCanvas> (new QtCanvas());
-}
+}*/

@@ -12,8 +12,10 @@ MainWindow::MainWindow(QWidget *parent)
     this->setFixedHeight(this->height());
     this->setFixedWidth(this->width());
 
-    canvas = new Canvas();
-    ui->gridLayout->addWidget(canvas);
+    //canvas = new Canvas();
+    canvas = shared_ptr<Canvas>(new Canvas());
+    //ui->gridLayout->addWidget(canvas);
+    ui->gridLayout->addWidget(&*canvas);
 
     ui->tableWidget->setRowCount(0);
     ui->tableWidget->setColumnCount(1);
@@ -72,7 +74,7 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow()
 {
     delete ui;
-    delete canvas;
+    //delete canvas;
 }
 
 void MainWindow::mouseReleaseEvent(QMouseEvent *event)

@@ -14,7 +14,7 @@ public:
     QtFactory() = default;
     ~QtFactory() = default;
     virtual unique_ptr<BaseDrawer> createDrawer() override;
-    virtual unique_ptr<BaseCanvas> createCanvas() override;
+    //virtual unique_ptr<BaseCanvas> createCanvas() override;
 };
 
 #endif // QTFACTORY_H

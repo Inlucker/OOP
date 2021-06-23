@@ -14,7 +14,7 @@ public:
     AbstractFactory() = default;
     virtual ~AbstractFactory() = 0;
     virtual unique_ptr<BaseDrawer> createDrawer() = 0;
-    virtual unique_ptr<BaseCanvas> createCanvas() = 0;
+    //virtual unique_ptr<BaseCanvas> createCanvas() = 0;
 };
 
 #endif // ABSTRACTFACTORY_H

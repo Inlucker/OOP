@@ -9,17 +9,21 @@ using namespace std;
 
 #include "basecanvas.h"
 
+class QtDrawer;
+
 class QtCanvas : public BaseCanvas
 {
 public:
     QtCanvas();
-    QtCanvas(shared_ptr<QPixmap> newPixmap);
+    explicit QtCanvas(shared_ptr<QPixmap> newPixmap);
     ~QtCanvas() = default;
 
     //virtual void drawLine(double x1, double y1, double x2, double y2) override;
     virtual void clear() override;
 
+private:
     shared_ptr<QPixmap> getPixMap() const;
+    friend QtDrawer;
 
 private:
     //shared_ptr<QPainter> painter;

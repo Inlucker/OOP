@@ -24,7 +24,8 @@ protected:
 public:
     shared_ptr<BaseDrawer> drawer;
     shared_ptr<BaseCanvas> canvas;
-    shared_ptr<QtCanvas> qtCanvas;
+    //shared_ptr<QtCanvas> qtCanvas;
+    shared_ptr<QPixmap> qtCanvas;
 
 private:
     //QPainter *painter = nullptr;

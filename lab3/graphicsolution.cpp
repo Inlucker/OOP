@@ -20,7 +20,7 @@ unique_ptr<AbstractFactory> FactoryCreator::createQtFactory()
 
 /*GraphicSolution::GraphicSolution()
 {
-
+    this->registration(1, &FactoryCreator::createQtFactory);
 }*/
 
 bool GraphicSolution::registration(size_t id, CreateFactory createfun)
