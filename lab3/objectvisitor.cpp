@@ -22,9 +22,13 @@ void ObjectVisitor::visit(const Model &model)
     //cout << "Visited Model;" << endl;
     auto points = model.getElements()->getPoints();
 
+    shared_ptr<Camera> curCamera = sceneMan->getCamera().lock();
+    Point cameraPosition = Point(curCamera->getPosition());
+    Point cameraAngles = curCamera->getAngles();
+
     for (auto edge: model.getElements()->getEdges())
     {
-        drawer->drawLine(getProection(points.at(edge.getFirst())), getProection(points.at(edge.getSecond())));
+        drawer->drawLine(getProection(points.at(edge.getFirst()), cameraPosition, cameraAngles), getProection(points.at(edge.getSecond()), cameraPosition, cameraAngles));
     }
 }
 
@@ -38,15 +42,16 @@ void ObjectVisitor::visit(const Composite &comp)
     //cout << "Visited compisite;" << endl;
 }
 
-Point ObjectVisitor::getProection(Point &_point)
+Point ObjectVisitor::getProection(Point &_point, Point cameraPosition, Point angles)
 {
-    shared_ptr<SceneManager> sceneMan = SceneManagerCreator().getManager();
-    shared_ptr<Camera> curCamera = sceneMan->getCamera().lock();
+    //shared_ptr<SceneManager> sceneMan = SceneManagerCreator().getManager();
+    //shared_ptr<Camera> curCamera = sceneMan->getCamera().lock();
 
     Point proection(_point);
-    proection.transform(Point(curCamera->getPosition()), Point(1, 1, 1), Point(0, 0, 0));
+    //proection.transform(Point(curCamera->getPosition()), Point(1, 1, 1), Point(0, 0, 0));
+    proection.transform(cameraPosition, Point(1, 1, 1), Point(0, 0, 0));
 
-    Point angles = curCamera->getAngles();
+    //Point angles = curCamera->getAngles();
 
     proection.transform(Point(0, 0, 0), Point(1, 1, 1), Point(-angles.getX(), -angles.getY(), -angles.getZ()));
 

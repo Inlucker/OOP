@@ -5,8 +5,9 @@
 
 #include "modelelements.h"
 //#include "basevisitor.h"
+#include "objectvisitor.h"
 
-class ObjectVisitor;
+//class ObjectVisitor;
 
 class Model : public Object
 {
@@ -24,7 +25,8 @@ private:
 
 private:
     const shared_ptr<ModelElements> getElements() const;
-    friend ObjectVisitor;
+    //friend ObjectVisitor;
+    friend void ObjectVisitor::visit(const Model &model);
 };
 
 #endif // MODEL_H

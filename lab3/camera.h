@@ -4,8 +4,9 @@
 #include "object.h"
 
 #include "point.h"
+#include "objectvisitor.h"
 
-class ObjectVisitor;
+//class ObjectVisitor;
 
 class Camera : public Object
 {
@@ -21,7 +22,8 @@ private:
     void rotate(Point move);
     const Point &getPosition() const;
     const Point &getAngles() const;
-    friend ObjectVisitor;
+    //friend ObjectVisitor;
+    friend void ObjectVisitor::visit(const Model &model);
 
 private:
     Point position;

@@ -20,7 +20,7 @@ public:
     virtual void visit(const Composite &comp) override;
 
 private:
-    Point getProection(Point &_point);
+    Point getProection(Point &_point, Point cameraPosition, Point angles);
 };
 
 #endif // OBJECTVISITOR_H

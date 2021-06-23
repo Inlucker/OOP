@@ -38,8 +38,6 @@ void QtDrawer::drawLine(const Point &p1, const Point &p2)
 
 void QtDrawer::setCanvas(shared_ptr<BaseCanvas> newCanvas)
 {
-    if (painter->isActive())
-        painter->end();
     shared_ptr<QtCanvas> qtCanvas = dynamic_pointer_cast<QtCanvas>(newCanvas);
     if (!qtCanvas)
     {
@@ -48,6 +46,8 @@ void QtDrawer::setCanvas(shared_ptr<BaseCanvas> newCanvas)
     }
     else
     {
+        if (painter->isActive())
+            painter->end();
         canvas = newCanvas;
         painter = shared_ptr<QPainter>(new QPainter(&*qtCanvas->getPixMap()));
         painter->setPen(Qt::black);

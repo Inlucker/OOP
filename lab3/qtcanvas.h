@@ -8,8 +8,9 @@
 using namespace std;
 
 #include "basecanvas.h"
+#include "qtdrawer.h"
 
-class QtDrawer;
+//class QtDrawer;
 
 class QtCanvas : public BaseCanvas
 {
@@ -23,7 +24,7 @@ public:
 
 private:
     shared_ptr<QPixmap> getPixMap() const;
-    friend QtDrawer;
+    friend void QtDrawer::setCanvas(shared_ptr<BaseCanvas> newCanvas);
 
 private:
     //shared_ptr<QPainter> painter;
