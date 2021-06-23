@@ -8,7 +8,7 @@ SceneManager::SceneManager()
     scene = shared_ptr<Scene>(new Scene());
     curCamera.reset();
 
-    objectDrawer = shared_ptr<BaseVisitor>(new ObjectVisitor());
+    //objectDrawer = shared_ptr<BaseVisitor>(new ObjectVisitor());
 
     drawer.reset();
 }
@@ -23,7 +23,8 @@ void SceneManager::clearCanvas()
 
 void SceneManager::drawScene()
 {
-    scene->getObjects()->accept(objectDrawer);
+    //scene->getObjects()->accept(objectDrawer);
+    scene->getObjects()->accept(shared_ptr<BaseVisitor>(new ObjectVisitor()));
 }
 
 void SceneManager::clearObjects()

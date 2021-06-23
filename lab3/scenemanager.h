@@ -30,7 +30,7 @@ public:
 private:
     shared_ptr<Scene> scene;
     weak_ptr<Camera> curCamera;
-    shared_ptr<BaseVisitor> objectDrawer;
+    //shared_ptr<BaseVisitor> objectDrawer;
     shared_ptr<BaseDrawer> drawer;
     //shared_ptr<BaseCanvas> canvas;
 };
