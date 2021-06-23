@@ -32,6 +32,16 @@ void Composite::accept(shared_ptr<BaseVisitor> visitor)
         obj->accept(visitor);
 }
 
+shared_ptr<Object> Composite::clone()
+{
+    shared_ptr<Object> newComposite = shared_ptr<Object>(new Composite());
+    for (auto& obj : objectsVec)
+    {
+        newComposite->add(obj->clone());
+    }
+    return newComposite;
+}
+
 bool Composite::add(shared_ptr<Object> comp)
 {
     objectsVec.push_back(comp);

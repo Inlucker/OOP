@@ -5,6 +5,19 @@
 
 }*/
 
+ModelElements::ModelElements(ModelElements &modelElements)
+{
+    for (auto& point : modelElements.points)
+    {
+        this->points.push_back(point);
+    }
+    for (auto& edge : modelElements.edges)
+    {
+        this->edges.push_back(edge);
+    }
+    this->updateCenter();
+}
+
 void ModelElements::addPoint(double new_x, double new_y, double new_z)
 {
     points.push_back(Point(new_x, new_y, new_z));

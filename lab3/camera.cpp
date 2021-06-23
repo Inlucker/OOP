@@ -24,6 +24,11 @@ void Camera::accept(shared_ptr<BaseVisitor> visitor)
     visitor->visit(*this);
 }
 
+shared_ptr<Object> Camera::clone()
+{
+    return shared_ptr<Object>(new Camera(position, angles));
+}
+
 void Camera::rotate(Point rotateK)
 {
     angles.setX(angles.getX()+rotateK.getX());

@@ -12,6 +12,7 @@ class ModelElements
 {
 public:
     ModelElements() = default;
+    ModelElements(ModelElements& modelElements);
     void addPoint(double new_x, double new_y, double new_z);
     void addEdge(int new_p1, int new_p2);
     //void addPoint(Point new_p);

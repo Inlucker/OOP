@@ -14,11 +14,15 @@ class Model : public Object
 public:
     //Model() = default;
     Model();
+    Model(Model& model);
     Model(shared_ptr<ModelElements> modelElements);
     ~Model() = default;
+
     virtual void transform(const Point move, const Point scale, const Point rotate) override;
     virtual bool isVisible() const override;
     virtual void accept(shared_ptr<BaseVisitor> visitor) override;
+
+    virtual shared_ptr<Object> clone() override;
 
 private:
     shared_ptr<ModelElements> modelElements;

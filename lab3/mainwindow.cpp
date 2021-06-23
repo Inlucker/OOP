@@ -107,6 +107,8 @@ void MainWindow::mousePressEvent(QMouseEvent *event)
     previous_y = event->position().y();
     if (event->button() == Qt::LeftButton && !LMB_is_pressed && this->canvas->rect().contains(event->pos()))
     {
+        SaveScene saveCmd;
+        interface->execute(saveCmd);
         //cout << "Set" << endl;
         //previous_x = event->x();
         //previous_y = event->y();
@@ -114,6 +116,8 @@ void MainWindow::mousePressEvent(QMouseEvent *event)
     }
     if (event->button() == Qt::RightButton && !RMB_is_pressed && this->canvas->rect().contains(event->pos()))
     {
+        SaveScene saveCmd;
+        interface->execute(saveCmd);
         //cout << "Set" << endl;
         //previous_x = event->x();
         //previous_y = event->y();
@@ -226,6 +230,9 @@ void MainWindow::wheelEvent(QWheelEvent *event)
                 QMessageBox::information(this, "Error", "Выберите хотябы один объект из списка");
                 return;
             }
+
+            SaveScene saveCmd;
+            interface->execute(saveCmd);
             for (int i = 0; i < selectedRows.size(); i++)
             {
                 TransformObject transformCmd(selectedRows[i].row(), Point(0, 0, 0), Point(ky, ky, ky), Point(0, 0, 0));
@@ -344,6 +351,9 @@ void MainWindow::on_RotateModelBtn_clicked()
             QMessageBox::information(this, "Error", "Выберите хотябы один объект из списка");
             return;
         }
+
+        SaveScene saveCmd;
+        interface->execute(saveCmd);
         for (int i = 0; i < selectedRows.size(); i++)
         {
             TransformObject transformCmd(selectedRows[i].row(), Point(0, 0, 0), Point(1, 1, 1), Point(x, y, z));
@@ -400,6 +410,9 @@ void MainWindow::on_MoveModelBtn_clicked()
             QMessageBox::information(this, "Error", "Выберите хотябы один объект из списка");
             return;
         }
+
+        SaveScene saveCmd;
+        interface->execute(saveCmd);
         for (int i = 0; i < selectedRows.size(); i++)
         {
             TransformObject transformCmd(selectedRows[i].row(), Point(x, y, z), Point(1, 1, 1), Point(0, 0, 0));
@@ -456,6 +469,9 @@ void MainWindow::on_ScaleModelBtn_clicked()
             QMessageBox::information(this, "Error", "Выберите хотябы один объект из списка");
             return;
         }
+
+        SaveScene saveCmd;
+        interface->execute(saveCmd);
         for (int i = 0; i < selectedRows.size(); i++)
         {
             TransformObject transformCmd(selectedRows[i].row(), Point(0, 0, 0), Point(x, y, z), Point(0, 0, 0));
@@ -526,6 +542,7 @@ void MainWindow::on_AddCameraBtn_clicked()
             QMessageBox::information(this, "Error", "Параметры преобразовнний должны быть вещественным числами");
             return;
         }
+
         AddCamera addCameraCmd(Point(x, y, z), Point(angle_x, angle_y, angle_z));
         interface->execute(addCameraCmd);
 
@@ -558,6 +575,7 @@ void MainWindow::on_DeleteObjBtn_clicked()
             QMessageBox::information(this, "Error", "Выберите хотябы один объект из списка");
             return;
         }
+
         for (int i = 0; i < selectedRows.size(); i++)
         {
             while (!selectedRows.empty())
@@ -604,6 +622,30 @@ void MainWindow::on_SetCameraBtn_clicked()
             ui->tableWidget->item(i, 0)->setBackground(QBrush(Qt::white));
         }
         ui->tableWidget->item(selectedRows[0].row(), 0)->setBackground(QBrush(Qt::green));
+
+        ClearCanvas clearCmd;
+        interface->execute(clearCmd);
+        DrawScene drawCmd;
+        interface->execute(drawCmd);
+
+        canvas->update();
+    }
+    catch (BaseError &er)
+    {
+        QMessageBox::information(this, "Error", er.what());
+    }
+    catch (...)
+    {
+        QMessageBox::information(this, "Error", "Unexpected Error");
+    }
+}
+
+void MainWindow::on_pushButton_clicked()
+{
+    try
+    {
+        ReturnScene returnCmd;
+        interface->execute(returnCmd);
 
         ClearCanvas clearCmd;
         interface->execute(clearCmd);

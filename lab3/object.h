@@ -25,6 +25,8 @@ public:
     virtual bool isVisible() const = 0;
     virtual void accept(shared_ptr<BaseVisitor> visitor) = 0;
 
+    virtual shared_ptr<Object> clone() = 0;
+
     virtual bool add(shared_ptr<Object> comp);
     virtual bool remove(const IteratorObject& it);
     virtual bool isComposite() const;

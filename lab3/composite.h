@@ -13,6 +13,8 @@ public:
     virtual bool isVisible() const override;
     virtual void accept(shared_ptr<BaseVisitor> visitor) override;
 
+    virtual shared_ptr<Object> clone() override;
+
     virtual bool add(shared_ptr<Object> comp) override;
     virtual bool remove(const IteratorObject& it) override;
     virtual bool isComposite() const override;

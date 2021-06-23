@@ -127,4 +127,20 @@ private:
     shared_ptr<BaseCanvas> scene;
 };
 
+class SaveScene : public BaseCommand
+{
+public:
+    SaveScene();
+    ~SaveScene() = default;
+    virtual void execute() override;
+};
+
+class ReturnScene : public BaseCommand
+{
+public:
+    ReturnScene();
+    ~ReturnScene() = default;
+    virtual void execute() override;
+};
+
 #endif // COMMANDS_H

@@ -46,6 +46,8 @@ private slots:
 
     void on_SetCameraBtn_clicked();
 
+    void on_pushButton_clicked();
+
 private:
     //Canvas *canvas;
     shared_ptr<Canvas> canvas;

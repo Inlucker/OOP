@@ -21,6 +21,7 @@ SOURCES += \
     camera.cpp \
     canvas.cpp \
     carcasmodelbuilder.cpp \
+    caretaker.cpp \
     commands.cpp \
     composite.cpp \
     edge.cpp \
@@ -32,6 +33,7 @@ SOURCES += \
     loadmanagercreator.cpp \
     main.cpp \
     mainwindow.cpp \
+    memento.cpp \
     model.cpp \
     modeldirector.cpp \
     modelelements.cpp \
@@ -61,6 +63,7 @@ HEADERS += \
     camera.h \
     canvas.h \
     carcasmodelbuilder.h \
+    caretaker.h \
     commands.h \
     composite.h \
     edge.h \
@@ -71,6 +74,7 @@ HEADERS += \
     loadmanager.h \
     loadmanagercreator.h \
     mainwindow.h \
+    memento.h \
     model.h \
     modeldirector.h \
     modelelements.h \

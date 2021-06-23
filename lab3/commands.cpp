@@ -26,7 +26,6 @@ void TransformObject::execute()
 
     shared_ptr<TransformManager> transformMan = TransformManagerCreator().getManager();
     transformMan->transformObject(sceneMan->getScene()->getObject(id), move, scale, rotate);
-
 }
 
 ClearCanvas::ClearCanvas()
@@ -110,8 +109,9 @@ UseCamera::UseCamera(size_t newId)
 void UseCamera::execute()
 {
     shared_ptr<SceneManager> sceneMan = SceneManagerCreator().getManager();
-    shared_ptr<Object> newCurCam = sceneMan->getScene()->getObject(id);
-    sceneMan->useCamera(dynamic_pointer_cast<Camera>(newCurCam));
+    //shared_ptr<Object> newCurCam = sceneMan->getScene()->getObject(id);
+    //sceneMan->useCamera(dynamic_pointer_cast<Camera>(newCurCam));
+    sceneMan->useCamera(id);
 }
 
 
@@ -135,4 +135,27 @@ void SetCanvas::execute()
 {
     shared_ptr<SceneManager> sceneMan = SceneManagerCreator().getManager();
     sceneMan->getDrawer()->setCanvas(scene);
+}
+
+SaveScene::SaveScene()
+{
+
+}
+
+void SaveScene::execute()
+{
+    shared_ptr<SceneManager> sceneMan = SceneManagerCreator().getManager();
+    sceneMan->getCareTaker()->addMemento(sceneMan->getScene()->createMemento());
+}
+
+ReturnScene::ReturnScene()
+{
+
+}
+
+void ReturnScene::execute()
+{
+    shared_ptr<SceneManager> sceneMan = SceneManagerCreator().getManager();
+    sceneMan->returnScene();
+    //sceneMan->getScene()->restoreMemento(sceneMan->getCareTaker()->getMemento());
 }
