@@ -10,6 +10,7 @@ CONFIG += c++14
 
 SOURCES += \
     abstractfactory.cpp \
+    abstractiterator.cpp \
     basecanvas.cpp \
     basecommand.cpp \
     basedrawer.cpp \
@@ -52,10 +53,13 @@ SOURCES += \
 
 HEADERS += \
     abstractfactory.h \
+    abstractiterator.h \
     basecanvas.h \
     basecommand.h \
     basedrawer.h \
     basefileloader.h \
+    baseiterator.h \
+    baseiterator.hpp \
     basemanager.h \
     basemodelbuilder.h \
     basemodelloader.h \
@@ -66,11 +70,15 @@ HEADERS += \
     caretaker.h \
     commands.h \
     composite.h \
+    constiterator.h \
+    constiterator.hpp \
     edge.h \
     errors.h \
     facade.h \
     fileloader.h \
     graphicsolution.h \
+    iterator.h \
+    iterator.hpp \
     loadmanager.h \
     loadmanagercreator.h \
     mainwindow.h \

@@ -84,7 +84,7 @@ AddCamera::AddCamera(Point pos, Point angs)
 
 void AddCamera::execute()
 {
-    shared_ptr<LoadManager> loadMan = LoadManagerCreator().getManager();
+    //shared_ptr<LoadManager> loadMan = LoadManagerCreator().getManager();
     shared_ptr<Camera> newCamera = shared_ptr<Camera>(new Camera(position, angles));
     shared_ptr<SceneManager> sceneMan = SceneManagerCreator().getManager();
     sceneMan->addCamera(newCamera);

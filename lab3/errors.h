@@ -124,4 +124,71 @@ public:
     }
 };
 
+//Iterator and composite errors
+class EmptyError : public BaseError
+{
+public:
+    EmptyError(string info, string filename, int line, const char *time, string error = "Trying to use empty vector")
+        : BaseError(info, filename, line, time, error) {};
+    virtual const char* what() const noexcept
+    {
+        return err_info.c_str();
+    }
+};
+
+class NegativeSizeError : public BaseError
+{
+public:
+    NegativeSizeError(string info, string filename, int line, const char *time, string error = "Trying to create vector with negative size")
+        : BaseError(info, filename, line, time, error) {};
+    virtual const char* what() const noexcept
+    {
+        return err_info.c_str();
+    }
+};
+
+class MemoryError : public BaseError
+{
+public:
+    MemoryError(string info, string filename, int line, const char *time, string error = "Memory error")
+        : BaseError(info, filename, line, time, error) {};
+    virtual const char* what() const noexcept
+    {
+        return err_info.c_str();
+    }
+};
+
+class IteratorWeakPtrError : public BaseError
+{
+public:
+    IteratorWeakPtrError(string info, string filename, int line, const char *time, string error = "Iterator weak_ptr error")
+        : BaseError(info, filename, line, time, error) {};
+    virtual const char* what() const noexcept
+    {
+        return err_info.c_str();
+    }
+};
+
+class IteratorIdError : public BaseError
+{
+public:
+    IteratorIdError(string info, string filename, int line, const char *time, string error = "Iterator id out of range")
+        : BaseError(info, filename, line, time, error) {};
+    virtual const char* what() const noexcept
+    {
+        return err_info.c_str();
+    }
+};
+
+class DifSizeError : public BaseError
+{
+public:
+    DifSizeError(string info, string filename, int line, const char *time, string error = "Opearation with different sized vectors")
+        : BaseError(info, filename, line, time, error) {};
+    virtual const char* what() const noexcept
+    {
+        return err_info.c_str();
+    }
+};
+
 #endif // ERRORS_H

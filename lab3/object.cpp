@@ -5,7 +5,7 @@ bool Object::add(shared_ptr<Object> comp)
     return false;
 }
 
-bool Object::remove(const IteratorObject &it)
+bool Object::remove(ConstIteratorObject &it)
 {
     return false;
 }
@@ -20,17 +20,27 @@ bool Object::clear()
     return false;
 }
 
-size_t Object::size()
+int Object::size() const
 {
     return 1;
 }
 
-IteratorObject Object::begin() const
+Iterator<Type> Object::begin() noexcept
 {
-    return IteratorObject();
+    return Iterator<Type>();
 }
 
-IteratorObject Object::end() const
+Iterator<Type> Object::end() noexcept
 {
-    return IteratorObject();
+    return Iterator<Type>();
+}
+
+ConstIterator<Type> Object::cbegin() const noexcept
+{
+    return ConstIterator<Type>();
+}
+
+ConstIterator<Type> Object::cend() const noexcept
+{
+    return ConstIterator<Type>();
 }

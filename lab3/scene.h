@@ -6,11 +6,16 @@
 using namespace std;
 
 //#include "composite.h"
-class Object;
+//#include "iterator.hpp"
+//#include "constiterator.hpp"
+#include "object.h"
+//class Object;
 class Camera;
 
 //For CareTaker
 class Memento;
+
+using SceneObject = shared_ptr<Object>;
 
 class Scene
 {
@@ -32,8 +37,10 @@ public:
     const shared_ptr<Object> getState() const;
     void setState(shared_ptr<Object> objs);*/
 
-    //IteratorObject begin() const;
-    //IteratorObject end() const;
+    IteratorObject begin() noexcept;
+    IteratorObject end() noexcept;
+    ConstIteratorObject cbegin() const noexcept; //Added constIterator
+    ConstIteratorObject cend() const noexcept;
 
     std::unique_ptr<Memento> createMemento();
     void restoreMemento(unique_ptr<Memento> memento);

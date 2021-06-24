@@ -5,6 +5,9 @@
 #include "composite.h"
 #include "camera.h"
 
+//#include "iterator.hpp"
+//#include "constiterator.hpp"
+
 using namespace std;
 
 Scene::Scene()
@@ -38,7 +41,7 @@ void Scene::deleteObject(const size_t obg_id)
         time_t t_time = time(NULL);
         throw IndexError("Id error", __FILE__, __LINE__, ctime(&t_time));
     }
-    IteratorObject it = objects->begin();
+    ConstIteratorObject it = objects->cbegin();
     for (size_t i = 0; i < obg_id; i++)
         it++;
     objects->remove(it);
@@ -66,6 +69,28 @@ shared_ptr<Object> Scene::getObjects() const
 {
     return objects;
 }
+
+IteratorObject Scene::begin() noexcept
+{
+    return objects->begin();
+}
+
+IteratorObject Scene::end() noexcept
+{
+    return objects->end();
+}
+
+ConstIteratorObject Scene::cbegin() const noexcept
+{
+    return objects->cbegin();
+}
+
+ConstIteratorObject Scene::cend() const noexcept
+{
+    return objects->cend();
+}
+
+
 
 //for CareTaker
 /*Scene::Scene(shared_ptr<Object> objs) : objects(objs) {}
