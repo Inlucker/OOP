@@ -261,6 +261,9 @@ void MainWindow::on_ClearSceneBtn_clicked()
 {
     try
     {
+        /*SaveScene saveCmd;
+        interface->execute(saveCmd);*/
+
         ClearObjects clearObjectsCmd;
         interface->execute(clearObjectsCmd);
 
@@ -661,5 +664,36 @@ void MainWindow::on_pushButton_clicked()
     catch (...)
     {
         QMessageBox::information(this, "Error", "Unexpected Error");
+    }
+    //updateTable();
+}
+
+#include "scenemanagercreator.h"
+#include "scenemanager.h"
+
+//Не нужно, просто тестирую
+void MainWindow::updateTable()
+{
+    shared_ptr<SceneManager> sceneMan = SceneManagerCreator().getManager();
+    shared_ptr<Object> comp = sceneMan->getScene()->getObjects();
+    ui->tableWidget->setRowCount(comp->size());
+    IteratorObject obj = comp->begin();
+    int i = 0;
+    while (obj != comp->end())
+    {
+        shared_ptr<Camera> tmpCam = dynamic_pointer_cast<Camera>(*obj);
+        shared_ptr<Model> tmpMod = dynamic_pointer_cast<Model>(*obj);
+        if (tmpCam)
+        {
+            QTableWidgetItem *obj_itm = new QTableWidgetItem("Camera");
+            ui->tableWidget->setItem(i, 0, obj_itm);
+        }
+        if (tmpMod)
+        {
+            QTableWidgetItem *obj_itm = new QTableWidgetItem("Model");
+            ui->tableWidget->setItem(i, 0, obj_itm);
+        }
+        i++;
+        obj++;
     }
 }

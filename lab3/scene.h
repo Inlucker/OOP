@@ -22,7 +22,8 @@ public:
     void addObject(shared_ptr<Object> new_model);
     void deleteObject(const size_t obg_id);
     void clear();
-    shared_ptr<Object> getObject(const size_t id) const;
+    shared_ptr<Object> getObject(const size_t id) const; //Добавить идентефикатор
+    //Реализовать итератор для сцены - это контейнер
     shared_ptr<Object> getObjects() const;
 
     //For CareTaker

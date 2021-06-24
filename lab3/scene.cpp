@@ -33,7 +33,7 @@ void Scene::addObject(shared_ptr<Object> new_model)
 
 void Scene::deleteObject(const size_t obg_id)
 {
-    if (obg_id + 1 > objects->size() || obg_id + 1 < 0)
+    if (obg_id >= objects->size() || obg_id + 1 < 0)
     {
         time_t t_time = time(NULL);
         throw IndexError("Id error", __FILE__, __LINE__, ctime(&t_time));
@@ -51,7 +51,7 @@ void Scene::clear()
 
 shared_ptr<Object> Scene::getObject(const size_t id) const
 {
-    if (id + 1 > objects->size() || id < 0)
+    if (id >= objects->size() || id < 0)
     {
         time_t t_time = time(NULL);
         throw IndexError("Id error", __FILE__, __LINE__, ctime(&t_time));

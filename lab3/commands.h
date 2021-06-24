@@ -101,6 +101,7 @@ public:
 
 private:
     size_t id;
+    //long id;
 };
 
 class SetDrawer : public BaseCommand

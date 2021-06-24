@@ -49,6 +49,9 @@ private slots:
     void on_pushButton_clicked();
 
 private:
+    void updateTable();
+
+private:
     //Canvas *canvas;
     shared_ptr<Canvas> canvas;
     shared_ptr<Facade> interface;
