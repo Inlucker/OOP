@@ -27,8 +27,8 @@ void SceneManager::clearCanvas()
 
 void SceneManager::drawScene()
 {
-    //scene->getObjects()->accept(objectDrawer);
-    scene->getObjects()->accept(shared_ptr<BaseVisitor>(new ObjectVisitor()));
+    //scene->getObjects()->accept(shared_ptr<BaseVisitor>(new ObjectVisitor()));
+    scene->getObjects()->accept(shared_ptr<BaseVisitor>(new ObjectVisitor(drawer, curCamera.lock())));
 }
 
 void SceneManager::clearObjects()

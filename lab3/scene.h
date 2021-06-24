@@ -32,6 +32,9 @@ public:
     const shared_ptr<Object> getState() const;
     void setState(shared_ptr<Object> objs);*/
 
+    //IteratorObject begin() const;
+    //IteratorObject end() const;
+
     std::unique_ptr<Memento> createMemento();
     void restoreMemento(unique_ptr<Memento> memento);
 

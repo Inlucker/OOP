@@ -14,6 +14,7 @@ class ObjectVisitor : public BaseVisitor
 {
 public:
     ObjectVisitor();
+    ObjectVisitor(shared_ptr<BaseDrawer> newDrawer, shared_ptr<Camera> newCamera);
 
     virtual void visit(const Model &model) override;
     virtual void visit(const Camera &camera) override;
@@ -21,6 +22,10 @@ public:
 
 private:
     Point getProection(Point &_point, Point cameraPosition, Point angles);
+
+private:
+    shared_ptr<BaseDrawer> drawer;
+    shared_ptr<Camera> curCamera;
 };
 
 #endif // OBJECTVISITOR_H

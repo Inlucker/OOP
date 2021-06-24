@@ -15,20 +15,27 @@ ObjectVisitor::ObjectVisitor()
 
 }
 
+ObjectVisitor::ObjectVisitor(shared_ptr<BaseDrawer> newDrawer, shared_ptr<Camera> newCamera)
+{
+    drawer = newDrawer;
+    curCamera = newCamera;
+}
+
 void ObjectVisitor::visit(const Model &model)
 {
-    shared_ptr<SceneManager> sceneMan = SceneManagerCreator().getManager();
-    shared_ptr<BaseDrawer> drawer = sceneMan->getDrawer();
+    //shared_ptr<SceneManager> sceneMan = SceneManagerCreator().getManager();
+    //shared_ptr<BaseDrawer> drawer = sceneMan->getDrawer();
     //cout << "Visited Model;" << endl;
     auto points = model.getElements()->getPoints();
 
-    shared_ptr<Camera> curCamera = sceneMan->getCamera().lock();
+    //shared_ptr<Camera> curCamera = sceneMan->getCamera().lock();
     Point cameraPosition = Point(curCamera->getPosition());
     Point cameraAngles = curCamera->getAngles();
 
     for (auto edge: model.getElements()->getEdges())
     {
         drawer->drawLine(getProection(points.at(edge.getFirst()), cameraPosition, cameraAngles), getProection(points.at(edge.getSecond()), cameraPosition, cameraAngles));
+        //drawer->drawLine(getProection(points.at(edge.getFirst())), getProection(points.at(edge.getSecond())));
     }
 }
 
