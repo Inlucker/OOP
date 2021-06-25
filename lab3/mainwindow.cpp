@@ -44,10 +44,8 @@ MainWindow::MainWindow(QWidget *parent)
         ui->tableWidget->setRowCount(2);
 
         QTableWidgetItem *obj_itm11 = new QTableWidgetItem("Camera");
-        obj_itm11->setBackground(QBrush(Qt::green));
         ui->tableWidget->setItem(0, 0, obj_itm11);
         QTableWidgetItem *obj_itm12 = new QTableWidgetItem("Robert");
-        obj_itm12->setBackground(QBrush(Qt::green));
         ui->tableWidget->setItem(0, 1, obj_itm12);
 
         QTableWidgetItem *obj_itm21 = new QTableWidgetItem("Camera");
@@ -55,8 +53,12 @@ MainWindow::MainWindow(QWidget *parent)
         QTableWidgetItem *obj_itm22 = new QTableWidgetItem("Leo");
         ui->tableWidget->setItem(1, 1, obj_itm22);
 
-        UseCamera useCamera(0);
+        //UseCamera useCamera(0);
+        UseCameraName useCamera("Robert");
         interface->execute(useCamera);
+
+        obj_itm11->setBackground(QBrush(Qt::green));
+        obj_itm12->setBackground(QBrush(Qt::green));
     }
     catch (BaseError &er)
     {

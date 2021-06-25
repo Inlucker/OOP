@@ -25,18 +25,18 @@ public:
     ~Scene() = default;
 
     void addObject(shared_ptr<Object> new_model);
-    void deleteObject(const size_t obg_id);
+    //void deleteObject(const size_t obg_id);
     void deleteObject(string name);
     void deleteObject(IteratorObject it);
     void clear();
-    shared_ptr<Object> getObject(const size_t id) const; //Добавить идентефикатор
+    //shared_ptr<Object> getObject(const size_t id) const; //Добавить идентефикатор
     shared_ptr<Object> getObject(string name) const;
     shared_ptr<Object> getObjects() const;
 
     //Реализовать итератор для сцены - это контейнер
     IteratorObject begin() noexcept;
     IteratorObject end() noexcept;
-    ConstIteratorObject cbegin() const noexcept; //Added constIterator
+    ConstIteratorObject cbegin() const noexcept;
     ConstIteratorObject cend() const noexcept;
 
     //For CareTaker
@@ -44,10 +44,7 @@ public:
     void restoreMemento(unique_ptr<Memento> memento);
 
 private:
-    //objects;
-    shared_ptr<Object> objects; //Объеденил модели и камеры
-    //shared_ptr<Object> models;
-    //shared_ptr<Object> cameras;
+    shared_ptr<Object> objects;
 };
 
 #endif // SCENE_H

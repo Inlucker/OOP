@@ -27,10 +27,8 @@ public:
 
     Iterator<Type> begin() noexcept override;
     Iterator<Type> end() noexcept override;
-    ConstIterator<Type> cbegin() const noexcept override; //Added constIterator
+    ConstIterator<Type> cbegin() const noexcept override;
     ConstIterator<Type> cend() const noexcept override;
-    //ConstIterator<Type> begin() const noexcept;
-    //ConstIterator<Type> end() const noexcept;
 
 private:
     void alloc_data();

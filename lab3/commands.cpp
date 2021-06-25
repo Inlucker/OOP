@@ -15,7 +15,7 @@ using namespace std;
 #include "transformmanagercreator.h"
 #include "transformmanager.h"
 
-TransformObject::TransformObject(const int &id, const Point &move, const Point &scale, const Point &rotate) : id(id), move(move), scale(scale), rotate(rotate)
+/*TransformObject::TransformObject(const int &id, const Point &move, const Point &scale, const Point &rotate) : id(id), move(move), scale(scale), rotate(rotate)
 {
 
 }
@@ -26,7 +26,7 @@ void TransformObject::execute()
 
     shared_ptr<TransformManager> transformMan = TransformManagerCreator().getManager();
     transformMan->transformObject(sceneMan->getScene()->getObject(id), move, scale, rotate);
-}
+}*/
 
 TransformObjectName::TransformObjectName(const string &newName, const Point &move, const Point &scale, const Point &rotate) : name(newName), move(move), scale(scale), rotate(rotate)
 {
@@ -118,7 +118,7 @@ void AddCamera::execute()
     sceneMan->addCamera(newCamera);
 }
 
-DeleteObject::DeleteObject(size_t newId)
+/*DeleteObject::DeleteObject(size_t newId)
 {
     id = newId;
 }
@@ -127,7 +127,7 @@ void DeleteObject::execute()
 {
     shared_ptr<SceneManager> sceneMan = SceneManagerCreator().getManager();
     sceneMan->deleteObject(id);
-}
+}*/
 
 DeleteObjectName::DeleteObjectName(string newName)
 {
@@ -140,7 +140,7 @@ void DeleteObjectName::execute()
     sceneMan->deleteObject(name);
 }
 
-UseCamera::UseCamera(size_t newId)
+/*UseCamera::UseCamera(size_t newId)
 {
     id = newId;
 }
@@ -151,7 +151,7 @@ void UseCamera::execute()
     //shared_ptr<Object> newCurCam = sceneMan->getScene()->getObject(id);
     //sceneMan->useCamera(dynamic_pointer_cast<Camera>(newCurCam));
     sceneMan->useCamera(id);
-}
+}*/
 
 UseCameraName::UseCameraName(string newName)
 {

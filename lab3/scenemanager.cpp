@@ -7,8 +7,8 @@ SceneManager::SceneManager()
 {
     scene = shared_ptr<Scene>(new Scene());
     curCamera.reset();
-    curCameraId = -1;
-    //curCameraName = "\0";
+    //curCameraId = -1;
+    curCameraName = "\0";
 
     //objectDrawer = shared_ptr<BaseVisitor>(new ObjectVisitor());
 
@@ -35,8 +35,8 @@ void SceneManager::drawScene()
 void SceneManager::clearObjects()
 {
     scene->clear();
-    curCameraId = -1;
-    //curCameraName = "\0";
+    //curCameraId = -1;
+    curCameraName = "\0";
     resetCaretaker();
 }
 
@@ -57,7 +57,7 @@ void SceneManager::addCamera(shared_ptr<Camera> new_camera)
     resetCaretaker();
 }
 
-void SceneManager::deleteObject(const size_t objId)
+/*void SceneManager::deleteObject(const size_t objId)
 {
     scene->deleteObject(objId);
     if (objId < curCameraId)
@@ -71,7 +71,7 @@ void SceneManager::deleteObject(const size_t objId)
         //curCameraName = "\0";
     }
     resetCaretaker();
-}
+}*/
 
 void SceneManager::deleteObject(string name)
 {
@@ -83,6 +83,8 @@ void SceneManager::deleteObject(string name)
     {
         if ((*it)->getName() == name)
         {
+            if ((*it)->getName() == curCameraName)
+                curCameraName = "\0";
             existsFlag = true;
             break;
         }
@@ -109,7 +111,7 @@ void SceneManager::deleteObject(string name)
     curCamera = newCamera; // weak_ptr = shared_ptr ok?
 }*/
 
-void SceneManager::useCamera(size_t cameraId)
+/*void SceneManager::useCamera(size_t cameraId)
 {
     shared_ptr<Camera> newCamera = dynamic_pointer_cast<Camera>(getScene()->getObject(cameraId));
     if (!newCamera)
@@ -120,7 +122,7 @@ void SceneManager::useCamera(size_t cameraId)
     curCameraId = cameraId;
     curCamera = newCamera; // weak_ptr = shared_ptr ok?
     //curCameraName = curCamera.lock()->getName();
-}
+}*/
 
 void SceneManager::useCamera(string cameraName)
 {
@@ -152,9 +154,9 @@ void SceneManager::useCamera(string cameraName)
         time_t t_time = time(NULL);
         throw UseCameraError("Trying to use not camera object as camera", __FILE__, __LINE__, ctime(&t_time));
     }
-    curCameraId = cameraId;
+    //curCameraId = cameraId;
     curCamera = newCamera; // weak_ptr = shared_ptr ok?
-    //curCameraName = curCamera.lock()->getName();
+    curCameraName = curCamera.lock()->getName();
 }
 
 weak_ptr<Camera> SceneManager::getCamera() const
@@ -202,8 +204,9 @@ shared_ptr<BaseDrawer> SceneManager::getDrawer() const
 void SceneManager::returnScene()
 {
     scene->restoreMemento(getCareTaker()->getMemento());
-    useCamera(curCameraId);
-    //useCamera(curCameraName);
+    //useCamera(curCameraId);
+    if (curCameraName != "/0")
+        useCamera(curCameraName);
 }
 
 shared_ptr<Caretaker> SceneManager::getCareTaker() const

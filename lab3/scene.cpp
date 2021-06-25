@@ -34,7 +34,7 @@ void Scene::addObject(shared_ptr<Object> new_model)
     objects->add(new_model);
 }
 
-void Scene::deleteObject(const size_t obg_id)
+/*void Scene::deleteObject(const size_t obg_id)
 {
     if (obg_id >= objects->size() || obg_id + 1 < 0)
     {
@@ -45,7 +45,7 @@ void Scene::deleteObject(const size_t obg_id)
     for (size_t i = 0; i < obg_id; i++)
         it++;
     objects->remove(it);
-}
+}*/
 
 void Scene::deleteObject(string name)
 {
@@ -81,7 +81,7 @@ void Scene::clear()
     objects->clear();
 }
 
-shared_ptr<Object> Scene::getObject(const size_t id) const
+/*shared_ptr<Object> Scene::getObject(const size_t id) const
 {
     if (id >= objects->size() || id < 0)
     {
@@ -92,7 +92,7 @@ shared_ptr<Object> Scene::getObject(const size_t id) const
     for (size_t i = 0; i < id; i++)
         it++;
     return *it;
-}
+}*/
 
 shared_ptr<Object> Scene::getObject(string name) const
 {

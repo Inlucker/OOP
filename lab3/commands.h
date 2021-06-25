@@ -11,7 +11,7 @@ using namespace std;
 #include "basedrawer.h"
 #include "basecanvas.h"
 
-class TransformObject : public BaseCommand
+/*class TransformObject : public BaseCommand
 {
 public:
     TransformObject() = delete;
@@ -24,7 +24,7 @@ private:
     const Point move;
     const Point scale;
     const Point rotate;
-};
+};*/
 
 class TransformObjectName : public BaseCommand
 {
@@ -98,7 +98,7 @@ private:
     string camName;
 };
 
-class DeleteObject : public BaseCommand
+/*class DeleteObject : public BaseCommand
 {
 public:
     DeleteObject() = delete;
@@ -108,7 +108,7 @@ public:
 
 private:
     size_t id;
-};
+};*/
 
 class DeleteObjectName : public BaseCommand
 {
@@ -122,7 +122,7 @@ private:
     string name;
 };
 
-class UseCamera : public BaseCommand
+/*class UseCamera : public BaseCommand
 {
 public:
     UseCamera() = delete;
@@ -133,7 +133,7 @@ public:
 private:
     size_t id;
     //long id;
-};
+};*/
 
 class UseCameraName : public BaseCommand
 {
