@@ -26,7 +26,7 @@ bool Object::add(shared_ptr<Object> comp)
     return false;
 }
 
-bool Object::remove(ConstIteratorObject &it)
+bool Object::remove(IteratorObject &it)
 {
     return false;
 }

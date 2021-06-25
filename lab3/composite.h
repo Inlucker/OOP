@@ -18,7 +18,7 @@ public:
     virtual shared_ptr<Object> clone() override;
 
     virtual bool add(shared_ptr<Object> comp) override;
-    virtual bool remove(ConstIteratorObject &it) override;
+    virtual bool remove(IteratorObject &it) override;
     virtual bool isComposite() const override;
     virtual bool clear() override;
     virtual int size() const override;

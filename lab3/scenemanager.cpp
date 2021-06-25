@@ -77,9 +77,9 @@ void SceneManager::deleteObject(string name)
 {
     //scene->deleteObject(name);
 
-    ConstIteratorObject it = scene->cbegin();
+    IteratorObject it = scene->begin();
     bool existsFlag = false;
-    while (it != scene->cend())
+    while (it != scene->end())
     {
         if ((*it)->getName() == name)
         {

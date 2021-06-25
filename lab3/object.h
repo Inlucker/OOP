@@ -40,7 +40,7 @@ public:
     virtual string getName() const;
 
     virtual bool add(shared_ptr<Object> comp);
-    virtual bool remove(ConstIteratorObject& it);
+    virtual bool remove(IteratorObject& it);
     virtual bool isComposite() const;
     virtual bool clear();
     virtual int size() const; //Added = OK?

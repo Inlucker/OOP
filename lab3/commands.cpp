@@ -15,7 +15,7 @@ using namespace std;
 #include "transformmanagercreator.h"
 #include "transformmanager.h"
 
-TransformObject::TransformObject(const int id, const Point move, const Point scale, const Point rotate) : id(id), move(move), scale(scale), rotate(rotate)
+TransformObject::TransformObject(const int &id, const Point &move, const Point &scale, const Point &rotate) : id(id), move(move), scale(scale), rotate(rotate)
 {
 
 }
@@ -26,6 +26,19 @@ void TransformObject::execute()
 
     shared_ptr<TransformManager> transformMan = TransformManagerCreator().getManager();
     transformMan->transformObject(sceneMan->getScene()->getObject(id), move, scale, rotate);
+}
+
+TransformObjectName::TransformObjectName(const string &newName, const Point &move, const Point &scale, const Point &rotate) : name(newName), move(move), scale(scale), rotate(rotate)
+{
+
+}
+
+void TransformObjectName::execute()
+{
+    shared_ptr<SceneManager> sceneMan = SceneManagerCreator().getManager();
+
+    shared_ptr<TransformManager> transformMan = TransformManagerCreator().getManager();
+    transformMan->transformObject(sceneMan->getScene()->getObject(name), move, scale, rotate);
 }
 
 ClearCanvas::ClearCanvas()

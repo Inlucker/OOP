@@ -41,7 +41,7 @@ void Scene::deleteObject(const size_t obg_id)
         time_t t_time = time(NULL);
         throw IndexError("Id error", __FILE__, __LINE__, ctime(&t_time));
     }
-    ConstIteratorObject it = objects->cbegin();
+    IteratorObject it = begin();
     for (size_t i = 0; i < obg_id; i++)
         it++;
     objects->remove(it);
@@ -49,9 +49,9 @@ void Scene::deleteObject(const size_t obg_id)
 
 void Scene::deleteObject(string name)
 {
-    ConstIteratorObject it = objects->cbegin();
+    IteratorObject it = objects->begin();
     bool existsFlag = false;
-    while (it != objects->cend())
+    while (it != objects->end())
     {
         if ((*it)->getName() == name)
         {
@@ -71,7 +71,7 @@ void Scene::deleteObject(string name)
     objects->remove(it);
 }
 
-void Scene::deleteObject(ConstIteratorObject it)
+void Scene::deleteObject(IteratorObject it)
 {
     objects->remove(it);
 }
@@ -96,9 +96,9 @@ shared_ptr<Object> Scene::getObject(const size_t id) const
 
 shared_ptr<Object> Scene::getObject(string name) const
 {
-    IteratorObject it = objects->begin();
+    ConstIteratorObject it = cbegin();
     bool existsFlag = false;
-    while (it != objects->end())
+    while (it != cend())
     {
         if ((*it)->getName() == name)
         {
@@ -143,21 +143,7 @@ ConstIteratorObject Scene::cend() const noexcept
     return objects->cend();
 }
 
-
-
 //for CareTaker
-/*Scene::Scene(shared_ptr<Object> objs) : objects(objs) {}
-
-const shared_ptr<Object> Scene::getState() const
-{
-    return objects;
-}
-
-void Scene::setState(shared_ptr<Object> objs)
-{
-    objects = objs;
-}*/
-
 std::unique_ptr<Memento> Scene::createMemento()
 {
     return make_unique<Memento>(*this);

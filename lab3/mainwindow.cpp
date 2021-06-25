@@ -155,7 +155,9 @@ void MainWindow::mouseMoveEvent(QMouseEvent *event)
             }
             for (int i = 0; i < selectedRows.size(); i++)
             {
-                TransformObject transformCmd(selectedRows[i].row(), Point(0, 0, 0), Point(1, 1, 1), Point(y, x, 0));
+                //TransformObject transformCmd(selectedRows[i].row(), Point(0, 0, 0), Point(1, 1, 1), Point(y, x, 0));
+                string name = ui->tableWidget->item(selectedRows[0].row(), 1)->text().toStdString();
+                TransformObjectName transformCmd(name, Point(0, 0, 0), Point(1, 1, 1), Point(y, x, 0));
                 interface->execute(transformCmd);
             }
 
@@ -185,7 +187,9 @@ void MainWindow::mouseMoveEvent(QMouseEvent *event)
             }
             for (int i = 0; i < selectedRows.size(); i++)
             {
-                TransformObject transformCmd(selectedRows[i].row(), Point(-x, -y, 0), Point(1, 1, 1), Point(0, 0, 0));
+                //TransformObject transformCmd(selectedRows[i].row(), Point(-x, -y, 0), Point(1, 1, 1), Point(0, 0, 0));
+                string name = ui->tableWidget->item(selectedRows[0].row(), 1)->text().toStdString();
+                TransformObjectName transformCmd(name, Point(-x, -y, 0), Point(1, 1, 1), Point(0, 0, 0));
                 interface->execute(transformCmd);
             }
 
@@ -242,7 +246,9 @@ void MainWindow::wheelEvent(QWheelEvent *event)
             interface->execute(saveCmd);
             for (int i = 0; i < selectedRows.size(); i++)
             {
-                TransformObject transformCmd(selectedRows[i].row(), Point(0, 0, 0), Point(ky, ky, ky), Point(0, 0, 0));
+                //TransformObject transformCmd(selectedRows[i].row(), Point(0, 0, 0), Point(ky, ky, ky), Point(0, 0, 0));
+                string name = ui->tableWidget->item(selectedRows[0].row(), 1)->text().toStdString();
+                TransformObjectName transformCmd(name, Point(0, 0, 0), Point(ky, ky, ky), Point(0, 0, 0));
                 interface->execute(transformCmd);
             }
 
@@ -369,7 +375,9 @@ void MainWindow::on_RotateModelBtn_clicked()
         interface->execute(saveCmd);
         for (int i = 0; i < selectedRows.size(); i++)
         {
-            TransformObject transformCmd(selectedRows[i].row(), Point(0, 0, 0), Point(1, 1, 1), Point(x, y, z));
+            //TransformObject transformCmd(selectedRows[i].row(), Point(0, 0, 0), Point(1, 1, 1), Point(x, y, z));
+            string name = ui->tableWidget->item(selectedRows[0].row(), 1)->text().toStdString();
+            TransformObjectName transformCmd(name, Point(0, 0, 0), Point(1, 1, 1), Point(x, y, z));
             interface->execute(transformCmd);
         }
 
@@ -428,7 +436,9 @@ void MainWindow::on_MoveModelBtn_clicked()
         interface->execute(saveCmd);
         for (int i = 0; i < selectedRows.size(); i++)
         {
-            TransformObject transformCmd(selectedRows[i].row(), Point(x, y, z), Point(1, 1, 1), Point(0, 0, 0));
+            //TransformObject transformCmd(selectedRows[i].row(), Point(x, y, z), Point(1, 1, 1), Point(0, 0, 0));
+            string name = ui->tableWidget->item(selectedRows[0].row(), 1)->text().toStdString();
+            TransformObjectName transformCmd(name, Point(x, y, z), Point(1, 1, 1), Point(0, 0, 0));
             interface->execute(transformCmd);
         }
 
@@ -487,7 +497,9 @@ void MainWindow::on_ScaleModelBtn_clicked()
         interface->execute(saveCmd);
         for (int i = 0; i < selectedRows.size(); i++)
         {
-            TransformObject transformCmd(selectedRows[i].row(), Point(0, 0, 0), Point(x, y, z), Point(0, 0, 0));
+            //TransformObject transformCmd(selectedRows[i].row(), Point(0, 0, 0), Point(x, y, z), Point(0, 0, 0));
+            string name = ui->tableWidget->item(selectedRows[0].row(), 1)->text().toStdString();
+            TransformObjectName transformCmd(name, Point(0, 0, 0), Point(x, y, z), Point(0, 0, 0));
             interface->execute(transformCmd);
         }
 
@@ -597,7 +609,8 @@ void MainWindow::on_DeleteObjBtn_clicked()
             while (!selectedRows.empty())
             {
                 //DeleteObject deleteObjectCmd(selectedRows[0].row());
-                DeleteObjectName deleteObjectCmd(ui->tableWidget->item(selectedRows[0].row(), 1)->text().toStdString());
+                string name = ui->tableWidget->item(selectedRows[0].row(), 1)->text().toStdString();
+                DeleteObjectName deleteObjectCmd(name);
                 interface->execute(deleteObjectCmd);
                 ui->tableWidget->removeRow(selectedRows[0].row());
                 selectedRows = ui->tableWidget->selectionModel()->selectedRows();
@@ -631,7 +644,9 @@ void MainWindow::on_SetCameraBtn_clicked()
             QMessageBox::information(this, "Error", "Выберите хотябы один объект из списка");
             return;
         }
-        UseCamera useCameraCmd(selectedRows[0].row());
+        string name = ui->tableWidget->item(selectedRows[0].row(), 1)->text().toStdString();
+        //UseCamera useCameraCmd(selectedRows[0].row());
+        UseCameraName useCameraCmd(name);
         interface->execute(useCameraCmd);
 
         for (int i = 0; i < ui->tableWidget->rowCount(); i++)

@@ -15,12 +15,27 @@ class TransformObject : public BaseCommand
 {
 public:
     TransformObject() = delete;
-    TransformObject(const int id, const Point move, const Point scale, const Point rotate);
+    TransformObject(const int &id, const Point &move, const Point &scale, const Point &rotate);
     ~TransformObject() = default;
     virtual void execute() override;
 
 private:
     int id;
+    const Point move;
+    const Point scale;
+    const Point rotate;
+};
+
+class TransformObjectName : public BaseCommand
+{
+public:
+    TransformObjectName() = delete;
+    TransformObjectName(const string &newName, const Point &move, const Point &scale, const Point &rotate);
+    ~TransformObjectName() = default;
+    virtual void execute() override;
+
+private:
+    string name;
     const Point move;
     const Point scale;
     const Point rotate;

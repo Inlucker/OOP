@@ -137,7 +137,7 @@ bool Composite::add(shared_ptr<Object> comp)
     }
 }
 
-bool Composite::remove(ConstIteratorObject &it)
+bool Composite::remove(IteratorObject &it)
 {
     //objectsVec.erase(it);
     bool deleteFlag = false;
