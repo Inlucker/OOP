@@ -17,6 +17,7 @@ MainWindow::MainWindow(QWidget *parent)
     //ui->gridLayout->addWidget(canvas);
     ui->gridLayout->addWidget(&*canvas);
 
+    ui->tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->tableWidget->setRowCount(0);
     ui->tableWidget->setColumnCount(2);
     ui->tableWidget->setHorizontalHeaderLabels(QStringList() << "Object" << "Name");
