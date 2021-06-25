@@ -25,7 +25,9 @@ using ConstIteratorObject = ConstIterator<Type>;
 class Object
 {
 public:
-    Object() = default;
+    //Object() = default;
+    Object();// = delete;
+    Object(string new_name);
     virtual ~Object() = default;
 
     virtual void transform(const Point move, const Point scale, const Point rotate) = 0;
@@ -33,6 +35,9 @@ public:
     virtual void accept(shared_ptr<BaseVisitor> visitor) = 0;
 
     virtual shared_ptr<Object> clone() = 0;
+
+    virtual void setName(string newName);
+    virtual string getName() const;
 
     virtual bool add(shared_ptr<Object> comp);
     virtual bool remove(ConstIteratorObject& it);
@@ -46,6 +51,9 @@ public:
     virtual Iterator<Type> end() noexcept;
     virtual ConstIterator<Type> cbegin() const noexcept; //Added constIterator
     virtual ConstIterator<Type> cend() const noexcept;
+
+protected:
+    string name;
 };
 
 #endif // OBJECT_H

@@ -1,7 +1,25 @@
 #include "camera.h"
 #include "basevisitor.h"
 
+Camera::Camera() : Object()
+{
+    position = Point(0, 0, 0);
+    angles = Point(0, 0, 0);
+    cout << "created Camera: " << name;
+}
+
+Camera::Camera(string new_name) : Object(new_name)
+{
+
+}
+
 Camera::Camera(const Point &pos, const Point &angs)
+{
+    position = pos;
+    angles = angs;
+}
+
+Camera::Camera(string new_name, const Point &pos, const Point &angs) : Object(new_name)
 {
     position = pos;
     angles = angs;
@@ -26,7 +44,8 @@ void Camera::accept(shared_ptr<BaseVisitor> visitor)
 
 shared_ptr<Object> Camera::clone()
 {
-    return shared_ptr<Object>(new Camera(position, angles));
+    //return shared_ptr<Object>(new Camera(position, angles));
+    return shared_ptr<Object>(new Camera(name, position, angles));
 }
 
 void Camera::rotate(Point rotateK)

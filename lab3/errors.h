@@ -80,6 +80,28 @@ public:
     }
 };
 
+class NoObjectError : public BaseError
+{
+public:
+    NoObjectError(string info, string filename, int line, const char *time, string error = "No object with such name")
+        : BaseError(info, filename, line, time, error) {};
+    virtual const char* what() const noexcept
+    {
+        return err_info.c_str();
+    }
+};
+
+class ExistingObjectError : public BaseError
+{
+public:
+    ExistingObjectError(string info, string filename, int line, const char *time, string error = "Object with such name already exists")
+        : BaseError(info, filename, line, time, error) {};
+    virtual const char* what() const noexcept
+    {
+        return err_info.c_str();
+    }
+};
+
 class SetCanvasError : public BaseError
 {
 public:

@@ -7,6 +7,7 @@ class Composite : public Object
 {
 public:
     Composite();
+    Composite(string new_name);
     explicit Composite(int elements_number);
     Composite(initializer_list<shared_ptr<Object>> args);
 

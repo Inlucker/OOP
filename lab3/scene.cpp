@@ -12,7 +12,7 @@ using namespace std;
 
 Scene::Scene()
 {
-    objects = shared_ptr<Object>(new Composite);
+    objects = shared_ptr<Object>(new Composite());
 }
 
 Scene::Scene(const Scene &scene)
@@ -47,6 +47,35 @@ void Scene::deleteObject(const size_t obg_id)
     objects->remove(it);
 }
 
+void Scene::deleteObject(string name)
+{
+    ConstIteratorObject it = objects->cbegin();
+    bool existsFlag = false;
+    while (it != objects->cend())
+    {
+        if ((*it)->getName() == name)
+        {
+            existsFlag = true;
+            break;
+        }
+        else
+        {
+            it++;
+        }
+    }
+    if (!existsFlag)
+    {
+        time_t t_time = time(NULL);
+        throw NoObjectError("No object with name" + name, __FILE__, __LINE__, ctime(&t_time));
+    }
+    objects->remove(it);
+}
+
+void Scene::deleteObject(ConstIteratorObject it)
+{
+    objects->remove(it);
+}
+
 void Scene::clear()
 {
     objects->clear();
@@ -62,6 +91,30 @@ shared_ptr<Object> Scene::getObject(const size_t id) const
     IteratorObject it = objects->begin();
     for (size_t i = 0; i < id; i++)
         it++;
+    return *it;
+}
+
+shared_ptr<Object> Scene::getObject(string name) const
+{
+    IteratorObject it = objects->begin();
+    bool existsFlag = false;
+    while (it != objects->end())
+    {
+        if ((*it)->getName() == name)
+        {
+            existsFlag = true;
+            break;
+        }
+        else
+        {
+            it++;
+        }
+    }
+    if (!existsFlag)
+    {
+        time_t t_time = time(NULL);
+        throw NoObjectError("No object with this name", __FILE__, __LINE__, ctime(&t_time));
+    }
     return *it;
 }
 

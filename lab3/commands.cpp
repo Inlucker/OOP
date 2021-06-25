@@ -65,19 +65,33 @@ void ClearObjects::execute()
 
 LoadModel::LoadModel(string fileName) : fileName(fileName)
 {
+    modName = "default_name";
+}
 
+LoadModel::LoadModel(string fileName, string newModName) : fileName(fileName)
+{
+    modName = newModName;
 }
 
 void LoadModel::execute()
 {
     shared_ptr<LoadManager> loadMan = LoadManagerCreator().getManager();
-    shared_ptr<Model> newModel = loadMan->loadModel(fileName);
+    //shared_ptr<Model> newModel = loadMan->loadModel(fileName);
+    shared_ptr<Model> newModel = loadMan->loadModel(fileName, modName);
     shared_ptr<SceneManager> sceneMan = SceneManagerCreator().getManager();
     sceneMan->addModel(newModel);
 }
 
 AddCamera::AddCamera(Point pos, Point angs)
 {
+    camName = "default_name";
+    position = pos;
+    angles = angs;
+}
+
+AddCamera::AddCamera(Point pos, Point angs, string newName)
+{
+    camName = newName;
     position = pos;
     angles = angs;
 }
@@ -85,7 +99,8 @@ AddCamera::AddCamera(Point pos, Point angs)
 void AddCamera::execute()
 {
     //shared_ptr<LoadManager> loadMan = LoadManagerCreator().getManager();
-    shared_ptr<Camera> newCamera = shared_ptr<Camera>(new Camera(position, angles));
+    //shared_ptr<Camera> newCamera = shared_ptr<Camera>(new Camera(position, angles));
+    shared_ptr<Camera> newCamera = shared_ptr<Camera>(new Camera(camName, position, angles));
     shared_ptr<SceneManager> sceneMan = SceneManagerCreator().getManager();
     sceneMan->addCamera(newCamera);
 }
@@ -101,6 +116,17 @@ void DeleteObject::execute()
     sceneMan->deleteObject(id);
 }
 
+DeleteObjectName::DeleteObjectName(string newName)
+{
+    name = newName;
+}
+
+void DeleteObjectName::execute()
+{
+    shared_ptr<SceneManager> sceneMan = SceneManagerCreator().getManager();
+    sceneMan->deleteObject(name);
+}
+
 UseCamera::UseCamera(size_t newId)
 {
     id = newId;
@@ -114,6 +140,18 @@ void UseCamera::execute()
     sceneMan->useCamera(id);
 }
 
+UseCameraName::UseCameraName(string newName)
+{
+    name = newName;
+}
+
+void UseCameraName::execute()
+{
+    shared_ptr<SceneManager> sceneMan = SceneManagerCreator().getManager();
+    //shared_ptr<Object> newCurCam = sceneMan->getScene()->getObject(id);
+    //sceneMan->useCamera(dynamic_pointer_cast<Camera>(newCurCam));
+    sceneMan->useCamera(name);
+}
 
 SetDrawer::SetDrawer(shared_ptr<BaseDrawer> newDrawer)
 {

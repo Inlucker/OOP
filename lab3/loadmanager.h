@@ -17,6 +17,7 @@ public:
     ~LoadManager() = default;
 
     shared_ptr<Model> loadModel(string fileName);
+    shared_ptr<Model> loadModel(string fileName, string modelName);
 private:
     shared_ptr<BaseModelLoader> modelLoader;
 };

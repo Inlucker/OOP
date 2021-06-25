@@ -1,13 +1,20 @@
 #include "model.h"
 #include "basevisitor.h"
 
-Model::Model()
+Model::Model() : Object()
 {
+    cout << "created Model: " << name;
     modelElements = shared_ptr<ModelElements>(new ModelElements());
 }
 
-Model::Model(Model &model)
+Model::Model(string new_name) : Object(new_name)
 {
+
+}
+
+Model::Model(const Model &model)
+{
+    name = model.name;
     modelElements = shared_ptr<ModelElements>(new ModelElements(*model.getElements()));
 }
 

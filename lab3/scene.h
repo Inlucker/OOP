@@ -26,8 +26,11 @@ public:
 
     void addObject(shared_ptr<Object> new_model);
     void deleteObject(const size_t obg_id);
+    void deleteObject(string name);
+    void deleteObject(ConstIteratorObject it);
     void clear();
     shared_ptr<Object> getObject(const size_t id) const; //Добавить идентефикатор
+    shared_ptr<Object> getObject(string name) const;
     //Реализовать итератор для сцены - это контейнер
     shared_ptr<Object> getObjects() const;
 

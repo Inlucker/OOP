@@ -22,8 +22,10 @@ public:
     void addModel(shared_ptr<Model> new_model);
     void addCamera(shared_ptr<Camera> new_camera);
     void deleteObject(const size_t objId);
+    void deleteObject(string name);
     //void useCamera(shared_ptr<Camera> newCamera);
     void useCamera(size_t cameraId);
+    void useCamera(string cameraName);
     weak_ptr<Camera> getCamera() const;
 
     void setDrawer(shared_ptr<BaseDrawer> newDrawer);
@@ -40,6 +42,7 @@ private:
     shared_ptr<Scene> scene;
     weak_ptr<Camera> curCamera;
     long curCameraId;
+    //string curCameraName;
     shared_ptr<BaseDrawer> drawer;
     shared_ptr<Caretaker> caretaker;
 };

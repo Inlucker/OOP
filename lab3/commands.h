@@ -59,11 +59,13 @@ class LoadModel : public BaseCommand //AddModel
 public:
     LoadModel() = delete;
     explicit LoadModel(string fileName);
+    LoadModel(string fileName, string newModName);
     ~LoadModel() = default;
     virtual void execute() override;
 
 private:
     string fileName;
+    string modName;
 };
 
 class AddCamera : public BaseCommand
@@ -71,12 +73,14 @@ class AddCamera : public BaseCommand
 public:
     AddCamera() = delete;
     AddCamera(Point pos, Point angs);
+    AddCamera(Point pos, Point angs, string newName);
     ~AddCamera() = default;
     virtual void execute() override;
 
 private:
     Point position;
     Point angles;
+    string camName;
 };
 
 class DeleteObject : public BaseCommand
@@ -91,6 +95,18 @@ private:
     size_t id;
 };
 
+class DeleteObjectName : public BaseCommand
+{
+public:
+    DeleteObjectName() = delete;
+    explicit DeleteObjectName(string newName);
+    ~DeleteObjectName() = default;
+    virtual void execute() override;
+
+private:
+    string name;
+};
+
 class UseCamera : public BaseCommand
 {
 public:
@@ -102,6 +118,18 @@ public:
 private:
     size_t id;
     //long id;
+};
+
+class UseCameraName : public BaseCommand
+{
+public:
+    UseCameraName() = delete;
+    explicit UseCameraName(string newName);
+    ~UseCameraName() = default;
+    virtual void execute() override;
+
+private:
+    string name;
 };
 
 class SetDrawer : public BaseCommand

@@ -11,8 +11,10 @@
 class Camera : public Object
 {
 public:
-    Camera() = default;
+    Camera();
+    Camera(string new_name);
     Camera(const Point &pos, const Point &angs);
+    Camera(string new_name, const Point &pos, const Point &angs);
     ~Camera() = default;
 
     virtual void transform(const Point moveK, const Point scaleK, const Point rotateK) override;

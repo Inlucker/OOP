@@ -18,8 +18,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->gridLayout->addWidget(&*canvas);
 
     ui->tableWidget->setRowCount(0);
-    ui->tableWidget->setColumnCount(1);
-    ui->tableWidget->setHorizontalHeaderLabels(QStringList() << "Object");
+    ui->tableWidget->setColumnCount(2);
+    ui->tableWidget->setHorizontalHeaderLabels(QStringList() << "Object" << "Name");
 
     try
     {
@@ -33,20 +33,27 @@ MainWindow::MainWindow(QWidget *parent)
         SetCanvas setCanvasCmd(canvas->canvas);
         interface->execute(setCanvasCmd);
 
-        AddCamera addCameraCmd(Point(0, 0, 0), Point(0, 0, 0));
-        AddCamera addCameraCmd2(Point(0, 300, -300), Point(45, 45, 45));
+        //AddCamera addCameraCmd(Point(0, 0, 0), Point(0, 0, 0));
+        //AddCamera addCameraCmd2(Point(0, 300, -300), Point(45, 45, 45));
+        AddCamera addCameraCmd(Point(0, 0, 0), Point(0, 0, 0), "Robert");
+        AddCamera addCameraCmd2(Point(0, 300, -300), Point(45, 45, 45), "Leo");
         //AddCamera addCameraCmd(Point(200, 200, 300), Point(45, 45, 35));
         interface->execute(addCameraCmd);
         interface->execute(addCameraCmd2);
 
         ui->tableWidget->setRowCount(2);
 
-        QTableWidgetItem *obj_itm = new QTableWidgetItem("Camera");
-        obj_itm->setBackground(QBrush(Qt::green));
-        ui->tableWidget->setItem(0, 0, obj_itm);
+        QTableWidgetItem *obj_itm11 = new QTableWidgetItem("Camera");
+        obj_itm11->setBackground(QBrush(Qt::green));
+        ui->tableWidget->setItem(0, 0, obj_itm11);
+        QTableWidgetItem *obj_itm12 = new QTableWidgetItem("Robert");
+        obj_itm12->setBackground(QBrush(Qt::green));
+        ui->tableWidget->setItem(0, 1, obj_itm12);
 
-        QTableWidgetItem *obj_itm2 = new QTableWidgetItem("Camera");
-        ui->tableWidget->setItem(1, 0, obj_itm2);
+        QTableWidgetItem *obj_itm21 = new QTableWidgetItem("Camera");
+        ui->tableWidget->setItem(1, 0, obj_itm21);
+        QTableWidgetItem *obj_itm22 = new QTableWidgetItem("Leo");
+        ui->tableWidget->setItem(1, 1, obj_itm22);
 
         UseCamera useCamera(0);
         interface->execute(useCamera);
@@ -294,8 +301,9 @@ void MainWindow::on_AddModelBtn_clicked()
 {
     try
     {
-        ui->lineEdit_model->text().toStdString();
-        LoadModel loadCmd(ui->lineEdit_model->text().toStdString());
+        QString model_name = ui->lineEdit_model_name->text();
+        //LoadModel loadCmd(ui->lineEdit_model->text().toStdString());
+        LoadModel loadCmd(ui->lineEdit_model->text().toStdString(), model_name.toStdString());
         //LoadModel loadCmd("cube1.txt");
         //LoadModel loadCmd("12granSec.txt");
         interface->execute(loadCmd);
@@ -303,6 +311,8 @@ void MainWindow::on_AddModelBtn_clicked()
         ui->tableWidget->setRowCount(ui->tableWidget->rowCount() + 1);
         QTableWidgetItem *obj_itm = new QTableWidgetItem("Model");
         ui->tableWidget->setItem(ui->tableWidget->rowCount()-1, 0, obj_itm);
+        QTableWidgetItem *obj_itm2 = new QTableWidgetItem(model_name);
+        ui->tableWidget->setItem(ui->tableWidget->rowCount()-1, 1, obj_itm2);
 
         ClearCanvas clearCmd;
         interface->execute(clearCmd);
@@ -546,12 +556,15 @@ void MainWindow::on_AddCameraBtn_clicked()
             return;
         }
 
-        AddCamera addCameraCmd(Point(x, y, z), Point(angle_x, angle_y, angle_z));
+        QString camera_name = ui->lineEdit_camera_name->text();
+        AddCamera addCameraCmd(Point(x, y, z), Point(angle_x, angle_y, angle_z), camera_name.toStdString());
         interface->execute(addCameraCmd);
 
         ui->tableWidget->setRowCount(ui->tableWidget->rowCount() + 1);
         QTableWidgetItem *obj_itm = new QTableWidgetItem("Camera");
         ui->tableWidget->setItem(ui->tableWidget->rowCount()-1, 0, obj_itm);
+        QTableWidgetItem *obj_itm2 = new QTableWidgetItem(camera_name);
+        ui->tableWidget->setItem(ui->tableWidget->rowCount()-1, 1, obj_itm2);
 
         /*DrawScene drawCmd;
         interface->execute(drawCmd);*/
@@ -583,7 +596,8 @@ void MainWindow::on_DeleteObjBtn_clicked()
         {
             while (!selectedRows.empty())
             {
-                DeleteObject deleteObjectCmd(selectedRows[0].row());
+                //DeleteObject deleteObjectCmd(selectedRows[0].row());
+                DeleteObjectName deleteObjectCmd(ui->tableWidget->item(selectedRows[0].row(), 1)->text().toStdString());
                 interface->execute(deleteObjectCmd);
                 ui->tableWidget->removeRow(selectedRows[0].row());
                 selectedRows = ui->tableWidget->selectionModel()->selectedRows();
@@ -623,8 +637,10 @@ void MainWindow::on_SetCameraBtn_clicked()
         for (int i = 0; i < ui->tableWidget->rowCount(); i++)
         {
             ui->tableWidget->item(i, 0)->setBackground(QBrush(Qt::white));
+            ui->tableWidget->item(i, 1)->setBackground(QBrush(Qt::white));
         }
         ui->tableWidget->item(selectedRows[0].row(), 0)->setBackground(QBrush(Qt::green));
+        ui->tableWidget->item(selectedRows[0].row(), 1)->setBackground(QBrush(Qt::green));
 
         ClearCanvas clearCmd;
         interface->execute(clearCmd);

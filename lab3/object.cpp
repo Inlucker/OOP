@@ -1,5 +1,26 @@
 #include "object.h"
 
+Object::Object()
+{
+    name = "default_name";
+    cout << "created Object: " << name;
+}
+
+Object::Object(string new_name)
+{
+    name = new_name;
+}
+
+void Object::setName(string newName)
+{
+    name = newName;
+}
+
+string Object::getName() const
+{
+    return name;
+}
+
 bool Object::add(shared_ptr<Object> comp)
 {
     return false;

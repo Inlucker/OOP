@@ -12,7 +12,13 @@ Composite::Composite(initializer_list<shared_ptr<Object>> args)
         data_ptr[i++] = elem;
 }
 
-Composite::Composite()
+Composite::Composite() : Object()
+{
+    cout << "created composite: " << name;
+    elems_num = 0;
+}
+
+Composite::Composite(string new_name) : Object(new_name)
 {
     elems_num = 0;
 }
@@ -71,7 +77,8 @@ void Composite::accept(shared_ptr<BaseVisitor> visitor)
 
 shared_ptr<Object> Composite::clone()
 {
-    shared_ptr<Object> newComposite = shared_ptr<Object>(new Composite());
+    //shared_ptr<Object> newComposite = shared_ptr<Object>(new Composite());
+    shared_ptr<Object> newComposite = shared_ptr<Object>(new Composite(name));
     for (auto &obj:*this)
     {
         newComposite->add(obj->clone());
@@ -89,6 +96,18 @@ bool Composite::add(shared_ptr<Object> comp)
     }
     else
     {
+        bool existsFlag = false;
+        for (auto &obj:*this)
+        {
+            if (obj->getName() == comp->getName())
+                existsFlag = true;
+        }
+        if (existsFlag)
+        {
+            time_t t_time = time(NULL);
+            throw ExistingObjectError("Object with name " + comp->getName() + " alreadyExists", __FILE__, __LINE__, ctime(&t_time));
+        }
+
         elems_num += 1;
         if (elems_num > 0)
         {
@@ -147,7 +166,7 @@ bool Composite::remove(ConstIteratorObject &it)
             for (int i = 0; It1 != this->end(); It1++)
             {
                 if (It1 != it)
-                {cout << i << endl;
+                {
                     new_ptr[i++] = *It1;
                 }
             }
@@ -160,7 +179,6 @@ bool Composite::remove(ConstIteratorObject &it)
             elems_num = 0;
             data_ptr.reset();
         }
-
         return true;
     }
     else

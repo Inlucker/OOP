@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>920</width>
-    <height>797</height>
+    <width>1013</width>
+    <height>786</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -30,7 +30,7 @@
      <rect>
       <x>790</x>
       <y>10</y>
-      <width>121</width>
+      <width>221</width>
       <height>641</height>
      </rect>
     </property>
@@ -245,8 +245,8 @@
     <widget class="QPushButton" name="AddCameraBtn">
      <property name="geometry">
       <rect>
-       <x>130</x>
-       <y>80</y>
+       <x>240</x>
+       <y>60</y>
        <width>101</width>
        <height>31</height>
       </rect>
@@ -258,8 +258,8 @@
     <widget class="QPushButton" name="SetCameraBtn">
      <property name="geometry">
       <rect>
-       <x>240</x>
-       <y>20</y>
+       <x>130</x>
+       <y>100</y>
        <width>101</width>
        <height>31</height>
       </rect>
@@ -271,7 +271,7 @@
     <widget class="QPushButton" name="AddModelBtn">
      <property name="geometry">
       <rect>
-       <x>130</x>
+       <x>240</x>
        <y>20</y>
        <width>101</width>
        <height>31</height>
@@ -285,7 +285,7 @@
      <property name="geometry">
       <rect>
        <x>240</x>
-       <y>80</y>
+       <y>100</y>
        <width>101</width>
        <height>31</height>
       </rect>
@@ -385,14 +385,40 @@
       <string>0</string>
      </property>
     </widget>
+    <widget class="QLineEdit" name="lineEdit_model_name">
+     <property name="geometry">
+      <rect>
+       <x>130</x>
+       <y>20</y>
+       <width>101</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Charlie</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lineEdit_camera_name">
+     <property name="geometry">
+      <rect>
+       <x>130</x>
+       <y>60</y>
+       <width>101</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Korra</string>
+     </property>
+    </widget>
    </widget>
    <widget class="QPushButton" name="ClearSceneBtn">
     <property name="geometry">
      <rect>
       <x>790</x>
       <y>660</y>
-      <width>121</width>
-      <height>31</height>
+      <width>221</width>
+      <height>41</height>
      </rect>
     </property>
     <property name="text">
@@ -418,7 +444,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>920</width>
+     <width>1013</width>
      <height>20</height>
     </rect>
    </property>

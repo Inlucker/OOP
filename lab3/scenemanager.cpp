@@ -8,6 +8,7 @@ SceneManager::SceneManager()
     scene = shared_ptr<Scene>(new Scene());
     curCamera.reset();
     curCameraId = -1;
+    //curCameraName = "\0";
 
     //objectDrawer = shared_ptr<BaseVisitor>(new ObjectVisitor());
 
@@ -28,13 +29,14 @@ void SceneManager::clearCanvas()
 void SceneManager::drawScene()
 {
     //scene->getObjects()->accept(shared_ptr<BaseVisitor>(new ObjectVisitor()));
-    scene->getObjects()->accept(shared_ptr<BaseVisitor>(new ObjectVisitor(drawer, curCamera.lock())));
+    scene->getObjects()->accept(shared_ptr<BaseVisitor>(new ObjectVisitor(drawer, getCamera().lock())));
 }
 
 void SceneManager::clearObjects()
 {
     scene->clear();
     curCameraId = -1;
+    //curCameraName = "\0";
     resetCaretaker();
 }
 
@@ -66,8 +68,35 @@ void SceneManager::deleteObject(const size_t objId)
     else if (objId == curCameraId)
     {
         curCameraId = -1;
+        //curCameraName = "\0";
     }
     resetCaretaker();
+}
+
+void SceneManager::deleteObject(string name)
+{
+    //scene->deleteObject(name);
+
+    ConstIteratorObject it = scene->cbegin();
+    bool existsFlag = false;
+    while (it != scene->cend())
+    {
+        if ((*it)->getName() == name)
+        {
+            existsFlag = true;
+            break;
+        }
+        else
+        {
+            it++;
+        }
+    }
+    if (!existsFlag)
+    {
+        time_t t_time = time(NULL);
+        throw NoObjectError("No object with name" + name, __FILE__, __LINE__, ctime(&t_time));
+    }
+    scene->deleteObject(it);
 }
 
 /*void SceneManager::useCamera(shared_ptr<Camera> newCamera)
@@ -90,6 +119,42 @@ void SceneManager::useCamera(size_t cameraId)
     }
     curCameraId = cameraId;
     curCamera = newCamera; // weak_ptr = shared_ptr ok?
+    //curCameraName = curCamera.lock()->getName();
+}
+
+void SceneManager::useCamera(string cameraName)
+{
+    IteratorObject it = scene->begin();
+    bool existsFlag = false;
+    long cameraId = 0;
+    while (it != scene->end())
+    {
+        if ((*it)->getName() == cameraName)
+        {
+            existsFlag = true;
+            break;
+        }
+        else
+        {
+            cameraId++;
+            it++;
+        }
+    }
+    if (!existsFlag)
+    {
+        time_t t_time = time(NULL);
+        throw NoObjectError("No object with this name", __FILE__, __LINE__, ctime(&t_time));
+    }
+
+    shared_ptr<Camera> newCamera = dynamic_pointer_cast<Camera>(*it);
+    if (!newCamera)
+    {
+        time_t t_time = time(NULL);
+        throw UseCameraError("Trying to use not camera object as camera", __FILE__, __LINE__, ctime(&t_time));
+    }
+    curCameraId = cameraId;
+    curCamera = newCamera; // weak_ptr = shared_ptr ok?
+    //curCameraName = curCamera.lock()->getName();
 }
 
 weak_ptr<Camera> SceneManager::getCamera() const
@@ -138,6 +203,7 @@ void SceneManager::returnScene()
 {
     scene->restoreMemento(getCareTaker()->getMemento());
     useCamera(curCameraId);
+    //useCamera(curCameraName);
 }
 
 shared_ptr<Caretaker> SceneManager::getCareTaker() const
