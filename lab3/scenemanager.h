@@ -28,7 +28,7 @@ public:
     //void useCamera(size_t cameraId);
     void useCamera(string cameraName);
     //void useCamera(IteratorObject it); //???
-    weak_ptr<Camera> getCamera() const; // made private
+    //weak_ptr<Camera> getCamera() const; // made private
 
     void setDrawer(shared_ptr<BaseDrawer> newDrawer);
     shared_ptr<BaseDrawer> getDrawer() const;
@@ -38,7 +38,7 @@ public:
     shared_ptr<Caretaker> getCareTaker() const;
 
 private:
-    //weak_ptr<Camera> getCamera() const;
+    weak_ptr<Camera> getCamera() const;
     void resetCaretaker();
 
 private:
