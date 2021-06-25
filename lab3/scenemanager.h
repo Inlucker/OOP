@@ -23,10 +23,12 @@ public:
     void addCamera(shared_ptr<Camera> new_camera);
     //void deleteObject(const size_t objId);
     void deleteObject(string name);
+    //void deleteObject(IteratorObject it); //???
     //void useCamera(shared_ptr<Camera> newCamera);
     //void useCamera(size_t cameraId);
     void useCamera(string cameraName);
-    weak_ptr<Camera> getCamera() const;
+    //void useCamera(IteratorObject it); //???
+    weak_ptr<Camera> getCamera() const; // made private
 
     void setDrawer(shared_ptr<BaseDrawer> newDrawer);
     shared_ptr<BaseDrawer> getDrawer() const;
@@ -36,6 +38,7 @@ public:
     shared_ptr<Caretaker> getCareTaker() const;
 
 private:
+    //weak_ptr<Camera> getCamera() const;
     void resetCaretaker();
 
 private:

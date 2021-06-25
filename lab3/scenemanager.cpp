@@ -29,7 +29,7 @@ void SceneManager::clearCanvas()
 void SceneManager::drawScene()
 {
     //scene->getObjects()->accept(shared_ptr<BaseVisitor>(new ObjectVisitor()));
-    scene->getObjects()->accept(shared_ptr<BaseVisitor>(new ObjectVisitor(drawer, getCamera().lock())));
+    scene->getObjects()->accept(shared_ptr<BaseVisitor>(new ObjectVisitor(getDrawer(), getCamera().lock())));
 }
 
 void SceneManager::clearObjects()
@@ -99,6 +99,7 @@ void SceneManager::deleteObject(string name)
         throw NoObjectError("No object with name" + name, __FILE__, __LINE__, ctime(&t_time));
     }
     scene->deleteObject(it);
+    resetCaretaker();
 }
 
 /*void SceneManager::useCamera(shared_ptr<Camera> newCamera)
