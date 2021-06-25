@@ -90,6 +90,11 @@ void LoadModel::execute()
 {
     shared_ptr<LoadManager> loadMan = LoadManagerCreator().getManager();
     //shared_ptr<Model> newModel = loadMan->loadModel(fileName);
+    if (modName.size() <= 0)
+    {
+        time_t t_time = time(NULL);
+        throw EmptyNameError("modelName is empty", __FILE__, __LINE__, ctime(&t_time));
+    }
     shared_ptr<Model> newModel = loadMan->loadModel(fileName, modName);
     shared_ptr<SceneManager> sceneMan = SceneManagerCreator().getManager();
     sceneMan->addModel(newModel);
@@ -113,6 +118,11 @@ void AddCamera::execute()
 {
     //shared_ptr<LoadManager> loadMan = LoadManagerCreator().getManager();
     //shared_ptr<Camera> newCamera = shared_ptr<Camera>(new Camera(position, angles));
+    if (camName.size() <= 0)
+    {
+        time_t t_time = time(NULL);
+        throw EmptyNameError("cameraName is empty", __FILE__, __LINE__, ctime(&t_time));
+    }
     shared_ptr<Camera> newCamera = shared_ptr<Camera>(new Camera(camName, position, angles));
     shared_ptr<SceneManager> sceneMan = SceneManagerCreator().getManager();
     sceneMan->addCamera(newCamera);

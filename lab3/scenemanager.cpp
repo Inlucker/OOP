@@ -83,8 +83,6 @@ void SceneManager::deleteObject(string name)
     {
         if ((*it)->getName() == name)
         {
-            if ((*it)->getName() == curCameraName)
-                curCameraName = "\0";
             existsFlag = true;
             break;
         }
@@ -99,6 +97,8 @@ void SceneManager::deleteObject(string name)
         throw NoObjectError("No object with name" + name, __FILE__, __LINE__, ctime(&t_time));
     }
     scene->deleteObject(it);
+    if (name == curCameraName)
+        curCameraName = "\0";
     resetCaretaker();
 }
 
@@ -146,7 +146,7 @@ void SceneManager::useCamera(string cameraName)
     if (!existsFlag)
     {
         time_t t_time = time(NULL);
-        throw NoObjectError("No object with this name", __FILE__, __LINE__, ctime(&t_time));
+        throw NoObjectError("No object with name" + cameraName, __FILE__, __LINE__, ctime(&t_time));
     }
 
     shared_ptr<Camera> newCamera = dynamic_pointer_cast<Camera>(*it);
@@ -206,7 +206,7 @@ void SceneManager::returnScene()
 {
     scene->restoreMemento(getCareTaker()->getMemento());
     //useCamera(curCameraId);
-    if (curCameraName != "/0")
+    if (curCameraName != "")
         useCamera(curCameraName);
 }
 

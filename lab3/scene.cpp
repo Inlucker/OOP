@@ -113,7 +113,7 @@ shared_ptr<Object> Scene::getObject(string name) const
     if (!existsFlag)
     {
         time_t t_time = time(NULL);
-        throw NoObjectError("No object with this name", __FILE__, __LINE__, ctime(&t_time));
+        throw NoObjectError("No object with name" + name, __FILE__, __LINE__, ctime(&t_time));
     }
     return *it;
 }
